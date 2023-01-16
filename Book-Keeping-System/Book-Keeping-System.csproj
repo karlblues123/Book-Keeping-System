@@ -43,6 +43,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -66,40 +69,344 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\font-awesome.css" />
-    <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\jquery-ui.css" />
-    <Content Include="Content\jquery-ui.structure.css" />
-    <Content Include="Content\jquery-ui.theme.css" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Content\toastr.css" />
-    <Content Include="Content\toastr.min.css" />
+    <Content Include="css\bootstrap-grid.css" />
+    <Content Include="css\bootstrap-grid.min.css" />
+    <Content Include="css\bootstrap-grid.rtl.css" />
+    <Content Include="css\bootstrap-grid.rtl.min.css" />
+    <Content Include="css\bootstrap-reboot.css" />
+    <Content Include="css\bootstrap-reboot.min.css" />
+    <Content Include="css\bootstrap-reboot.rtl.css" />
+    <Content Include="css\bootstrap-reboot.rtl.min.css" />
+    <Content Include="css\bootstrap-utilities.css" />
+    <Content Include="css\bootstrap-utilities.min.css" />
+    <Content Include="css\bootstrap-utilities.rtl.css" />
+    <Content Include="css\bootstrap-utilities.rtl.min.css" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\bootstrap.rtl.css" />
+    <Content Include="css\bootstrap.rtl.min.css" />
+    <Content Include="css\feather\activity.svg" />
+    <Content Include="css\feather\airplay.svg" />
+    <Content Include="css\feather\alert-circle.svg" />
+    <Content Include="css\feather\alert-octagon.svg" />
+    <Content Include="css\feather\alert-triangle.svg" />
+    <Content Include="css\feather\align-center.svg" />
+    <Content Include="css\feather\align-justify.svg" />
+    <Content Include="css\feather\align-left.svg" />
+    <Content Include="css\feather\align-right.svg" />
+    <Content Include="css\feather\anchor.svg" />
+    <Content Include="css\feather\aperture.svg" />
+    <Content Include="css\feather\archive.svg" />
+    <Content Include="css\feather\arrow-down-circle.svg" />
+    <Content Include="css\feather\arrow-down-left.svg" />
+    <Content Include="css\feather\arrow-down-right.svg" />
+    <Content Include="css\feather\arrow-down.svg" />
+    <Content Include="css\feather\arrow-left-circle.svg" />
+    <Content Include="css\feather\arrow-left.svg" />
+    <Content Include="css\feather\arrow-right-circle.svg" />
+    <Content Include="css\feather\arrow-right.svg" />
+    <Content Include="css\feather\arrow-up-circle.svg" />
+    <Content Include="css\feather\arrow-up-left.svg" />
+    <Content Include="css\feather\arrow-up-right.svg" />
+    <Content Include="css\feather\arrow-up.svg" />
+    <Content Include="css\feather\at-sign.svg" />
+    <Content Include="css\feather\award.svg" />
+    <Content Include="css\feather\bar-chart-2.svg" />
+    <Content Include="css\feather\bar-chart.svg" />
+    <Content Include="css\feather\battery-charging.svg" />
+    <Content Include="css\feather\battery.svg" />
+    <Content Include="css\feather\bell-off.svg" />
+    <Content Include="css\feather\bell.svg" />
+    <Content Include="css\feather\bluetooth.svg" />
+    <Content Include="css\feather\bold.svg" />
+    <Content Include="css\feather\book-open.svg" />
+    <Content Include="css\feather\book.svg" />
+    <Content Include="css\feather\bookmark.svg" />
+    <Content Include="css\feather\box.svg" />
+    <Content Include="css\feather\briefcase.svg" />
+    <Content Include="css\feather\calendar.svg" />
+    <Content Include="css\feather\camera-off.svg" />
+    <Content Include="css\feather\camera.svg" />
+    <Content Include="css\feather\cast.svg" />
+    <Content Include="css\feather\check-circle.svg" />
+    <Content Include="css\feather\check-square.svg" />
+    <Content Include="css\feather\check.svg" />
+    <Content Include="css\feather\chevron-down.svg" />
+    <Content Include="css\feather\chevron-left.svg" />
+    <Content Include="css\feather\chevron-right.svg" />
+    <Content Include="css\feather\chevron-up.svg" />
+    <Content Include="css\feather\chevrons-down.svg" />
+    <Content Include="css\feather\chevrons-left.svg" />
+    <Content Include="css\feather\chevrons-right.svg" />
+    <Content Include="css\feather\chevrons-up.svg" />
+    <Content Include="css\feather\chrome.svg" />
+    <Content Include="css\feather\circle.svg" />
+    <Content Include="css\feather\clipboard.svg" />
+    <Content Include="css\feather\clock.svg" />
+    <Content Include="css\feather\cloud-drizzle.svg" />
+    <Content Include="css\feather\cloud-lightning.svg" />
+    <Content Include="css\feather\cloud-off.svg" />
+    <Content Include="css\feather\cloud-rain.svg" />
+    <Content Include="css\feather\cloud-snow.svg" />
+    <Content Include="css\feather\cloud.svg" />
+    <Content Include="css\feather\code.svg" />
+    <Content Include="css\feather\codepen.svg" />
+    <Content Include="css\feather\codesandbox.svg" />
+    <Content Include="css\feather\coffee.svg" />
+    <Content Include="css\feather\columns.svg" />
+    <Content Include="css\feather\command.svg" />
+    <Content Include="css\feather\compass.svg" />
+    <Content Include="css\feather\copy.svg" />
+    <Content Include="css\feather\corner-down-left.svg" />
+    <Content Include="css\feather\corner-down-right.svg" />
+    <Content Include="css\feather\corner-left-down.svg" />
+    <Content Include="css\feather\corner-left-up.svg" />
+    <Content Include="css\feather\corner-right-down.svg" />
+    <Content Include="css\feather\corner-right-up.svg" />
+    <Content Include="css\feather\corner-up-left.svg" />
+    <Content Include="css\feather\corner-up-right.svg" />
+    <Content Include="css\feather\cpu.svg" />
+    <Content Include="css\feather\credit-card.svg" />
+    <Content Include="css\feather\crop.svg" />
+    <Content Include="css\feather\crosshair.svg" />
+    <Content Include="css\feather\database.svg" />
+    <Content Include="css\feather\delete.svg" />
+    <Content Include="css\feather\disc.svg" />
+    <Content Include="css\feather\divide-circle.svg" />
+    <Content Include="css\feather\divide-square.svg" />
+    <Content Include="css\feather\divide.svg" />
+    <Content Include="css\feather\dollar-sign.svg" />
+    <Content Include="css\feather\download-cloud.svg" />
+    <Content Include="css\feather\download.svg" />
+    <Content Include="css\feather\dribbble.svg" />
+    <Content Include="css\feather\droplet.svg" />
+    <Content Include="css\feather\edit-2.svg" />
+    <Content Include="css\feather\edit-3.svg" />
+    <Content Include="css\feather\edit.svg" />
+    <Content Include="css\feather\external-link.svg" />
+    <Content Include="css\feather\eye-off.svg" />
+    <Content Include="css\feather\eye.svg" />
+    <Content Include="css\feather\facebook.svg" />
+    <Content Include="css\feather\fast-forward.svg" />
+    <Content Include="css\feather\feather.svg" />
+    <Content Include="css\feather\figma.svg" />
+    <Content Include="css\feather\file-minus.svg" />
+    <Content Include="css\feather\file-plus.svg" />
+    <Content Include="css\feather\file-text.svg" />
+    <Content Include="css\feather\file.svg" />
+    <Content Include="css\feather\film.svg" />
+    <Content Include="css\feather\filter.svg" />
+    <Content Include="css\feather\flag.svg" />
+    <Content Include="css\feather\folder-minus.svg" />
+    <Content Include="css\feather\folder-plus.svg" />
+    <Content Include="css\feather\folder.svg" />
+    <Content Include="css\feather\framer.svg" />
+    <Content Include="css\feather\frown.svg" />
+    <Content Include="css\feather\gift.svg" />
+    <Content Include="css\feather\git-branch.svg" />
+    <Content Include="css\feather\git-commit.svg" />
+    <Content Include="css\feather\git-merge.svg" />
+    <Content Include="css\feather\git-pull-request.svg" />
+    <Content Include="css\feather\github.svg" />
+    <Content Include="css\feather\gitlab.svg" />
+    <Content Include="css\feather\globe.svg" />
+    <Content Include="css\feather\grid.svg" />
+    <Content Include="css\feather\hard-drive.svg" />
+    <Content Include="css\feather\hash.svg" />
+    <Content Include="css\feather\headphones.svg" />
+    <Content Include="css\feather\heart.svg" />
+    <Content Include="css\feather\help-circle.svg" />
+    <Content Include="css\feather\hexagon.svg" />
+    <Content Include="css\feather\home.svg" />
+    <Content Include="css\feather\image.svg" />
+    <Content Include="css\feather\inbox.svg" />
+    <Content Include="css\feather\info.svg" />
+    <Content Include="css\feather\instagram.svg" />
+    <Content Include="css\feather\italic.svg" />
+    <Content Include="css\feather\key.svg" />
+    <Content Include="css\feather\layers.svg" />
+    <Content Include="css\feather\layout.svg" />
+    <Content Include="css\feather\life-buoy.svg" />
+    <Content Include="css\feather\link-2.svg" />
+    <Content Include="css\feather\link.svg" />
+    <Content Include="css\feather\linkedin.svg" />
+    <Content Include="css\feather\list.svg" />
+    <Content Include="css\feather\loader.svg" />
+    <Content Include="css\feather\lock.svg" />
+    <Content Include="css\feather\log-in.svg" />
+    <Content Include="css\feather\log-out.svg" />
+    <Content Include="css\feather\mail.svg" />
+    <Content Include="css\feather\map-pin.svg" />
+    <Content Include="css\feather\map.svg" />
+    <Content Include="css\feather\maximize-2.svg" />
+    <Content Include="css\feather\maximize.svg" />
+    <Content Include="css\feather\meh.svg" />
+    <Content Include="css\feather\menu.svg" />
+    <Content Include="css\feather\message-circle.svg" />
+    <Content Include="css\feather\message-square.svg" />
+    <Content Include="css\feather\mic-off.svg" />
+    <Content Include="css\feather\mic.svg" />
+    <Content Include="css\feather\minimize-2.svg" />
+    <Content Include="css\feather\minimize.svg" />
+    <Content Include="css\feather\minus-circle.svg" />
+    <Content Include="css\feather\minus-square.svg" />
+    <Content Include="css\feather\minus.svg" />
+    <Content Include="css\feather\monitor.svg" />
+    <Content Include="css\feather\moon.svg" />
+    <Content Include="css\feather\more-horizontal.svg" />
+    <Content Include="css\feather\more-vertical.svg" />
+    <Content Include="css\feather\mouse-pointer.svg" />
+    <Content Include="css\feather\move.svg" />
+    <Content Include="css\feather\music.svg" />
+    <Content Include="css\feather\navigation-2.svg" />
+    <Content Include="css\feather\navigation.svg" />
+    <Content Include="css\feather\octagon.svg" />
+    <Content Include="css\feather\package.svg" />
+    <Content Include="css\feather\paperclip.svg" />
+    <Content Include="css\feather\pause-circle.svg" />
+    <Content Include="css\feather\pause.svg" />
+    <Content Include="css\feather\pen-tool.svg" />
+    <Content Include="css\feather\percent.svg" />
+    <Content Include="css\feather\phone-call.svg" />
+    <Content Include="css\feather\phone-forwarded.svg" />
+    <Content Include="css\feather\phone-incoming.svg" />
+    <Content Include="css\feather\phone-missed.svg" />
+    <Content Include="css\feather\phone-off.svg" />
+    <Content Include="css\feather\phone-outgoing.svg" />
+    <Content Include="css\feather\phone.svg" />
+    <Content Include="css\feather\pie-chart.svg" />
+    <Content Include="css\feather\play-circle.svg" />
+    <Content Include="css\feather\play.svg" />
+    <Content Include="css\feather\plus-circle.svg">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="css\feather\plus-square.svg" />
+    <Content Include="css\feather\plus.svg" />
+    <Content Include="css\feather\pocket.svg" />
+    <Content Include="css\feather\power.svg" />
+    <Content Include="css\feather\printer.svg" />
+    <Content Include="css\feather\radio.svg" />
+    <Content Include="css\feather\refresh-ccw.svg" />
+    <Content Include="css\feather\refresh-cw.svg" />
+    <Content Include="css\feather\repeat.svg" />
+    <Content Include="css\feather\rewind.svg" />
+    <Content Include="css\feather\rotate-ccw.svg" />
+    <Content Include="css\feather\rotate-cw.svg" />
+    <Content Include="css\feather\rss.svg" />
+    <Content Include="css\feather\save.svg" />
+    <Content Include="css\feather\scissors.svg" />
+    <Content Include="css\feather\search.svg" />
+    <Content Include="css\feather\send.svg" />
+    <Content Include="css\feather\server.svg" />
+    <Content Include="css\feather\settings.svg" />
+    <Content Include="css\feather\share-2.svg" />
+    <Content Include="css\feather\share.svg" />
+    <Content Include="css\feather\shield-off.svg" />
+    <Content Include="css\feather\shield.svg" />
+    <Content Include="css\feather\shopping-bag.svg" />
+    <Content Include="css\feather\shopping-cart.svg" />
+    <Content Include="css\feather\shuffle.svg" />
+    <Content Include="css\feather\sidebar.svg" />
+    <Content Include="css\feather\skip-back.svg" />
+    <Content Include="css\feather\skip-forward.svg" />
+    <Content Include="css\feather\slack.svg" />
+    <Content Include="css\feather\slash.svg" />
+    <Content Include="css\feather\sliders.svg" />
+    <Content Include="css\feather\smartphone.svg" />
+    <Content Include="css\feather\smile.svg" />
+    <Content Include="css\feather\speaker.svg" />
+    <Content Include="css\feather\square.svg" />
+    <Content Include="css\feather\star.svg" />
+    <Content Include="css\feather\stop-circle.svg" />
+    <Content Include="css\feather\sun.svg" />
+    <Content Include="css\feather\sunrise.svg" />
+    <Content Include="css\feather\sunset.svg" />
+    <Content Include="css\feather\table.svg" />
+    <Content Include="css\feather\tablet.svg" />
+    <Content Include="css\feather\tag.svg" />
+    <Content Include="css\feather\target.svg" />
+    <Content Include="css\feather\terminal.svg" />
+    <Content Include="css\feather\thermometer.svg" />
+    <Content Include="css\feather\thumbs-down.svg" />
+    <Content Include="css\feather\thumbs-up.svg" />
+    <Content Include="css\feather\toggle-left.svg" />
+    <Content Include="css\feather\toggle-right.svg" />
+    <Content Include="css\feather\tool.svg" />
+    <Content Include="css\feather\trash-2.svg" />
+    <Content Include="css\feather\trash.svg" />
+    <Content Include="css\feather\trello.svg" />
+    <Content Include="css\feather\trending-down.svg" />
+    <Content Include="css\feather\trending-up.svg" />
+    <Content Include="css\feather\triangle.svg" />
+    <Content Include="css\feather\truck.svg" />
+    <Content Include="css\feather\tv.svg" />
+    <Content Include="css\feather\twitch.svg" />
+    <Content Include="css\feather\twitter.svg" />
+    <Content Include="css\feather\type.svg" />
+    <Content Include="css\feather\umbrella.svg" />
+    <Content Include="css\feather\underline.svg" />
+    <Content Include="css\feather\unlock.svg" />
+    <Content Include="css\feather\upload-cloud.svg" />
+    <Content Include="css\feather\upload.svg" />
+    <Content Include="css\feather\user-check.svg" />
+    <Content Include="css\feather\user-minus.svg" />
+    <Content Include="css\feather\user-plus.svg" />
+    <Content Include="css\feather\user-x.svg" />
+    <Content Include="css\feather\user.svg" />
+    <Content Include="css\feather\users.svg" />
+    <Content Include="css\feather\video-off.svg" />
+    <Content Include="css\feather\video.svg" />
+    <Content Include="css\feather\voicemail.svg" />
+    <Content Include="css\feather\volume-1.svg" />
+    <Content Include="css\feather\volume-2.svg" />
+    <Content Include="css\feather\volume-x.svg" />
+    <Content Include="css\feather\volume.svg" />
+    <Content Include="css\feather\watch.svg" />
+    <Content Include="css\feather\wifi-off.svg" />
+    <Content Include="css\feather\wifi.svg" />
+    <Content Include="css\feather\wind.svg" />
+    <Content Include="css\feather\x-circle.svg" />
+    <Content Include="css\feather\x-octagon.svg" />
+    <Content Include="css\feather\x-square.svg" />
+    <Content Include="css\feather\x.svg" />
+    <Content Include="css\feather\youtube.svg" />
+    <Content Include="css\feather\zap-off.svg" />
+    <Content Include="css\feather\zap.svg" />
+    <Content Include="css\feather\zoom-in.svg" />
+    <Content Include="css\feather\zoom-out.svg" />
+    <Content Include="css\feather\icon-style.css" />
+    <Content Include="Home.aspx" />
+    <Content Include="js\bootstrap.bundle.js" />
+    <Content Include="js\bootstrap.bundle.min.js" />
+    <Content Include="js\bootstrap.esm.js" />
+    <Content Include="js\bootstrap.esm.min.js" />
+    <Content Include="js\bootstrap.js" />
+    <Content Include="js\bootstrap.min.js" />
+    <Content Include="Login.aspx" />
     <Content Include="packages.config" />
-    <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
-    <Content Include="Scripts\bootstrap.js.map" />
-    <Content Include="Scripts\bootstrap.min.js.map" />
-    <Content Include="Scripts\jquery-3.6.0.min.map" />
-    <Content Include="Scripts\jquery-3.6.0.slim.min.map" />
-    <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Scripts\popper-utils.min.js.map" />
-    <Content Include="Scripts\popper.js.map" />
-    <Content Include="Scripts\popper.min.js.map" />
-    <Content Include="Scripts\README.md" />
-    <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\toastr.less" />
-    <Content Include="Content\toastr.scss" />
+    <Content Include="Main.Master" />
+    <Content Include="css\bootstrap-grid.css.map" />
+    <Content Include="css\bootstrap-grid.min.css.map" />
+    <Content Include="css\bootstrap-grid.rtl.css.map" />
+    <Content Include="css\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="css\bootstrap-reboot.css.map" />
+    <Content Include="css\bootstrap-reboot.min.css.map" />
+    <Content Include="css\bootstrap-reboot.rtl.css.map" />
+    <Content Include="css\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="css\bootstrap-utilities.css.map" />
+    <Content Include="css\bootstrap-utilities.min.css.map" />
+    <Content Include="css\bootstrap-utilities.rtl.css.map" />
+    <Content Include="css\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="css\bootstrap.css.map" />
+    <Content Include="css\bootstrap.min.css.map" />
+    <Content Include="css\bootstrap.rtl.css.map" />
+    <Content Include="css\bootstrap.rtl.min.css.map" />
+    <Content Include="js\bootstrap.bundle.js.map" />
+    <Content Include="js\bootstrap.bundle.min.js.map" />
+    <Content Include="js\bootstrap.esm.js.map" />
+    <Content Include="js\bootstrap.esm.min.js.map" />
+    <Content Include="js\bootstrap.js.map" />
+    <Content Include="js\bootstrap.min.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -108,43 +415,82 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\ai.0.22.9-build00167.js" />
-    <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
-    <Content Include="Scripts\bootstrap.bundle.js" />
-    <Content Include="Scripts\bootstrap.bundle.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Scripts\jquery-3.6.0.intellisense.js" />
-    <Content Include="Scripts\jquery-3.6.0.js" />
-    <Content Include="Scripts\jquery-3.6.0.min.js" />
-    <Content Include="Scripts\jquery-3.6.0.slim.js" />
-    <Content Include="Scripts\jquery-3.6.0.slim.min.js" />
-    <Content Include="Scripts\jquery-ui-1.12.1.js" />
-    <Content Include="Scripts\jquery-ui-1.13.1.js" />
-    <Content Include="Scripts\jquery-ui-1.13.1.min.js" />
-    <Content Include="Scripts\jquery-ui.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\popper-utils.js" />
-    <Content Include="Scripts\popper-utils.min.js" />
-    <Content Include="Scripts\popper.js" />
-    <Content Include="Scripts\popper.min.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\toastr.js" />
-    <Content Include="Scripts\toastr.min.js" />
-    <None Include="Scripts\_references.js" />
+    <Content Include="Supplier.aspx" />
+    <Content Include="VATReport.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Main.Master.cs">
+      <DependentUpon>Main.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main.Master.designer.cs">
+      <DependentUpon>Main.Master</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="repVATSupplyReport.cs">
+      <DependentUpon>repVATSupplyReport.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="repVATWaterReport.cs">
+      <DependentUpon>repVATWaterReport.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="repVATElectricReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>repVATElectricReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Supplier.aspx.cs">
+      <DependentUpon>Supplier.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Supplier.aspx.designer.cs">
+      <DependentUpon>Supplier.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VATReport.aspx.cs">
+      <DependentUpon>VATReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VATReport.aspx.designer.cs">
+      <DependentUpon>VATReport.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\images\" />
-    <Folder Include="Content\themes\" />
-    <Folder Include="Scripts\esm\" />
-    <Folder Include="Scripts\src\" />
-    <Folder Include="Scripts\umd\" />
-    <Folder Include="Scripts\WebForms\" />
+    <EmbeddedResource Include="repVATSupplyReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>repVATSupplyReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="repVATWaterReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>repVATWaterReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="repVATElectricReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>repVATElectricReport.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

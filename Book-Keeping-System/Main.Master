@@ -1,0 +1,31 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="Book_Keeping_System.Main" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <script src="js/bootstrap.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="container-fluid">
+            <asp:ScriptManager runat="server" ID="ScriptManager1"></asp:ScriptManager>
+            <nav class="navbar navbar-expand-sm bg-light navbar-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand"><img src="css/feather/home.svg" /></a>
+                </div>
+            </nav>
+
+        
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+
+
+    </div>
+    </form>
+</body>
+</html>
