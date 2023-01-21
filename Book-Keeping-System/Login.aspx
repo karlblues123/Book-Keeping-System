@@ -12,7 +12,7 @@
             position: absolute;
             width: 600px;
             top: 25%;
-            left: 25%;
+            left: 27.5%;
         }
 
         html {

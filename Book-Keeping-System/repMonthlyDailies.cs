@@ -16,14 +16,14 @@ namespace Book_Keeping_System {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class repVATWaterReport : ReportClass {
+    public class repMonthlyDailies : ReportClass {
         
-        public repVATWaterReport() {
+        public repMonthlyDailies() {
         }
         
         public override string ResourceName {
             get {
-                return "repVATWaterReport.rpt";
+                return "repMonthlyDailies.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace Book_Keeping_System {
         
         public override string FullResourceName {
             get {
-                return "Book_Keeping_System.repVATWaterReport.rpt";
+                return "Book_Keeping_System.repMonthlyDailies.rpt";
             }
             set {
                 // Do nothing
@@ -90,9 +90,9 @@ namespace Book_Keeping_System {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedrepVATWaterReport : Component, ICachedReport {
+    public class CachedrepMonthlyDailies : Component, ICachedReport {
         
-        public CachedrepVATWaterReport() {
+        public CachedrepMonthlyDailies() {
         }
         
         [Browsable(false)]
@@ -129,7 +129,7 @@ namespace Book_Keeping_System {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            repVATWaterReport rpt = new repVATWaterReport();
+            repMonthlyDailies rpt = new repMonthlyDailies();
             rpt.Site = this.Site;
             return rpt;
         }

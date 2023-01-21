@@ -8,22 +8,22 @@ using System.Web.UI.WebControls;
 
 namespace Book_Keeping_System
 {
-    public partial class VATReport : System.Web.UI.Page
+    public partial class Deliveries : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 CreateMonthList();
-                CreateTypeList();
             }
+            
         }
 
         private void CreateMonthList()
         {
             DataTable dt = new DataTable();
 
-            dt.Columns.Add(new DataColumn("MonthTextField", typeof(string)));
+            dt.Columns.Add(new DataColumn("MonthTextField",typeof(string)));
             dt.Columns.Add(new DataColumn("MonthValueField", typeof(int)));
 
             dt.Rows.Add(CreateMonthRow("January", 1, dt));
@@ -44,7 +44,7 @@ namespace Book_Keeping_System
             ddMonthList.DataBind();
         }
 
-        private DataRow CreateMonthRow(string text, int value, DataTable dt)
+        private DataRow CreateMonthRow(string text,int value, DataTable dt)
         {
             DataRow dr = dt.NewRow();
 
@@ -54,29 +54,40 @@ namespace Book_Keeping_System
             return dr;
         }
 
-        private void CreateTypeList()
+        private void CreateDayList()
         {
             DataTable dt = new DataTable();
+            DataRow dr;
 
-            dt.Columns.Add(new DataColumn("TypeTextField", typeof(string)));
-            dt.Columns.Add(new DataColumn("TypeValueField", typeof(int)));
+            dt.Columns.Add(new DataColumn("Day", typeof(DateTime)));
+            dt.Columns.Add(new DataColumn("DailyTotal", typeof(float)));
 
-            dt.Rows.Add(CreateMonthRow("Electric", 1, dt));
-            dt.Rows.Add(CreateMonthRow("Water", 2, dt));
-            dt.Rows.Add(CreateMonthRow("Supply", 3, dt));
+            for (int i = 0; i < DateTime.DaysInMonth(DateTime.Now.Year,Int32.Parse(ddMonthList.SelectedValue)); i++)
+            {
+                dr = dt.NewRow();
+                dr[0] = new DateTime(DateTime.Now.Year,Int32.Parse(ddMonthList.SelectedValue),i+1);
+                dr[1] = 0.00f;
+                dt.Rows.Add(dr);
+            }
 
             DataView dv = new DataView(dt);
-            ddReportTypeList.DataSource = dv;
-            ddReportTypeList.DataBind();
+
+            gvBranchList.DataSource = dv;
+            gvBranchList.DataBind();
         }
 
-        //Event
-        protected void lnkSelect_Click(object sender, EventArgs e)
-        {
-            lnkNew.Visible = true;
 
-            lblForm.Visible = true;
-            lblForm.Text = ddMonthList.SelectedItem.Text + " " + ddReportTypeList.SelectedItem.Text + " Report"; 
+        //Events
+        protected void txtSelect_Click(object sender, EventArgs e)
+        {
+            CreateDayList();
+        }
+
+        protected void lnkEdit_Click(object sender, EventArgs e)
+        {
+            //TODO Fill up the form with the values
         }
     }
+
+    
 }

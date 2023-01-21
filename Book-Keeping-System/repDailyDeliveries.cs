@@ -16,14 +16,14 @@ namespace Book_Keeping_System {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class repVATElectricReport : ReportClass {
+    public class repDailyDeliveries : ReportClass {
         
-        public repVATElectricReport() {
+        public repDailyDeliveries() {
         }
         
         public override string ResourceName {
             get {
-                return "repVATElectricReport.rpt";
+                return "repDailyDeliveries.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace Book_Keeping_System {
         
         public override string FullResourceName {
             get {
-                return "Book_Keeping_System.repVATElectricReport.rpt";
+                return "Book_Keeping_System.repDailyDeliveries.rpt";
             }
             set {
                 // Do nothing
@@ -90,9 +90,9 @@ namespace Book_Keeping_System {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedrepVATElectricReport : Component, ICachedReport {
+    public class CachedrepDailyDeliveries : Component, ICachedReport {
         
-        public CachedrepVATElectricReport() {
+        public CachedrepDailyDeliveries() {
         }
         
         [Browsable(false)]
@@ -129,7 +129,7 @@ namespace Book_Keeping_System {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            repVATElectricReport rpt = new repVATElectricReport();
+            repDailyDeliveries rpt = new repDailyDeliveries();
             rpt.Site = this.Site;
             return rpt;
         }

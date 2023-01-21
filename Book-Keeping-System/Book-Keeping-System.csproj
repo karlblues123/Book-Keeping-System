@@ -69,6 +69,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AccountsPayable.aspx" />
+    <Content Include="AccountsReceivable.aspx" />
     <Content Include="css\bootstrap-grid.css" />
     <Content Include="css\bootstrap-grid.min.css" />
     <Content Include="css\bootstrap-grid.rtl.css" />
@@ -375,7 +377,9 @@
     <Content Include="css\feather\zoom-in.svg" />
     <Content Include="css\feather\zoom-out.svg" />
     <Content Include="css\feather\icon-style.css" />
+    <Content Include="Deliveries.aspx" />
     <Content Include="Home.aspx" />
+    <Content Include="Inventory.aspx" />
     <Content Include="js\bootstrap.bundle.js" />
     <Content Include="js\bootstrap.bundle.min.js" />
     <Content Include="js\bootstrap.esm.js" />
@@ -415,17 +419,47 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Purchases.aspx" />
+    <Content Include="Sales.aspx" />
     <Content Include="Supplier.aspx" />
     <Content Include="VATReport.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountsPayable.aspx.cs">
+      <DependentUpon>AccountsPayable.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AccountsPayable.aspx.designer.cs">
+      <DependentUpon>AccountsPayable.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AccountsReceivable.aspx.cs">
+      <DependentUpon>AccountsReceivable.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AccountsReceivable.aspx.designer.cs">
+      <DependentUpon>AccountsReceivable.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Deliveries.aspx.cs">
+      <DependentUpon>Deliveries.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Deliveries.aspx.designer.cs">
+      <DependentUpon>Deliveries.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory.aspx.cs">
+      <DependentUpon>Inventory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory.aspx.designer.cs">
+      <DependentUpon>Inventory.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -442,23 +476,49 @@
       <DependentUpon>Main.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="repVATSupplyReport.cs">
-      <DependentUpon>repVATSupplyReport.rpt</DependentUpon>
+    <Compile Include="Purchases.aspx.cs">
+      <DependentUpon>Purchases.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Purchases.aspx.designer.cs">
+      <DependentUpon>Purchases.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="repDailyDeliveries.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>repDailyDeliveries.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="repMonthlyDailies.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>repMonthlyDailies.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="repVATSupply.cs">
+      <DependentUpon>repVATSupply.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="repVATWaterReport.cs">
-      <DependentUpon>repVATWaterReport.rpt</DependentUpon>
+    <Compile Include="repVATWater.cs">
+      <DependentUpon>repVATWater.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="repVATElectricReport.cs">
+    <Compile Include="repVATElectric.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>repVATElectricReport.rpt</DependentUpon>
+      <DependentUpon>repVATElectric.rpt</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Sales.aspx.cs">
+      <DependentUpon>Sales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales.aspx.designer.cs">
+      <DependentUpon>Sales.aspx</DependentUpon>
     </Compile>
     <Compile Include="Supplier.aspx.cs">
       <DependentUpon>Supplier.aspx</DependentUpon>
@@ -476,17 +536,25 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="repVATSupplyReport.rpt">
+    <EmbeddedResource Include="repDailyDeliveries.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>repVATSupplyReport.cs</LastGenOutput>
+      <LastGenOutput>repDailyDeliveries.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="repVATWaterReport.rpt">
+    <EmbeddedResource Include="repMonthlyDailies.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>repVATWaterReport.cs</LastGenOutput>
+      <LastGenOutput>repMonthlyDailies.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="repVATElectricReport.rpt">
+    <EmbeddedResource Include="repVATSupply.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>repVATElectricReport.cs</LastGenOutput>
+      <LastGenOutput>repVATSupply.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="repVATWater.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>repVATWater.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="repVATElectric.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>repVATElectric.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

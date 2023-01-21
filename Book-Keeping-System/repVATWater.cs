@@ -16,14 +16,14 @@ namespace Book_Keeping_System {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class repVATSupplyReport : ReportClass {
+    public class repVATWater : ReportClass {
         
-        public repVATSupplyReport() {
+        public repVATWater() {
         }
         
         public override string ResourceName {
             get {
-                return "repVATSupplyReport.rpt";
+                return "repVATWater.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace Book_Keeping_System {
         
         public override string FullResourceName {
             get {
-                return "Book_Keeping_System.repVATSupplyReport.rpt";
+                return "Book_Keeping_System.repVATWater.rpt";
             }
             set {
                 // Do nothing
@@ -90,9 +90,9 @@ namespace Book_Keeping_System {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedrepVATSupplyReport : Component, ICachedReport {
+    public class CachedrepVATWater : Component, ICachedReport {
         
-        public CachedrepVATSupplyReport() {
+        public CachedrepVATWater() {
         }
         
         [Browsable(false)]
@@ -129,7 +129,7 @@ namespace Book_Keeping_System {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            repVATSupplyReport rpt = new repVATSupplyReport();
+            repVATWater rpt = new repVATWater();
             rpt.Site = this.Site;
             return rpt;
         }
