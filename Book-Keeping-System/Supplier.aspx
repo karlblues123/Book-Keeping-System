@@ -34,6 +34,7 @@
                                     <ItemTemplate>
                                         <asp:LinkButton runat="server" ID="lnkEdit" 
                                             CssClass="btn btn-sm btn-outline-primary">
+                                            Edit
                                         </asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
@@ -74,7 +75,7 @@
                     <%-- Modal Footer --%>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnClose">Close</button>
-                        <button type="button" class="btn btn-primary" id="btnSave">Save</button>
+                        <asp:LinkButton runat="server" ID="lnkSave" CssClass="btn btn-primary" OnClick="lnkSave_Click">Save</asp:LinkButton>
                     </div>
                 </div>
             </div>

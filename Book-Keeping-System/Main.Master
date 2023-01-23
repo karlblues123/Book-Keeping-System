@@ -16,10 +16,25 @@
             <nav class="navbar navbar-expand-sm bg-light navbar-light">
                 <div class="container-fluid">
                     <a class="navbar-brand"><img src="css/feather/home.svg" /></a>
+                    <div class="collapse navbar-collapse" id="navbarGeneral">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                              <a class="nav-link" href="Home.aspx">Home</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="Supplier.aspx">Supplier</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="Deliveries.aspx">Deliveries</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="VATReport.aspx">VAT</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </nav>
 
-        
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
         
         </asp:ContentPlaceHolder>
