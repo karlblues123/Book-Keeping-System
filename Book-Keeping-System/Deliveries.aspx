@@ -4,7 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-8">
+            <div class="col-9">
                 <div class="card m-2">
                     <%-- Header --%>
                     <div class="card-header" style="background-color:powderblue">
@@ -37,11 +37,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-3 m-2">
-                <div class="card">
-                    <div class="card-header">
-                        Branch
-                    </div>
+            <div class="col-3">
+                <div class="card m-2">
                     <div class="card-body">
                         <%-- Branch List --%>
                         <div class="row m-2">

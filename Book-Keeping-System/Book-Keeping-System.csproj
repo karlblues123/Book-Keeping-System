@@ -71,6 +71,7 @@
   <ItemGroup>
     <Content Include="AccountsPayable.aspx" />
     <Content Include="AccountsReceivable.aspx" />
+    <Content Include="Branch.aspx" />
     <Content Include="css\bootstrap-grid.css" />
     <Content Include="css\bootstrap-grid.min.css" />
     <Content Include="css\bootstrap-grid.rtl.css" />
@@ -439,6 +440,13 @@
     </Compile>
     <Compile Include="AccountsReceivable.aspx.designer.cs">
       <DependentUpon>AccountsReceivable.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Branch.aspx.cs">
+      <DependentUpon>Branch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Branch.aspx.designer.cs">
+      <DependentUpon>Branch.aspx</DependentUpon>
     </Compile>
     <Compile Include="Deliveries.aspx.cs">
       <DependentUpon>Deliveries.aspx</DependentUpon>
