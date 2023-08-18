@@ -69,9 +69,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AccountsPayable.aspx" />
-    <Content Include="AccountsReceivable.aspx" />
+    <Content Include="BranchMonthlyExpenses.aspx" />
     <Content Include="Branch.aspx" />
+    <Content Include="BranchDailySalesExpenses.aspx" />
+    <Content Include="Company.aspx" />
+    <Content Include="CompanyExpenses.aspx" />
     <Content Include="css\bootstrap-grid.css" />
     <Content Include="css\bootstrap-grid.min.css" />
     <Content Include="css\bootstrap-grid.rtl.css" />
@@ -378,7 +380,8 @@
     <Content Include="css\feather\zoom-in.svg" />
     <Content Include="css\feather\zoom-out.svg" />
     <Content Include="css\feather\icon-style.css" />
-    <Content Include="Deliveries.aspx" />
+    <Content Include="Expenses.aspx" />
+    <Content Include="ReportDeliveries.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="Inventory.aspx" />
     <Content Include="js\bootstrap.bundle.js" />
@@ -421,25 +424,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Purchases.aspx" />
+    <Content Include="RecordDeliveries.aspx" />
     <Content Include="Sales.aspx" />
     <Content Include="Supplier.aspx" />
-    <Content Include="VATReport.aspx" />
+    <Content Include="ReportVAT.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountsPayable.aspx.cs">
-      <DependentUpon>AccountsPayable.aspx</DependentUpon>
+    <Compile Include="BranchMonthlyExpenses.aspx.cs">
+      <DependentUpon>BranchMonthlyExpenses.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AccountsPayable.aspx.designer.cs">
-      <DependentUpon>AccountsPayable.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="AccountsReceivable.aspx.cs">
-      <DependentUpon>AccountsReceivable.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AccountsReceivable.aspx.designer.cs">
-      <DependentUpon>AccountsReceivable.aspx</DependentUpon>
+    <Compile Include="BranchMonthlyExpenses.aspx.designer.cs">
+      <DependentUpon>BranchMonthlyExpenses.aspx</DependentUpon>
     </Compile>
     <Compile Include="Branch.aspx.cs">
       <DependentUpon>Branch.aspx</DependentUpon>
@@ -448,12 +445,40 @@
     <Compile Include="Branch.aspx.designer.cs">
       <DependentUpon>Branch.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Deliveries.aspx.cs">
-      <DependentUpon>Deliveries.aspx</DependentUpon>
+    <Compile Include="BranchDailySalesExpenses.aspx.cs">
+      <DependentUpon>BranchDailySalesExpenses.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Deliveries.aspx.designer.cs">
-      <DependentUpon>Deliveries.aspx</DependentUpon>
+    <Compile Include="BranchDailySalesExpenses.aspx.designer.cs">
+      <DependentUpon>BranchDailySalesExpenses.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Company.aspx.cs">
+      <DependentUpon>Company.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Company.aspx.designer.cs">
+      <DependentUpon>Company.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyExpenses.aspx.cs">
+      <DependentUpon>CompanyExpenses.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompanyExpenses.aspx.designer.cs">
+      <DependentUpon>CompanyExpenses.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Expenses.aspx.cs">
+      <DependentUpon>Expenses.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Expenses.aspx.designer.cs">
+      <DependentUpon>Expenses.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportDeliveries.aspx.cs">
+      <DependentUpon>ReportDeliveries.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportDeliveries.aspx.designer.cs">
+      <DependentUpon>ReportDeliveries.aspx</DependentUpon>
     </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
@@ -490,6 +515,13 @@
     </Compile>
     <Compile Include="Purchases.aspx.designer.cs">
       <DependentUpon>Purchases.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RecordDeliveries.aspx.cs">
+      <DependentUpon>RecordDeliveries.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RecordDeliveries.aspx.designer.cs">
+      <DependentUpon>RecordDeliveries.aspx</DependentUpon>
     </Compile>
     <Compile Include="repDailyDeliveries.cs">
       <AutoGen>True</AutoGen>
@@ -535,12 +567,12 @@
     <Compile Include="Supplier.aspx.designer.cs">
       <DependentUpon>Supplier.aspx</DependentUpon>
     </Compile>
-    <Compile Include="VATReport.aspx.cs">
-      <DependentUpon>VATReport.aspx</DependentUpon>
+    <Compile Include="ReportVAT.aspx.cs">
+      <DependentUpon>ReportVAT.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="VATReport.aspx.designer.cs">
-      <DependentUpon>VATReport.aspx</DependentUpon>
+    <Compile Include="ReportVAT.aspx.designer.cs">
+      <DependentUpon>ReportVAT.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

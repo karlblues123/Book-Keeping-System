@@ -13,6 +13,15 @@ namespace Book_Keeping_System {
     public partial class Branch {
         
         /// <summary>
+        /// upBranchList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upBranchList;
+        
+        /// <summary>
         /// txtSearch control.
         /// </summary>
         /// <remarks>
@@ -31,15 +40,6 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.LinkButton lnkSearch;
         
         /// <summary>
-        /// lnkAdd control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkAdd;
-        
-        /// <summary>
         /// gvBranchList control.
         /// </summary>
         /// <remarks>
@@ -49,48 +49,111 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.GridView gvBranchList;
         
         /// <summary>
-        /// lblModal control.
+        /// upBranchData control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblModal;
+        protected global::System.Web.UI.UpdatePanel upBranchData;
         
         /// <summary>
-        /// txtAddress control.
+        /// lblBranchName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAddress;
+        protected global::System.Web.UI.WebControls.Label lblBranchName;
         
         /// <summary>
-        /// txtSupervisor control.
+        /// txtBranchAddress control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSupervisor;
+        protected global::System.Web.UI.WebControls.TextBox txtBranchAddress;
         
         /// <summary>
-        /// cbStatus control.
+        /// txtBranchSupervisor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbStatus;
+        protected global::System.Web.UI.WebControls.TextBox txtBranchSupervisor;
         
         /// <summary>
-        /// lnkSave control.
+        /// txtBranchCompany control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkSave;
+        protected global::System.Web.UI.WebControls.TextBox txtBranchCompany;
+        
+        /// <summary>
+        /// lblBranchMonthlySales control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBranchMonthlySales;
+        
+        /// <summary>
+        /// ddPeriodList1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddPeriodList1;
+        
+        /// <summary>
+        /// btnPeriodButton1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnPeriodButton1;
+        
+        /// <summary>
+        /// gvBranchSalesList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvBranchSalesList;
+        
+        /// <summary>
+        /// ddPeriodList2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddPeriodList2;
+        
+        /// <summary>
+        /// btnPeriodButton2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnPeriodButton2;
+        
+        /// <summary>
+        /// gvBranchExpensesList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvBranchExpensesList;
     }
 }

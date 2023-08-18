@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace Book_Keeping_System
 {
-    public partial class AccountsPayable : System.Web.UI.Page
+    public partial class Company : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
