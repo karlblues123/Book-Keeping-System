@@ -10,11 +10,16 @@ namespace Book_Keeping_System
 {
     public partial class Supplier : System.Web.UI.Page
     {
+
+        MasterC oMaster = new MasterC();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                CreateSupplierList();
+                //  CreateSupplierList();
+
+                DISPLAY_SUPPLIER_LISTS();
                 
             }
         }
@@ -48,13 +53,26 @@ namespace Book_Keeping_System
 
         protected void lnkSave_Click(object sender, EventArgs e)
         {
-            //TODO Save data onclick
+            //This will Insert new Record of Supplier in database
+            oMaster.INSERT_SUPPLIER_DATA(txtSupplierName.Text, txtSupplierAddress.Text, txtSupplierTIN.Text, cbVAT.Checked);
+         
+            //Success toast message
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('New Supplier Added.');</script>", false);
+
+            DISPLAY_SUPPLIER_LISTS();
+
+
+            //Return to default
+            pList.Visible = true;
+            pForm.Visible = false;
         }
 
         protected void lnkNewSupplier_Click(object sender, EventArgs e)
         {
             pForm.Visible = true;
             pList.Visible = false;
+
+            CLEAR_INPUTS();
         }
 
         protected void lnkBack_Click(object sender, EventArgs e)
@@ -65,10 +83,42 @@ namespace Book_Keeping_System
 
         protected void lnkEdit_Click(object sender, EventArgs e)
         {
-            pForm.Visible = true;
-            pList.Visible = false;
-            upMain.Update();
-        }
+            //pForm.Visible = true;
+            //pList.Visible = false;
+            //upMain.Update();
+
+            var selEdit = (Control)sender;
+            GridViewRow r = (GridViewRow)selEdit.NamingContainer;
+            int _supplierID = Convert.ToInt32(r.Cells[0].Text);
+
+            DataView dv = oMaster.GET_SUPPLIER_LISTS().DefaultView;
+            dv.RowFilter = "SupplierID='" + _supplierID  + "'";
+
+            if (dv.Count > 0)
+            {
+                CLEAR_INPUTS();
+                //Show the entry field
+                pForm.Visible = true;
+                pList.Visible = false;
+
+                foreach (DataRowView dvr in dv)
+                {
+                    //Display Details
+                    txtSupplierName.Text = dvr["Supplier_Name"].ToString();
+                    txtSupplierAddress.Text = dvr["Supplier_Address"].ToString();
+                    txtSupplierTIN.Text = dvr["TIN"].ToString();
+                    cbVAT.Checked = (bool)dvr["IsVat"];
+
+                  
+                }
+
+            }
+            else
+            {
+                txtSupplierTIN.Text = "Error";
+
+            }
+         }
 
         protected void gvSupplierList_RowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -78,5 +128,28 @@ namespace Book_Keeping_System
                 ScriptManager.GetCurrent(this).RegisterAsyncPostBackControl(edit);
             }
         }
+
+        #region "Local UserDefined Function"
+
+        private void DISPLAY_SUPPLIER_LISTS()
+        {
+            DataTable dt = oMaster.GET_SUPPLIER_LISTS();
+
+            //Display sa gridview
+            gvSupplierList.DataSource = dt;
+            gvSupplierList.DataBind();
+        }
+
+        private void CLEAR_INPUTS()
+        {
+            txtSupplierName.Text = "";
+            txtSupplierAddress.Text = "";
+            txtSupplierTIN.Text = "";
+            cbVAT.Checked = false;
+        }
+
+        #endregion
+
+     
     }
 }

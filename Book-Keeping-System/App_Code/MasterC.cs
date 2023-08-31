@@ -1,0 +1,88 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace Book_Keeping_System
+{
+    public class MasterC : baseC
+    {
+
+        #region "GET COMMAND"
+
+        public DataTable GET_SUPPLIER_LISTS()
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("[Master].[spGET_SUPPLIER_LISTS]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dt);
+                }
+            }
+
+            return dt;
+
+        }
+
+
+        public DataTable GET_BRANCH_LISTS()
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("[Master].[spGET_BRANCH_LISTS]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dt);
+                }
+            }
+
+            return dt;
+
+        }
+
+
+        #endregion
+
+
+        #region "INSERT/UPDATE Area"
+
+        public void INSERT_SUPPLIER_DATA(string _supplierName, string _supplierAddress, string _TIN, bool _isVat)
+        {
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("[Master].[spINSERT_SUPPLIER_DATA]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                 
+                    cmd.Parameters.AddWithValue("@SUPPLIER_NAME", _supplierName);
+                    cmd.Parameters.AddWithValue("@SUPPLIER_ADDRESS", _supplierAddress);
+                    cmd.Parameters.AddWithValue("@TIN", _TIN);
+                    cmd.Parameters.AddWithValue("@ISVAT", _isVat);
+                    
+
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+
+
+        #endregion
+    }
+}

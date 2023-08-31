@@ -2,24 +2,61 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+     <script type="text/javascript">
+       
+        //Search function
+        $(function searchInput() {
+            $('[id*=txtSearch]').on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $('[id*=gvSupplierList] tr').filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+
+        //On UpdatePanel Refresh
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+        if (prm != null) {
+            prm.add_endRequest(function (sender, e) {
+                if (sender._postBackSettings.panelsToUpdate != null) {
+
+
+                    //Search function
+                    $(function searchInput() {
+                        $('[id*=txtSearch]').on("keyup", function () {
+                            var value = $(this).val().toLowerCase();
+                            $('[id*=gvSupplierList] tr').filter(function () {
+                                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                            });
+                        });
+                    });
+
+                }
+            });
+        };
+
+    </script>
+
+
     <div class="container-fluid">
         <div class="card m-2">
             <div class="card-header">
                 Suppliers
             </div>
             <div class="card-body">
-                <asp:UpdatePanel runat="server" ID="upMain" UpdateMode="Conditional" ChildrenAsTriggers="false">
-                    <Triggers>
+                <asp:UpdatePanel runat="server" ID="upMain">
+                    <%--<Triggers>
                         <asp:AsyncPostBackTrigger ControlID="lnkNewSupplier" EventName="Click" />
                         <asp:AsyncPostBackTrigger ControlID="lnkBack" EventName="Click" />
-                    </Triggers>
+                    </Triggers>--%>
                     <ContentTemplate>
                         <asp:Panel runat="server" ID="pList">
                             <div class="card">
                                 <div class="card-header">
                                     <div class="input-group">
                                         <%-- Search Textbox --%>
-                                        <input type="text" placeholder="Search" class="form-control" />
+                                        <asp:TextBox  runat="server" id="txtSearch" placeholder="Search Supplier" class="form-control" />
                                         <%-- Add button --%>
                                         <asp:LinkButton runat="server" ID="lnkNewSupplier" CssClass="btn btn-primary" OnClick="lnkNewSupplier_Click">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
@@ -31,9 +68,12 @@
                                     <asp:GridView runat="server" ID="gvSupplierList" CssClass="table table-hover" AutoGenerateColumns="false" 
                                         ShowHeader="true" GridLines="Horizontal" OnRowDataBound="gvSupplierList_RowDataBound">
                                         <Columns>
-                                            <asp:BoundField DataField="SupplierName" HeaderText="Name" />
+                                            <asp:BoundField DataField="SupplierID"/>
+                                            <asp:BoundField DataField="Supplier_Name" HeaderText="Name" />
+                                            <asp:BoundField DataField="Supplier_Address" HeaderText="Name" />
                                             <asp:BoundField DataField="TIN" HeaderText="TIN" />
                                             <asp:TemplateField>
+                                                
                                                 <ItemTemplate>
                                                     <asp:LinkButton runat="server" ID="lnkEdit" 
                                                         CssClass="btn btn-sm btn-outline-primary" OnClick="lnkEdit_Click">

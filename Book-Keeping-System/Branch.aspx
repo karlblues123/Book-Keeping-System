@@ -2,10 +2,46 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+         <script type="text/javascript">
+       
+        //Search function
+        $(function searchInput() {
+            $('[id*=txtSearch]').on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $('[id*=gvBranchList] tr').filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+
+        //On UpdatePanel Refresh
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+        if (prm != null) {
+            prm.add_endRequest(function (sender, e) {
+                if (sender._postBackSettings.panelsToUpdate != null) {
+
+
+                    //Search function
+                    $(function searchInput() {
+                        $('[id*=txtSearch]').on("keyup", function () {
+                            var value = $(this).val().toLowerCase();
+                            $('[id*=gvBranchList] tr').filter(function () {
+                                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                            });
+                        });
+                    });
+
+                }
+            });
+        };
+
+    </script>
+
     <div class="container-fluid">
         <%-- Branch List Panel --%>
-        <asp:UpdatePanel runat="server" ID="upBranchList" UpdateMode="Conditional" ChildrenAsTriggers="false">
-            <Triggers></Triggers>
+        <asp:UpdatePanel runat="server" ID="upBranchList">
+          
             <ContentTemplate>
                 <div class="card m-2">
                     <%-- Header --%>
@@ -31,9 +67,12 @@
                                 <%-- Branch GridView --%>
                                 <asp:GridView runat="server" ID="gvBranchList" AutoGenerateColumns="false" CssClass="table">
                                     <Columns>
-                                        <asp:BoundField DataField="BranchAddress" HeaderText="Address" />
+                                       <%-- <asp:BoundField DataField="BranchAddress" HeaderText="Address" />
                                         <asp:BoundField DataField="BranchSupervisor" HeaderText="Supervisor" />
-                                        <asp:BoundField DataField="BranchStatus" HeaderText="Status" />
+                                        <asp:BoundField DataField="BranchStatus" HeaderText="Status" />--%>
+                                        <asp:BoundField DataField="BranchCode" />
+                                        <asp:BoundField DataField="Branch_Name" HeaderText="Branch" />
+                                        <asp:BoundField DataField="Company_Name"  HeaderText="Company"/>
                                         <asp:TemplateField>
                                             <ItemTemplate>
                                                 <asp:LinkButton runat="server" ID="lnkEdit" CssClass="btn btn-primary">Edit</asp:LinkButton>
