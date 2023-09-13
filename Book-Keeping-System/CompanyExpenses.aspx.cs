@@ -14,21 +14,12 @@ namespace Book_Keeping_System
         {
             if(!IsPostBack)
             {
-                PopulateMonthList();
+                
             }
         }
 
         protected void btnCompanySelectButton_Click(object sender, EventArgs e)
         {
-        }
-
-        private void PopulateMonthList()
-        {
-            for (int month = 1; month <= 12; month++)
-            {
-                string monthName = DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
-                ddMonth.Items.Add(new ListItem(monthName, month.ToString().PadLeft(2, '0')));
-            }
         }
 
         protected void lnkMiscSubmit_Click(object sender, EventArgs e)

@@ -52,7 +52,7 @@
                             <%-- Form Card Header --%>
                             <div class="card-header">
                                 <div class="row">
-                                    <div class="col-7">
+                                    <div class="col-8">
                                         <ul class="nav nav-pills" id="form-pills" role="tablist">
                                             <%-- Tab Link Electricity --%>
                                             <li class="nav-item">
@@ -84,11 +84,15 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="col-5">
-                                        <div class="input-group">
-                                            <span class="input-group-text">Month</span>
-                                            <asp:DropDownList runat="server" ID="ddMonth" CssClass="form-control"></asp:DropDownList>
-                                        </div>
+                                    <div class="col-4">
+                                        <%-- Date --%>
+                                        <asp:UpdatePanel runat="server" ID="upDate" UpdateMode="Conditional" ChildrenAsTriggers="false">
+                                            <Triggers>     
+                                            </Triggers>
+                                            <ContentTemplate>
+                                                <asp:TextBox runat="server" ID="txtDate" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
                                     </div>
                                 </div>
                             </div>
