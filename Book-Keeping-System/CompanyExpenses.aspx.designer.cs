@@ -49,184 +49,103 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.TextBox txtDate;
         
         /// <summary>
-        /// upElectricity control.
+        /// upUtility control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upElectricity;
+        protected global::System.Web.UI.UpdatePanel upUtility;
         
         /// <summary>
-        /// ddElecSupplier control.
+        /// ddUtilitySupplier control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddElecSupplier;
+        protected global::System.Web.UI.WebControls.DropDownList ddUtilitySupplier;
         
         /// <summary>
-        /// txtElecTIN control.
+        /// txtUtilityTIN control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtElecTIN;
+        protected global::System.Web.UI.WebControls.TextBox txtUtilityTIN;
         
         /// <summary>
-        /// txtElecReceipt control.
+        /// txtUtilityReceipt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtElecReceipt;
+        protected global::System.Web.UI.WebControls.TextBox txtUtilityReceipt;
         
         /// <summary>
-        /// txtElecFrom control.
+        /// ddUtilityType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtElecFrom;
+        protected global::System.Web.UI.WebControls.DropDownList ddUtilityType;
         
         /// <summary>
-        /// txtElecTo control.
+        /// txtUtilityFrom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtElecTo;
+        protected global::System.Web.UI.WebControls.TextBox txtUtilityFrom;
         
         /// <summary>
-        /// txtElectricVATAmount control.
+        /// txtUtilityTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtElectricVATAmount;
+        protected global::System.Web.UI.WebControls.TextBox txtUtilityTo;
         
         /// <summary>
-        /// txtElectricNonVATAmount control.
+        /// txtUtilityVATAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtElectricNonVATAmount;
+        protected global::System.Web.UI.WebControls.TextBox txtUtilityVATAmount;
         
         /// <summary>
-        /// txtElectricVAT control.
+        /// txtUtilityNonVATAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtElectricVAT;
+        protected global::System.Web.UI.WebControls.TextBox txtUtilityNonVATAmount;
         
         /// <summary>
-        /// lnkElectricitySubmit control.
+        /// txtUtilityVAT control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkElectricitySubmit;
+        protected global::System.Web.UI.WebControls.TextBox txtUtilityVAT;
         
         /// <summary>
-        /// upWater control.
+        /// lnkUtilitySubmit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upWater;
-        
-        /// <summary>
-        /// ddWaterSupplier control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddWaterSupplier;
-        
-        /// <summary>
-        /// txtWaterTIN control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtWaterTIN;
-        
-        /// <summary>
-        /// txtWaterReceipt control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtWaterReceipt;
-        
-        /// <summary>
-        /// txtWaterFrom control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtWaterFrom;
-        
-        /// <summary>
-        /// txtWaterTo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtWaterTo;
-        
-        /// <summary>
-        /// txtWaterVATAmount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtWaterVATAmount;
-        
-        /// <summary>
-        /// txtWaterNonVATAmount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtWaterNonVATAmount;
-        
-        /// <summary>
-        /// txtWaterVAT control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtWaterVAT;
-        
-        /// <summary>
-        /// lnkWaterSubmit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkWaterSubmit;
+        protected global::System.Web.UI.WebControls.LinkButton lnkUtilitySubmit;
         
         /// <summary>
         /// upMisc control.

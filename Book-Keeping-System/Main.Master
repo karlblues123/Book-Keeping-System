@@ -43,7 +43,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="nav-link" href="BranchMonthlyExpenses.aspx">Branch - Monthly Expenses</a></li>
                                     <li><a class="nav-link" href="BranchDailySalesExpenses.aspx">Branch - Daily Sales and Expenses</a></li>
-                                    <li><a class="nav-link" href="RecordDeliveries.aspx">Deliveries</a></li>
+                                    <%--<li><a class="nav-link" href="RecordDeliveries.aspx">Deliveries</a></li>--%>
                                     <li><a class="nav-link" href="CompanyExpenses.aspx">Company - Expenses</a></li>
                                 </ul>
                             </li>

@@ -13,31 +13,31 @@ namespace Book_Keeping_System {
     public partial class BranchMonthlyExpenses {
         
         /// <summary>
-        /// ddBranch control.
+        /// txtBranchSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddBranch;
+        protected global::System.Web.UI.WebControls.TextBox txtBranchSearch;
         
         /// <summary>
-        /// btnSelect control.
+        /// gvBranchList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnSelect;
+        protected global::System.Web.UI.WebControls.GridView gvBranchList;
         
         /// <summary>
-        /// ddMonth control.
+        /// txtDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddMonth;
+        protected global::System.Web.UI.WebControls.TextBox txtDate;
         
         /// <summary>
         /// upElectricity control.

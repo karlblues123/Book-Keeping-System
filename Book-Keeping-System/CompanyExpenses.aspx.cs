@@ -14,7 +14,9 @@ namespace Book_Keeping_System
         {
             if(!IsPostBack)
             {
-                
+                ddUtilityType.Items.Add(new ListItem("Electricity","1"));
+                ddUtilityType.Items.Add(new ListItem("Water", "2"));
+                ddUtilityType.Items.Add(new ListItem("Internet", "3"));
             }
         }
 

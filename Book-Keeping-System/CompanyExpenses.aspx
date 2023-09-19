@@ -56,16 +56,9 @@
                                         <ul class="nav nav-pills" id="form-pills" role="tablist">
                                             <%-- Tab Link Electricity --%>
                                             <li class="nav-item">
-                                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-electricity"
-                                                    type="button" role="tab" aria-controls="tab-electricity" aria-selected="false">
-                                                    Electricity
-                                                </button>
-                                            </li>
-                                            <%-- Tab Link Water --%>
-                                            <li class="nav-item">
-                                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-water" 
-                                                    type="button" role="tab" aria-controls="tab-water" aria-selected="false">
-                                                    Water
+                                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-utility"
+                                                    type="button" role="tab" aria-controls="tab-utility" aria-selected="false">
+                                                    Utility
                                                 </button>
                                             </li>
                                             <%-- Tab Link Miscellaneous --%>
@@ -98,42 +91,50 @@
                             </div>
                             <%-- Form Card Body --%>
                             <div class="card-body tab-content">
-                                <%-- Electricity Pane --%>
-                                <div class="tab-pane fade" id="tab-electricity">
-                                    <asp:UpdatePanel runat="server" ID="upElectricity" UpdateMode="Conditional" 
+                                <%-- Utility Pane --%>
+                                <div class="tab-pane fade" id="tab-utility">
+                                    <asp:UpdatePanel runat="server" ID="upUtility" UpdateMode="Conditional" 
                                         ChildrenAsTriggers="false">
                                         <ContentTemplate>
                                             <%-- Supplier --%>
                                             <div class="row m-2">
                                                 <div class="input-group">
                                                     <span class="input-group-text">Supplier</span>
-                                                    <asp:DropDownList runat="server" ID="ddElecSupplier" CssClass="form-control"></asp:DropDownList>
+                                                    <asp:DropDownList runat="server" ID="ddUtilitySupplier" CssClass="form-control"></asp:DropDownList>
                                                 </div>
                                             </div>
                                             <%-- TIN --%>
                                             <div class="row m-2">
                                                 <div class="input-group">
                                                     <span class="input-group-text">TIN</span>
-                                                    <asp:TextBox runat="server" ID="txtElecTIN" CssClass="form-control" 
+                                                    <asp:TextBox runat="server" ID="txtUtilityTIN" CssClass="form-control" 
                                                         AutoCompleteType="Disabled" ReadOnly="true"></asp:TextBox>
                                                 </div>
                                             </div>
                                             <%-- Receipt Number --%>
                                             <div class="row m-2">
-                                                <div class="input-group">
-                                                    <span class="input-group-text">Receipt No.</span>
-                                                    <asp:TextBox runat="server" ID="txtElecReceipt" CssClass="form-control"
-                                                        AutoCompleteType="Disabled"></asp:TextBox>
+                                                <div class="col-8">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">Receipt No.</span>
+                                                        <asp:TextBox runat="server" ID="txtUtilityReceipt" CssClass="form-control"
+                                                            AutoCompleteType="Disabled"></asp:TextBox>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">Type</span>
+                                                        <asp:DropDownList runat="server" ID="ddUtilityType" CssClass="form-control"></asp:DropDownList>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <%-- Coverage --%>
                                             <div class="row m-2">
                                                 <div class="input-group">
                                                     <span class="input-group-text">From</span>
-                                                    <asp:TextBox runat="server" ID="txtElecFrom" CssClass="form-control" 
+                                                    <asp:TextBox runat="server" ID="txtUtilityFrom" CssClass="form-control" 
                                                         AutoCompleteType="Disabled" TextMode="Date"></asp:TextBox>
                                                     <span class="input-group-text">To</span>
-                                                    <asp:TextBox runat="server" ID="txtElecTo" CssClass="form-control" 
+                                                    <asp:TextBox runat="server" ID="txtUtilityTo" CssClass="form-control" 
                                                         AutoCompleteType="Disabled" TextMode="Date"></asp:TextBox>
                                                 </div>
                                             </div>
@@ -142,21 +143,21 @@
                                                 <div class="col-4">
                                                     <div class="input-group">
                                                         <span class="input-group-text">VATable</span>
-                                                        <asp:TextBox runat="server" ID="txtElectricVATAmount" CssClass="form-control" 
+                                                        <asp:TextBox runat="server" ID="txtUtilityVATAmount" CssClass="form-control" 
                                                             TextMode="Number"></asp:TextBox>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
                                                     <div class="input-group">
                                                         <span class="input-group-text">Non-VAT</span>
-                                                        <asp:TextBox runat="server" ID="txtElectricNonVATAmount" CssClass="form-control"
+                                                        <asp:TextBox runat="server" ID="txtUtilityNonVATAmount" CssClass="form-control"
                                                             TextMode="Number"></asp:TextBox>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
                                                     <div class="input-group">
                                                         <span class="input-group-text">VAT</span>
-                                                        <asp:TextBox runat="server" ID="txtElectricVAT" CssClass="form-control" 
+                                                        <asp:TextBox runat="server" ID="txtUtilityVAT" CssClass="form-control" 
                                                             TextMode="Number"></asp:TextBox>
                                                     </div>
                                                 </div>
@@ -164,83 +165,10 @@
                                             <%-- Submit Button --%>
                                             <div class="row m-2">
                                                 <div class="col-2">
-                                                    <asp:LinkButton runat="server" ID="lnkElectricitySubmit" 
-                                                        CssClass="btn btn-success" OnClick="lnkElectricitySubmit_Click">
+                                                    <asp:LinkButton runat="server" ID="lnkUtilitySubmit" 
+                                                        CssClass="btn btn-success">
                                                         Submit
                                                     </asp:LinkButton>
-                                                </div>
-                                            </div>
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
-                                </div>
-                                <%-- Water Pane --%>
-                                <div class="tab-pane fade" id="tab-water">
-                                    <asp:UpdatePanel runat="server" ID="upWater" UpdateMode="Conditional" 
-                                        ChildrenAsTriggers="false">
-                                        <ContentTemplate>
-                                            <%-- Supplier --%>
-                                            <div class="row m-2">
-                                                <div class="input-group">
-                                                    <span class="input-group-text">Supplier</span>
-                                                    <asp:DropDownList runat="server" ID="ddWaterSupplier" 
-                                                        CssClass="form-control"></asp:DropDownList>
-                                                </div>
-                                            </div>
-                                            <%-- TIN --%>
-                                            <div class="row m-2">
-                                                <div class="input-group">
-                                                    <span class="input-group-text">TIN</span>
-                                                    <asp:TextBox runat="server" ID="txtWaterTIN" CssClass="form-control" 
-                                                        AutoCompleteType="Disabled" ReadOnly="true"></asp:TextBox>
-                                                </div>
-                                            </div>
-                                            <%-- Receipt Number --%>
-                                            <div class="row m-2">
-                                                <div class="input-group">
-                                                    <span class="input-group-text">Receipt No.</span>
-                                                    <asp:TextBox runat="server" ID="txtWaterReceipt" CssClass="form-control"
-                                                        AutoCompleteType="Disabled"></asp:TextBox>
-                                                </div>
-                                            </div>
-                                            <%-- Coverage --%>
-                                            <div class="row m-2">
-                                                <div class="input-group">
-                                                    <span class="input-group-text">From</span>
-                                                    <asp:TextBox runat="server" ID="txtWaterFrom" CssClass="form-control" 
-                                                        AutoCompleteType="Disabled" TextMode="Date"></asp:TextBox>
-                                                    <span class="input-group-text">To</span>
-                                                    <asp:TextBox runat="server" ID="txtWaterTo" CssClass="form-control" 
-                                                        AutoCompleteType="Disabled" TextMode="Date"></asp:TextBox>
-                                                </div>
-                                            </div>
-                                            <%-- Amount and VAT --%>
-                                            <div class="row m-2">
-                                                <div class="col-4">
-                                                    <div class="input-group">
-                                                        <span class="input-group-text">VATable</span>
-                                                        <asp:TextBox runat="server" ID="txtWaterVATAmount" CssClass="form-control" 
-                                                            TextMode="Number"></asp:TextBox>
-                                                    </div>
-                                                </div>
-                                                <div class="col-4">
-                                                    <div class="input-group">
-                                                        <span class="input-group-text">Non-VAT</span>
-                                                        <asp:TextBox runat="server" ID="txtWaterNonVATAmount" CssClass="form-control"
-                                                            TextMode="Number"></asp:TextBox>
-                                                    </div>
-                                                </div>
-                                                <div class="col-4">
-                                                    <div class="input-group">
-                                                        <span class="input-group-text">VAT</span>
-                                                        <asp:TextBox runat="server" ID="txtWaterVAT" CssClass="form-control" 
-                                                            TextMode="Number"></asp:TextBox>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row m-2">
-                                                <div class="col-2">
-                                                    <asp:LinkButton runat="server" ID="lnkWaterSubmit" CssClass="btn btn-success" 
-                                                        OnClick="lnkWaterSubmit_Click">Submit</asp:LinkButton>
                                                 </div>
                                             </div>
                                         </ContentTemplate>
