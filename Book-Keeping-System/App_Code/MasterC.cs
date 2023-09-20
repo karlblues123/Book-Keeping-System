@@ -53,6 +53,49 @@ namespace Book_Keeping_System
 
         }
 
+        public DataTable GET_COMPANY_LISTS()
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("[Master].[spGET_COMPANY_LISTS]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dt);
+                }
+            }
+
+            return dt;
+
+        }
+
+        public DataTable GET_SUPERVISOR_LISTS()
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("[Master].[spGET_SUPERVISOR_LISTS]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dt);
+                }
+            }
+
+            return dt;
+
+        }
+
+
+
+
 
         #endregion
 
@@ -73,6 +116,30 @@ namespace Book_Keeping_System
                     cmd.Parameters.AddWithValue("@TIN", _TIN);
                     cmd.Parameters.AddWithValue("@ISVAT", _isVat);
                     
+
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+
+
+        public void UPDATE_SUPPLIER_DATA(int _supplierID ,string _supplierName, string _supplierAddress, string _TIN, bool _isVat)
+        {
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("[Master].[spUPDATE_SUPPLIER_DATA]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@SUPPLIERID", _supplierID);
+                    cmd.Parameters.AddWithValue("@SUPPLIER_NAME", _supplierName);
+                    cmd.Parameters.AddWithValue("@SUPPLIER_ADDRESS", _supplierAddress);
+                    cmd.Parameters.AddWithValue("@TIN", _TIN);
+                    cmd.Parameters.AddWithValue("@ISVAT", _isVat);
+
 
                     cn.Open();
 

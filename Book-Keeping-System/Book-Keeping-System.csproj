@@ -447,6 +447,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper.min.js.map" />
+    <None Include="Properties\PublishProfiles\Book_Keeping_Pubs.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -519,7 +520,9 @@
     <None Include="Scripts\_references.js" />
     <Content Include="Supplier.aspx" />
     <Content Include="ReportVAT.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Code\baseC.cs" />

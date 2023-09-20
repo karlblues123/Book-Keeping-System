@@ -22,6 +22,15 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.UpdatePanel upBranchList;
         
         /// <summary>
+        /// panelBranchLists control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panelBranchLists;
+        
+        /// <summary>
         /// txtSearch control.
         /// </summary>
         /// <remarks>
@@ -31,13 +40,22 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.TextBox txtSearch;
         
         /// <summary>
-        /// lnkSearch control.
+        /// lnkNew control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkSearch;
+        protected global::System.Web.UI.WebControls.LinkButton lnkNew;
+        
+        /// <summary>
+        /// panelGridViewLists control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panelGridViewLists;
         
         /// <summary>
         /// gvBranchList control.
@@ -49,13 +67,13 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.GridView gvBranchList;
         
         /// <summary>
-        /// upBranchData control.
+        /// panelBranchInputForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upBranchData;
+        protected global::System.Web.UI.WebControls.Panel panelBranchInputForm;
         
         /// <summary>
         /// lblBranchName control.
@@ -67,93 +85,102 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.Label lblBranchName;
         
         /// <summary>
-        /// txtBranchAddress control.
+        /// txtBranchName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBranchAddress;
+        protected global::System.Web.UI.WebControls.TextBox txtBranchName;
         
         /// <summary>
-        /// txtBranchSupervisor control.
+        /// txtBranch_Address control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBranchSupervisor;
+        protected global::System.Web.UI.WebControls.TextBox txtBranch_Address;
         
         /// <summary>
-        /// txtBranchCompany control.
+        /// ddSupervisorLists control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBranchCompany;
+        protected global::System.Web.UI.WebControls.DropDownList ddSupervisorLists;
         
         /// <summary>
-        /// lblBranchMonthlySales control.
+        /// ddCompanyLists control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBranchMonthlySales;
+        protected global::System.Web.UI.WebControls.DropDownList ddCompanyLists;
         
         /// <summary>
-        /// ddPeriodList1 control.
+        /// lnkBack control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddPeriodList1;
+        protected global::System.Web.UI.WebControls.LinkButton lnkBack;
         
         /// <summary>
-        /// btnPeriodButton1 control.
+        /// lnkSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnPeriodButton1;
+        protected global::System.Web.UI.WebControls.LinkButton lnkSave;
         
         /// <summary>
-        /// gvBranchSalesList control.
+        /// panelSideInputs control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvBranchSalesList;
+        protected global::System.Web.UI.WebControls.Panel panelSideInputs;
         
         /// <summary>
-        /// ddPeriodList2 control.
+        /// txtElectricityProvider control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddPeriodList2;
+        protected global::System.Web.UI.WebControls.TextBox txtElectricityProvider;
         
         /// <summary>
-        /// btnPeriodButton2 control.
+        /// txtElectricProviderAcctNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnPeriodButton2;
+        protected global::System.Web.UI.WebControls.TextBox txtElectricProviderAcctNumber;
         
         /// <summary>
-        /// gvBranchExpensesList control.
+        /// txtWaterProvider control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvBranchExpensesList;
+        protected global::System.Web.UI.WebControls.TextBox txtWaterProvider;
+        
+        /// <summary>
+        /// txtWaterProviderAcctNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWaterProviderAcctNumber;
     }
 }

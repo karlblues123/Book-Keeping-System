@@ -1,0 +1,131 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="Book_Keeping_System.Main" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+     <title>DGMU Book Keeping System</title>
+      <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/font-awesome.css" rel="stylesheet" />
+    <link href="Content/toastr.css" rel="stylesheet" />
+    <link href="Content/jquery-ui.css" rel="stylesheet" />
+
+    <script src="scripts/jquery-3.6.0.min.js"></script>
+    <script src="scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="scripts/toastr.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+   
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="container-fluid">
+     <asp:ScriptManager runat="server" ID="ScriptManager1">
+    </asp:ScriptManager>
+            <%-- Navbar --%>
+            <nav class="navbar navbar-expand-sm bg-light navbar-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="Home.aspx"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></a>
+                    <div class="collapse navbar-collapse" id="navbarGeneral">
+                        <ul class="navbar-nav">
+                            <%-- Data Dropdown --%>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Data
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="nav-link" href="Supplier.aspx">Supplier</a></li>
+                                    <li><a class="nav-link" href="Branch.aspx">Branch</a></li>
+                                    <li><a class="nav-link" href="Company.aspx">Company</a></li>
+                                    <li><a class="nav-link" href="Expenses.aspx">Expenses</a>
+                                </ul>
+                            </li>
+                            <%-- Record Dropdown --%>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Record
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="nav-link" href="BranchMonthlyExpenses.aspx">Branch - Monthly Expenses</a></li>
+                                    <li><a class="nav-link" href="BranchDailySalesExpenses.aspx">Branch - Daily Sales and Expenses</a></li>
+                                    <li><a class="nav-link" href="RecordDeliveries.aspx">Deliveries</a></li>
+                                    <li><a class="nav-link" href="CompanyExpenses.aspx">Company - Expenses</a></li>
+                                </ul>
+                            </li>
+                            <%-- Report Dropdown --%>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Reports
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="ReportDeliveries.aspx">Deliveries</a></li>
+                                    <li><a class="dropdown-item" href="ReportVAT.aspx">VAT</a></li>
+                                    <li><a class="dropdown-item disabled" href="#">Inventory</a></li>
+                                    <li><a class="dropdown-item disabled" href="#">Sales</a></li>
+                                    <%--<li><a class="dropdown-item disabled" href="#">Accounts Payable</a></li>
+                                    <li><a class="dropdown-item disabled" href="#">Accounts Receivable</a></li>--%>
+                                </ul>
+                          </li>
+                          <li class="nav-item dropdown position-absolute end-0">
+                              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Username
+                              </a>
+                              <ul class="dropdown-menu">
+                                  <li><a class="dropdown-item" href="Login.aspx">Logout</a></li>
+                              </ul>
+                          </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+
+     <script type="text/javascript">
+    function showToastSuccess(msg, contentMessage) {
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "progressBar": true,
+            "preventDuplicates": false,
+            "positionClass": "toast-top-right",
+            "showDuration": "400",
+            "hideDuration": "1000",
+            "timeOut": "3000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+        toastr.success(msg, contentMessage)
+    }
+
+    function showToastError(msg, contentMessage) {
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "progressBar": true,
+            "preventDuplicates": false,
+            "positionClass": "toast-top-right",
+            "showDuration": "400",
+            "hideDuration": "1000",
+            "timeOut": "3000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+        toastr.error(msg, contentMessage)
+    }
+</script>
+
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+        
+    </div>
+    </form>
+</body>
+</html>

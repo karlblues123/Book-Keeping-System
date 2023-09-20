@@ -39,14 +39,15 @@
     </script>
 
     <div class="container-fluid">
-        <%-- Branch List Panel --%>
+
         <asp:UpdatePanel runat="server" ID="upBranchList">
           
             <ContentTemplate>
+                <asp:Panel runat="server" ID="panelBranchLists">
                 <div class="card m-2">
                     <%-- Header --%>
-                    <div class="card-header">
-                        Branches
+                    <div class="card-header bg-warning bg-opacity-25">
+                       <b class="fa fa-building text-info"></b>  <b>Branches Information</b>
                     </div>
                     <%-- Body --%>
                     <div class="card-body">
@@ -58,135 +59,189 @@
                                     <asp:TextBox runat="server" ID="txtSearch" placeholder="Search" 
                                         AutoCompleteType="Disabled" CssClass="form-control"></asp:TextBox>
                                     <div class="btn-group">
-                                        <asp:LinkButton runat="server" ID="lnkSearch" CssClass="btn btn-success">Search</asp:LinkButton>
+                                        <asp:LinkButton runat="server" ID="lnkNew" CssClass="btn btn-outline-success" OnClick="lnkNew_Click"><b class="fa fa-plus-circle"></b> New</asp:LinkButton>
                                     </div>
                                 </div>
                             </div>
                             <%-- Body --%>
                             <div class="card-body">
+                                <asp:Panel runat="server" ID="panelGridViewLists" Height="600px" ScrollBars="Vertical">
                                 <%-- Branch GridView --%>
-                                <asp:GridView runat="server" ID="gvBranchList" AutoGenerateColumns="false" CssClass="table">
+                                <asp:GridView runat="server" ID="gvBranchList" GridLines="Horizontal" AutoGenerateColumns="false" CssClass="table table-responsive small">
                                     <Columns>
                                        <%-- <asp:BoundField DataField="BranchAddress" HeaderText="Address" />
-                                        <asp:BoundField DataField="BranchSupervisor" HeaderText="Supervisor" />
+                                       
                                         <asp:BoundField DataField="BranchStatus" HeaderText="Status" />--%>
+                                        <asp:BoundField DataField="BranchID" />
                                         <asp:BoundField DataField="BranchCode" />
                                         <asp:BoundField DataField="Branch_Name" HeaderText="Branch" />
+                                        <asp:BoundField DataField="Supervisor_Name" HeaderText="Supervisor" />
                                         <asp:BoundField DataField="Company_Name"  HeaderText="Company"/>
                                         <asp:TemplateField>
                                             <ItemTemplate>
-                                                <asp:LinkButton runat="server" ID="lnkEdit" CssClass="btn btn-primary">Edit</asp:LinkButton>
+                                                <asp:LinkButton runat="server" ID="lnkEdit" CssClass="btn btn-outline-primary btn-sm" OnClick="lnkEdit_Click"><b class="fa fa-pencil"></b> Edit</asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>
                                 </asp:GridView>
+                                    </asp:Panel>
                             </div>
                         </div>
                     </div>
                 </div>
-            </ContentTemplate>
-        </asp:UpdatePanel>
+ 
+                </asp:Panel>
+
         <%-- Branch Data Panel --%>
-        <asp:UpdatePanel runat="server" ID="upBranchData" UpdateMode="Conditional" ChildrenAsTriggers="false" Visible="false">
-            <Triggers></Triggers>
-            <ContentTemplate>
+        <asp:Panel runat="server" ID="panelBranchInputForm" Visible="false">
+   
                 <div class="card m-2">
                     <%-- Header --%>
                     <div class="card-header">
+                        <h5>Branch Details</h5>
                         <asp:Label runat="server" ID="lblBranchName"></asp:Label>
                     </div>
                     <%-- Body --%>
+                    
                     <div class="card-body">
-                        <ul class="nav nav-pills" id="form-pills" role="tablist">
-                            <%-- Basic Tab --%>
-                            <li class="nav-item">
-                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-basic" type="button" 
-                                    role="tab" aria-controls="nav-basic" aria-selected="false">
-                                    Basic
-                                </button>
-                            </li>
-                            <%-- Sales Tab --%>
-                            <li class="nav-item">
-                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-sales" type="button" 
-                                    role="tab" aria-controls="nav-sales" aria-selected="false">
-                                    Sales
-                                </button>
-                            </li>
-                            <%-- Expenses Tab --%>
-                            <li class="nav-item">
-                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#nav-expenses" type="button" 
-                                    role="tab" aria-controls="nav-expenses" aria-selected="false">
-                                    Expenses
-                                </button>
-                            </li>
-                        </ul>
-                        <div class="tab-content mt-2" id="branch-data-content">
-                            <%-- Basic Pane --%>
-                            <div class="tab-pane fade" id="nav-basic">
-                                <div class="row m-2">
-                                    <%-- Branch Address --%>
-                                    <div class="col-4">
-                                        <label class="form-label">Address</label>
-                                        <asp:TextBox runat="server" ID="txtBranchAddress" CssClass="form-control"></asp:TextBox>
-                                    </div>
-                                    <%-- Branch Supervisor --%>
-                                    <div class="col-4">
-                                        <label class="form-label">Supervisor</label>
-                                        <asp:TextBox runat="server" ID="txtBranchSupervisor" CssClass="form-control"></asp:TextBox>
-                                    </div>
-                                    <%-- Branch Company --%>
-                                    <div class="col-4">
-                                        <label class="form-label">Company</label>
-                                        <asp:TextBox runat="server" ID="txtBranchCompany" CssClass="form-control"></asp:TextBox>
-                                    </div>
-                                </div>
-                            </div>
-                            <%-- Sales Pane --%>
-                            <div class="tab-pane fade" id="nav-sales">
-                                <div class="row">
-                                    <%-- Monthly Sales Label --%>
-                                    <div class="col-6">
-                                        <asp:Label runat="server" ID="lblBranchMonthlySales"></asp:Label>
-                                    </div>
-                                    <%-- Time Period Selection --%>
-                                    <div class="col-6">
-                                        <div class="input-group">
-                                            <span class="input-group-text">Month</span>
-                                            <asp:DropDownList runat="server" ID="ddPeriodList1" CssClass="form-control"></asp:DropDownList>
-                                            <asp:LinkButton runat="server" ID="btnPeriodButton1" CssClass="btn btn-success">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                                            </asp:LinkButton>
-                                        </div>
-                                    </div>
-                                </div>
-                                <%-- Sales List --%>
-                                <div class="row">
-                                    <asp:GridView runat="server" ID="gvBranchSalesList" CssClass="table table-hover" 
-                                        AutoGenerateColumns="false"></asp:GridView>
-                                </div>
-                            </div>
-                            <%-- Expenses Pane --%>
-                            <div class="tab-pane fade" id="nav-expenses">
-                                <div class="row">
-                                    <div class="col-6 offset-6">
-                                        <div class="input-group">
-                                            <span class="input-group-text">Month</span>
-                                            <asp:DropDownList runat="server" ID="ddPeriodList2" CssClass="form-control"></asp:DropDownList>
-                                            <asp:LinkButton runat="server" ID="btnPeriodButton2" CssClass="btn btn-success">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                                            </asp:LinkButton>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <asp:GridView runat="server" ID="gvBranchExpensesList" CssClass="table table-hover" 
-                                        AutoGenerateColumns="false"></asp:GridView>
-                                </div>
-                            </div>
+                       <div class="row">
+                       <div class="col">
+
+
+                           <table class="table table-responsive">
+                               <tr>
+
+                                   <td colspan="2">
+
+                                       <div class="form-floating small">
+                                           <asp:TextBox runat="server" ID="txtBranchName" CssClass="form-control" placeholder="Branch Name"></asp:TextBox>
+                                           <label for="txtBranchName">Branch Name</label>
+                                       </div>
+
+                                   </td>
+
+                               </tr>
+                               <tr>
+                                   <td colspan="2">
+                                       <div class="form-floating small">
+                                           <asp:TextBox runat="server" ID="txtBranch_Address" CssClass="form-control"
+                                               placeholder="Address"></asp:TextBox>
+                                           <label for="txtBranchName">Branch Address</label>
+                                       </div>
+
+
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td>
+
+                                       <div class="form-floating">
+                                           <asp:DropDownList runat="server" ID="ddSupervisorLists" CssClass="form-select" aria-label="Floating label select example"></asp:DropDownList>
+                                           <label for="ddSupervisorLists">Supervisor</label>
+                                       </div>
+
+                                   </td>
+
+                                   <td>
+                                       <div class="form-floating">
+                                           <asp:DropDownList runat="server" ID="ddCompanyLists" CssClass="form-select" aria-label="Floating label select example"></asp:DropDownList>
+                                           <label for="ddCompanyLists">Company</label>
+                                       </div>
+
+
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td>
+                                       <div class="row">
+                                           <div class="col">
+                                               <asp:LinkButton runat="server" ID="lnkBack" CssClass="btn btn-outline-warning" OnClick="lnkBack_Click">
+                                                        <b class="fa fa-arrow-circle-left"></b> Back
+                                               </asp:LinkButton>
+                                           </div>
+                                           <div class="col">
+                                               <asp:LinkButton runat="server" ID="lnkSave" CssClass="btn btn-outline-primary">
+                                                        <b class="fa fa-save"></b> Save
+                                               </asp:LinkButton>
+                                           </div>
+                                       </div>
+                                   </td>
+                               </tr>
+
+                           </table>
+                                          
+                                           
+                   
+                       </div>
+                           <div class="col">
+                               <asp:Panel runat="server" ID="panelSideInputs" Enabled="false">
+                               <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+                                   <li class="nav-item" role="presentation">
+                                       <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false"><b class="fa fa-rotate-right text-warnin"></b>Default Operation Utilities</button>
+                                   </li>
+                                   <li class="nav-item" role="presentation">
+                                       <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Contact</button>
+                                   </li>
+                                   <li class="nav-item" role="presentation">
+                                       <button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false" disabled>Disabled</button>
+                                   </li>
+                               </ul>
+                               <div class="tab-content" id="myTabContent">
+
+                                   <div class="tab-pane fade show active" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                                       <table class="table table-responsive table-hover">
+                                           <tr>
+                                               <td>
+                                                   <div class="form-floating">
+                                                       <asp:TextBox runat="server" ID="txtElectricityProvider" CssClass="form-control"
+                                                           placeholder="Electricity Provider"></asp:TextBox>
+                                                       <label for="txtElectricityProvider">Electricity Provider</label>
+                                                   </div>
+                                               </td>
+                                               <td>
+                                                   <div class="form-floating">
+                                                       <asp:TextBox runat="server" ID="txtElectricProviderAcctNumber" CssClass="form-control"
+                                                           placeholder="Account Number"></asp:TextBox>
+                                                       <label for="txtElectricProviderAcctNumber">Account Number</label>
+                                                   </div>
+                                               </td>
+                                           </tr>
+                                           <tr>
+                                               <td>
+                                                   <div class="form-floating">
+                                                       <asp:TextBox runat="server" ID="txtWaterProvider" CssClass="form-control"
+                                                           placeholder="Water Provider"></asp:TextBox>
+                                                       <label for="txtWaterProvider">Water Provider</label>
+                                                   </div>
+                                               </td>
+                                               <td>
+                                                   <div class="form-floating">
+                                                       <asp:TextBox runat="server" ID="txtWaterProviderAcctNumber" CssClass="form-control"
+                                                           placeholder="Account Number"></asp:TextBox>
+                                                       <label for="txtWaterProviderAcctNumber">Account Number</label>
+                                                   </div>
+                                               </td>
+                                           </tr>
+
+                                       </table>
+                                   </div>
+
+                                   <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...</div>
+                                   <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>
+                               </div>
+                               </asp:Panel>
+
+                           </div>
+                             
                         </div>
+
                     </div>
                 </div>
+            </asp:Panel>
             </ContentTemplate>
         </asp:UpdatePanel>
+
+             
     </div>    
 </asp:Content>

@@ -53,11 +53,24 @@ namespace Book_Keeping_System
 
         protected void lnkSave_Click(object sender, EventArgs e)
         {
-            //This will Insert new Record of Supplier in database
-            oMaster.INSERT_SUPPLIER_DATA(txtSupplierName.Text, txtSupplierAddress.Text, txtSupplierTIN.Text, cbVAT.Checked);
-         
-            //Success toast message
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('New Supplier Added.');</script>", false);
+
+            //Validation
+            if ((int)ViewState["V_ACTION"] == 1) //It will proceed to Update
+            {
+                oMaster.UPDATE_SUPPLIER_DATA((int)ViewState["V_SUPPLIERID"], txtSupplierName.Text, txtSupplierAddress.Text, txtSupplierTIN.Text, cbVAT.Checked);
+
+                //Success toast message
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('Supplier Data updated!');</script>", false);
+            }
+            else //Will proceed to Insert Action
+            {
+                //This will Insert new Record of Supplier in database
+                oMaster.INSERT_SUPPLIER_DATA(txtSupplierName.Text, txtSupplierAddress.Text, txtSupplierTIN.Text, cbVAT.Checked);
+                //Success toast message
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('New Supplier Added.');</script>", false);
+
+            }
+
 
             DISPLAY_SUPPLIER_LISTS();
 
@@ -90,9 +103,13 @@ namespace Book_Keeping_System
             var selEdit = (Control)sender;
             GridViewRow r = (GridViewRow)selEdit.NamingContainer;
             int _supplierID = Convert.ToInt32(r.Cells[0].Text);
+            ViewState["V_SUPPLIERID"] = _supplierID;
+
+         
 
             DataView dv = oMaster.GET_SUPPLIER_LISTS().DefaultView;
             dv.RowFilter = "SupplierID='" + _supplierID  + "'";
+
 
             if (dv.Count > 0)
             {
@@ -108,9 +125,10 @@ namespace Book_Keeping_System
                     txtSupplierAddress.Text = dvr["Supplier_Address"].ToString();
                     txtSupplierTIN.Text = dvr["TIN"].ToString();
                     cbVAT.Checked = (bool)dvr["IsVat"];
-
-                  
+                    
                 }
+
+                ViewState["V_ACTION"] = 1; //This will hold the option for action.
 
             }
             else
@@ -146,6 +164,8 @@ namespace Book_Keeping_System
             txtSupplierAddress.Text = "";
             txtSupplierTIN.Text = "";
             cbVAT.Checked = false;
+
+            ViewState["V_ACTION"] = 0;
         }
 
         #endregion
