@@ -47,6 +47,22 @@
             document.getElementById('<%=txtAtsaraTotal.ClientID%>').value = qty * sales;
         }
 
+        function CalculatePurchaseTotal() {
+            var vatable = 0, nonvat = 0, vat = 0;
+            if (document.getElementById('<%=txtPurchaseVATAmount.ClientID%>').value != null) {
+                vatable = + Number.parseFloat(document.getElementById('<%=txtPurchaseVATAmount.ClientID%>').value).toFixed(2);
+            }
+                
+            if (document.getElementById('<%=txtPurchaseNonVATAmount.ClientID%>').value != null) {
+                nonvat = + Number.parseFloat(document.getElementById('<%=txtPurchaseNonVATAmount.ClientID%>').value).toFixed(2);
+            }
+                
+            if (document.getElementById('<%=txtPurchaseVAT.ClientID%>').value != null) {
+                vat = + Number.parseFloat(document.getElementById('<%=txtPurchaseVAT.ClientID%>').value).toFixed(2);
+            }
+            document.getElementById("<%=txtPurchaseTotal.ClientID%>").value = vatable + nonvat + vat;
+        }
+
         function CalculateExpenses() {
             var charcoal = 0, foil = 0, fare = 0, grass = 0, lemon = 0, sili = 0, sauce = 0;
             var water = 0, meals = 0, fare = 0, packaging = 0, cleaning = 0, misc = 0, maint = 0;
@@ -123,7 +139,6 @@
                                     <Columns>
                                         <asp:BoundField DataField="BranchCode" />
                                         <asp:BoundField DataField="Branch_Name" HeaderText="Branch" />
-                                        <asp:BoundField DataField="Company_Name"  HeaderText="Company"/>
                                         <asp:TemplateField>
                                             <ItemTemplate>
                                                 <asp:LinkButton runat="server" ID="lnkEdit" CssClass="btn btn-primary">Edit</asp:LinkButton>
@@ -289,22 +304,32 @@
                                                 </div>
                                                 <%-- Amount & VAT --%>
                                                 <div class="row m-2">
-                                                    <div class="col-4">
+                                                    <div class="col-3">
                                                         <div class="input-group">
                                                             <span class="input-group-text">VATable</span>
-                                                            <asp:TextBox runat="server" ID="txtPurchaseVATAmount" CssClass="form-control"></asp:TextBox>
+                                                            <asp:TextBox runat="server" ID="txtPurchaseVATAmount" CssClass="form-control" 
+                                                                TextMode="Number" Text="0" onchange="CalculatePurchaseTotal()"></asp:TextBox>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-3">
                                                         <div class="input-group">
                                                             <span class="input-group-text">Non-VAT</span>
-                                                            <asp:TextBox runat="server" ID="txtPurchaseNonVATAmount" CssClass="form-control"></asp:TextBox>
+                                                            <asp:TextBox runat="server" ID="txtPurchaseNonVATAmount" CssClass="form-control" 
+                                                                TextMode="Number" Text="0" onchange="CalculatePurchaseTotal()"></asp:TextBox>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4">
+                                                    <div class="col-3">
                                                         <div class="input-group">
                                                             <span class="input-group-text">VAT</span>
-                                                            <asp:TextBox runat="server" ID="txtPurchaseVAT" CssClass="form-control"></asp:TextBox>
+                                                            <asp:TextBox runat="server" ID="txtPurchaseVAT" CssClass="form-control" 
+                                                                TextMode="Number" Text="0" onchange="CalculatePurchaseTotal()"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="input-group">
+                                                            <span class="input-group-text">Total</span>
+                                                            <asp:TextBox runat="server" ID="txtPurchaseTotal" CssClass="form-control" 
+                                                                TextMode="Number" Text="0" onchange="CalculatePurchaseTotal()"></asp:TextBox>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -397,7 +422,7 @@
                                                     <div class="input-group">
                                                         <span class="input-group-text">Charcoal</span>
                                                         <asp:TextBox runat="server" ID="txtCharcoal" CssClass="form-control" 
-                                                            TextMode="Number" onchange="CalculateExpenses()"></asp:TextBox>
+                                                            TextMode="Number" onchange="CalculateExpenses()" Text="0"></asp:TextBox>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
@@ -405,7 +430,7 @@
                                                     <div class="input-group">
                                                         <span class="input-group-text">Foil</span>
                                                         <asp:TextBox runat="server" ID="txtFoil" CssClass="form-control" 
-                                                            TextMode="Number" onchange="CalculateExpenses()"></asp:TextBox>
+                                                            TextMode="Number" onchange="CalculateExpenses()" Text="0"></asp:TextBox>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
@@ -413,7 +438,7 @@
                                                     <div class="input-group">
                                                         <span class="input-group-text">Water</span>
                                                         <asp:TextBox runat="server" ID="txtWater" CssClass="form-control" 
-                                                            TextMode="Number" onchange="CalculateExpenses()"></asp:TextBox>
+                                                            TextMode="Number" onchange="CalculateExpenses()" Text="0"></asp:TextBox>
                                                     </div>
                                                 </div>
                                             </div>
@@ -423,7 +448,7 @@
                                                     <div class="input-group">
                                                         <span class="input-group-text">Fare</span>
                                                         <asp:TextBox runat="server" ID="txtFare" CssClass="form-control" 
-                                                            TextMode="Number" onchange="CalculateExpenses()"></asp:TextBox>
+                                                            TextMode="Number" onchange="CalculateExpenses()" Text="0"></asp:TextBox>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
@@ -431,7 +456,7 @@
                                                     <div class="input-group">
                                                         <span class="input-group-text">Meals</span>
                                                         <asp:TextBox runat="server" ID="txtMeals" CssClass="form-control" 
-                                                            TextMode="Number" onchange="CalculateExpenses()"></asp:TextBox>
+                                                            TextMode="Number" onchange="CalculateExpenses()" Text="0"></asp:TextBox>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
@@ -439,7 +464,7 @@
                                                     <div class="input-group">
                                                         <span class="input-group-text">Lemongrass</span>
                                                         <asp:TextBox runat="server" ID="txtLemongrass" CssClass="form-control" 
-                                                            TextMode="Number" onchange="CalculateExpenses()"></asp:TextBox>
+                                                            TextMode="Number" onchange="CalculateExpenses()" Text="0"></asp:TextBox>
                                                     </div>
                                                 </div>
                                             </div>
@@ -449,7 +474,7 @@
                                                     <div class="input-group">
                                                         <span class="input-group-text">Lemon</span>
                                                         <asp:TextBox runat="server" ID="txtLemon" CssClass="form-control" 
-                                                            TextMode="Number" onchange="CalculateExpenses()"></asp:TextBox>
+                                                            TextMode="Number" onchange="CalculateExpenses()" Text="0"></asp:TextBox>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
@@ -457,7 +482,7 @@
                                                     <div class="input-group">
                                                         <span class="input-group-text">Sili</span>
                                                         <asp:TextBox runat="server" ID="txtSili" CssClass="form-control" 
-                                                            TextMode="Number" onchange="CalculateExpenses()"></asp:TextBox>
+                                                            TextMode="Number" onchange="CalculateExpenses()" Text="0"></asp:TextBox>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
@@ -465,7 +490,7 @@
                                                     <div class="input-group">
                                                         <span class="input-group-text">Sauce</span>
                                                         <asp:TextBox runat="server" ID="txtSauce" CssClass="form-control" 
-                                                            TextMode="Number" onchange="CalculateExpenses()"></asp:TextBox>
+                                                            TextMode="Number" onchange="CalculateExpenses()" Text="0"></asp:TextBox>
                                                     </div>
                                                 </div>
                                             </div>
@@ -475,7 +500,7 @@
                                                     <div class="input-group">
                                                         <span class="input-group-text">Packaging</span>
                                                         <asp:TextBox runat="server" ID="txtPackaging" CssClass="form-control" 
-                                                            TextMode="Number" onchange="CalculateExpenses()"></asp:TextBox>
+                                                            TextMode="Number" onchange="CalculateExpenses()" Text="0"></asp:TextBox>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
@@ -483,7 +508,7 @@
                                                     <div class="input-group">
                                                         <span class="input-group-text">Cleaning Tools</span>
                                                         <asp:TextBox runat="server" ID="txtCleaning" CssClass="form-control" 
-                                                            TextMode="Number" onchange="CalculateExpenses()"></asp:TextBox>
+                                                            TextMode="Number" onchange="CalculateExpenses()" Text="0"></asp:TextBox>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
@@ -491,7 +516,7 @@
                                                     <div class="input-group">
                                                         <span class="input-group-text">Misc.</span>
                                                         <asp:TextBox runat="server" ID="txtMisc" CssClass="form-control" 
-                                                            TextMode="Number" onchange="CalculateExpenses()"></asp:TextBox>
+                                                            TextMode="Number" onchange="CalculateExpenses()" Text="0"></asp:TextBox>
                                                     </div>
                                                 </div>
                                             </div>
@@ -501,7 +526,7 @@
                                                     <div class="input-group">
                                                         <span class="input-group-text">Maintenance</span>
                                                         <asp:TextBox runat="server" ID="txtMaintenance" CssClass="form-control" 
-                                                            TextMode="Number" onchange="CalculateExpenses()"></asp:TextBox>
+                                                            TextMode="Number" onchange="CalculateExpenses()" Text="0"></asp:TextBox>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
@@ -509,7 +534,7 @@
                                                     <div class="input-group">
                                                         <span class="input-group-text">Subtotal</span>
                                                         <asp:TextBox runat="server" ID="txtSubtotal" CssClass="form-control" 
-                                                            TextMode="Number" ReadOnly="true"></asp:TextBox>
+                                                            TextMode="Number" ReadOnly="true" Text="0"></asp:TextBox>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">

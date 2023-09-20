@@ -43,7 +43,6 @@
                                     <Columns>
                                         <asp:BoundField DataField="BranchCode" />
                                         <asp:BoundField DataField="Branch_Name" HeaderText="Branch" />
-                                        <asp:BoundField DataField="Company_Name"  HeaderText="Company"/>
                                         <asp:TemplateField>
                                             <ItemTemplate>
                                                 <asp:LinkButton runat="server" ID="lnkEdit" CssClass="btn btn-primary">Edit</asp:LinkButton>

@@ -139,6 +139,15 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.TextBox txtUtilityVAT;
         
         /// <summary>
+        /// txtUtilityTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtUtilityTotal;
+        
+        /// <summary>
         /// lnkUtilitySubmit control.
         /// </summary>
         /// <remarks>
@@ -218,6 +227,15 @@ namespace Book_Keeping_System {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMiscVAT;
+        
+        /// <summary>
+        /// txtMiscTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMiscTotal;
         
         /// <summary>
         /// txtMiscParticulars control.

@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <script>
+    <script type="text/javascript">
         function ShowToast(msg) {
             document.getElementById('toast-message').textContent = msg;
             var toast = new bootstrap.Toast(document.getElementById('success-toast'));
@@ -13,6 +13,22 @@
             document.getElementById('error-message').textContent = msg;
             var toast = new bootstrap.Toast(document.getElementById('error-toast'));
             toast.show();
+        }
+
+        function CalculateUtilityTotal() {
+            var vatable = 0, nonvat = 0, vat = 0;
+            if (document.getElementById('<%=txtUtilityVATAmount.ClientID%>').value != null) {
+                vatable = + Number.parseFloat(document.getElementById('<%=txtUtilityVATAmount.ClientID%>').value).toFixed(2);
+            }
+                
+            if (document.getElementById('<%=txtUtilityNonVATAmount.ClientID%>').value != null) {
+                nonvat = + Number.parseFloat(document.getElementById('<%=txtUtilityNonVATAmount.ClientID%>').value).toFixed(2);
+            }
+                
+            if (document.getElementById('<%=txtUtilityVAT.ClientID%>').value != null) {
+                vat = + Number.parseFloat(document.getElementById('<%=txtUtilityVAT.ClientID%>').value).toFixed(2);
+            }
+            document.getElementById("<%=txtUtilityTotal.ClientID%>").value = vatable + nonvat + vat;
         }
     </script>
     <div class="containter-fluid">
@@ -95,6 +111,9 @@
                                 <div class="tab-pane fade" id="tab-utility">
                                     <asp:UpdatePanel runat="server" ID="upUtility" UpdateMode="Conditional" 
                                         ChildrenAsTriggers="false">
+                                        <Triggers>
+                                            
+                                        </Triggers>
                                         <ContentTemplate>
                                             <%-- Supplier --%>
                                             <div class="row m-2">
@@ -140,25 +159,32 @@
                                             </div>
                                             <%-- Amount and VAT--%>
                                             <div class="row m-2">
-                                                <div class="col-4">
+                                                <div class="col-3">
                                                     <div class="input-group">
                                                         <span class="input-group-text">VATable</span>
                                                         <asp:TextBox runat="server" ID="txtUtilityVATAmount" CssClass="form-control" 
-                                                            TextMode="Number"></asp:TextBox>
+                                                            TextMode="Number" onchange="CalculateUtilityTotal()" Text="0"></asp:TextBox>
                                                     </div>
                                                 </div>
-                                                <div class="col-4">
+                                                <div class="col-3">
                                                     <div class="input-group">
                                                         <span class="input-group-text">Non-VAT</span>
                                                         <asp:TextBox runat="server" ID="txtUtilityNonVATAmount" CssClass="form-control"
-                                                            TextMode="Number"></asp:TextBox>
+                                                            TextMode="Number" onchange="CalculateUtilityTotal()" Text="0"></asp:TextBox>
                                                     </div>
                                                 </div>
-                                                <div class="col-4">
+                                                <div class="col-3">
                                                     <div class="input-group">
                                                         <span class="input-group-text">VAT</span>
                                                         <asp:TextBox runat="server" ID="txtUtilityVAT" CssClass="form-control" 
-                                                            TextMode="Number"></asp:TextBox>
+                                                            TextMode="Number" onchange="CalculateUtilityTotal()" Text="0"></asp:TextBox>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">Total</span>
+                                                        <asp:TextBox runat="server" ID="txtUtilityTotal" CssClass="form-control" 
+                                                            TextMode="Number" Text="0"></asp:TextBox>
                                                     </div>
                                                 </div>
                                             </div>
@@ -210,22 +236,32 @@
                                             </div>
                                             <%-- Amount & VAT --%>
                                             <div class="row m-2">
-                                                <div class="col-4">
+                                                <div class="col-3">
                                                     <div class="input-group">
                                                         <span class="input-group-text">VATable</span>
-                                                        <asp:TextBox runat="server" ID="txtMiscVATAmount" CssClass="form-control"></asp:TextBox>
+                                                        <asp:TextBox runat="server" ID="txtMiscVATAmount" CssClass="form-control" 
+                                                            TextMode="Number" Text="0"></asp:TextBox>
                                                     </div>
                                                 </div>
-                                                <div class="col-4">
+                                                <div class="col-3">
                                                     <div class="input-group">
                                                         <span class="input-group-text">Non-VAT</span>
-                                                        <asp:TextBox runat="server" ID="txtMiscNonVATAmount" CssClass="form-control"></asp:TextBox>
+                                                        <asp:TextBox runat="server" ID="txtMiscNonVATAmount" CssClass="form-control"
+                                                            TextMode="Number" Text="0"></asp:TextBox>
                                                     </div>
                                                 </div>
-                                                <div class="col-4">
+                                                <div class="col-3">
                                                     <div class="input-group">
                                                         <span class="input-group-text">VAT</span>
-                                                        <asp:TextBox runat="server" ID="txtMiscVAT" CssClass="form-control"></asp:TextBox>
+                                                        <asp:TextBox runat="server" ID="txtMiscVAT" CssClass="form-control"
+                                                            TextMode="Number" Text="0"></asp:TextBox>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">Total</span>
+                                                        <asp:TextBox runat="server" ID="txtMiscTotal" CssClass="form-control"
+                                                            TextMode="Number" Text="0"></asp:TextBox>
                                                     </div>
                                                 </div>
                                             </div>
@@ -248,7 +284,8 @@
                                 <%-- New Supplier Pane --%>
                                 <div class="tab-pane fade" id="tab-new-supplier">
                                     <asp:UpdatePanel runat="server" ID="upNewSupplier" UpdateMode="Conditional" ChildrenAsTriggers="false">
-                                        <Triggers></Triggers>
+                                        <Triggers>
+                                        </Triggers>
                                         <ContentTemplate>
                                             <%-- Supplier Name --%>
                                             <div class="input-group m-2">
