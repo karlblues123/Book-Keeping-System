@@ -29,12 +29,7 @@ namespace Book_Keeping_System
             Show_Message_Toast("Expenses recorded");
         }
 
-        protected void lnkWaterSubmit_Click(object sender, EventArgs e)
-        {
-            Show_Message_Toast("Expenses recorded");
-        }
-
-        protected void lnkElectricitySubmit_Click(object sender, EventArgs e)
+        protected void lnkUtilitySubmit_Click(object sender, EventArgs e)
         {
             Show_Message_Toast("Expenses recorded");
         }
@@ -42,6 +37,11 @@ namespace Book_Keeping_System
         private void Show_Message_Toast(string msg)
         {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('Sales recorded')", true);
+        }
+
+        protected void lnkSupplierSave_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('New Supplier saved.')", true);
         }
 
         //private void Show_Error_Toast(string msg)

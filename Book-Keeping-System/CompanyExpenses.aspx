@@ -30,6 +30,23 @@
             }
             document.getElementById("<%=txtUtilityTotal.ClientID%>").value = vatable + nonvat + vat;
         }
+
+        function CalculateMiscTotal() {
+            var vatable = 0, nonvat = 0, vat = 0;
+            if (document.getElementById('<%=txtMiscVATAmount.ClientID%>').value != null) {
+                vatable = + Number.parseFloat(document.getElementById('<%=txtMiscVATAmount.ClientID%>').value).toFixed(2);
+            }
+                
+            if (document.getElementById('<%=txtMiscNonVATAmount.ClientID%>').value != null) {
+                nonvat = + Number.parseFloat(document.getElementById('<%=txtMiscNonVATAmount.ClientID%>').value).toFixed(2);
+            }
+                
+            if (document.getElementById('<%=txtMiscVAT.ClientID%>').value != null) {
+                vat = + Number.parseFloat(document.getElementById('<%=txtMiscVAT.ClientID%>').value).toFixed(2);
+            }
+            document.getElementById("<%=txtMiscTotal.ClientID%>").value = vatable + nonvat + vat;
+        }
+
     </script>
     <div class="containter-fluid">
         <%-- Main Card --%>
@@ -117,74 +134,85 @@
                                         <ContentTemplate>
                                             <%-- Supplier --%>
                                             <div class="row m-2">
-                                                <div class="input-group">
-                                                    <span class="input-group-text">Supplier</span>
-                                                    <asp:DropDownList runat="server" ID="ddUtilitySupplier" CssClass="form-control"></asp:DropDownList>
+                                                <div class="col">
+                                                    <div class="form-floating">
+                                                        <asp:DropDownList runat="server" ID="ddUtilitySupplier" CssClass="form-select"></asp:DropDownList>
+                                                        <label for="<%=ddUtilitySupplier.ClientID%>">Supplier</label>
+                                                    </div>
                                                 </div>
+                                                
                                             </div>
                                             <%-- TIN --%>
                                             <div class="row m-2">
-                                                <div class="input-group">
-                                                    <span class="input-group-text">TIN</span>
-                                                    <asp:TextBox runat="server" ID="txtUtilityTIN" CssClass="form-control" 
-                                                        AutoCompleteType="Disabled" ReadOnly="true"></asp:TextBox>
+                                                <div class="col">
+                                                    <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtUtilityTIN" CssClass="form-control" 
+                                                            AutoCompleteType="Disabled" ReadOnly="true"></asp:TextBox>
+                                                        <label for="<%=txtUtilityTIN.ClientID%>">TIN</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <%-- Receipt Number --%>
                                             <div class="row m-2">
                                                 <div class="col-8">
-                                                    <div class="input-group">
-                                                        <span class="input-group-text">Receipt No.</span>
+                                                    <div class="form-floating">
                                                         <asp:TextBox runat="server" ID="txtUtilityReceipt" CssClass="form-control"
                                                             AutoCompleteType="Disabled"></asp:TextBox>
+                                                        <label for="<%=txtUtilityReceipt.ClientID%>">Receipt Number</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
-                                                    <div class="input-group">
-                                                        <span class="input-group-text">Type</span>
-                                                        <asp:DropDownList runat="server" ID="ddUtilityType" CssClass="form-control"></asp:DropDownList>
+                                                    <div class="form-floating">
+                                                        <asp:DropDownList runat="server" ID="ddUtilityType" CssClass="form-select"></asp:DropDownList>
+                                                        <label for="<%=ddUtilityType.ClientID%>">Type</label>
                                                     </div>
                                                 </div>
                                             </div>
                                             <%-- Coverage --%>
                                             <div class="row m-2">
-                                                <div class="input-group">
-                                                    <span class="input-group-text">From</span>
-                                                    <asp:TextBox runat="server" ID="txtUtilityFrom" CssClass="form-control" 
-                                                        AutoCompleteType="Disabled" TextMode="Date"></asp:TextBox>
-                                                    <span class="input-group-text">To</span>
-                                                    <asp:TextBox runat="server" ID="txtUtilityTo" CssClass="form-control" 
-                                                        AutoCompleteType="Disabled" TextMode="Date"></asp:TextBox>
+                                                <div class="col-6">
+                                                    <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtUtilityFrom" CssClass="form-control" 
+                                                            AutoCompleteType="Disabled" TextMode="Date"></asp:TextBox>
+                                                        <label for="<%=txtUtilityFrom.ClientID%>">From</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtUtilityTo" CssClass="form-control" 
+                                                            AutoCompleteType="Disabled" TextMode="Date"></asp:TextBox>
+                                                        <label for="<%=txtUtilityTo.ClientID%>">To</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <%-- Amount and VAT--%>
                                             <div class="row m-2">
                                                 <div class="col-3">
-                                                    <div class="input-group">
-                                                        <span class="input-group-text">VATable</span>
+                                                    <div class="form-floating">
                                                         <asp:TextBox runat="server" ID="txtUtilityVATAmount" CssClass="form-control" 
                                                             TextMode="Number" onchange="CalculateUtilityTotal()" Text="0"></asp:TextBox>
+                                                        <label for="<%=txtUtilityVATAmount.ClientID%>">VATable</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-3">
-                                                    <div class="input-group">
-                                                        <span class="input-group-text">Non-VAT</span>
+                                                    <div class="form-floating">
                                                         <asp:TextBox runat="server" ID="txtUtilityNonVATAmount" CssClass="form-control"
                                                             TextMode="Number" onchange="CalculateUtilityTotal()" Text="0"></asp:TextBox>
+                                                        <label for="<%=txtUtilityNonVATAmount.ClientID%>">Non-VAT</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-3">
-                                                    <div class="input-group">
-                                                        <span class="input-group-text">VAT</span>
+                                                    <div class="form-floating">
                                                         <asp:TextBox runat="server" ID="txtUtilityVAT" CssClass="form-control" 
                                                             TextMode="Number" onchange="CalculateUtilityTotal()" Text="0"></asp:TextBox>
+                                                        <label for="<%=txtUtilityVAT.ClientID%>">VAT</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-3">
-                                                    <div class="input-group">
-                                                        <span class="input-group-text">Total</span>
+                                                    <div class="form-floating">
                                                         <asp:TextBox runat="server" ID="txtUtilityTotal" CssClass="form-control" 
                                                             TextMode="Number" Text="0"></asp:TextBox>
+                                                        <label for="<%=txtUtilityTotal.ClientID%>">Total</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -192,7 +220,7 @@
                                             <div class="row m-2">
                                                 <div class="col-2">
                                                     <asp:LinkButton runat="server" ID="lnkUtilitySubmit" 
-                                                        CssClass="btn btn-success">
+                                                        CssClass="btn btn-success" OnClick="lnkUtilitySubmit_Click">
                                                         Submit
                                                     </asp:LinkButton>
                                                 </div>
@@ -206,70 +234,80 @@
                                        <ContentTemplate>
                                             <%-- Supplier --%>
                                             <div class="row m-2">
-                                                <div class="input-group">
-                                                    <span class="input-group-text">Supplier</span>
-                                                    <asp:TextBox runat="server" ID="txtMiscSupplier" CssClass="form-control"></asp:TextBox>
-                                                </div>
+                                                <div class="col">
+                                                    <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtMiscSupplier" CssClass="form-control"></asp:TextBox>
+                                                        <label for="<%=txtMiscSupplier.ClientID%>">Supplier</label>
+                                                    </div>
+                                                </div> 
                                             </div>
                                             <%-- TIN --%>
                                             <div class="row m-2">
-                                                <div class="input-group">
-                                                    <span class="input-group-text">TIN</span>
-                                                    <asp:TextBox runat="server" ID="txtMiscTIN" CssClass="form-control"></asp:TextBox>
+                                                <div class="col">
+                                                    <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtMiscTIN" CssClass="form-control"></asp:TextBox>
+                                                        <label for="<%=txtMiscTIN.ClientID%>">TIN</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <%-- PO Number --%>
                                             <div class="row m-2">
-                                                <div class="input-group">
-                                                    <span class="input-group-text">PO No.</span>
-                                                    <asp:TextBox runat="server" ID="txtMiscPO" CssClass="form-control"
-                                                        AutoCompleteType="Disabled"></asp:TextBox>
+                                                <div class="col">
+                                                    <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtMiscPO" CssClass="form-control"
+                                                            AutoCompleteType="Disabled"></asp:TextBox>
+                                                        <label for="<%=txtMiscPO.ClientID%>">PO No.</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <%-- Receipt Number --%>
                                             <div class="row m-2">
-                                                <div class="input-group">
-                                                    <span class="input-group-text">Receipt No.</span>
-                                                    <asp:TextBox runat="server" ID="txtMiscReceipt" CssClass="form-control"
-                                                        AutoCompleteType="Disabled"></asp:TextBox>
+                                                <div class="col">
+                                                    <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtMiscReceipt" CssClass="form-control"
+                                                            AutoCompleteType="Disabled"></asp:TextBox>
+                                                        <label for="<%=txtMiscReceipt.ClientID%>">Receipt No.</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <%-- Amount & VAT --%>
                                             <div class="row m-2">
                                                 <div class="col-3">
-                                                    <div class="input-group">
-                                                        <span class="input-group-text">VATable</span>
+                                                    <div class="form-floating">
                                                         <asp:TextBox runat="server" ID="txtMiscVATAmount" CssClass="form-control" 
-                                                            TextMode="Number" Text="0"></asp:TextBox>
+                                                            TextMode="Number" Text="0" onchange="CalculateMiscTotal()"></asp:TextBox>
+                                                        <label for="<%=txtMiscVATAmount.ClientID%>">VATable</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-3">
-                                                    <div class="input-group">
-                                                        <span class="input-group-text">Non-VAT</span>
+                                                    <div class="form-floating">
                                                         <asp:TextBox runat="server" ID="txtMiscNonVATAmount" CssClass="form-control"
-                                                            TextMode="Number" Text="0"></asp:TextBox>
+                                                            TextMode="Number" Text="0" onchange="CalculateMiscTotal()"></asp:TextBox>
+                                                        <label for="<%=txtMiscNonVATAmount.ClientID%>">Non-VAT</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-3">
-                                                    <div class="input-group">
-                                                        <span class="input-group-text">VAT</span>
+                                                    <div class="form-floating">
                                                         <asp:TextBox runat="server" ID="txtMiscVAT" CssClass="form-control"
-                                                            TextMode="Number" Text="0"></asp:TextBox>
+                                                            TextMode="Number" Text="0" onchange="CalculateMiscTotal()"></asp:TextBox>
+                                                        <label for="<%=txtMiscVAT.ClientID%>">VAT</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-3">
-                                                    <div class="input-group">
-                                                        <span class="input-group-text">Total</span>
+                                                    <div class="form-floating">
                                                         <asp:TextBox runat="server" ID="txtMiscTotal" CssClass="form-control"
                                                             TextMode="Number" Text="0"></asp:TextBox>
+                                                        <label for="<%=txtMiscTotal.ClientID%>">Total</label>
                                                     </div>
                                                 </div>
                                             </div>
                                            <%-- Particulars --%>
                                            <div class="row m-2">
-                                               <div class="input-group">
-                                                   <span class="input-group-text">Particulars</span>
-                                                   <asp:TextBox runat="server" ID="txtMiscParticulars" CssClass="form-control"></asp:TextBox>
+                                               <div class="col">
+                                                   <div class="form-floating">
+                                                       <asp:TextBox runat="server" ID="txtMiscParticulars" CssClass="form-control"></asp:TextBox>
+                                                       <label for="<%=txtMiscParticulars.ClientID%>">Particulars</label>
+                                                   </div>
                                                </div>
                                            </div>
                                             <div class="row m-2">
@@ -288,33 +326,45 @@
                                         </Triggers>
                                         <ContentTemplate>
                                             <%-- Supplier Name --%>
-                                            <div class="input-group m-2">
-                                                <span class="input-group-text">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
-                                                </span>
-                                                <asp:TextBox runat="server" ID="txtSupplierName" CssClass="form-control" 
-                                                    AutoCompleteType="Disabled" placeholder="Name"></asp:TextBox>
-                                            </div>
-                                            <%-- Supplier Address --%>
-                                            <div class="input-group m-2">
-                                                <span class="input-group-text">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>  
-                                                </span>
-                                                <asp:TextBox runat="server" ID="txtSupplierAddress" CssClass="form-control" 
-                                                    AutoCompleteType="Disabled" placeholder="Address"></asp:TextBox>
-                                            </div>
-                                            <%-- Supplier TIN --%>
-                                            <div class="input-group m-2">
-                                                <span class="input-group-text">TIN</span>
-                                                <asp:TextBox runat="server" ID="txtSupplierTIN" CssClass="form-control" 
-                                                    AutoCompleteType="Disabled" placeholder="TIN"></asp:TextBox>
-                                                <div class="input-group-text d-flex align-items-center">
-                                                    VAT
-                                                    <asp:CheckBox runat="server" ID="cbVAT" />
+                                            <div class="row m-2">
+                                                <div class="col">
+                                                    <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtSupplierName" CssClass="form-control" 
+                                                            AutoCompleteType="Disabled"></asp:TextBox>
+                                                        <label for="<%=txtSupplierName.ClientID%>">Name</label>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="input-group m-2">
-                                                <asp:LinkButton runat="server" ID="lnkSupplierSave" CssClass="btn btn-success">Save</asp:LinkButton>
+                                            <%-- Supplier Address --%>
+                                            <div class="row m-2">
+                                                <div class="col">
+                                                    <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtSupplierAddress" CssClass="form-control" 
+                                                            AutoCompleteType="Disabled"></asp:TextBox>
+                                                        <label for="<%=txtSupplierAddress.ClientID%>">Address</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%-- Supplier TIN --%>
+                                            <div class="row m-2">
+                                                <div class="input-group">
+                                                    <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtSupplierTIN" CssClass="form-control" 
+                                                            AutoCompleteType="Disabled"></asp:TextBox>
+                                                        <label for="<%=txtSupplierTIN.ClientID%>">TIN</label>
+                                                    </div>
+                                                    <div class="input-group-text d-flex align-items-center">
+                                                        VAT
+                                                        <asp:CheckBox runat="server" ID="cbVAT" CssClass="form-check"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%-- Save Button --%>
+                                            <div class="row m-2">
+                                                <div class="col-2">
+                                                    <asp:LinkButton runat="server" ID="lnkSupplierSave" CssClass="btn btn-success" 
+                                                        OnClick="lnkSupplierSave_Click">Save</asp:LinkButton>
+                                                </div>
                                             </div>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
