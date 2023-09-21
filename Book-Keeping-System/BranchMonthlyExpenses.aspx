@@ -39,17 +39,19 @@
                             </div>
                             <%-- Branch Select Button --%>
                             <div class="card-body">
-                                <asp:GridView runat="server" ID="gvBranchList" AutoGenerateColumns="false" CssClass="table">
+                                <asp:Panel runat="server" ID="panelGridViewLists" Height="600px" ScrollBars="Vertical">
+                                <asp:GridView runat="server" ID="gvBranchList" GridLines="Horizontal" AutoGenerateColumns="false" CssClass="table table-responsive small">
                                     <Columns>
                                         <asp:BoundField DataField="BranchCode" />
                                         <asp:BoundField DataField="Branch_Name" HeaderText="Branch" />
                                         <asp:TemplateField>
                                             <ItemTemplate>
-                                                <asp:LinkButton runat="server" ID="lnkEdit" CssClass="btn btn-primary">Edit</asp:LinkButton>
+                                               <asp:LinkButton runat="server" ID="lnkEdit" CssClass="btn btn-outline-primary btn-sm"><b class="fa fa-pencil"></b> Select</asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>
                                 </asp:GridView>
+                                    </asp:Panel>
                             </div>
                         </div>
                     </div>

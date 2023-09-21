@@ -5,16 +5,23 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
+
 
 namespace Book_Keeping_System
 {
+    
     public partial class BranchMonthlyExpenses : System.Web.UI.Page
     {
+
+        MasterC oMaster = new MasterC();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                
+                DISPLAY_BRANCH_LISTS();
+
             }
         }
 
@@ -22,5 +29,15 @@ namespace Book_Keeping_System
         {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('Sales recorded')", true);
         }
+
+        private void DISPLAY_BRANCH_LISTS()
+        {
+            DataTable dt = oMaster.GET_BRANCH_LISTS();
+
+            //Display sa gridview
+            gvBranchList.DataSource = dt;
+            gvBranchList.DataBind();
+        }
+
     }
 }
