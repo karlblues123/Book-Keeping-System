@@ -12,10 +12,13 @@ namespace Book_Keeping_System
     public partial class BranchSalesExpenses : System.Web.UI.Page
     {
 
+        MasterC oMaster = new MasterC();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                DISPLAY_BRANCH_LISTS();
             }
         }
 
@@ -47,7 +50,7 @@ namespace Book_Keeping_System
 
         protected void lnkSupplierSave_Click(object sender, EventArgs e)
         {
-            txtSupplierTIN.Text = txtNewTin.Text;
+            //txtSupplierTIN.Text = txtNewTin.Text;
             pPurchase.Visible = true;
             pSupplier.Visible = false;
         }
@@ -62,6 +65,15 @@ namespace Book_Keeping_System
         {
             pPurchase.Visible = true;
             pSupplier.Visible = false;
+        }
+
+        private void DISPLAY_BRANCH_LISTS()
+        {
+            DataTable dt = oMaster.GET_BRANCH_LISTS();
+
+            //Display sa gridview
+            gvBranchList.DataSource = dt;
+            gvBranchList.DataBind();
         }
     }
 }
