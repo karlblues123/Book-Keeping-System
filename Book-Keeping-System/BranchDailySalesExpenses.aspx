@@ -17,6 +17,13 @@
             toast.show();
         }
 
+        function EnableNavs() {
+            var links = document.getElementById('form-pills').querySelectorAll('.nav-link');
+            links.forEach(link => {
+                link.classList.remove('disabled');
+            });
+        }
+
         window.onload = new function(){
             const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
             const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
@@ -110,6 +117,38 @@
                 + Number.parseInt(sili, 10) + Number.parseInt(sauce, 10) + Number.parseInt(fare, 10) + Number.parseInt(meals, 10)
                 + Number.parseInt(packaging, 10) + Number.parseInt(cleaning, 10) + Number.parseInt(misc, 10) + Number.parseInt(maint,10);
         }
+
+        //Search function
+        $(function searchInput() {
+            $('[id*=txtBranchSearch]').on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $('[id*=gvBranchList] tr').filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+
+        //On UpdatePanel Refresh
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+        if (prm != null) {
+            prm.add_endRequest(function (sender, e) {
+                if (sender._postBackSettings.panelsToUpdate != null) {
+
+
+                    //Search function
+                    $(function searchInput() {
+                        $('[id*=txtBranchSearch]').on("keyup", function () {
+                            var value = $(this).val().toLowerCase();
+                            $('[id*=gvBranchList] tr').filter(function () {
+                                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                            });
+                        });
+                    });
+
+                }
+            });
+        };
     </script>
     <div class="container-fluid">
         <%-- Main Card --%>
@@ -128,7 +167,7 @@
                             <div class="card-header">
                                 <div class="row m-2">
                                     <div class="input-group">
-                                        <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></span>
+                                        <span class="input-group-text"><b class="fa fa-building"></b></span>
                                         <asp:TextBox runat="server" ID="txtBranchSearch" CssClass="form-control"></asp:TextBox>
                                     </div>
                                 </div>
@@ -138,11 +177,13 @@
                                 <asp:Panel runat="server" ID="panelGridViewLists">
                                     <asp:GridView runat="server" ID="gvBranchList" GridLines="Horizontal" AutoGenerateColumns="false" CssClass="table table-responsive small">
                                         <Columns>
+                                            <asp:BoundField DataField="BranchID" />
                                             <asp:BoundField DataField="BranchCode" />
                                             <asp:BoundField DataField="Branch_Name" HeaderText="Branch" />
                                             <asp:TemplateField>
                                                 <ItemTemplate>
-                                                   <asp:LinkButton runat="server" ID="lnkEdit" CssClass="btn btn-outline-primary btn-sm"><b class="fa fa-pencil"></b> Select</asp:LinkButton>
+                                                   <asp:LinkButton runat="server" ID="lnkEdit" CssClass="btn btn-outline-primary btn-sm" 
+                                                       OnClick="lnkEdit_Click"><b class="fa fa-pencil"></b> Select</asp:LinkButton>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                         </Columns>
@@ -156,28 +197,32 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="row">
-                                    <div class="col-8">
+                                    <div class="col-3">
+                                        <asp:TextBox runat="server" ID="txtSelectedBranch" CssClass="form-control"
+                                            ReadOnly="True" Text="No Selected Branch"></asp:TextBox>
+                                    </div>
+                                    <div class="col-6">
                                         <%-- Nav Pills --%>
                                         <ul class="nav nav-pills" id="form-pills" role="tablist">
                                             <li class="nav-item">
-                                                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-sales" 
+                                                <button class="nav-link disabled" data-bs-toggle="pill" data-bs-target="#tab-sales" 
                                                     type="button" role="tab" aria-controls="tab-sales" aria-selected="false">Sales</button>
                                             </li>
                                             <li class="nav-item">
-                                                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-purchase" 
+                                                <button class="nav-link disabled" data-bs-toggle="pill" data-bs-target="#tab-purchase" 
                                                     type="button" role="tab" aria-controls="tab-purchase" aria-selected="false">Purchase</button>
                                             </li>
                                             <li class="nav-item">
-                                                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-purchase-list" 
+                                                <button class="nav-link disabled" data-bs-toggle="pill" data-bs-target="#tab-purchase-list" 
                                                     type="button" role="tab" aria-controls="tab-purchase-list" aria-selected="false">Purchase List</button>
                                             </li>
                                             <li class="nav-item">
-                                                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-expenses" 
+                                                <button class="nav-link disabled" data-bs-toggle="pill" data-bs-target="#tab-expenses" 
                                                     type="button" role="tab" aria-controls="tab-expenses" aria-selected="false">Expenses</button>
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <%-- Date --%>
                                         <asp:UpdatePanel runat="server" ID="upDate" UpdateMode="Conditional" ChildrenAsTriggers="false">
                                             <Triggers>
@@ -229,7 +274,7 @@
                                                 </div>
                                                 <%-- Buttons --%>
                                                 <div class="col-3">
-                                                    <asp:LinkButton runat="server" ID="lnkChickenRecordSale" CssClass="btn btn-success" 
+                                                    <asp:LinkButton runat="server" ID="lnkChickenRecordSale" CssClass="btn btn-outline-success" 
                                                         OnClick="lnkRecordSale_Click">Record</asp:LinkButton>
                                                 </div>
                                             </div>
@@ -262,7 +307,7 @@
                                                 </div>
                                                 <%-- Button --%>
                                                 <div class="col-3">
-                                                    <asp:LinkButton runat="server" ID="lnkAtsaraRecordSale" CssClass="btn btn-success" 
+                                                    <asp:LinkButton runat="server" ID="lnkAtsaraRecordSale" CssClass="btn btn-outline-success" 
                                                         OnClick="lnkRecordSale_Click">Record</asp:LinkButton>
                                                 </div>
                                             </div>
@@ -286,7 +331,8 @@
                                                             <asp:DropDownList runat="server" ID="ddPurchaseSupplier" CssClass="form-select"></asp:DropDownList>
                                                             <label for="<%=ddPurchaseSupplier.ClientID%>">Supplier</label>
                                                         </div>
-                                                        <asp:LinkButton runat="server" ID="lnkNewSupplier" CssClass="btn btn-primary" OnClick="lnkNewSupplier_Click">
+                                                        <asp:LinkButton runat="server" ID="lnkNewSupplier" 
+                                                            CssClass="btn btn-primary d-flex align-items-center" OnClick="lnkNewSupplier_Click">
                                                             <b class="fa fa-plus-circle"></b>
                                                         </asp:LinkButton>
                                                     </div>
@@ -334,7 +380,6 @@
                                                     </div>
                                                     <div class="col-3">
                                                         <div class="form-floating">
-                                                            
                                                             <asp:TextBox runat="server" ID="txtPurchaseTotal" CssClass="form-control" 
                                                                 TextMode="Number" Text="0" onchange="CalculatePurchaseTotal()"></asp:TextBox>
                                                             <label for="<%=txtPurchaseTotal.ClientID%>">Total</label>
@@ -352,7 +397,7 @@
                                                 <%-- Button --%>
                                                 <div class="row m-2">
                                                     <div class="col-2">
-                                                        <asp:LinkButton runat="server" ID="lnkRecordPurchase" CssClass="btn btn-success">Record</asp:LinkButton>
+                                                        <asp:LinkButton runat="server" ID="lnkRecordPurchase" CssClass="btn btn-outline-success">Record</asp:LinkButton>
                                                     </div>
                                                 </div>
                                             </asp:Panel>
@@ -566,7 +611,7 @@
                                             <div class="row m-2">
                                                 <div class="col-2">
                                                     <%-- Record Expenses Button --%>
-                                                    <asp:LinkButton runat="server" ID="lnkRecordExpenses" CssClass="btn btn-success" 
+                                                    <asp:LinkButton runat="server" ID="lnkRecordExpenses" CssClass="btn btn-outline-success" 
                                                         OnClick="lnkRecordExpenses_Click">Record</asp:LinkButton>
                                                 </div>
                                             </div>

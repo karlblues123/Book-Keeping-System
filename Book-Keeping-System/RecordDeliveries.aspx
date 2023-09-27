@@ -88,7 +88,7 @@
                                         <div class="col-2">
                                             <%-- Issue Delivery Button --%>
                                             <asp:LinkButton runat="server" ID="lnkIssueDelivery" 
-                                                CssClass="btn btn-success">Issue Delivery</asp:LinkButton>
+                                                CssClass="btn btn-success">Record</asp:LinkButton>
                                         </div>
                                     </div>
                                 </ContentTemplate>

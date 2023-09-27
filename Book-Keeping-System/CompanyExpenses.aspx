@@ -15,6 +15,13 @@
             toast.show();
         }
 
+        function EnableNavs() {
+            var links = document.getElementById('form-pills').querySelectorAll('.nav-link');
+            links.forEach(link => {
+                link.classList.remove('disabled');
+            });
+        }
+
         function CalculateUtilityTotal() {
             var vatable = 0, nonvat = 0, vat = 0;
             if (document.getElementById('<%=txtUtilityVATAmount.ClientID%>').value != null) {
@@ -64,18 +71,16 @@
                             <div class="card-body">
                                 <div class="row m-2">
                                     <div class="input-group">
-                                        <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></span>
+                                        <span class="input-group-text"><b class="fa fa-building"></b></span>
                                         <%-- Company Dropdown List --%>
                                         <asp:DropDownList runat="server" ID="ddCompanyList" CssClass="form-control"></asp:DropDownList>
+                                        <%-- Company Select Button --%>
+                                            <asp:LinkButton runat="server" ID="btnCompanySelect" CssClass="btn btn-outline-success" 
+                                                OnClick="btnCompanySelectButton_Click">
+                                                <b class="fa fa-check-circle"></b>
+                                            </asp:LinkButton>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="card-footer">
-                                <%-- Company Select Button --%>
-                                <asp:LinkButton runat="server" ID="btnCompanySelect" CssClass="btn btn-success" 
-                                    OnClick="btnCompanySelectButton_Click">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                                </asp:LinkButton>
                             </div>
                         </div>
                     </div>
@@ -85,32 +90,36 @@
                             <%-- Form Card Header --%>
                             <div class="card-header">
                                 <div class="row">
-                                    <div class="col-8">
+                                    <div class="col-3">
+                                        <asp:TextBox runat="server" ID="txtSelectedCompany" CssClass="form-control" 
+                                            ReadOnly="true"></asp:TextBox>
+                                    </div>
+                                    <div class="col-6">
                                         <ul class="nav nav-pills" id="form-pills" role="tablist">
-                                            <%-- Tab Link Electricity --%>
-                                            <li class="nav-item">
-                                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-utility"
+                                            <%-- Tab Link Utility --%>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link disabled" data-bs-toggle="tab" data-bs-target="#tab-utility"
                                                     type="button" role="tab" aria-controls="tab-utility" aria-selected="false">
                                                     Utility
                                                 </button>
                                             </li>
                                             <%-- Tab Link Miscellaneous --%>
-                                            <li class="nav-item">
-                                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-misc" 
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link disabled" data-bs-toggle="tab" data-bs-target="#tab-misc" 
                                                     type="button" role="tab" aria-controls="tab-misc" aria-selected="false">
                                                     Miscellaneous
                                                 </button>
                                             </li>
                                             <%-- Tab Link New Supplier --%>
-                                            <li class="nav-item">
-                                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-new-supplier" 
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link disabled" data-bs-toggle="tab" data-bs-target="#tab-new-supplier" 
                                                    type="button" role="tab" aria-controls="tab-new-supplier" aria-selected="false">
                                                     New Supplier
                                                 </button>
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <%-- Date --%>
                                         <asp:UpdatePanel runat="server" ID="upDate" UpdateMode="Conditional" ChildrenAsTriggers="false">
                                             <Triggers>     
@@ -129,7 +138,6 @@
                                     <asp:UpdatePanel runat="server" ID="upUtility" UpdateMode="Conditional" 
                                         ChildrenAsTriggers="false">
                                         <Triggers>
-                                            
                                         </Triggers>
                                         <ContentTemplate>
                                             <%-- Supplier --%>
@@ -140,8 +148,7 @@
                                                         <label for="<%=ddUtilitySupplier.ClientID%>">Supplier</label>
                                                     </div>
                                                 </div>
-                                                
-                                            </div>
+                                            </div> 
                                             <%-- TIN --%>
                                             <div class="row m-2">
                                                 <div class="col">
@@ -220,7 +227,7 @@
                                             <div class="row m-2">
                                                 <div class="col-2">
                                                     <asp:LinkButton runat="server" ID="lnkUtilitySubmit" 
-                                                        CssClass="btn btn-success" OnClick="lnkUtilitySubmit_Click">
+                                                        CssClass="btn btn-outline-success" OnClick="lnkUtilitySubmit_Click">
                                                         Submit
                                                     </asp:LinkButton>
                                                 </div>
@@ -312,14 +319,14 @@
                                            </div>
                                             <div class="row m-2">
                                                 <div class="col-2">
-                                                    <asp:LinkButton runat="server" ID="lnkMiscSubmit" CssClass="btn btn-success" 
+                                                    <asp:LinkButton runat="server" ID="lnkMiscSubmit" CssClass="btn btn-outline-success" 
                                                         OnClick="lnkMiscSubmit_Click">Submit</asp:LinkButton>
                                                 </div>
                                             </div>
                                        </ContentTemplate>
                                    </asp:UpdatePanel>
                                 </div>
-                                <%-- New Supplier Pane --%>
+                                 <%--New Supplier Pane--%>
                                 <div class="tab-pane fade" id="tab-new-supplier">
                                     <asp:UpdatePanel runat="server" ID="upNewSupplier" UpdateMode="Conditional" ChildrenAsTriggers="false">
                                         <Triggers>
@@ -362,7 +369,7 @@
                                             <%-- Save Button --%>
                                             <div class="row m-2">
                                                 <div class="col-2">
-                                                    <asp:LinkButton runat="server" ID="lnkSupplierSave" CssClass="btn btn-success" 
+                                                    <asp:LinkButton runat="server" ID="lnkSupplierSave" CssClass="btn btn-outline-success" 
                                                         OnClick="lnkSupplierSave_Click">Save</asp:LinkButton>
                                                 </div>
                                             </div>

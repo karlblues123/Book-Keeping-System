@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <script>
+    <script type="text/javascript">
         function ShowToast(msg) {
             document.getElementById('toast-message').textContent = msg;
             var toast = new bootstrap.Toast(document.getElementById('success-toast'));
@@ -13,6 +13,38 @@
             document.getElementById('error-message').textContent = msg;
             var toast = new bootstrap.Toast(document.getElementById('error-toast'));
             toast.show();
+        }
+
+        //Search function
+        $(function searchInput() {
+            $('[id*=txtBranchSearch]').on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $('[id*=gvBranchList] tr').filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+
+        //On UpdatePanel Refresh
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+        if (prm != null) {
+            prm.add_endRequest(function (sender, e) {
+                if (sender._postBackSettings.panelsToUpdate != null) {
+
+
+                    //Search function
+                    $(function searchInput() {
+                        $('[id*=txtBranchSearch]').on("keyup", function () {
+                            var value = $(this).val().toLowerCase();
+                            $('[id*=gvBranchList] tr').filter(function () {
+                                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                            });
+                        });
+                    });
+
+                }
+            });
         }
     </script>
     <div class="container-fluid">
@@ -32,26 +64,26 @@
                             <div class="card-header">
                                 <div class="row m-2">
                                     <div class="input-group">
-                                        <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></span>
+                                        <span class="input-group-text"><b class="fa fa-building"></b></span>
                                         <asp:TextBox runat="server" ID="txtBranchSearch" CssClass="form-control"></asp:TextBox>
                                     </div>
                                 </div>
                             </div>
                             <%-- Branch Select Button --%>
-                            <div class="card-body">
-                                <asp:Panel runat="server" ID="panelGridViewLists" Height="600px" ScrollBars="Vertical">
-                                <asp:GridView runat="server" ID="gvBranchList" GridLines="Horizontal" AutoGenerateColumns="false" CssClass="table table-responsive small">
-                                    <Columns>
-                                        <asp:BoundField DataField="BranchCode" />
-                                        <asp:BoundField DataField="Branch_Name" HeaderText="Branch" />
-                                        <asp:TemplateField>
-                                            <ItemTemplate>
-                                               <asp:LinkButton runat="server" ID="lnkEdit" CssClass="btn btn-outline-primary btn-sm"><b class="fa fa-pencil"></b> Select</asp:LinkButton>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                    </Columns>
-                                </asp:GridView>
-                                    </asp:Panel>
+                            <div class="card-body" style="max-height:550px;overflow-y:scroll;">
+                                <asp:Panel runat="server" ID="panelGridViewLists">
+                                    <asp:GridView runat="server" ID="gvBranchList" GridLines="Horizontal" AutoGenerateColumns="false" CssClass="table table-responsive small">
+                                        <Columns>
+                                            <asp:BoundField DataField="BranchCode" />
+                                            <asp:BoundField DataField="Branch_Name" HeaderText="Branch" />
+                                            <asp:TemplateField>
+                                                <ItemTemplate>
+                                                   <asp:LinkButton runat="server" ID="lnkEdit" CssClass="btn btn-outline-primary btn-sm"><b class="fa fa-pencil"></b> Select</asp:LinkButton>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                        </Columns>
+                                    </asp:GridView>
+                                </asp:Panel>
                             </div>
                         </div>
                     </div>
@@ -312,33 +344,44 @@
                                         <Triggers></Triggers>
                                         <ContentTemplate>
                                             <%-- Supplier Name --%>
-                                            <div class="input-group m-2">
-                                                <span class="input-group-text">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
-                                                </span>
-                                                <asp:TextBox runat="server" ID="txtSupplierName" CssClass="form-control" 
-                                                    AutoCompleteType="Disabled" placeholder="Name"></asp:TextBox>
-                                            </div>
-                                            <%-- Supplier Address --%>
-                                            <div class="input-group m-2">
-                                                <span class="input-group-text">
-                                                    <object type="image/svg+xml" data="css/feather/home.svg"></object>  
-                                                </span>
-                                                <asp:TextBox runat="server" ID="txtSupplierAddress" CssClass="form-control" 
-                                                    AutoCompleteType="Disabled" placeholder="Address"></asp:TextBox>
-                                            </div>
-                                            <%-- Supplier TIN --%>
-                                            <div class="input-group m-2">
-                                                <span class="input-group-text">TIN</span>
-                                                <asp:TextBox runat="server" ID="txtSupplierTIN" CssClass="form-control" 
-                                                    AutoCompleteType="Disabled" placeholder="TIN"></asp:TextBox>
-                                                <div class="input-group-text d-flex align-items-center">
-                                                    VAT
-                                                    <asp:CheckBox runat="server" ID="cbVAT" />
+                                            <div class="row m-2">
+                                                <div class="col">
+                                                    <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtSupplierName" CssClass="form-control" 
+                                                            AutoCompleteType="Disabled"></asp:TextBox>
+                                                        <label for="<%=txtSupplierName.ClientID%>">Name</label>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="input-group m-2">
-                                                <asp:LinkButton runat="server" ID="lnkSupplierSave" CssClass="btn btn-primary">Save</asp:LinkButton>
+                                            <%-- Supplier Address --%>
+                                            <div class="row m-2">
+                                                <div class="col">
+                                                    <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtSupplierAddress" CssClass="form-control" 
+                                                            AutoCompleteType="Disabled"></asp:TextBox>
+                                                        <label for="<%=txtSupplierAddress.ClientID%>">Address</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%-- Supplier TIN --%>
+                                            <div class="row m-2">
+                                                <div class="input-group">
+                                                    <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtSupplierTIN" CssClass="form-control" 
+                                                            AutoCompleteType="Disabled"></asp:TextBox>
+                                                        <label for="<%=txtSupplierTIN.ClientID%>">TIN</label>
+                                                    </div>
+                                                    <div class="input-group-text d-flex align-items-center">
+                                                        VAT
+                                                        <asp:CheckBox runat="server" ID="cbVAT" CssClass="form-check"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%-- Save Button --%>
+                                            <div class="row m-2">
+                                                <div class="col-2">
+                                                    <asp:LinkButton runat="server" ID="lnkSupplierSave" CssClass="btn btn-outline-success">Save</asp:LinkButton>
+                                                </div>
                                             </div>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
