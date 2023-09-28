@@ -22,6 +22,15 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.TextBox txtBranchSearch;
         
         /// <summary>
+        /// panelGridViewLists control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panelGridViewLists;
+        
+        /// <summary>
         /// gvBranchList control.
         /// </summary>
         /// <remarks>
@@ -29,6 +38,15 @@ namespace Book_Keeping_System {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvBranchList;
+        
+        /// <summary>
+        /// txtSelectedBranch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSelectedBranch;
         
         /// <summary>
         /// upDate control.
@@ -265,13 +283,13 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.TextBox txtSupplierAddress;
         
         /// <summary>
-        /// txtNewTin control.
+        /// TextBox1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNewTin;
+        protected global::System.Web.UI.WebControls.TextBox TextBox1;
         
         /// <summary>
         /// cbVAT control.
