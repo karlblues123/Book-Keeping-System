@@ -46,7 +46,7 @@
                                         <asp:BoundField DataField="Branch_Name" HeaderText="Branch" />
                                         <asp:TemplateField>
                                             <ItemTemplate>
-                                               <asp:LinkButton runat="server" ID="lnkEdit" CssClass="btn btn-outline-primary btn-sm"><b class="fa fa-pencil"></b> Select</asp:LinkButton>
+                                               <asp:LinkButton runat="server" ID="lnkEdit" CssClass="btn btn-outline-primary btn-sm"><b class="fa fa-arrow-right"></b></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>

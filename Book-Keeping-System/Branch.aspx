@@ -178,10 +178,10 @@
                                <ul class="nav nav-tabs" id="myTab" role="tablist">
 
                                    <li class="nav-item" role="presentation">
-                                       <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false"><b class="fa fa-rotate-right text-warnin"></b>Default Operation Utilities</button>
+                                       <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false"><b class="fa fa-rotate-right text-warning"></b> Default Utilities Details</button>
                                    </li>
                                    <li class="nav-item" role="presentation">
-                                       <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Contact</button>
+                                       <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Rental Details</button>
                                    </li>
                                    <li class="nav-item" role="presentation">
                                        <button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false" disabled>Disabled</button>
@@ -189,44 +189,84 @@
                                </ul>
                                <div class="tab-content" id="myTabContent">
 
+
+
                                    <div class="tab-pane fade show active" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                                       <table class="table table-responsive table-hover">
-                                           <tr>
-                                               <td>
-                                                   <div class="form-floating">
-                                                       <asp:TextBox runat="server" ID="txtElectricityProvider" CssClass="form-control"
-                                                           placeholder="Electricity Provider"></asp:TextBox>
-                                                       <label for="txtElectricityProvider">Electricity Provider</label>
-                                                   </div>
-                                               </td>
-                                               <td>
-                                                   <div class="form-floating">
-                                                       <asp:TextBox runat="server" ID="txtElectricProviderAcctNumber" CssClass="form-control"
-                                                           placeholder="Account Number"></asp:TextBox>
-                                                       <label for="txtElectricProviderAcctNumber">Account Number</label>
-                                                   </div>
-                                               </td>
-                                           </tr>
-                                           <tr>
-                                               <td>
-                                                   <div class="form-floating">
-                                                       <asp:TextBox runat="server" ID="txtWaterProvider" CssClass="form-control"
-                                                           placeholder="Water Provider"></asp:TextBox>
-                                                       <label for="txtWaterProvider">Water Provider</label>
-                                                   </div>
-                                               </td>
-                                               <td>
-                                                   <div class="form-floating">
-                                                       <asp:TextBox runat="server" ID="txtWaterProviderAcctNumber" CssClass="form-control"
-                                                           placeholder="Account Number"></asp:TextBox>
-                                                       <label for="txtWaterProviderAcctNumber">Account Number</label>
-                                                   </div>
-                                               </td>
-                                           </tr>
-
-                                       </table>
+                                    
+                                       <div class="text-end">
+                                    <asp:LinkButton runat="server" ID="lnkAddUtilities" data-bs-toggle="collapse" data-bs-target="#collapseDiv" role="button"  aria-expanded="false" aria-controls="collapseStored" CssClass="btn btn-outline-success btn-sm"> 
+                                        <b class="fa fa-toggle-down"></b> Add Default Utilities</asp:LinkButton>
                                    </div>
+                                        <div class="collapse" id="collapseDiv">
+                                         <table class="table table-responsive table-hover">
+                                           <tr>
+                                               <td>
+                                                   <div class="form-floating">
+                                                       <asp:TextBox runat="server" ID="txtProviderName" CssClass="form-control"
+                                                           placeholder="Provide Name"></asp:TextBox>
+                                                       <label for="txtProviderName">Provider Name</label>
+                                                   </div>
+                                               </td>
+                                               <td>
+                                                   <div class="form-floating">
+                                                       <asp:TextBox runat="server" ID="txtProviderAcctNumber" CssClass="form-control"
+                                                           placeholder="Account Number"></asp:TextBox>
+                                                       <label for="txtProviderAcctNumber">Account Number</label>
+                                                   </div>
+                                               </td>
+                                                <td>
+                                                   <div class="form-floating">
+                                                       <asp:TextBox runat="server" ID="txtTIN" CssClass="form-control"
+                                                           placeholder="TIN Number"></asp:TextBox>
+                                                       <label for="txtTIN">TIN Number</label>
+                                                   </div>
+                                               </td>
+                                           </tr>
+                                           <tr>
+                                               <td>
+                                                   <div class="form-floating">
+                                                       <asp:TextBox runat="server" ID="txtAddInfo" CssClass="form-control"
+                                                           placeholder="Additional Info"></asp:TextBox>
+                                                       <label for="txtAddInfo">Additional Info</label>
+                                                   </div>
+                                               </td>
+                                               <td colspan="2">
+                                                   <div class="form-floating">
+                                                       <asp:TextBox runat="server" ID="txtRemarks" CssClass="form-control"
+                                                           placeholder="Remarks"></asp:TextBox>
+                                                       <label for="txtRemarks">Remarks</label>
+                                                   </div>
+                                               </td>
+                                              
+                                           </tr>
+                                           <tr>
+                                           <td colspan="3" class="text-end">
+                                               
+                                              <asp:LinkButton runat="server" ID="lnkAddProvider" CssClass="btn btn-outline-primary" OnClick="lnkAddProvider_Click">
+                                                        <b class="fa fa-plus"></b> Add
+                                               </asp:LinkButton>
+                                               
+                                           </td>
+                                               </tr>
+                                       </table>
 
+
+                                        </div>
+                                        <!-- List of default utilities -->
+                                       <div class="">
+                                           <asp:GridView runat="server" ID="gvBranchDefaultUtilities" AutoGenerateColumns="false" CssClass="table table-responsive small">
+                                               <Columns>
+                                                  <asp:BoundField DataField="ID" HeaderStyle-CssClass="hidden" ItemStyle-CssClass="hidden" />
+                                                   <asp:BoundField DataField="ProviderName" HeaderText="Provider" />
+                                                   <asp:BoundField DataField="AccountNumber" HeaderText="Account #" />
+                                                   <asp:BoundField DataField="TIN"  HeaderText="TIN"/>
+                                                   <asp:BoundField DataField="AdditionalDetail" />
+                                                   <asp:BoundField DataField="Remarks" />
+
+                                               </Columns>
+                                           </asp:GridView>
+                                       </div>
+                                       </div>
                                    <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...</div>
                                    <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>
                                </div>

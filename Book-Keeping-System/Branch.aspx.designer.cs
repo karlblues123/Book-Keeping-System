@@ -148,39 +148,75 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.Panel panelSideInputs;
         
         /// <summary>
-        /// txtElectricityProvider control.
+        /// lnkAddUtilities control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtElectricityProvider;
+        protected global::System.Web.UI.WebControls.LinkButton lnkAddUtilities;
         
         /// <summary>
-        /// txtElectricProviderAcctNumber control.
+        /// txtProviderName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtElectricProviderAcctNumber;
+        protected global::System.Web.UI.WebControls.TextBox txtProviderName;
         
         /// <summary>
-        /// txtWaterProvider control.
+        /// txtProviderAcctNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtWaterProvider;
+        protected global::System.Web.UI.WebControls.TextBox txtProviderAcctNumber;
         
         /// <summary>
-        /// txtWaterProviderAcctNumber control.
+        /// txtTIN control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtWaterProviderAcctNumber;
+        protected global::System.Web.UI.WebControls.TextBox txtTIN;
+        
+        /// <summary>
+        /// txtAddInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAddInfo;
+        
+        /// <summary>
+        /// txtRemarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtRemarks;
+        
+        /// <summary>
+        /// lnkAddProvider control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkAddProvider;
+        
+        /// <summary>
+        /// gvBranchDefaultUtilities control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvBranchDefaultUtilities;
     }
 }

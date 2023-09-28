@@ -12,6 +12,7 @@ namespace Book_Keeping_System
     public partial class Branch : System.Web.UI.Page
     {
         MasterC oMaster = new MasterC();
+        BKC oBK = new BKC();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -57,6 +58,25 @@ namespace Book_Keeping_System
 
         }
 
+        private void DISPLAY_BRANCH_DEFAULT_UTILITIES(string _branchCode)
+        {
+            DataView dv = oBK.GET_BRANCH_DEFAULT_UTILITIES().DefaultView;
+
+            dv.RowFilter = "BranchCode ='" + _branchCode + "'";
+
+            if (dv.Count > 0)
+            {
+                gvBranchDefaultUtilities.DataSource = dv;
+                            }
+            else
+            {
+                gvBranchDefaultUtilities.DataSource = null;
+            }
+
+            gvBranchDefaultUtilities.DataBind();
+
+
+        }
 
         private void CLEAR_INPUTS()
         {
@@ -65,10 +85,12 @@ namespace Book_Keeping_System
             ddSupervisorLists.SelectedIndex = 0;
             ddCompanyLists.SelectedIndex = 0;
 
-            txtElectricityProvider.Text = "";
-            txtElectricProviderAcctNumber.Text = "";
-            txtWaterProvider.Text = "";
-            txtWaterProviderAcctNumber.Text = "";
+            //txtElectricityProvider.Text = "";
+            //txtElectricProviderAcctNumber.Text = "";
+            //txtWaterProvider.Text = "";
+            //txtWaterProviderAcctNumber.Text = "";
+
+            ViewState["V_BRANCHCODE"] = "";
 
         }
 
@@ -83,6 +105,8 @@ namespace Book_Keeping_System
             int _branchID = Convert.ToInt32(r.Cells[0].Text);
             //ViewState["V_SUPPLIERID"] = _supplierID;
 
+            string _branchCode = r.Cells[1].Text;
+            ViewState["V_BRANCHCODE"] = _branchCode ;
 
 
             DataView dv = oMaster.GET_BRANCH_LISTS().DefaultView;
@@ -111,6 +135,8 @@ namespace Book_Keeping_System
 
                 //ViewState["V_ACTION"] = 1; //This will hold the option for action.
 
+                //Calling display function for default utilities
+                DISPLAY_BRANCH_DEFAULT_UTILITIES(_branchCode);
             }
         }
 
@@ -129,6 +155,11 @@ namespace Book_Keeping_System
             CLEAR_INPUTS();
 
             txtBranchName.Focus();
+        }
+
+        protected void lnkAddProvider_Click(object sender, EventArgs e)
+        {
+            oBK.INSERT_DEFAULT_BRANCH_UTILITIES(ViewState["V_BRANCHCODE"].ToString(), txtProviderName.Text, txtAddInfo.Text, txtProviderAcctNumber.Text, txtTIN.Text, txtRemarks.Text);
         }
     }
 }
