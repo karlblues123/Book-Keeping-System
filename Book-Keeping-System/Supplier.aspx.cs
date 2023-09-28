@@ -12,6 +12,7 @@ namespace Book_Keeping_System
     {
 
         MasterC oMaster = new MasterC();
+        BKC oBK = new BKC();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -20,7 +21,8 @@ namespace Book_Keeping_System
                 //  CreateSupplierList();
 
                 DISPLAY_SUPPLIER_LISTS();
-                
+                DISPLAY_EXPENSES_LISTS();
+
             }
         }
 
@@ -166,6 +168,17 @@ namespace Book_Keeping_System
             cbVAT.Checked = false;
 
             ViewState["V_ACTION"] = 0;
+        }
+
+
+        private void DISPLAY_EXPENSES_LISTS()
+        {
+            DataTable dt = oBK.GET_EXPENSES_LISTS();
+
+            ddSupplierType.DataSource = dt;
+            ddSupplierType.DataTextField = dt.Columns["Expenses_Desc"].ToString();
+            ddSupplierType.DataValueField = dt.Columns["ExpensesID"].ToString();
+            ddSupplierType.DataBind();
         }
 
         #endregion
