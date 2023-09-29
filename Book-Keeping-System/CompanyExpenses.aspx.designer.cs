@@ -22,24 +22,6 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.DropDownList ddCompanyList;
         
         /// <summary>
-        /// btnCompanySelect control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnCompanySelect;
-        
-        /// <summary>
-        /// txtSelectedCompany control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSelectedCompany;
-        
-        /// <summary>
         /// upDate control.
         /// </summary>
         /// <remarks>

@@ -20,7 +20,7 @@ namespace Book_Keeping_System
             {
                 DISPLAY_BRANCH_LISTS();
                 DISPLAY_COMPANY_LISTS();
-                DISPLAY_SUPERVISOR_LISTS();
+                //DISPLAY_SUPERVISOR_LISTS();
             }
         }
 
@@ -60,20 +60,20 @@ namespace Book_Keeping_System
 
         private void DISPLAY_BRANCH_DEFAULT_UTILITIES(string _branchCode)
         {
-            DataView dv = oBK.GET_BRANCH_DEFAULT_UTILITIES().DefaultView;
+            //DataView dv = oBK.GET_BRANCH_DEFAULT_UTILITIES().DefaultView;
 
-            dv.RowFilter = "BranchCode ='" + _branchCode + "'";
+            //dv.RowFilter = "BranchCode ='" + _branchCode + "'";
 
-            if (dv.Count > 0)
-            {
-                gvBranchDefaultUtilities.DataSource = dv;
-                            }
-            else
-            {
-                gvBranchDefaultUtilities.DataSource = null;
-            }
+            //if (dv.Count > 0)
+            //{
+            //    gvBranchDefaultUtilities.DataSource = dv;
+            //                }
+            //else
+            //{
+            //    gvBranchDefaultUtilities.DataSource = null;
+            //}
 
-            gvBranchDefaultUtilities.DataBind();
+            //gvBranchDefaultUtilities.DataBind();
 
 
         }
@@ -85,10 +85,10 @@ namespace Book_Keeping_System
             ddSupervisorLists.SelectedIndex = 0;
             ddCompanyLists.SelectedIndex = 0;
 
-            //txtElectricityProvider.Text = "";
-            //txtElectricProviderAcctNumber.Text = "";
-            //txtWaterProvider.Text = "";
-            //txtWaterProviderAcctNumber.Text = "";
+            txtElectricityProvider.Text = "";
+            txtElectricProviderAcctNumber.Text = "";
+            txtWaterProvider.Text = "";
+            txtWaterProviderAcctNumber.Text = "";
 
             ViewState["V_BRANCHCODE"] = "";
 
@@ -126,7 +126,7 @@ namespace Book_Keeping_System
                 {
                     //Display Details
                     txtBranchName.Text = dvr["Branch_Name"].ToString().Trim();
-                    ddSupervisorLists.SelectedValue = dvr["SupervisorID"].ToString();
+                    //ddSupervisorLists.SelectedValue = dvr["SupervisorID"].ToString();
                     ddCompanyLists.SelectedValue = dvr["CompanyCode"].ToString();
                     //txtSupplierTIN.Text = dvr["S_TIN"].ToString();
                     //cbVAT.Checked = (bool)dvr["IsVat"];
@@ -157,9 +157,9 @@ namespace Book_Keeping_System
             txtBranchName.Focus();
         }
 
-        protected void lnkAddProvider_Click(object sender, EventArgs e)
-        {
-            oBK.INSERT_DEFAULT_BRANCH_UTILITIES(ViewState["V_BRANCHCODE"].ToString(), txtProviderName.Text, txtAddInfo.Text, txtProviderAcctNumber.Text, txtTIN.Text, txtRemarks.Text);
-        }
+        //protected void lnkAddProvider_Click(object sender, EventArgs e)
+        //{
+        //    //oBK.INSERT_DEFAULT_BRANCH_UTILITIES(ViewState["V_BRANCHCODE"].ToString(), txtProviderName.Text, txtAddInfo.Text, txtProviderAcctNumber.Text, txtTIN.Text, txtRemarks.Text);
+        //}
     }
 }

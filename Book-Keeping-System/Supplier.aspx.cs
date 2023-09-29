@@ -21,7 +21,7 @@ namespace Book_Keeping_System
                 //  CreateSupplierList();
 
                 DISPLAY_SUPPLIER_LISTS();
-                DISPLAY_EXPENSES_LISTS();
+                //DISPLAY_EXPENSES_LISTS();
 
             }
         }

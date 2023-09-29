@@ -27,11 +27,7 @@ namespace Book_Keeping_System
             }
         }
 
-        protected void btnCompanySelectButton_Click(object sender, EventArgs e)
-        {
-            txtSelectedCompany.Text = ddCompanyList.SelectedItem.Text;
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "EnableNavs", "EnableNavs()", true);
-        }
+        #region EVENTS
 
         protected void lnkMiscSubmit_Click(object sender, EventArgs e)
         {
@@ -52,6 +48,13 @@ namespace Book_Keeping_System
         {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('New Supplier saved.')", true);
         }
+
+        protected void ddCompanyList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "EnableNavs", "EnableNavs()", true);
+        }
+
+        #endregion
 
         #region LOCAL FUNCTIONS
 

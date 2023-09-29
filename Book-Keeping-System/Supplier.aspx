@@ -6,7 +6,7 @@
        
         //Search function
         $(function searchInput() {
-            $('[id*=txtSearch]').on("keyup", function () {
+            $('[id*=search-bar]').on("keyup", function () {
                 var value = $(this).val().toLowerCase();
                 $('[id*=gvSupplierList] tr').filter(function () {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
@@ -24,7 +24,7 @@
 
                     //Search function
                     $(function searchInput() {
-                        $('[id*=txtSearch]').on("keyup", function () {
+                        $('[id*=search-bar]').on("keyup", function () {
                             var value = $(this).val().toLowerCase();
                             $('[id*=gvSupplierList] tr').filter(function () {
                                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
@@ -37,60 +37,58 @@
         };
 
     </script>
-
-
-    <div class="container-fluid">
+    <div class="container-fluid" style="padding-left:0;padding-right:0;">
         <asp:UpdatePanel runat="server" ID="upMain">
             <ContentTemplate>
-                <asp:Panel runat="server" ID="pList" CssClass="card m-2">
-                    <div class="card-header bg-info bg-opacity-25">
-                        <b class="fa fa-handshake-o"></b>  <b>Suppliers Information</b>
-                    </div>
-                    <div class="card-body">
-                        <div class="card">
-                            <div class="card-header">
+                <asp:Panel runat="server" ID="pList" CssClass="card" style="border:none;">
+                    <div class="card-header bg-info bg-opacity-25" style="height:60px;">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-8">
+                                <b class="fa fa-handshake-o"></b><b class="m-2">Suppliers Information</b>
+                            </div>
+                            <div class="col-4">
                                 <div class="input-group">
                                     <%-- Search Textbox --%>
-                                    <asp:TextBox  runat="server" id="txtSearch" placeholder="Search Supplier" class="form-control" />
+                                    <input type="text" id="search-bar" placeholder="Search" 
+                                        class="form-control form-control-sm" role="search" />
                                     <%-- Add button --%>
-                                    <asp:LinkButton runat="server" ID="lnkNewSupplier" CssClass="btn btn-outline-success" OnClick="lnkNewSupplier_Click">
+                                    <asp:LinkButton runat="server" ID="lnkNewSupplier" CssClass="btn btn-sm btn-outline-success" OnClick="lnkNewSupplier_Click">
                                         <b class="fa fa-plus-circle"></b> New
                                     </asp:LinkButton>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <%-- Supplier List GridView --%>
-                                <asp:Panel runat="server" ID="panelSupplierScroll" ScrollBars="Vertical" Height="500px">                                  
-                                    <asp:GridView runat="server" ID="gvSupplierList" CssClass="table table-hover small" AutoGenerateColumns="false" 
-                                        ShowHeader="true" GridLines="Horizontal" OnRowDataBound="gvSupplierList_RowDataBound">
-                                        <Columns>
-                                            <asp:BoundField DataField="SupplierID"/>
-                                            <asp:BoundField DataField="Supplier_Name" HeaderText="Name" />
-                                            <asp:BoundField DataField="Supplier_Address" HeaderText="Address" />
-                                            <asp:BoundField DataField="TIN" HeaderText="TIN" />
-                                            <asp:TemplateField>
-                                                
-                                                <ItemTemplate>
-                                                    <asp:LinkButton runat="server" ID="lnkEdit" 
-                                                        CssClass="btn btn-sm btn-outline-primary" OnClick="lnkEdit_Click">
-                                                        Edit
-                                                    </asp:LinkButton>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                        </Columns>
-                                    </asp:GridView>
-                                </asp:Panel> 
-                            </div>
                         </div>
                     </div>
+                    <div class="card-body ms-5 me-5">
+                        <%-- Supplier List GridView --%>
+                        <asp:Panel runat="server" ID="panelSupplierScroll" ScrollBars="Vertical" Height="500px">                                  
+                            <asp:GridView runat="server" ID="gvSupplierList" CssClass="table table-hover small" AutoGenerateColumns="false" 
+                                ShowHeader="true" GridLines="Horizontal" OnRowDataBound="gvSupplierList_RowDataBound">
+                                <Columns>
+                                    <asp:BoundField DataField="SupplierID"/>
+                                    <asp:BoundField DataField="Supplier_Name" HeaderText="Name" />
+                                    <asp:BoundField DataField="Supplier_Address" HeaderText="Address" />
+                                    <asp:BoundField DataField="TIN" HeaderText="TIN" />
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:LinkButton runat="server" ID="lnkEdit" 
+                                                CssClass="btn btn-sm btn-outline-primary" OnClick="lnkEdit_Click">
+                                                <b class="fa fa-pencil"></b> Edit
+                                            </asp:LinkButton>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                        </asp:Panel> 
+                    </div>
                 </asp:Panel>
-                <asp:Panel runat="server" ID="pForm" Visible="false" CssClass="card m-2">
-                    <div class="card-body">
-                        <div class="row">
-                            <h5>Supplier Form</h5>
-                        </div>
+                <asp:Panel runat="server" ID="pForm" Visible="false" CssClass="card" style="border:none;">
+                    <div class="card-header bg-info bg-opacity-25 d-flex align-items-center" style="height:60px;">
+                        <b class="fa fa-edit"></b><b class="ms-2">Supplier Form</b>
+                    </div>
+                    <div class="card-body ms-5 me-5">
                         <%-- Supplier Name --%>
-                        <div class="row m-2">
+                        <div class="row mt-2">
                             <div class="col">
                                 <div class="form-floating">
                                     <asp:TextBox runat="server" ID="txtSupplierName" CssClass="form-control" 
@@ -100,7 +98,7 @@
                             </div>
                         </div>
                         <%-- Supplier Address --%>
-                        <div class="row m-2">
+                        <div class="row mt-2">
                             <div class="col">
                                 <div class="form-floating">
                                     <asp:TextBox runat="server" ID="txtSupplierAddress" CssClass="form-control" 
@@ -110,7 +108,7 @@
                             </div>
                         </div>
                         <%-- Supplier TIN --%>
-                        <div class="row m-2">
+                        <div class="row mt-2">
                             <div class="col-8">
                                 <div class="input-group">
                                     <div class="form-floating">
@@ -132,7 +130,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row m-2">
+                        <%-- Save and Back Buttons --%>
+                        <div class="row mt-2">
                             <div class="col-1">
                                 <asp:LinkButton runat="server" ID="lnkBack" CssClass="btn btn-outline-warning" 
                                     OnClick="lnkBack_Click">
