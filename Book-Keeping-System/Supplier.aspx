@@ -41,7 +41,7 @@
         <asp:UpdatePanel runat="server" ID="upMain">
             <ContentTemplate>
                 <asp:Panel runat="server" ID="pList" CssClass="card" style="border:none;">
-                    <div class="card-header bg-info bg-opacity-25" style="height:60px;">
+                    <div class="card-header bg-info bg-opacity-25" style="height:57px;">
                         <div class="row d-flex align-items-center">
                             <div class="col-8">
                                 <b class="fa fa-handshake-o"></b><b class="m-2">Suppliers Information</b>
@@ -65,11 +65,11 @@
                             <asp:GridView runat="server" ID="gvSupplierList" CssClass="table table-hover small" AutoGenerateColumns="false" 
                                 ShowHeader="true" GridLines="Horizontal" OnRowDataBound="gvSupplierList_RowDataBound">
                                 <Columns>
-                                    <asp:BoundField DataField="SupplierID"/>
-                                    <asp:BoundField DataField="Supplier_Name" HeaderText="Name" />
-                                    <asp:BoundField DataField="Supplier_Address" HeaderText="Address" />
-                                    <asp:BoundField DataField="TIN" HeaderText="TIN" />
-                                    <asp:TemplateField>
+                                    <asp:BoundField DataField="SupplierID" ItemStyle-Width="5%"/>
+                                    <asp:BoundField DataField="Supplier_Name" HeaderText="Name" ItemStyle-Width="15%"/>
+                                    <asp:BoundField DataField="Supplier_Address" HeaderText="Address" ItemStyle-Width="50%" />
+                                    <asp:BoundField DataField="TIN" HeaderText="TIN" ItemStyle-Width="15%" />
+                                    <asp:TemplateField ItemStyle-Width="15%">
                                         <ItemTemplate>
                                             <asp:LinkButton runat="server" ID="lnkEdit" 
                                                 CssClass="btn btn-sm btn-outline-primary" OnClick="lnkEdit_Click">
@@ -83,7 +83,7 @@
                     </div>
                 </asp:Panel>
                 <asp:Panel runat="server" ID="pForm" Visible="false" CssClass="card" style="border:none;">
-                    <div class="card-header bg-info bg-opacity-25 d-flex align-items-center" style="height:60px;">
+                    <div class="card-header bg-info bg-opacity-25 d-flex align-items-center" style="height:57px;">
                         <b class="fa fa-edit"></b><b class="ms-2">Supplier Form</b>
                     </div>
                     <div class="card-body ms-5 me-5">

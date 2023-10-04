@@ -10,9 +10,9 @@
     <link href="Content/font-awesome.css" rel="stylesheet" />
     <link href="Content/jquery-ui.css" rel="stylesheet" />
 
-    <script src="scripts/jquery-3.6.0.min.js"></script>
-    <script src="scripts/jquery-ui-1.12.1.min.js"></script>
-    <script src="scripts/bootstrap.min.js"></script>
+    <script src="Scripts/jquery-3.6.0.min.js"></script>
+    <script src="Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/bootstrap.bundle.min.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>

@@ -7,7 +7,7 @@
             <ContentTemplate>
                 <asp:Panel runat="server" ID="pList" CssClass="card" style="border:0;">
                     <%-- Main Header --%>
-                    <div class="card-header bg-success-subtle" style="height:60px;">
+                    <div class="card-header bg-success-subtle" style="height:57px;">
                         <div class="row d-flex align-items-center">
                             <div class="col-8">
                                 <b class="fa fa-briefcase"></b><b> Company</b>
@@ -39,7 +39,7 @@
                     </div> 
                 </asp:Panel>
                 <asp:Panel runat="server" ID="pDetails" CssClass="card" Visible="false" style="border:0;">
-                    <div class="card-header bg-success-subtle" style="height:60px;">
+                    <div class="card-header bg-success-subtle" style="height:57px;">
                         <%-- Tabs --%>
                         <ul class="nav nav-pills" id="form-pills" role="tablist">
                             <%-- Basic Tab --%>

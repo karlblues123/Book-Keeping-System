@@ -44,7 +44,7 @@
                 <asp:Panel runat="server" ID="panelBranchLists">
                     <div class="card" style="border:0;">
                         <%-- Header --%>
-                        <div class="card-header bg-warning bg-opacity-25" style="height:60px">
+                        <div class="card-header bg-warning bg-opacity-25" style="height:57px">
                             <div class="row d-flex align-items-center">
                                 <div class="col-8">
                                     <b class="fa fa-building text-info"></b>  <b>Branches Information</b>
@@ -90,7 +90,7 @@
                 <asp:Panel runat="server" ID="panelBranchInputForm" Visible="false">
                     <div class="card" style="border:0;">
                         <%-- Header --%>
-                        <div class="card-header bg-warning bg-opacity-25" style="height:60px">
+                        <div class="card-header bg-warning bg-opacity-25" style="height:57px">
                             <h5>Branch Details</h5>
                             <asp:Label runat="server" ID="lblBranchName"></asp:Label>
                         </div>

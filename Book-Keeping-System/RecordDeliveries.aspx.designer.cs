@@ -130,6 +130,24 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.TextBox txtSupplierTIN;
         
         /// <summary>
+        /// txtCompany control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList txtCompany;
+        
+        /// <summary>
+        /// txtPO control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPO;
+        
+        /// <summary>
         /// txtInFreshStock control.
         /// </summary>
         /// <remarks>
