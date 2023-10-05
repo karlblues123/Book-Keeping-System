@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="BranchDailySalesExpenses.aspx.cs" Inherits="Book_Keeping_System.BranchSalesExpenses" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="BranchExpenses.aspx.cs" Inherits="Book_Keeping_System.BranchExpenses" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -28,30 +28,6 @@
             const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
             const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 
-        }
-
-        //Client-side calculate the sales of chicken
-        function CalculateChickenSales() {
-            var qty = 0, sales = 0;
-            if (document.getElementById('<%=txtChickenQuantity.ClientID%>').value != null) {
-                qty = document.getElementById('<%=txtChickenQuantity.ClientID%>').value;
-            }
-            if (document.getElementById('<%=txtChickenPrice.ClientID%>').value != null) {
-                sales = document.getElementById('<%=txtChickenPrice.ClientID%>').value;
-            }
-            document.getElementById('<%=txtChickenTotal.ClientID%>').value = qty * sales;
-        }
-
-        //Client-side calculate the sales of atsara
-        function CalculateAtsaraSales() {
-            var qty = 0, sales = 0;
-            if (document.getElementById('<%=txtAtsaraQuantity.ClientID%>').value != null) {
-                qty = document.getElementById('<%=txtAtsaraQuantity.ClientID%>').value;
-            }
-            if (document.getElementById('<%=txtAtsaraPrice.ClientID%>').value != null) {
-                sales = document.getElementById('<%=txtAtsaraPrice.ClientID%>').value;
-            }
-            document.getElementById('<%=txtAtsaraTotal.ClientID%>').value = qty * sales;
         }
 
         function CalculatePurchaseTotal() {
@@ -150,12 +126,12 @@
             });
         };
     </script>
-    <div class="container-fluid">
+    <div class="container-fluid" style="padding-left:0;padding-right:0;">
         <%-- Main Card --%>
-        <div class="card m-2">
+        <div class="card" style="border:0;">
             <%-- Main Card Header --%>
-            <div class="card-header">
-                Branch - Daily Sales & Expenses
+            <div class="card-header bg-warning bg-opacity-25">
+                Branch - Expenses
             </div>
             <%-- Main Card Body --%>
             <div class="card-body">
@@ -165,7 +141,7 @@
                         <div class="card">
                             <%-- Branch Search --%>
                             <div class="card-header">
-                                <div class="row m-2">
+                                <div class="row">
                                     <div class="input-group">
                                         <span class="input-group-text"><b class="fa fa-building"></b></span>
                                         <asp:TextBox runat="server" ID="txtBranchSearch" CssClass="form-control"></asp:TextBox>
@@ -205,8 +181,8 @@
                                         <%-- Nav Pills --%>
                                         <ul class="nav nav-pills" id="form-pills" role="tablist">
                                             <li class="nav-item">
-                                                <button class="nav-link disabled" data-bs-toggle="pill" data-bs-target="#tab-sales" 
-                                                    type="button" role="tab" aria-controls="tab-sales" aria-selected="false">Sales</button>
+                                                <button class="nav-link disabled" data-bs-toggle="pill" data-bs-target="#tab-utility" 
+                                                    type="button" role="tab" aria-controls="tab-sales" aria-selected="false">Utility</button>
                                             </li>
                                             <li class="nav-item">
                                                 <button class="nav-link disabled" data-bs-toggle="pill" data-bs-target="#tab-purchase" 
@@ -226,8 +202,6 @@
                                         <%-- Date --%>
                                         <asp:UpdatePanel runat="server" ID="upDate" UpdateMode="Conditional" ChildrenAsTriggers="false">
                                             <Triggers>
-                                                <asp:AsyncPostBackTrigger ControlID="lnkChickenRecordSale" EventName="Click" />
-                                                <asp:AsyncPostBackTrigger ControlID="lnkAtsaraRecordSale" EventName="Click" />
                                             </Triggers>
                                             <ContentTemplate>
                                                 <asp:TextBox runat="server" ID="txtDate" CssClass="form-control" TextMode="Date"></asp:TextBox>
@@ -239,76 +213,91 @@
                             </div>
                             <div class="card-body tab-content">
                                 <%-- Sales Pane --%>
-                                <div class="tab-pane fade" id="tab-sales">
-                                    <asp:UpdatePanel runat="server" ID="upSales" UpdateMode="Conditional" ChildrenAsTriggers="false">
+                                <div class="tab-pane fade" id="tab-utility">
+                                    <asp:UpdatePanel runat="server" ID="upUtility" UpdateMode="Conditional" ChildrenAsTriggers="false">
                                         <Triggers>
-                                            <asp:AsyncPostBackTrigger ControlID="lnkChickenRecordSale" EventName="Click" />
                                         </Triggers>
                                         <ContentTemplate>
-                                            <%-- Chicken Sales --%>
+                                            <%-- Supplier Name --%>
                                             <div class="row m-2">
-                                                <h6 class="card-subtitle mb-2 text-muted">Chicken</h6>
-                                                <div class="col-3">
-                                                    <%-- Quantity --%>
+                                                <div class="col">
                                                     <div class="form-floating">
-                                                        <asp:TextBox runat="server" ID="txtChickenQuantity" CssClass="form-control" 
-                                                            TextMode="Number" onchange="CalculateChickenSales()"></asp:TextBox>
-                                                        <label for="<%=txtChickenQuantity.ClientID%>">Quantity</label>
+                                                        <asp:DropDownList runat="server" ID="ddUtilitySupplier" 
+                                                            CssClass="form-select"></asp:DropDownList>
+                                                        <label for="<%=ddUtilitySupplier.ClientID%>">Supplier</label>
                                                     </div>
-                                                </div>
-                                                <div class="col-3">
-                                                    <%-- Price --%>
-                                                    <div class="form-floating">
-                                                        <asp:TextBox runat="server" ID="txtChickenPrice" CssClass="form-control" 
-                                                            TextMode="Number" onchange="CalculateChickenSales()"></asp:TextBox>
-                                                        <label for="<%=txtChickenPrice.ClientID%>">Price</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-3">
-                                                    <%-- Total --%>
-                                                    <div class="form-floating">
-                                                        <asp:TextBox runat="server" ID="txtChickenTotal" CssClass="form-control" 
-                                                            TextMode="Number" ReadOnly="true"></asp:TextBox>
-                                                        <label for="<%=txtChickenTotal.ClientID%>">Total</label>
-                                                    </div>
-                                                </div>
-                                                <%-- Buttons --%>
-                                                <div class="col-3">
-                                                    <asp:LinkButton runat="server" ID="lnkChickenRecordSale" CssClass="btn btn-outline-success" 
-                                                        OnClick="lnkRecordSale_Click">Record</asp:LinkButton>
                                                 </div>
                                             </div>
-                                            <%-- Atsara Sales --%>
+                                            <%-- TIN --%>
                                             <div class="row m-2">
-                                                <h6 class="card-subtitle mb-2 text-muted">Atsara</h6>
-                                                <div class="col-3">
-                                                    <%-- Quantity --%>
+                                                <div class="col">
                                                     <div class="form-floating">
-                                                        <asp:TextBox runat="server" ID="txtAtsaraQuantity" CssClass="form-control" 
-                                                            TextMode="Number" onchange="CalculateAtsaraSales()"></asp:TextBox>
-                                                        <label for="<%=txtAtsaraQuantity.ClientID%>">Quantity</label>
+                                                        <asp:TextBox runat="server" ID="txtUtilityTIN" CssClass="form-control"></asp:TextBox>
+                                                        <label for="<%=txtUtilityTIN.ClientID%>">TIN</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%-- Receipt Number --%>
+                                            <div class="row m-2">
+                                                <div class="col">
+                                                    <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtUtilityReceipt" CssClass="form-control"></asp:TextBox>
+                                                        <label for="<%=txtUtilityReceipt.ClientID%>">Receipt Number</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%-- Amount & VAT --%>
+                                            <div class="row m-2">
+                                                <div class="col-3">
+                                                    <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtUtilityVATAmount" CssClass="form-control"></asp:TextBox>
+                                                        <label for="<%=txtUtilityVATAmount.ClientID%>">VATable</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-3">
-                                                    <%-- Price --%>
                                                     <div class="form-floating">
-                                                        <asp:TextBox runat="server" ID="txtAtsaraPrice" CssClass="form-control" 
-                                                            TextMode="Number" onchange="CalculateAtsaraSales()"></asp:TextBox>
-                                                        <label for="<%=txtAtsaraPrice.ClientID%>">Price</label>
+                                                        <asp:TextBox runat="server" ID="txtUtilityNonVATAmount" CssClass="form-control"></asp:TextBox>
+                                                        <label for="<%=txtUtilityNonVATAmount.ClientID%>">NonVAT</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-3">
-                                                    <%-- Total --%>
                                                     <div class="form-floating">
-                                                        <asp:TextBox runat="server" ID="txtAtsaraTotal" CssClass="form-control" 
-                                                            TextMode="Number" ReadOnly="true"></asp:TextBox>
-                                                        <label for="<%=txtAtsaraTotal.ClientID%>">Total</label>
+                                                        <asp:TextBox runat="server" ID="txtUtilityVAT" CssClass="form-control"></asp:TextBox>
+                                                        <label for="<%=txtUtilityVAT.ClientID%>">VAT</label>
                                                     </div>
                                                 </div>
-                                                <%-- Button --%>
                                                 <div class="col-3">
-                                                    <asp:LinkButton runat="server" ID="lnkAtsaraRecordSale" CssClass="btn btn-outline-success" 
-                                                        OnClick="lnkRecordSale_Click">Record</asp:LinkButton>
+                                                    <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtUtilityTotal" CssClass="form-control"></asp:TextBox>
+                                                        <label for="<%=txtUtilityTotal.ClientID%>">Total</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%-- Coverage and Type --%>
+                                            <div class="row m-2">
+                                                <div class="col-4">
+                                                    <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtUtilityFrom" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                                                        <label for="<%=txtUtilityFrom.ClientID%>">From</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtUtilityTo" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                                                        <label for="<%=txtUtilityTo.ClientID%>">To</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-floating">
+                                                        <asp:DropDownList runat="server" ID="txtUtilityType" CssClass="form-select"></asp:DropDownList>
+                                                        <label for="<%=txtUtilityType.ClientID%>">Type</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%-- Button --%>
+                                            <div class="row m-2">
+                                                <div class="col-2">
+                                                    <asp:LinkButton runat="server" ID="lnkRecordUtility" CssClass="btn btn-outline-success">Record</asp:LinkButton>
                                                 </div>
                                             </div>
                                         </ContentTemplate>
@@ -386,13 +375,20 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <%-- Particulars and Type --%>
                                                 <div class="row m-2">
-                                                   <div class="col">
+                                                   <div class="col-8">
                                                        <div class="form-floating">
                                                            <asp:TextBox runat="server" ID="txtPurchaseParticulars" CssClass="form-control"></asp:TextBox>
                                                            <label for="<%=txtPurchaseParticulars.ClientID%>">Particulars</label>
                                                        </div>
                                                    </div>
+                                                   <div class="col-4">
+                                                        <div class="form-floating">
+                                                            <asp:DropDownList runat="server" ID="txtPurchaseType" CssClass="form-select"></asp:DropDownList>
+                                                            <label for="<%=txtPurchaseType.ClientID%>">Type</label>
+                                                        </div>
+                                                    </div>
                                                </div>
                                                 <%-- Button --%>
                                                 <div class="row m-2">

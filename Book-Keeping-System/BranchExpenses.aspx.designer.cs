@@ -10,7 +10,7 @@
 namespace Book_Keeping_System {
     
     
-    public partial class BranchSalesExpenses {
+    public partial class BranchExpenses {
         
         /// <summary>
         /// txtBranchSearch control.
@@ -67,85 +67,112 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.TextBox txtDate;
         
         /// <summary>
-        /// upSales control.
+        /// upUtility control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upSales;
+        protected global::System.Web.UI.UpdatePanel upUtility;
         
         /// <summary>
-        /// txtChickenQuantity control.
+        /// ddUtilitySupplier control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtChickenQuantity;
+        protected global::System.Web.UI.WebControls.DropDownList ddUtilitySupplier;
         
         /// <summary>
-        /// txtChickenPrice control.
+        /// txtUtilityTIN control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtChickenPrice;
+        protected global::System.Web.UI.WebControls.TextBox txtUtilityTIN;
         
         /// <summary>
-        /// txtChickenTotal control.
+        /// txtUtilityReceipt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtChickenTotal;
+        protected global::System.Web.UI.WebControls.TextBox txtUtilityReceipt;
         
         /// <summary>
-        /// lnkChickenRecordSale control.
+        /// txtUtilityVATAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkChickenRecordSale;
+        protected global::System.Web.UI.WebControls.TextBox txtUtilityVATAmount;
         
         /// <summary>
-        /// txtAtsaraQuantity control.
+        /// txtUtilityNonVATAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAtsaraQuantity;
+        protected global::System.Web.UI.WebControls.TextBox txtUtilityNonVATAmount;
         
         /// <summary>
-        /// txtAtsaraPrice control.
+        /// txtUtilityVAT control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAtsaraPrice;
+        protected global::System.Web.UI.WebControls.TextBox txtUtilityVAT;
         
         /// <summary>
-        /// txtAtsaraTotal control.
+        /// txtUtilityTotal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAtsaraTotal;
+        protected global::System.Web.UI.WebControls.TextBox txtUtilityTotal;
         
         /// <summary>
-        /// lnkAtsaraRecordSale control.
+        /// txtUtilityFrom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkAtsaraRecordSale;
+        protected global::System.Web.UI.WebControls.TextBox txtUtilityFrom;
+        
+        /// <summary>
+        /// txtUtilityTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtUtilityTo;
+        
+        /// <summary>
+        /// txtUtilityType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList txtUtilityType;
+        
+        /// <summary>
+        /// lnkRecordUtility control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkRecordUtility;
         
         /// <summary>
         /// upPurchase control.
@@ -245,6 +272,15 @@ namespace Book_Keeping_System {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPurchaseParticulars;
+        
+        /// <summary>
+        /// txtPurchaseType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList txtPurchaseType;
         
         /// <summary>
         /// lnkRecordPurchase control.

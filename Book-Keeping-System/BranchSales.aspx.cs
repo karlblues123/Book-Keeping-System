@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
+
 
 namespace Book_Keeping_System
 {
-    public partial class BranchSalesExpenses : System.Web.UI.Page
+    
+    public partial class BranchSales : System.Web.UI.Page
     {
 
         MasterC oMaster = new MasterC();
@@ -19,13 +21,15 @@ namespace Book_Keeping_System
             if (!IsPostBack)
             {
                 DISPLAY_BRANCH_LISTS();
+
             }
         }
 
+        #region EVENTS
         protected void lnkRecordSale_Click(object sender, EventArgs e)
         {
             DateTime dt;
-            if (DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None,out dt))
+            if (DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt))
             {
                 txtDate.Text = DateTime.Parse(txtDate.Text).AddDays(1).ToString("yyyy-MM-dd");
 
@@ -33,38 +37,6 @@ namespace Book_Keeping_System
             }
             else
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowError", "ShowError('Invalid Input. Please check.')", true);
-        }
-
-        protected void lnkRecordExpenses_Click(object sender, EventArgs e)
-        {
-            DateTime dt;
-            if(DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt))
-            {
-                txtDate.Text = DateTime.Parse(txtDate.Text).AddDays(1).ToString("yyyy-MM-dd");
-
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('Expenses recorded')", true);
-            }
-            else
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowError", "ShowError('Invalid Input. Please check.')", true);
-        }
-
-        protected void lnkSupplierSave_Click(object sender, EventArgs e)
-        {
-            //txtSupplierTIN.Text = txtNewTin.Text;
-            pPurchase.Visible = true;
-            pSupplier.Visible = false;
-        }
-
-        protected void lnkNewSupplier_Click(object sender, EventArgs e)
-        {
-            pSupplier.Visible = true;
-            pPurchase.Visible = false;
-        }
-
-        protected void lnkSupplierBack_Click(object sender, EventArgs e)
-        {
-            pPurchase.Visible = true;
-            pSupplier.Visible = false;
         }
 
         protected void lnkEdit_Click(object sender, EventArgs e)
@@ -82,18 +54,37 @@ namespace Book_Keeping_System
 
             if (dv.Count > 0)
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "EnableNavs", "EnableNavs()", true);
                 foreach (DataRowView dvr in dv)
                 {
                     //Display Details
                     txtSelectedBranch.Text = dvr["Branch_Name"].ToString().Trim();
 
                 }
-                
+
+                ENABLE_FORM();
             }
         }
+        #endregion
 
         #region LOCAL FUNCTIONS
+
+        protected void Show_Toast(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('Sales recorded')", true);
+        }
+
+        private void ENABLE_FORM()
+        {
+            txtChickenPrice.ReadOnly = false;
+            txtChickenQuantity.ReadOnly = false;
+
+            txtAtsaraPrice.ReadOnly = false;
+            txtAtsaraQuantity.ReadOnly = false;
+
+            lnkChickenRecordSale.Enabled = true;
+            lnkAtsaraRecordSale.Enabled = true;
+        }
+
         private void DISPLAY_BRANCH_LISTS()
         {
             DataTable dt = oMaster.GET_BRANCH_LISTS();
@@ -102,8 +93,7 @@ namespace Book_Keeping_System
             gvBranchList.DataSource = dt;
             gvBranchList.DataBind();
         }
-        #endregion
 
-        
+        #endregion
     }
 }
