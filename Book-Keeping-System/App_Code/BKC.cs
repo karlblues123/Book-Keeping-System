@@ -60,7 +60,7 @@ namespace Book_Keeping_System
 
         #region "INSERT/UPDATE COMMAND"
 
-        public void INSERT_DEFAULT_BRANCH_UTILITIES(string _branchCode, string _providerName, string _additionalDetail, 
+        public void INSERT_DEFAULT_BRANCH_UTILITIES(string _branchCode, string _providerName, 
                                                     string _accountNumber, string _TIN, string _remarks)
         {
             using (SqlConnection cn = new SqlConnection(CS))
@@ -72,7 +72,6 @@ namespace Book_Keeping_System
 
                     cmd.Parameters.AddWithValue("@BRANCHCODE", _branchCode);
                     cmd.Parameters.AddWithValue("@PROVIDERNAME", _providerName);
-                    cmd.Parameters.AddWithValue("@ADDITIONALDETAIL", _additionalDetail);
                     cmd.Parameters.AddWithValue("@ACCOUNTNUMBER", _accountNumber);
                     cmd.Parameters.AddWithValue("@TIN", _TIN);
                     cmd.Parameters.AddWithValue("@REMARKS", _remarks);

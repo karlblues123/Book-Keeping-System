@@ -158,57 +158,76 @@
                                                     data-bs-target="#profile-tab-pane" type="button" role="tab" 
                                                     aria-controls="profile-tab-pane" aria-selected="false">
                                                     <b class="fa fa-rotate-right text-warnin"></b>
-                                                    Default Utilities
+                                                    Default Utilities Provider
                                                 </button>
                                             </li>
                                             <li class="nav-item" role="presentation">
                                                 <button class="nav-link" id="contact-tab" data-bs-toggle="tab" 
                                                     data-bs-target="#contact-tab-pane" type="button" role="tab" 
                                                     aria-controls="contact-tab-pane" aria-selected="false">
-                                                    Contact
+                                                    Rental Information
                                                 </button>
                                             </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false" disabled>Disabled</button>
-                                            </li>
+                                           
                                         </ul>
                                     </div>
                                     <div class="card-body tab-content" id="myTabContent">
                                         <div class="tab-pane fade show active" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                                            <%-- Electric Provider --%>
+                                          
                                             <div class="row mt-2">
                                                 <div class="col-6">
                                                     <div class="form-floating">
-                                                            <asp:TextBox runat="server" ID="txtElectricityProvider" CssClass="form-control"
-                                                                placeholder="Electricity Provider"></asp:TextBox>
-                                                            <label for="txtElectricityProvider">Electricity Provider</label>
+                                                            <asp:TextBox runat="server" ID="txtProvider" CssClass="form-control"
+                                                                placeholder="Provider"></asp:TextBox>
+                                                            <label for="txtProvider">Provider</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="form-floating">
-                                                            <asp:TextBox runat="server" ID="txtElectricProviderAcctNumber" CssClass="form-control"
+                                                            <asp:TextBox runat="server" ID="txtProviderAcctNumber" CssClass="form-control"
                                                                 placeholder="Account Number"></asp:TextBox>
-                                                            <label for="txtElectricProviderAcctNumber">Account Number</label>
+                                                            <label for="txtProviderAcctNumber">Account Number</label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <%-- Water Provider --%>
+                                             </div>
                                             <div class="row mt-2">
-                                                <div class="col-6">
+                                                 <div class="col-6">
                                                     <div class="form-floating">
-                                                            <asp:TextBox runat="server" ID="txtWaterProvider" CssClass="form-control"
-                                                                placeholder="Water Provider"></asp:TextBox>
-                                                            <label for="txtWaterProvider">Water Provider</label>
+                                                            <asp:TextBox runat="server" ID="txtTIN" CssClass="form-control"
+                                                                placeholder="TIN Number"></asp:TextBox>
+                                                            <label for="txtTIN">TIN Number</label>
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                 <div class="col-6">
                                                     <div class="form-floating">
-                                                            <asp:TextBox runat="server" ID="txtWaterProviderAcctNumber" CssClass="form-control"
-                                                                placeholder="Account Number"></asp:TextBox>
-                                                            <label for="txtWaterProviderAcctNumber">Account Number</label>
+                                                            <asp:TextBox runat="server" ID="txtRemarks" CssClass="form-control"
+                                                                placeholder="Remarks"></asp:TextBox>
+                                                            <label for="txtRemarks">Remarks</label>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="text-end">
+                                                <p></p>
+                                            <asp:LinkButton runat="server" ID="lnkAddNewProvider" OnClick="lnkAddNewProvider_Click"  CssClass="btn btn-outline-primary btn-sm">
+                                                Add Provider
+                                            </asp:LinkButton>
+                                                </div>
+                                         <div class="card">
+                                             <div class="card-header bg-info">
+                                                 List of Assigned Provider
+                                             </div>
+                                             <div class="card-body">
+                                                 <asp:GridView runat="server" ID="gvBranchDefaultUtilities" AutoGenerateColumns="false" CssClass="table table-responsive table-light">
+                                                     <Columns>
+                                                         <asp:BoundField DataField="ProviderName" HeaderText="Provider" />
+                                                         <asp:BoundField DataField="AccountNumber" HeaderText="Account #" />
+                                                         <asp:BoundField DataField="TIN" HeaderText="TIN" />
+                                                         <asp:BoundField DataField="Remarks" HeaderText="Remarks"/>
+
+                                                     </Columns>
+                                                 </asp:GridView>
+                                             </div>
+                                         </div>
                                         </div>
                                         <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...</div>
                                         <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>

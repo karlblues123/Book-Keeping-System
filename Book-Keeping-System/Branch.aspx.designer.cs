@@ -139,39 +139,57 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.Panel panelSideInputs;
         
         /// <summary>
-        /// txtElectricityProvider control.
+        /// txtProvider control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtElectricityProvider;
+        protected global::System.Web.UI.WebControls.TextBox txtProvider;
         
         /// <summary>
-        /// txtElectricProviderAcctNumber control.
+        /// txtProviderAcctNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtElectricProviderAcctNumber;
+        protected global::System.Web.UI.WebControls.TextBox txtProviderAcctNumber;
         
         /// <summary>
-        /// txtWaterProvider control.
+        /// txtTIN control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtWaterProvider;
+        protected global::System.Web.UI.WebControls.TextBox txtTIN;
         
         /// <summary>
-        /// txtWaterProviderAcctNumber control.
+        /// txtRemarks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtWaterProviderAcctNumber;
+        protected global::System.Web.UI.WebControls.TextBox txtRemarks;
+        
+        /// <summary>
+        /// lnkAddNewProvider control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkAddNewProvider;
+        
+        /// <summary>
+        /// gvBranchDefaultUtilities control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvBranchDefaultUtilities;
     }
 }
