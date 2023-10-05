@@ -619,7 +619,6 @@
     <Compile Include="App_Code\MasterC.cs" />
     <Compile Include="BranchMonthlyExpenses.aspx.cs">
       <DependentUpon>BranchMonthlyExpenses.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BranchMonthlyExpenses.aspx.designer.cs">
       <DependentUpon>BranchMonthlyExpenses.aspx</DependentUpon>
@@ -633,7 +632,6 @@
     </Compile>
     <Compile Include="BranchDailySalesExpenses.aspx.cs">
       <DependentUpon>BranchDailySalesExpenses.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BranchDailySalesExpenses.aspx.designer.cs">
       <DependentUpon>BranchDailySalesExpenses.aspx</DependentUpon>
