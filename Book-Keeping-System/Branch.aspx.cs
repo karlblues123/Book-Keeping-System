@@ -156,8 +156,22 @@ namespace Book_Keeping_System
        
         protected void lnkAddNewProvider_Click(object sender, EventArgs e)
         {
-            oBK.INSERT_DEFAULT_BRANCH_UTILITIES(ViewState["V_BRANCHCODE"].ToString(), txtProvider.Text, txtProviderAcctNumber.Text, txtTIN.Text, txtRemarks.Text);
+            if (!string.IsNullOrEmpty(txtProvider.Text))
+            { 
+            oBK.INSERT_DEFAULT_BRANCH_UTILITIES(ViewState["V_BRANCHCODE"].ToString(), txtProvider.Text.Trim(), txtProviderAcctNumber.Text, txtTIN.Text, txtRemarks.Text);
+            
+                 DISPLAY_BRANCH_DEFAULT_UTILITIES(ViewState["V_BRANCHCODE"].ToString());
 
+                //Clear Fields for provider
+                txtProvider.Text = "";
+                txtProviderAcctNumber.Text = "";
+                txtTIN.Text = "";
+                txtRemarks.Text = "";
+
+                //Success toast message
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('New Provider Added.');</script>", false);
+
+            }
         }
     }
 }
