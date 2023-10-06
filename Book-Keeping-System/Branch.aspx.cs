@@ -20,7 +20,7 @@ namespace Book_Keeping_System
             {
                 DISPLAY_BRANCH_LISTS();
                 DISPLAY_COMPANY_LISTS();
-                DISPLAY_SUPERVISOR_LISTS();
+                //DISPLAY_SUPERVISOR_LISTS();
             }
         }
 
@@ -122,7 +122,7 @@ namespace Book_Keeping_System
                 {
                     //Display Details
                     txtBranchName.Text = dvr["Branch_Name"].ToString().Trim();
-                    ddSupervisorLists.SelectedValue = dvr["SupervisorID"].ToString();
+                    //ddSupervisorLists.SelectedValue = dvr["SupervisorID"].ToString();
                     ddCompanyLists.SelectedValue = dvr["CompanyCode"].ToString();
                     //txtSupplierTIN.Text = dvr["S_TIN"].ToString();
                     //cbVAT.Checked = (bool)dvr["IsVat"];
@@ -132,7 +132,7 @@ namespace Book_Keeping_System
                 //ViewState["V_ACTION"] = 1; //This will hold the option for action.
 
                 //Calling display function for default utilities
-                DISPLAY_BRANCH_DEFAULT_UTILITIES(_branchCode);
+                //DISPLAY_BRANCH_DEFAULT_UTILITIES(_branchCode);
             }
         }
 
@@ -156,8 +156,15 @@ namespace Book_Keeping_System
        
         protected void lnkAddNewProvider_Click(object sender, EventArgs e)
         {
-            oBK.INSERT_DEFAULT_BRANCH_UTILITIES(ViewState["V_BRANCHCODE"].ToString(), txtProvider.Text, txtProviderAcctNumber.Text, txtTIN.Text, txtRemarks.Text);
+            //oBK.INSERT_DEFAULT_BRANCH_UTILITIES(ViewState["V_BRANCHCODE"].ToString(), txtProvider.Text, txtProviderAcctNumber.Text, txtTIN.Text, txtRemarks.Text);
+            pProviderList.Visible = false;
+            pNewProvider.Visible = true;
+        }
 
+        protected void lnkProviderBack_Click(object sender, EventArgs e)
+        {
+            pNewProvider.Visible = false;
+            pProviderList.Visible = true;
         }
     }
 }
