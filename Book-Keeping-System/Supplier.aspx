@@ -61,7 +61,7 @@
                     </div>
                     <div class="card-body ms-5 me-5">
                         <%-- Supplier List GridView --%>
-                        <asp:Panel runat="server" ID="panelSupplierScroll" ScrollBars="Vertical" Height="500px">                                  
+                        <asp:Panel runat="server" ID="panelSupplierScroll" ScrollBars="Vertical" Height="600px">                                  
                             <asp:GridView runat="server" ID="gvSupplierList" CssClass="table table-hover small" AutoGenerateColumns="false" 
                                 ShowHeader="true" GridLines="Horizontal" OnRowDataBound="gvSupplierList_RowDataBound">
                                 <Columns>
@@ -135,13 +135,13 @@
                             <div class="col-1">
                                 <asp:LinkButton runat="server" ID="lnkBack" CssClass="btn btn-outline-warning" 
                                     OnClick="lnkBack_Click">
-                                    Back
+                                    <b class="fa fa-arrow-circle-left"></b> Back
                                 </asp:LinkButton>
                             </div>
                             <div class="col-1">
                                 <asp:LinkButton runat="server" ID="lnkSave" CssClass="btn btn-outline-primary" 
                                     OnClick="lnkSave_Click">
-                                    Save
+                                    <b class="fa fa-save"></b> Save
                                 </asp:LinkButton>
                             </div>
                         </div>

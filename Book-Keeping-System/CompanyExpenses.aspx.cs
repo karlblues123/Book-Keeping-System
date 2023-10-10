@@ -24,6 +24,7 @@ namespace Book_Keeping_System
                 ddUtilityType.Items.Add(new ListItem("Internet", "3"));
 
                 DISPLAY_COMPANY_LISTS();
+                DISPLAY_SUPPLIER_LISTS();
             }
         }
 
@@ -54,6 +55,14 @@ namespace Book_Keeping_System
             ScriptManager.RegisterStartupScript(this, this.GetType(), "EnableNavs", "EnableNavs()", true);
         }
 
+        protected void gvSupplierList_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            foreach (GridViewRow row in gvSupplierList.Rows)
+            {
+                LinkButton edit = row.FindControl("lnkEdit") as LinkButton;
+                ScriptManager.GetCurrent(this).RegisterAsyncPostBackControl(edit);
+            }
+        }
         #endregion
 
         #region LOCAL FUNCTIONS
@@ -66,6 +75,15 @@ namespace Book_Keeping_System
             ddCompanyList.DataTextField = dt.Columns["Company_Name"].ToString();
             ddCompanyList.DataValueField = dt.Columns["CompanyCode"].ToString();
             ddCompanyList.DataBind();
+        }
+
+        private void DISPLAY_SUPPLIER_LISTS()
+        {
+            DataTable dt = oMaster.GET_SUPPLIER_LISTS();
+
+            //Display sa gridview
+            gvSupplierList.DataSource = dt;
+            gvSupplierList.DataBind();
         }
 
         #endregion
