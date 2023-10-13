@@ -13,12 +13,14 @@ namespace Book_Keeping_System
     {
 
         MasterC oMaster = new MasterC();
+        BKC oBK = new BKC();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 DISPLAY_BRANCH_LISTS();
+               
             }
         }
 
@@ -59,12 +61,13 @@ namespace Book_Keeping_System
             var selEdit = (Control)sender;
             GridViewRow r = (GridViewRow)selEdit.NamingContainer;
             int _branchID = Convert.ToInt32(r.Cells[0].Text);
-            //ViewState["V_SUPPLIERID"] = _supplierID;
+            string _branchCode = r.Cells[1].Text;
+            ViewState["V_BRANCHID"] = Convert.ToInt32(r.Cells[0].Text);
 
 
 
             DataView dv = oMaster.GET_BRANCH_LISTS().DefaultView;
-            dv.RowFilter = "BranchID='" + _branchID + "'";
+            dv.RowFilter = "BranchCode='" + _branchCode + "'";
 
 
             if (dv.Count > 0)
@@ -76,6 +79,8 @@ namespace Book_Keeping_System
                     txtSelectedBranch.Text = dvr["Branch_Name"].ToString().Trim();
 
                 }
+
+                DISPLAY_UTILITIES(_branchCode);
                 
             }
         }
@@ -89,8 +94,69 @@ namespace Book_Keeping_System
             gvBranchList.DataSource = dt;
             gvBranchList.DataBind();
         }
+
+        private void DISPLAY_UTILITIES(string _branchCode)
+        {
+            DataTable dt = oBK.GET_BRANCH_DEFAULT_UTILITIES();
+            DataView dv = dt.DefaultView;
+            dv.RowFilter = "BranchCode = '" + _branchCode + "'";
+
+            if (dv.Count > 0)
+            {
+                ddUtilitySupplier.DataSource = dv;
+                ddUtilitySupplier.DataTextField = dv.Table.Columns["ProviderName"].ToString();
+                ddUtilitySupplier.DataValueField = dv.Table.Columns["ID"].ToString();
+                ddUtilitySupplier.DataBind();
+            }
+
+        }
+
+
+        private void CLEAR_UTILITY_INPUTS()
+        {
+            ddUtilitySupplier.SelectedIndex = 0;
+            txtUtilityReceipt.Text = "";
+            txtUtilityVATAmount.Text = "0";
+            txtUtilityVAT.Text = "0";
+            txtUtilityNonVATAmount.Text = "0";
+            txtUtilityTotal.Text = "0";
+            txtUtilityFrom.Text = "";
+            txtUtilityTo.Text = "";
+        }
+
         #endregion
 
-        
+        protected void ddUtilitySupplier_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataView dv = oBK.GET_BRANCH_DEFAULT_UTILITIES().DefaultView;
+            dv.RowFilter = "ID ='" + Convert.ToInt32(ddUtilitySupplier.SelectedValue).ToString() + "'";
+            if (dv.Count > 0)
+            {
+                foreach (DataRowView drv in dv)
+                {
+                    txtUtilityTIN.Text = drv.Row["TIN"].ToString();
+              
+                }
+                
+            }
+            else
+            {
+                txtUtilityTIN.Text = "";
+            }
+        }
+
+        protected void lnkRecordUtility_Click(object sender, EventArgs e)
+        {
+            //Save the transaction record
+            oBK.INSERT_BRANCH_UTILITY_TRANS(Convert.ToInt32(ViewState["V_BRANCHID"]), Convert.ToInt32(ddUtilitySupplier.SelectedValue), txtUtilityTIN.Text, txtUtilityReceipt.Text,
+                                             Convert.ToDouble(txtUtilityVATAmount.Text), Convert.ToDouble(txtUtilityNonVATAmount.Text),
+                                             Convert.ToDouble(txtUtilityVAT.Text), Convert.ToDouble(txtUtilityTotal.Text),
+                                             Convert.ToDateTime(txtUtilityFrom.Text), Convert.ToDateTime(txtUtilityTo.Text), "Particulars", "Remarks");
+            CLEAR_UTILITY_INPUTS();
+
+            //Success toast message
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('New Transaction record successfully process.');</script>", false);
+
+        }
     }
 }

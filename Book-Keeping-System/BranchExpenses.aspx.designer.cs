@@ -103,6 +103,24 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.TextBox txtUtilityReceipt;
         
         /// <summary>
+        /// txtUtilityFrom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtUtilityFrom;
+        
+        /// <summary>
+        /// txtUtilityTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtUtilityTo;
+        
+        /// <summary>
         /// txtUtilityVATAmount control.
         /// </summary>
         /// <remarks>
@@ -137,33 +155,6 @@ namespace Book_Keeping_System {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtUtilityTotal;
-        
-        /// <summary>
-        /// txtUtilityFrom control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUtilityFrom;
-        
-        /// <summary>
-        /// txtUtilityTo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUtilityTo;
-        
-        /// <summary>
-        /// txtUtilityType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList txtUtilityType;
         
         /// <summary>
         /// lnkRecordUtility control.

@@ -213,7 +213,7 @@
                                                             OnClick="lnkProviderBack_Click">Back</asp:LinkButton>
                                                     </div>
                                                     <div class="col-2">
-                                                        <asp:LinkButton runat="server" ID="lnkSaveProvider" CssClass="btn btn-outline-primary">
+                                                        <asp:LinkButton runat="server" ID="lnkSaveProvider" OnClick="lnkSaveProvider_Click" CssClass="btn btn-outline-primary">
                                                             <b class="fa fa-save"></b> Save
                                                         </asp:LinkButton>
                                                     </div>

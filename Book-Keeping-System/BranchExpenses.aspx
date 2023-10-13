@@ -105,6 +105,22 @@
         });
 
 
+        $(function calculateVat() {
+
+            //Getting all inputs in page
+            var vatableAmount = document.getElementById("<%= txtUtilityVATAmount.ClientID %>");
+            var vatAmount = document.getElementById("<%= txtUtilityVAT.ClientID %>");
+            var totalAmount = document.getElementById("<%= txtUtilityTotal.ClientID %>");
+
+            var valVatableAmount = parseFloat(vatableAmount);
+            var valVatAmount = parseFloat(valVatableAmount * .12);
+            var valTotalAmount = parseFloat(valVatableAmount - valVatAmount);
+
+
+
+
+        })
+
         //On UpdatePanel Refresh
         var prm = Sys.WebForms.PageRequestManager.getInstance();
         if (prm != null) {
@@ -214,37 +230,53 @@
                             <div class="card-body tab-content">
                                 <%-- Sales Pane --%>
                                 <div class="tab-pane fade" id="tab-utility">
-                                    <asp:UpdatePanel runat="server" ID="upUtility" UpdateMode="Conditional" ChildrenAsTriggers="false">
-                                        <Triggers>
-                                        </Triggers>
+                                    <asp:UpdatePanel runat="server" ID="upUtility" UpdateMode="Conditional">
                                         <ContentTemplate>
-                                            <%-- Supplier Name --%>
+                                            <%-- Branch Name --%>
                                             <div class="row m-2">
-                                                <div class="col">
+                                                <div class="col-8">
                                                     <div class="form-floating">
-                                                        <asp:DropDownList runat="server" ID="ddUtilitySupplier" 
-                                                            CssClass="form-select"></asp:DropDownList>
+                                                        <asp:DropDownList runat="server" ID="ddUtilitySupplier" AutoPostBack="true"
+                                                            CssClass="form-select" OnSelectedIndexChanged="ddUtilitySupplier_SelectedIndexChanged"></asp:DropDownList>
                                                         <label for="<%=ddUtilitySupplier.ClientID%>">Supplier</label>
                                                     </div>
+                                                    
                                                 </div>
-                                            </div>
-                                            <%-- TIN --%>
-                                            <div class="row m-2">
-                                                <div class="col">
+                                                  <div class="col-4">
                                                     <div class="form-floating">
-                                                        <asp:TextBox runat="server" ID="txtUtilityTIN" CssClass="form-control"></asp:TextBox>
+                                                        <asp:TextBox runat="server" ID="txtUtilityTIN" CssClass="form-control" ReadOnly="true"></asp:TextBox>
                                                         <label for="<%=txtUtilityTIN.ClientID%>">TIN</label>
                                                     </div>
                                                 </div>
+
                                             </div>
+                                            <%-- TIN 
+                                            <div class="row m-2">
+                                              
+                                            </div>--%>
                                             <%-- Receipt Number --%>
                                             <div class="row m-2">
-                                                <div class="col">
+                                                <div class="col-4">
                                                     <div class="form-floating">
                                                         <asp:TextBox runat="server" ID="txtUtilityReceipt" CssClass="form-control"></asp:TextBox>
                                                         <label for="<%=txtUtilityReceipt.ClientID%>">Receipt Number</label>
                                                     </div>
                                                 </div>
+
+                                                <div class="col-4">
+                                                    <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtUtilityFrom" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                                                        <label for="<%=txtUtilityFrom.ClientID%>">From</label>
+                                                    </div>
+                                                </div>
+                                                 <div class="col-4">
+                                                    <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtUtilityTo" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                                                        <label for="<%=txtUtilityTo.ClientID%>">To</label>
+                                                    </div>
+                                                </div>
+                                               
+                                                
                                             </div>
                                             <%-- Amount & VAT --%>
                                             <div class="row m-2">
@@ -275,29 +307,13 @@
                                             </div>
                                             <%-- Coverage and Type --%>
                                             <div class="row m-2">
-                                                <div class="col-4">
-                                                    <div class="form-floating">
-                                                        <asp:TextBox runat="server" ID="txtUtilityFrom" CssClass="form-control" TextMode="Date"></asp:TextBox>
-                                                        <label for="<%=txtUtilityFrom.ClientID%>">From</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-4">
-                                                    <div class="form-floating">
-                                                        <asp:TextBox runat="server" ID="txtUtilityTo" CssClass="form-control" TextMode="Date"></asp:TextBox>
-                                                        <label for="<%=txtUtilityTo.ClientID%>">To</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-4">
-                                                    <div class="form-floating">
-                                                        <asp:DropDownList runat="server" ID="txtUtilityType" CssClass="form-select"></asp:DropDownList>
-                                                        <label for="<%=txtUtilityType.ClientID%>">Type</label>
-                                                    </div>
-                                                </div>
+                                                
+                                               
                                             </div>
                                             <%-- Button --%>
                                             <div class="row m-2">
                                                 <div class="col-2">
-                                                    <asp:LinkButton runat="server" ID="lnkRecordUtility" CssClass="btn btn-outline-success">Record</asp:LinkButton>
+                                                    <asp:LinkButton runat="server" ID="lnkRecordUtility" OnClick="lnkRecordUtility_Click" CssClass="btn btn-outline-success">Record</asp:LinkButton>
                                                 </div>
                                             </div>
                                         </ContentTemplate>
@@ -619,6 +635,8 @@
                     </div>
                 </div>
             </div>
+
+         
         </div>
         <%-- Success Toast --%>
         <div class="position-fixed bottom-0 end-0 p-3 " style="z-index: 11">
