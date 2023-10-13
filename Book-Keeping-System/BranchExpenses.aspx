@@ -46,6 +46,42 @@
             document.getElementById("<%=txtPurchaseTotal.ClientID%>").value = vatable + nonvat + vat;
         }
 
+        function CalculateUtilityTotal() {
+            var vatable = 0, nonvat = 0, vat = 0;
+            if (document.getElementById('<%=txtUtilityVATAmount.ClientID%>').value != null) {
+                vatable = + Number.parseFloat(document.getElementById('<%=txtUtilityVATAmount.ClientID%>').value).toFixed(2);
+            }
+                
+            if (document.getElementById('<%=txtUtilityNonVATAmount.ClientID%>').value != null) {
+                nonvat = + Number.parseFloat(document.getElementById('<%=txtUtilityNonVATAmount.ClientID%>').value).toFixed(2);
+            }
+                
+            if (document.getElementById('<%=txtUtilityVAT.ClientID%>').value != null) {
+                vat = + Number.parseFloat(document.getElementById('<%=txtUtilityVAT.ClientID%>').value).toFixed(2);
+            }
+            document.getElementById("<%=txtUtilityTotal.ClientID%>").value = vatable + nonvat + vat;
+        }
+
+        function CalculatePurchaseVAT() {
+            var total = 0, vatable = 0;
+            if (document.getElementById('<%=txtPurchaseTotal.ClientID%>').value != null) {
+                total = +Number.parseFloat(document.getElementById('<%=txtPurchaseTotal.ClientID%>').value).toFixed(2);
+                vatable = (total / 1.12).toFixed(2);
+            }
+            document.getElementById('<%=txtPurchaseVATAmount.ClientID%>').value = vatable;
+            document.getElementById('<%=txtPurchaseVAT.ClientID%>').value = (total - vatable).toFixed(2);
+        }
+
+        function CalculateUtilityVAT() {
+            var total = 0, vatable = 0;
+            if (document.getElementById('<%=txtUtilityTotal.ClientID%>').value != null) {
+                total = +Number.parseFloat(document.getElementById('<%=txtUtilityTotal.ClientID%>').value).toFixed(2);
+                vatable = (total / 1.12).toFixed(2);
+            }
+            document.getElementById('<%=txtUtilityVATAmount.ClientID%>').value = vatable;
+            document.getElementById('<%=txtUtilityVAT.ClientID%>').value = (total - vatable).toFixed(2);
+        }
+
         function CalculateExpenses() {
             var charcoal = 0, foil = 0, fare = 0, grass = 0, lemon = 0, sili = 0, sauce = 0;
             var water = 0, meals = 0, fare = 0, packaging = 0, cleaning = 0, misc = 0, maint = 0;
@@ -191,7 +227,7 @@
                                 <div class="row">
                                     <div class="col-3">
                                         <asp:TextBox runat="server" ID="txtSelectedBranch" CssClass="form-control"
-                                            ReadOnly="True" Text="No Selected Branch"></asp:TextBox>
+                                            ReadOnly="True" Text="No Branch Selected"></asp:TextBox>
                                     </div>
                                     <div class="col-6">
                                         <%-- Nav Pills --%>
@@ -228,7 +264,7 @@
                                 </div>
                             </div>
                             <div class="card-body tab-content">
-                                <%-- Sales Pane --%>
+                                <%-- Utility Pane --%>
                                 <div class="tab-pane fade" id="tab-utility">
                                     <asp:UpdatePanel runat="server" ID="upUtility" UpdateMode="Conditional">
                                         <ContentTemplate>
@@ -282,25 +318,29 @@
                                             <div class="row m-2">
                                                 <div class="col-3">
                                                     <div class="form-floating">
-                                                        <asp:TextBox runat="server" ID="txtUtilityVATAmount" CssClass="form-control"></asp:TextBox>
+                                                        <asp:TextBox runat="server" ID="txtUtilityVATAmount" CssClass="form-control" 
+                                                            TextMode="Number" Text="0" onchange="CalculateUtilityTotal()"></asp:TextBox>
                                                         <label for="<%=txtUtilityVATAmount.ClientID%>">VATable</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-3">
                                                     <div class="form-floating">
-                                                        <asp:TextBox runat="server" ID="txtUtilityNonVATAmount" CssClass="form-control"></asp:TextBox>
+                                                        <asp:TextBox runat="server" ID="txtUtilityNonVATAmount" CssClass="form-control"
+                                                            TextMode="Number" Text="0" onchange="CalculateUtilityTotal()"></asp:TextBox>
                                                         <label for="<%=txtUtilityNonVATAmount.ClientID%>">NonVAT</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-3">
                                                     <div class="form-floating">
-                                                        <asp:TextBox runat="server" ID="txtUtilityVAT" CssClass="form-control"></asp:TextBox>
+                                                        <asp:TextBox runat="server" ID="txtUtilityVAT" CssClass="form-control"
+                                                            TextMode="Number" Text="0" onchange="CalculateUtilityTotal()"></asp:TextBox>
                                                         <label for="<%=txtUtilityVAT.ClientID%>">VAT</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-3">
                                                     <div class="form-floating">
-                                                        <asp:TextBox runat="server" ID="txtUtilityTotal" CssClass="form-control"></asp:TextBox>
+                                                        <asp:TextBox runat="server" ID="txtUtilityTotal" CssClass="form-control"
+                                                            TextMode="Number" Text="0" onchange="CalculateUtilityVAT()"></asp:TextBox>
                                                         <label for="<%=txtUtilityTotal.ClientID%>">Total</label>
                                                     </div>
                                                 </div>
@@ -386,7 +426,7 @@
                                                     <div class="col-3">
                                                         <div class="form-floating">
                                                             <asp:TextBox runat="server" ID="txtPurchaseTotal" CssClass="form-control" 
-                                                                TextMode="Number" Text="0" onchange="CalculatePurchaseTotal()"></asp:TextBox>
+                                                                TextMode="Number" Text="0" onchange="CalculatePurchaseVAT()"></asp:TextBox>
                                                             <label for="<%=txtPurchaseTotal.ClientID%>">Total</label>
                                                         </div>
                                                     </div>

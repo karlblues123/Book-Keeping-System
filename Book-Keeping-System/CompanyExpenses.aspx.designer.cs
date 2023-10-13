@@ -40,6 +40,24 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.TextBox txtDate;
         
         /// <summary>
+        /// upSupplierList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upSupplierList;
+        
+        /// <summary>
+        /// gvSupplierList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvSupplierList;
+        
+        /// <summary>
         /// upUtility control.
         /// </summary>
         /// <remarks>
@@ -49,13 +67,13 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.UpdatePanel upUtility;
         
         /// <summary>
-        /// ddUtilitySupplier control.
+        /// txtUtilitySupplier control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddUtilitySupplier;
+        protected global::System.Web.UI.WebControls.TextBox txtUtilitySupplier;
         
         /// <summary>
         /// txtUtilityTIN control.
