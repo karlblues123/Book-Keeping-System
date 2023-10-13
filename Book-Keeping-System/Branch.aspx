@@ -173,64 +173,84 @@
                                     </div>
                                     <div class="card-body tab-content" id="myTabContent">
                                         <div class="tab-pane fade show active" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                                          
-                                            <div class="row mt-2">
-                                                <div class="col-6">
-                                                    <div class="form-floating">
-                                                            <asp:TextBox runat="server" ID="txtProvider" CssClass="form-control"
-                                                                placeholder="Provider"></asp:TextBox>
-                                                            <label for="txtProvider">Provider</label>
+                                            <%-- New Provider Form --%>
+                                            <asp:Panel runat="server" ID="pNewProvider" Visible="false">
+                                                <div class="row mt-2">
+                                                    <div class="col-6">
+                                                        <div class="form-floating">
+                                                                <asp:TextBox runat="server" ID="txtProvider" CssClass="form-control"
+                                                                    placeholder="Provider"></asp:TextBox>
+                                                                <label for="txtProvider">Provider</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-floating">
+                                                                <asp:TextBox runat="server" ID="txtProviderAcctNumber" CssClass="form-control"
+                                                                    placeholder="Account Number"></asp:TextBox>
+                                                                <label for="txtProviderAcctNumber">Account Number</label>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                                <div class="row mt-2">
+                                                     <div class="col-6">
+                                                        <div class="form-floating">
+                                                                <asp:TextBox runat="server" ID="txtTIN" CssClass="form-control"
+                                                                    placeholder="TIN Number"></asp:TextBox>
+                                                                <label for="txtTIN">TIN Number</label>
+                                                        </div>
+                                                    </div>
+                                                     <div class="col-6">
+                                                        <div class="form-floating">
+                                                                <asp:TextBox runat="server" ID="txtRemarks" CssClass="form-control"
+                                                                    placeholder="Remarks"></asp:TextBox>
+                                                                <label for="txtRemarks">Remarks</label>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
-                                                    <div class="form-floating">
-                                                            <asp:TextBox runat="server" ID="txtProviderAcctNumber" CssClass="form-control"
-                                                                placeholder="Account Number"></asp:TextBox>
-                                                            <label for="txtProviderAcctNumber">Account Number</label>
+                                                <div class="row mt-2">
+                                                    <div class="col-2">
+                                                        <asp:LinkButton runat="server" ID="lnkProviderBack" CssClass="btn btn-outline-warning" 
+                                                            OnClick="lnkProviderBack_Click">Back</asp:LinkButton>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <asp:LinkButton runat="server" ID="lnkSaveProvider" CssClass="btn btn-outline-primary">
+                                                            <b class="fa fa-save"></b> Save
+                                                        </asp:LinkButton>
                                                     </div>
                                                 </div>
-                                             </div>
-                                            <div class="row mt-2">
-                                                 <div class="col-6">
-                                                    <div class="form-floating">
-                                                            <asp:TextBox runat="server" ID="txtTIN" CssClass="form-control"
-                                                                placeholder="TIN Number"></asp:TextBox>
-                                                            <label for="txtTIN">TIN Number</label>
+                                            </asp:Panel>
+                                            <%-- Provider List --%>
+                                            <asp:Panel runat="server" ID="pProviderList" Visible="true">
+                                                <div class="row m-2">
+                                                    <div class="card" style="padding-left:0;padding-right:0;">
+                                                        <div class="card-header bg-info bg-opacity-25">
+                                                            <div class="row">
+                                                                <div class="col-9">
+                                                                    List of Assigned Provider
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <asp:LinkButton runat="server" ID="lnkAddNewProvider" OnClick="lnkAddNewProvider_Click"  CssClass="btn btn-outline-primary btn-sm">
+                                                                        New Provider
+                                                                    </asp:LinkButton>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <asp:GridView runat="server" ID="gvBranchDefaultUtilities" AutoGenerateColumns="false" CssClass="table table-responsive table-light">
+                                                                <Columns>
+                                                                    <asp:BoundField DataField="ProviderName" HeaderText="Provider" />
+                                                                    <asp:BoundField DataField="AccountNumber" HeaderText="Account #" />
+                                                                    <asp:BoundField DataField="TIN" HeaderText="TIN" />
+                                                                    <asp:BoundField DataField="Remarks" HeaderText="Remarks"/>
+                                                                </Columns>
+                                                            </asp:GridView>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                 <div class="col-6">
-                                                    <div class="form-floating">
-                                                            <asp:TextBox runat="server" ID="txtRemarks" CssClass="form-control"
-                                                                placeholder="Remarks"></asp:TextBox>
-                                                            <label for="txtRemarks">Remarks</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="text-end">
-                                                <p></p>
-                                            <asp:LinkButton runat="server" ID="lnkAddNewProvider" OnClick="lnkAddNewProvider_Click"  CssClass="btn btn-outline-primary btn-sm">
-                                                Add Provider
-                                            </asp:LinkButton>
-                                                </div>
-                                         <div class="card">
-                                             <div class="card-header bg-info">
-                                                 List of Assigned Provider
-                                             </div>
-                                             <div class="card-body">
-                                                 <asp:GridView runat="server" ID="gvBranchDefaultUtilities" AutoGenerateColumns="false" CssClass="table table-responsive table-light">
-                                                     <Columns>
-                                                         <asp:BoundField DataField="ProviderName" HeaderText="Provider" />
-                                                         <asp:BoundField DataField="AccountNumber" HeaderText="Account #" />
-                                                         <asp:BoundField DataField="TIN" HeaderText="TIN" />
-                                                         <asp:BoundField DataField="Remarks" HeaderText="Remarks"/>
-
-                                                     </Columns>
-                                                 </asp:GridView>
-                                             </div>
-                                         </div>
+                                            </asp:Panel>
                                         </div>
-                                        <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...</div>
-                                        <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>
+                                        <%--<div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...</div>
+                                        <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>--%>
                                     </div>
                                 </asp:Panel>
                             </div>     

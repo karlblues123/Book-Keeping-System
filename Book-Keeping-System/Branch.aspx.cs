@@ -20,7 +20,7 @@ namespace Book_Keeping_System
             {
                 DISPLAY_BRANCH_LISTS();
                 DISPLAY_COMPANY_LISTS();
-                DISPLAY_SUPERVISOR_LISTS();
+                //DISPLAY_SUPERVISOR_LISTS();
             }
         }
 
@@ -122,7 +122,7 @@ namespace Book_Keeping_System
                 {
                     //Display Details
                     txtBranchName.Text = dvr["Branch_Name"].ToString().Trim();
-                    ddSupervisorLists.SelectedValue = dvr["SupervisorID"].ToString();
+                    //ddSupervisorLists.SelectedValue = dvr["SupervisorID"].ToString();
                     ddCompanyLists.SelectedValue = dvr["CompanyCode"].ToString();
                     //txtSupplierTIN.Text = dvr["S_TIN"].ToString();
                     //cbVAT.Checked = (bool)dvr["IsVat"];
@@ -156,21 +156,39 @@ namespace Book_Keeping_System
        
         protected void lnkAddNewProvider_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtProvider.Text))
-            { 
-            oBK.INSERT_DEFAULT_BRANCH_UTILITIES(ViewState["V_BRANCHCODE"].ToString(), txtProvider.Text.Trim(), txtProviderAcctNumber.Text, txtTIN.Text, txtRemarks.Text);
             
-                 DISPLAY_BRANCH_DEFAULT_UTILITIES(ViewState["V_BRANCHCODE"].ToString());
+            pProviderList.Visible = false;
+            pNewProvider.Visible = true;
 
-                //Clear Fields for provider
-                txtProvider.Text = "";
-                txtProviderAcctNumber.Text = "";
-                txtTIN.Text = "";
-                txtRemarks.Text = "";
+        }
+
+        protected void lnkProviderBack_Click(object sender, EventArgs e)
+        {
+            pNewProvider.Visible = false;
+            pProviderList.Visible = true;
+
+            //Clear Fields for provider
+            txtProvider.Text = "";
+            txtProviderAcctNumber.Text = "";
+            txtTIN.Text = "";
+            txtRemarks.Text = "";
+        }
+
+        protected void lnkSaveProvider_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtProvider.Text))
+            {
+                oBK.INSERT_DEFAULT_BRANCH_UTILITIES(ViewState["V_BRANCHCODE"].ToString(), txtProvider.Text.Trim(), txtProviderAcctNumber.Text, txtTIN.Text, txtRemarks.Text);
+
+                DISPLAY_BRANCH_DEFAULT_UTILITIES(ViewState["V_BRANCHCODE"].ToString());
+
+               
 
                 //Success toast message
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('New Provider Added.');</script>", false);
 
+                //call event of back button
+                lnkProviderBack_Click(sender, e);
             }
         }
     }

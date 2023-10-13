@@ -139,6 +139,15 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.Panel panelSideInputs;
         
         /// <summary>
+        /// pNewProvider control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pNewProvider;
+        
+        /// <summary>
         /// txtProvider control.
         /// </summary>
         /// <remarks>
@@ -173,6 +182,33 @@ namespace Book_Keeping_System {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRemarks;
+        
+        /// <summary>
+        /// lnkProviderBack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkProviderBack;
+        
+        /// <summary>
+        /// lnkSaveProvider control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkSaveProvider;
+        
+        /// <summary>
+        /// pProviderList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pProviderList;
         
         /// <summary>
         /// lnkAddNewProvider control.
