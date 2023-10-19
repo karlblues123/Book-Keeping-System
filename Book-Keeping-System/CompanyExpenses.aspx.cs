@@ -57,7 +57,7 @@ namespace Book_Keeping_System
 
         protected void gvSupplierList_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            foreach (GridViewRow row in gvSupplierList.Rows)
+            foreach (GridViewRow row in gvUtilitySupplierList.Rows)
             {
                 LinkButton edit = row.FindControl("lnkEdit") as LinkButton;
                 ScriptManager.GetCurrent(this).RegisterAsyncPostBackControl(edit);
@@ -81,9 +81,13 @@ namespace Book_Keeping_System
         {
             DataTable dt = oMaster.GET_SUPPLIER_LISTS();
 
-            //Display sa gridview
-            gvSupplierList.DataSource = dt;
-            gvSupplierList.DataBind();
+            //Display Utility Suppliers in the list
+            gvUtilitySupplierList.DataSource = dt;
+            gvUtilitySupplierList.DataBind();
+
+            //Display Suppliers in the list
+            gvMiscSupplierList.DataSource = dt;
+            gvMiscSupplierList.DataBind();
         }
 
         #endregion
