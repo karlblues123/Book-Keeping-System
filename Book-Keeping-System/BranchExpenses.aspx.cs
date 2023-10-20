@@ -20,7 +20,7 @@ namespace Book_Keeping_System
             if (!IsPostBack)
             {
                 DISPLAY_BRANCH_LISTS();
-               
+                CLEAR_UTILITY_INPUTS();
             }
         }
 
@@ -72,7 +72,8 @@ namespace Book_Keeping_System
 
             if (dv.Count > 0)
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "EnableNavs", "EnableNavs()", true);
+                //Disable the script to directly input on expenses form 10.19.2023
+                //ScriptManager.RegisterStartupScript(this, this.GetType(), "EnableNavs", "EnableNavs()", true);
                 foreach (DataRowView dvr in dv)
                 {
                     //Display Details
@@ -81,8 +82,10 @@ namespace Book_Keeping_System
                 }
 
                 DISPLAY_UTILITIES(_branchCode);
-                
+
             }
+
+           
         }
 
         #region LOCAL FUNCTIONS
@@ -108,6 +111,11 @@ namespace Book_Keeping_System
                 ddUtilitySupplier.DataValueField = dv.Table.Columns["ID"].ToString();
                 ddUtilitySupplier.DataBind();
             }
+            else {
+                ddUtilitySupplier.Items.Clear();
+
+            }
+
 
         }
 
@@ -120,8 +128,12 @@ namespace Book_Keeping_System
             txtUtilityVAT.Text = "0";
             txtUtilityNonVATAmount.Text = "0";
             txtUtilityTotal.Text = "0";
-            txtUtilityFrom.Text = "";
-            txtUtilityTo.Text = "";
+            txtUtilityParticulars.Text = "";
+            txtUtilityRemarks.Text = "";
+
+            ddUtilitySupplier.Focus();
+            txtUtilityFrom.Text = oBK.GetServerDate().ToShortDateString();
+            txtUtilityTo.Text = oBK.GetServerDate().ToShortDateString();
         }
 
         #endregion
@@ -151,11 +163,11 @@ namespace Book_Keeping_System
             oBK.INSERT_BRANCH_UTILITY_TRANS(Convert.ToInt32(ViewState["V_BRANCHID"]), Convert.ToInt32(ddUtilitySupplier.SelectedValue), txtUtilityTIN.Text, txtUtilityReceipt.Text,
                                              Convert.ToDouble(txtUtilityVATAmount.Text), Convert.ToDouble(txtUtilityNonVATAmount.Text),
                                              Convert.ToDouble(txtUtilityVAT.Text), Convert.ToDouble(txtUtilityTotal.Text),
-                                             Convert.ToDateTime(txtUtilityFrom.Text), Convert.ToDateTime(txtUtilityTo.Text), "Particulars", "Remarks");
+                                             Convert.ToDateTime(txtUtilityFrom.Text), Convert.ToDateTime(txtUtilityTo.Text), txtUtilityParticulars.Text, txtUtilityRemarks.Text);
             CLEAR_UTILITY_INPUTS();
 
             //Success toast message
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('New Transaction record successfully process.');</script>", false);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('Utility Expense transaction record successfully process.');</script>", false);
 
         }
     }

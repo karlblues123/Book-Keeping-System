@@ -5,30 +5,30 @@
     <script type="text/javascript">
 
         //Show toast
-        function ShowToast(msg) {
-            document.getElementById('toast-message').textContent = msg;
-            var toast = new bootstrap.Toast(document.getElementById('success-toast'));
-            toast.show();
-        }
+        //function ShowToast(msg) {
+        //    document.getElementById('toast-message').textContent = msg;
+        //    var toast = new bootstrap.Toast(document.getElementById('success-toast'));
+        //    toast.show();
+        //}
 
-        function ShowError(msg) {
-            document.getElementById('error-message').textContent = msg;
-            var toast = new bootstrap.Toast(document.getElementById('error-toast'));
-            toast.show();
-        }
+        //function ShowError(msg) {
+        //    document.getElementById('error-message').textContent = msg;
+        //    var toast = new bootstrap.Toast(document.getElementById('error-toast'));
+        //    toast.show();
+        //}
 
-        function EnableNavs() {
-            var links = document.getElementById('form-pills').querySelectorAll('.nav-link');
-            links.forEach(link => {
-                link.classList.remove('disabled');
-            });
-        }
+        //function EnableNavs() {
+        //    var links = document.getElementById('form-pills').querySelectorAll('.nav-link');
+        //    links.forEach(link => {
+        //        link.classList.remove('disabled');
+        //    });
+        //}
 
-        window.onload = new function(){
-            const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
-            const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+        //window.onload = new function(){
+        //    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+        //    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 
-        }
+        //}
 
         function CalculatePurchaseTotal() {
             var vatable = 0, nonvat = 0, vat = 0;
@@ -46,7 +46,7 @@
             document.getElementById("<%=txtPurchaseTotal.ClientID%>").value = vatable + nonvat + vat;
         }
 
-        function CalculateUtilityTotal() {
+        <%--function CalculateUtilityTotal() {
             var vatable = 0, nonvat = 0, vat = 0;
             if (document.getElementById('<%=txtUtilityVATAmount.ClientID%>').value != null) {
                 vatable = + Number.parseFloat(document.getElementById('<%=txtUtilityVATAmount.ClientID%>').value).toFixed(2);
@@ -60,7 +60,7 @@
                 vat = + Number.parseFloat(document.getElementById('<%=txtUtilityVAT.ClientID%>').value).toFixed(2);
             }
             document.getElementById("<%=txtUtilityTotal.ClientID%>").value = vatable + nonvat + vat;
-        }
+        }--%>
 
         function CalculatePurchaseVAT() {
             var total = 0, vatable = 0;
@@ -72,7 +72,7 @@
             document.getElementById('<%=txtPurchaseVAT.ClientID%>').value = (total - vatable).toFixed(2);
         }
 
-        function CalculateUtilityVAT() {
+       <%-- function CalculateUtilityVAT() {
             var total = 0, vatable = 0;
             if (document.getElementById('<%=txtUtilityTotal.ClientID%>').value != null) {
                 total = +Number.parseFloat(document.getElementById('<%=txtUtilityTotal.ClientID%>').value).toFixed(2);
@@ -80,7 +80,7 @@
             }
             document.getElementById('<%=txtUtilityVATAmount.ClientID%>').value = vatable;
             document.getElementById('<%=txtUtilityVAT.ClientID%>').value = (total - vatable).toFixed(2);
-        }
+        }--%>
 
         function CalculateExpenses() {
             var charcoal = 0, foil = 0, fare = 0, grass = 0, lemon = 0, sili = 0, sauce = 0;
@@ -140,22 +140,41 @@
             });
         });
 
+        // For Calendar Inputs
+        $(function setCalendarInput() {
+            var dateToday = new Date();
+            $('.calendarInput').datepicker({ maxDate: 0 });
+        });
 
         $(function calculateVat() {
 
-            //Getting all inputs in page
-            var vatableAmount = document.getElementById("<%= txtUtilityVATAmount.ClientID %>");
-            var vatAmount = document.getElementById("<%= txtUtilityVAT.ClientID %>");
-            var totalAmount = document.getElementById("<%= txtUtilityTotal.ClientID %>");
+                        //Getting all inputs in page
+                        var vatableAmount = document.getElementById("<%= txtUtilityVATAmount.ClientID %>");
+                        var vatAmount = document.getElementById("<%= txtUtilityVAT.ClientID %>");
+                        var totalAmount = document.getElementById("<%= txtUtilityTotal.ClientID %>");
 
-            var valVatableAmount = parseFloat(vatableAmount);
-            var valVatAmount = parseFloat(valVatableAmount * .12);
-            var valTotalAmount = parseFloat(valVatableAmount - valVatAmount);
+                  
 
 
+                        function calculateVatProcess() {
 
 
-        })
+                          
+                            //showVat.innerHTML = vatableAmount.toLocaleString("en-US");;
+                            var totalVat = parseFloat(vatableAmount.value) * .12;
+                            vatAmount.value = totalVat;
+                            totalAmount.value = parseFloat(vatableAmount.value) - totalVat;
+                      
+                             
+                        }
+
+                        //Events Input
+                        vatableAmount.addEventListener("input", calculateVatProcess);
+                        vatAmount.addEventListener("input", calculateVatProcess);
+                        totalAmount.addEventListener("input", calculateVatProcess);
+
+
+                    });
 
         //On UpdatePanel Refresh
         var prm = Sys.WebForms.PageRequestManager.getInstance();
@@ -172,6 +191,42 @@
                                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                             });
                         });
+                    });
+
+                    // For Calendar Inputs
+                    $(function setCalendarInput() {
+                        var dateToday = new Date();
+                        $('.calendarInput').datepicker({ maxDate: 0 });
+                    });
+
+                    $(function calculateVat() {
+
+                        //Getting all inputs in page
+                        var vatableAmount = document.getElementById("<%= txtUtilityVATAmount.ClientID %>");
+                        var vatAmount = document.getElementById("<%= txtUtilityVAT.ClientID %>");
+                        var totalAmount = document.getElementById("<%= txtUtilityTotal.ClientID %>");
+
+                  
+
+
+                        function calculateVatProcess() {
+
+
+                          
+                            //showVat.innerHTML = vatableAmount.toLocaleString("en-US");;
+                            var totalVat = parseFloat(vatableAmount.value) * .12;
+                            vatAmount.value = totalVat;
+                            totalAmount.value = parseFloat(vatableAmount.value) - totalVat;
+                      
+                             
+                        }
+
+                        //Events Input
+                        vatableAmount.addEventListener("input", calculateVatProcess);
+                        vatAmount.addEventListener("input", calculateVatProcess);
+                        totalAmount.addEventListener("input", calculateVatProcess);
+
+
                     });
 
                 }
@@ -231,21 +286,21 @@
                                     </div>
                                     <div class="col-6">
                                         <%-- Nav Pills --%>
-                                        <ul class="nav nav-pills" id="form-pills" role="tablist">
+                                        <ul class="nav nav-pills nav-fill" id="form-pills" role="tablist">
                                             <li class="nav-item">
-                                                <button class="nav-link disabled" data-bs-toggle="pill" data-bs-target="#tab-utility" 
+                                                <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-utility" 
                                                     type="button" role="tab" aria-controls="tab-sales" aria-selected="false">Utility</button>
                                             </li>
                                             <li class="nav-item">
-                                                <button class="nav-link disabled" data-bs-toggle="pill" data-bs-target="#tab-purchase" 
+                                                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-purchase" 
                                                     type="button" role="tab" aria-controls="tab-purchase" aria-selected="false">Purchase</button>
                                             </li>
                                             <li class="nav-item">
-                                                <button class="nav-link disabled" data-bs-toggle="pill" data-bs-target="#tab-purchase-list" 
+                                                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-purchase-list" 
                                                     type="button" role="tab" aria-controls="tab-purchase-list" aria-selected="false">Purchase List</button>
                                             </li>
                                             <li class="nav-item">
-                                                <button class="nav-link disabled" data-bs-toggle="pill" data-bs-target="#tab-expenses" 
+                                                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-expenses" 
                                                     type="button" role="tab" aria-controls="tab-expenses" aria-selected="false">Expenses</button>
                                             </li>
                                         </ul>
@@ -274,7 +329,7 @@
                                                     <div class="form-floating">
                                                         <asp:DropDownList runat="server" ID="ddUtilitySupplier" AutoPostBack="true"
                                                             CssClass="form-select" OnSelectedIndexChanged="ddUtilitySupplier_SelectedIndexChanged"></asp:DropDownList>
-                                                        <label for="<%=ddUtilitySupplier.ClientID%>">Supplier</label>
+                                                        <label for="<%=ddUtilitySupplier.ClientID%>">Supplier (Linked)</label>
                                                     </div>
                                                     
                                                 </div>
@@ -301,13 +356,13 @@
 
                                                 <div class="col-4">
                                                     <div class="form-floating">
-                                                        <asp:TextBox runat="server" ID="txtUtilityFrom" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                                                        <asp:TextBox runat="server" ID="txtUtilityFrom" CssClass="form-control calendarInput"></asp:TextBox>
                                                         <label for="<%=txtUtilityFrom.ClientID%>">From</label>
                                                     </div>
                                                 </div>
                                                  <div class="col-4">
                                                     <div class="form-floating">
-                                                        <asp:TextBox runat="server" ID="txtUtilityTo" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                                                        <asp:TextBox runat="server" ID="txtUtilityTo" CssClass="form-control calendarInput"></asp:TextBox>
                                                         <label for="<%=txtUtilityTo.ClientID%>">To</label>
                                                     </div>
                                                 </div>
@@ -319,35 +374,49 @@
                                                 <div class="col-3">
                                                     <div class="form-floating">
                                                         <asp:TextBox runat="server" ID="txtUtilityVATAmount" CssClass="form-control" 
-                                                            TextMode="Number" Text="0" onchange="CalculateUtilityTotal()"></asp:TextBox>
+                                                            TextMode="Number" Text="0"></asp:TextBox>
                                                         <label for="<%=txtUtilityVATAmount.ClientID%>">VATable</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-3">
                                                     <div class="form-floating">
                                                         <asp:TextBox runat="server" ID="txtUtilityNonVATAmount" CssClass="form-control"
-                                                            TextMode="Number" Text="0" onchange="CalculateUtilityTotal()"></asp:TextBox>
+                                                            TextMode="Number" Text="0"></asp:TextBox>
                                                         <label for="<%=txtUtilityNonVATAmount.ClientID%>">NonVAT</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-3">
                                                     <div class="form-floating">
                                                         <asp:TextBox runat="server" ID="txtUtilityVAT" CssClass="form-control"
-                                                            TextMode="Number" Text="0" onchange="CalculateUtilityTotal()"></asp:TextBox>
+                                                            TextMode="Number" Text="0"></asp:TextBox>
                                                         <label for="<%=txtUtilityVAT.ClientID%>">VAT</label>
                                                     </div>
+                                                   
                                                 </div>
                                                 <div class="col-3">
                                                     <div class="form-floating">
                                                         <asp:TextBox runat="server" ID="txtUtilityTotal" CssClass="form-control"
-                                                            TextMode="Number" Text="0" onchange="CalculateUtilityVAT()"></asp:TextBox>
+                                                            TextMode="Number" Text="0"></asp:TextBox>
                                                         <label for="<%=txtUtilityTotal.ClientID%>">Total</label>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <%-- Coverage and Type --%>
+                                            <%-- Particulars / Remarks --%>
                                             <div class="row m-2">
-                                                
+                                                <div class="col-6">
+                                                     <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtUtilityParticulars" CssClass="form-control"
+                                                            TextMode="MultiLine" Rows="2"></asp:TextBox>
+                                                        <label for="txtUtilityParticulars">Particulars</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="form-floating">
+                                                        <asp:TextBox runat="server" ID="txtUtilityRemarks" CssClass="form-control"
+                                                             TextMode="MultiLine" Rows="2"></asp:TextBox>
+                                                        <label for="txtUtilityParticulars">Remarks</label>
+                                                    </div>
+                                                </div>
                                                
                                             </div>
                                             <%-- Button --%>
