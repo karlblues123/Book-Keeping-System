@@ -69,4 +69,3 @@ D:\Book-Keeping-System\Book-Keeping-System\bin\stdole.dll
 D:\Book-Keeping-System\Book-Keeping-System\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\Book-Keeping-System\Book-Keeping-System\obj\Debug\Book-Keeping-System.dll
 D:\Book-Keeping-System\Book-Keeping-System\obj\Debug\Book-Keeping-System.pdb
-D:\Book-Keeping-System\Book-Keeping-System\obj\Debug\Book-Keeping-System.csprojResolveAssemblyReference.cache
