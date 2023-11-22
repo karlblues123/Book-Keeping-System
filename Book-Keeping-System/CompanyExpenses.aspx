@@ -214,8 +214,8 @@
                                                     <asp:BoundField DataField="TIN" HeaderText="TIN" ItemStyle-Width="35%" />
                                                     <asp:TemplateField ItemStyle-Width="20%">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton runat="server" ID="lnkEdit" 
-                                                                CssClass="btn btn-sm btn-outline-primary">
+                                                            <asp:LinkButton runat="server" ID="lnkUtilitySelect" 
+                                                                CssClass="btn btn-sm btn-outline-primary" OnClick="lnkUtilitySelect_Click">
                                                                 <b class="fa fa-check-circle"></b> Select
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
@@ -334,15 +334,15 @@
                                         </div>
                                         <div class="card-body" style="height:550px;overflow-y:scroll">
                                             <asp:GridView runat="server" ID="gvMiscSupplierList" CssClass="table table-hover small" AutoGenerateColumns="false" 
-                                                ShowHeader="true" GridLines="Horizontal">
+                                                ShowHeader="true" GridLines="Horizontal" OnRowDataBound="gvMiscSupplierList_RowDataBound">
                                                 <Columns>
                                                     <asp:BoundField DataField="SupplierID" ItemStyle-Width="5%"/>
                                                     <asp:BoundField DataField="Supplier_Name" HeaderText="Name" ItemStyle-Width="40%"/>
                                                     <asp:BoundField DataField="TIN" HeaderText="TIN" ItemStyle-Width="35%" />
                                                     <asp:TemplateField ItemStyle-Width="20%">
                                                         <ItemTemplate>
-                                                            <asp:LinkButton runat="server" ID="lnkEdit" 
-                                                                CssClass="btn btn-sm btn-outline-primary">
+                                                            <asp:LinkButton runat="server" ID="lnkMiscSelect" 
+                                                                CssClass="btn btn-sm btn-outline-primary" OnClick="lnkMiscSelect_Click">
                                                                 <b class="fa fa-check-circle"></b> Select
                                                             </asp:LinkButton>
                                                         </ItemTemplate>

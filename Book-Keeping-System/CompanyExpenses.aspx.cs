@@ -55,14 +55,65 @@ namespace Book_Keeping_System
             ScriptManager.RegisterStartupScript(this, this.GetType(), "EnableNavs", "EnableNavs()", true);
         }
 
+        protected void lnkUtilitySelect_Click(object sender, EventArgs e)
+        {
+
+            var selEdit = (Control)sender;
+            GridViewRow r = (GridViewRow)selEdit.NamingContainer;
+            int _supplierID = Convert.ToInt32(r.Cells[0].Text);
+
+            DataView dv = oMaster.GET_SUPPLIER_LISTS().DefaultView;
+            dv.RowFilter = "SupplierID='" + _supplierID + "'";
+
+            if (dv.Count > 0)
+            {
+                foreach (DataRowView dvr in dv)
+                {
+                    txtUtilitySupplier.Text = dvr["Supplier_Name"].ToString();
+                    txtUtilityTIN.Text = dvr["TIN"].ToString();
+                    upUtility.Update();
+                }
+            }
+        }
+
+        protected void lnkMiscSelect_Click(object sender, EventArgs e)
+        {
+            var selEdit = (Control)sender;
+            GridViewRow r = (GridViewRow)selEdit.NamingContainer;
+            int _supplierID = Convert.ToInt32(r.Cells[0].Text);
+
+            DataView dv = oMaster.GET_SUPPLIER_LISTS().DefaultView;
+            dv.RowFilter = "SupplierID='" + _supplierID + "'";
+
+            if (dv.Count > 0)
+            {
+                foreach (DataRowView dvr in dv)
+                {
+                    txtMiscSupplier.Text = dvr["Supplier_Name"].ToString();
+                    txtMiscTIN.Text = dvr["TIN"].ToString();
+                    upMisc.Update();
+                }
+            }
+        }
+
         protected void gvSupplierList_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             foreach (GridViewRow row in gvUtilitySupplierList.Rows)
             {
-                LinkButton edit = row.FindControl("lnkEdit") as LinkButton;
+                LinkButton edit = row.FindControl("lnkUtilitySelect") as LinkButton;
                 ScriptManager.GetCurrent(this).RegisterAsyncPostBackControl(edit);
             }
         }
+
+        protected void gvMiscSupplierList_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            foreach (GridViewRow row in gvMiscSupplierList.Rows)
+            {
+                LinkButton edit = row.FindControl("lnkMiscSelect") as LinkButton;
+                ScriptManager.GetCurrent(this).RegisterAsyncPostBackControl(edit);
+            }
+        }
+
         #endregion
 
         #region LOCAL FUNCTIONS
@@ -81,6 +132,8 @@ namespace Book_Keeping_System
         {
             DataTable dt = oMaster.GET_SUPPLIER_LISTS();
 
+            //TODO Get Utility Suppliers and Misc Suppliers
+
             //Display Utility Suppliers in the list
             gvUtilitySupplierList.DataSource = dt;
             gvUtilitySupplierList.DataBind();
@@ -88,7 +141,10 @@ namespace Book_Keeping_System
             //Display Suppliers in the list
             gvMiscSupplierList.DataSource = dt;
             gvMiscSupplierList.DataBind();
+
         }
+
+        
 
         #endregion
 
