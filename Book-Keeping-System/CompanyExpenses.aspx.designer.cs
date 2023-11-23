@@ -157,6 +157,15 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.LinkButton lnkUtilitySubmit;
         
         /// <summary>
+        /// lnkUtilityClear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkUtilityClear;
+        
+        /// <summary>
         /// upMisc control.
         /// </summary>
         /// <remarks>
@@ -265,6 +274,15 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.LinkButton lnkMiscSubmit;
         
         /// <summary>
+        /// lnkMiscClear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkMiscClear;
+        
+        /// <summary>
         /// upNewSupplier control.
         /// </summary>
         /// <remarks>
@@ -317,5 +335,14 @@ namespace Book_Keeping_System {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkSupplierSave;
+        
+        /// <summary>
+        /// lnkSupplierClear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkSupplierClear;
     }
 }

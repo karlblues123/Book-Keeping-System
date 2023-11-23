@@ -191,6 +191,8 @@
                 <div class="tab-pane fade" id="tab-utility">
                     <asp:UpdatePanel runat="server" ID="upUtility" UpdateMode="Conditional" ChildrenAsTriggers="false">
                         <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="lnkUtilitySubmit" EventName="Click" />
+                            <asp:AsyncPostBackTrigger ControlID="lnkUtilityClear" EventName="Click" />
                         </Triggers>
                         <ContentTemplate>
                             <div class="row">
@@ -309,10 +311,14 @@
                                     </div>
                                     <%-- Submit Button --%>
                                     <div class="row m-2">
-                                        <div class="col-2">
+                                        <div class="col-4">
                                             <asp:LinkButton runat="server" ID="lnkUtilitySubmit" 
                                                 CssClass="btn btn-outline-success" OnClick="lnkUtilitySubmit_Click">
                                                 Submit
+                                            </asp:LinkButton>
+                                            <asp:LinkButton runat="server" ID="lnkUtilityClear" CssClass="btn btn-outline-warning" 
+                                                OnClick="lnkInputClear_Click">
+                                                Clear
                                             </asp:LinkButton>
                                         </div>
                                     </div>
@@ -324,6 +330,10 @@
                 <%-- Miscellaneous Pane --%>
                 <div class="tab-pane fade" id="tab-misc">
                     <asp:UpdatePanel runat="server" ID="upMisc" UpdateMode="Conditional" ChildrenAsTriggers="false">
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="lnkMiscSubmit" EventName="Click" />
+                            <asp:AsyncPostBackTrigger ControlID="lnkMiscClear" EventName="Click" />
+                        </Triggers>
                         <ContentTemplate>
                             <div class="row">
                                 <div class="col-4">
@@ -427,9 +437,11 @@
                                         </div>
                                     </div>
                                     <div class="row m-2">
-                                        <div class="col-2">
+                                        <div class="col-4">
                                             <asp:LinkButton runat="server" ID="lnkMiscSubmit" CssClass="btn btn-outline-success" 
                                                 OnClick="lnkMiscSubmit_Click">Submit</asp:LinkButton>
+                                            <asp:LinkButton runat="server" ID="lnkMiscClear" CssClass="btn btn-outline-warning" 
+                                                OnClick="lnkInputClear_Click">Clear</asp:LinkButton>
                                         </div>
                                     </div>
                                 </div>
@@ -441,6 +453,7 @@
                 <div class="tab-pane fade" id="tab-new-supplier">
                     <asp:UpdatePanel runat="server" ID="upNewSupplier" UpdateMode="Conditional" ChildrenAsTriggers="false">
                         <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="lnkSupplierClear" EventName="Click" />
                         </Triggers>
                         <ContentTemplate>
                             <%-- Supplier Name --%>
@@ -479,9 +492,11 @@
                             </div>
                             <%-- Save Button --%>
                             <div class="row m-2">
-                                <div class="col-2">
+                                <div class="col-4">
                                     <asp:LinkButton runat="server" ID="lnkSupplierSave" CssClass="btn btn-outline-success" 
                                         OnClick="lnkSupplierSave_Click">Save</asp:LinkButton>
+                                    <asp:LinkButton runat="server" ID="lnkSupplierClear" CssClass="btn btn-outline-warning" 
+                                        OnClick="lnkSupplierClear_Click">Clear</asp:LinkButton>
                                 </div>
                             </div>
                         </ContentTemplate>

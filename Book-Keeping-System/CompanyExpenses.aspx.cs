@@ -33,11 +33,13 @@ namespace Book_Keeping_System
         protected void lnkMiscSubmit_Click(object sender, EventArgs e)
         {
             Show_Message_Toast("Expenses recorded");
+            CLEAR_INPUT();
         }
 
         protected void lnkUtilitySubmit_Click(object sender, EventArgs e)
         {
             Show_Message_Toast("Expenses recorded");
+            CLEAR_INPUT();
         }
 
         private void Show_Message_Toast(string msg)
@@ -65,6 +67,7 @@ namespace Book_Keeping_System
             DataView dv = oMaster.GET_SUPPLIER_LISTS().DefaultView;
             dv.RowFilter = "SupplierID='" + _supplierID + "'";
 
+            //TODO ViewState Is Supplier Non-VAT
             if (dv.Count > 0)
             {
                 foreach (DataRowView dvr in dv)
@@ -85,6 +88,8 @@ namespace Book_Keeping_System
             DataView dv = oMaster.GET_SUPPLIER_LISTS().DefaultView;
             dv.RowFilter = "SupplierID='" + _supplierID + "'";
 
+
+            //TODO ViewState Is Supplier Non-VAT
             if (dv.Count > 0)
             {
                 foreach (DataRowView dvr in dv)
@@ -114,6 +119,15 @@ namespace Book_Keeping_System
             }
         }
 
+        protected void lnkInputClear_Click(object sender, EventArgs e)
+        {
+            CLEAR_INPUT();
+        }
+
+        protected void lnkSupplierClear_Click(object sender, EventArgs e)
+        {
+            CLEAR_NEW_SUPPLIER_INPUT();
+        }
         #endregion
 
         #region LOCAL FUNCTIONS
@@ -144,8 +158,33 @@ namespace Book_Keeping_System
 
         }
 
-        
+        private void CLEAR_INPUT()
+        {
+            txtUtilitySupplier.Text = String.Empty;
+            txtUtilityTIN.Text = String.Empty;
+            txtUtilityReceipt.Text = String.Empty;
+            txtUtilityVATAmount.Text = "0";
+            txtUtilityNonVATAmount.Text = "0";
+            txtUtilityVAT.Text = "0";
+            txtUtilityTotal.Text = "0";
+            txtUtilityFrom.Text = String.Empty;
+            txtUtilityTo.Text = String.Empty;
 
+            txtMiscSupplier.Text = String.Empty;
+            txtMiscTIN.Text = String.Empty;
+            txtMiscReceipt.Text = String.Empty;
+            txtMiscVATAmount.Text = "0";
+            txtMiscNonVATAmount.Text = "0";
+            txtMiscVAT.Text = "0";
+            txtMiscTotal.Text = "0";
+        }
+
+        private void CLEAR_NEW_SUPPLIER_INPUT()
+        {
+            txtSupplierName.Text = String.Empty;
+            txtSupplierAddress.Text = String.Empty;
+            txtSupplierTIN.Text = String.Empty;
+        }
         #endregion
 
         //private void Show_Error_Toast(string msg)
