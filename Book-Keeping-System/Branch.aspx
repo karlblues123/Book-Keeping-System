@@ -66,7 +66,7 @@
                             <%-- Branch List --%>
                             <asp:Panel runat="server" ID="panelGridViewLists" Height="600px" ScrollBars="Vertical">
                                 <%-- Branch GridView --%>
-                                <asp:GridView runat="server" ID="gvBranchList" GridLines="Horizontal" AutoGenerateColumns="false" CssClass="table table-responsive small">
+                                <asp:GridView runat="server" ID="gvBranchList" GridLines="Horizontal" AutoGenerateColumns="false" CssClass="table table-responsive">
                                     <Columns>
                                         <%-- <asp:BoundField DataField="BranchAddress" HeaderText="Address" />
                                         <asp:BoundField DataField="BranchStatus" HeaderText="Status" />--%>
@@ -134,16 +134,13 @@
                                         </div>
                                     </div>
                                     <div class="row mt-2">
-                                        <%-- Back --%>
-                                        <div class="col-2">
+                                        <%-- Save & Back --%>
+                                        <div class="col-4">
                                             <asp:LinkButton runat="server" ID="lnkBack" CssClass="btn btn-outline-warning" OnClick="lnkBack_Click">
-                                                            <b class="fa fa-arrow-circle-left"></b> Back
+                                                <b class="fa fa-arrow-circle-left"></b> Back
                                             </asp:LinkButton>
-                                        </div>
-                                        <%-- Save --%>
-                                        <div class="col-2">
                                             <asp:LinkButton runat="server" ID="lnkSave" CssClass="btn btn-outline-primary">
-                                                            <b class="fa fa-save"></b> Save
+                                                <b class="fa fa-save"></b> Save
                                             </asp:LinkButton>
                                         </div>
                                     </div>
@@ -154,25 +151,34 @@
                                     <div class="card-header-tabs">
                                         <ul class="nav nav-tabs ms-2" id="myTab" role="tablist">
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" 
-                                                    data-bs-target="#profile-tab-pane" type="button" role="tab" 
-                                                    aria-controls="profile-tab-pane" aria-selected="false">
+                                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-utilities" 
+                                                    type="button" role="tab" aria-controls="tab-utilities" aria-selected="true">
                                                     <b class="fa fa-rotate-right text-warnin"></b>
                                                     Default Utilities Provider
                                                 </button>
                                             </li>
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" 
-                                                    data-bs-target="#contact-tab-pane" type="button" role="tab" 
-                                                    aria-controls="contact-tab-pane" aria-selected="false">
+                                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" 
+                                                    type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">
                                                     Rental Information
                                                 </button>
                                             </li>
-                                           
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-sales"
+                                                    type="button" role="tab" aria-controls="tab-sales" aria-selected="false">
+                                                    Sales
+                                                </button>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-expenses"
+                                                    type="button" role="tab" aria-controls="tab-expenses" aria-selected="false">
+                                                    Expenses
+                                                </button>
+                                            </li>
                                         </ul>
                                     </div>
-                                    <div class="card-body tab-content" id="myTabContent">
-                                        <div class="tab-pane fade show active" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                                    <div class="card-body tab-content">
+                                        <div class="tab-pane fade show active" id="tab-utilities" role="tabpanel">
                                             <%-- New Provider Form --%>
                                             <asp:Panel runat="server" ID="pNewProvider" Visible="false">
                                                 <div class="row mt-2">
@@ -208,11 +214,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="row mt-2">
-                                                    <div class="col-2">
+                                                    <div class="col-4">
                                                         <asp:LinkButton runat="server" ID="lnkProviderBack" CssClass="btn btn-outline-warning" 
                                                             OnClick="lnkProviderBack_Click">Back</asp:LinkButton>
-                                                    </div>
-                                                    <div class="col-2">
                                                         <asp:LinkButton runat="server" ID="lnkSaveProvider" OnClick="lnkSaveProvider_Click" CssClass="btn btn-outline-primary">
                                                             <b class="fa fa-save"></b> Save
                                                         </asp:LinkButton>
@@ -246,6 +250,58 @@
                                                             </asp:GridView>
                                                         </div>
                                                     </div>
+                                                </div>
+                                            </asp:Panel>
+                                        </div>
+                                        <div class="tab-pane fade" id="tab-sales" role="tabpanel">
+                                            <%-- Sales Panel --%>
+                                            <asp:Panel runat="server" ID="pBranchSales" CssClass="card">
+                                                <div class="card-header">
+                                                    <div class="row">
+                                                        <div class="col-4 offset-8">
+                                                            <asp:DropDownList runat="server" ID="ddSalesPeriod" CssClass="form-control"></asp:DropDownList>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <div class="form-floating">
+                                                                <asp:TextBox runat="server" ID="txtBranchChickenSales" TextMode="Number" 
+                                                                    ReadOnly="true" CssClass="form-control"></asp:TextBox>
+                                                                <label for="<%=txtBranchChickenSales.ClientID%>">Chicken</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="form-floating">
+                                                                <asp:TextBox runat="server" ID="txtBranchAtsaraSales" TextMode="Number"
+                                                                    ReadOnly="true" CssClass="form-control"></asp:TextBox>
+                                                                <label for="<%=txtBranchAtsaraSales.ClientID%>">Atsara</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </asp:Panel>
+                                        </div>
+                                        <div class="tab-pane fade" id="tab-expenses" role="tabpanel">
+                                            <asp:Panel runat="server" ID="pBranchExpenses" CssClass="card">
+                                                <div class="card-header">
+                                                    <div class="row">
+                                                        <div class="col-8">
+                                                            <input id="expense-search-box" class="form-control" />
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <asp:DropDownList runat="server" ID="ddExpensePeriod" CssClass="form-control"></asp:DropDownList>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <asp:GridView runat="server" ID="gvBranchExpenses" CssClass="table table-responsive" 
+                                                        AutoGenerateColumns="false" GridLines="Horizontal">
+                                                        <Columns>
+                                                            <%-- Supplier Name and Amount --%>
+                                                        </Columns>
+                                                    </asp:GridView>
                                                 </div>
                                             </asp:Panel>
                                         </div>

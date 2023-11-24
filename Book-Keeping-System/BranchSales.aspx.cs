@@ -31,9 +31,12 @@ namespace Book_Keeping_System
             DateTime dt;
             if (DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt))
             {
+                //TODO Insert Branch Sales in DB
+
                 txtDate.Text = DateTime.Parse(txtDate.Text).AddDays(1).ToString("yyyy-MM-dd");
 
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('Sales recorded')", true);
+                CLEAR_INPUTS();
             }
             else
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowError", "ShowError('Invalid Input. Please check.')", true);
@@ -92,6 +95,17 @@ namespace Book_Keeping_System
             //Display sa gridview
             gvBranchList.DataSource = dt;
             gvBranchList.DataBind();
+        }
+
+        private void CLEAR_INPUTS()
+        {
+            txtChickenPrice.Text = "0";
+            txtChickenQuantity.Text = "0";
+            txtChickenTotal.Text = "0";
+
+            txtAtsaraPrice.Text = "0";
+            txtAtsaraQuantity.Text = "0";
+            txtAtsaraTotal.Text = "0";
         }
 
         #endregion

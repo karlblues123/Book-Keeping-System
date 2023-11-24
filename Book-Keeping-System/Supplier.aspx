@@ -132,13 +132,11 @@
                         </div>
                         <%-- Save and Back Buttons --%>
                         <div class="row mt-2">
-                            <div class="col-1">
+                            <div class="col-3">
                                 <asp:LinkButton runat="server" ID="lnkBack" CssClass="btn btn-outline-warning" 
                                     OnClick="lnkBack_Click">
                                     <b class="fa fa-arrow-circle-left"></b> Back
                                 </asp:LinkButton>
-                            </div>
-                            <div class="col-1">
                                 <asp:LinkButton runat="server" ID="lnkSave" CssClass="btn btn-outline-primary" 
                                     OnClick="lnkSave_Click">
                                     <b class="fa fa-save"></b> Save

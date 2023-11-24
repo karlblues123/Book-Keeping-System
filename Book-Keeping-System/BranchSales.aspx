@@ -143,7 +143,7 @@
                                             <%-- Quantity --%>
                                             <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtChickenQuantity" CssClass="form-control" 
-                                                    TextMode="Number" onchange="CalculateChickenSales()" ReadOnly="true"></asp:TextBox>
+                                                    TextMode="Number" onchange="CalculateChickenSales()" ReadOnly="true" placeholder="0"></asp:TextBox>
                                                 <label for="<%=txtChickenQuantity.ClientID%>">Quantity</label>
                                             </div>
                                         </div>
@@ -151,7 +151,7 @@
                                             <%-- Price --%>
                                             <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtChickenPrice" CssClass="form-control" 
-                                                    TextMode="Number" onchange="CalculateChickenSales()" ReadOnly="true"></asp:TextBox>
+                                                    TextMode="Number" onchange="CalculateChickenSales()" ReadOnly="true" placeholder="0"></asp:TextBox>
                                                 <label for="<%=txtChickenPrice.ClientID%>">Price</label>
                                             </div>
                                         </div>
@@ -159,7 +159,7 @@
                                             <%-- Total --%>
                                             <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtChickenTotal" CssClass="form-control" 
-                                                    TextMode="Number" ReadOnly="true"></asp:TextBox>
+                                                    TextMode="Number" ReadOnly="true" placeholder="0"></asp:TextBox>
                                                 <label for="<%=txtChickenTotal.ClientID%>">Total</label>
                                             </div>
                                         </div>
@@ -176,7 +176,7 @@
                                             <%-- Quantity --%>
                                             <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtAtsaraQuantity" CssClass="form-control" 
-                                                    TextMode="Number" onchange="CalculateAtsaraSales()" ReadOnly="true"></asp:TextBox>
+                                                    TextMode="Number" onchange="CalculateAtsaraSales()" ReadOnly="true" placeholder="0"></asp:TextBox>
                                                 <label for="<%=txtAtsaraQuantity.ClientID%>">Quantity</label>
                                             </div>
                                         </div>
@@ -184,7 +184,7 @@
                                             <%-- Price --%>
                                             <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtAtsaraPrice" CssClass="form-control" 
-                                                    TextMode="Number" onchange="CalculateAtsaraSales()" ReadOnly="true"></asp:TextBox>
+                                                    TextMode="Number" onchange="CalculateAtsaraSales()" ReadOnly="true" placeholder="0"></asp:TextBox>
                                                 <label for="<%=txtAtsaraPrice.ClientID%>">Price</label>
                                             </div>
                                         </div>
@@ -192,7 +192,7 @@
                                             <%-- Total --%>
                                             <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtAtsaraTotal" CssClass="form-control" 
-                                                    TextMode="Number" ReadOnly="true"></asp:TextBox>
+                                                    TextMode="Number" ReadOnly="true" placeholder="0"></asp:TextBox>
                                                 <label for="<%=txtAtsaraTotal.ClientID%>">Total</label>
                                             </div>
                                         </div>
