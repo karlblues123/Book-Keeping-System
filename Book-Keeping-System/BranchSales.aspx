@@ -76,7 +76,7 @@
         <div class="card" style="border:0;">
             <%-- Main Card Header --%>
             <div class="card-header bg-warning bg-opacity-25">
-                Branch - Sales
+                <b>Branch - Sales</b>
             </div>
             <%-- Main Card Body --%>
             <div class="card-body">
@@ -159,7 +159,7 @@
                                             <%-- Total --%>
                                             <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtChickenTotal" CssClass="form-control" 
-                                                    TextMode="Number" ReadOnly="true" placeholder="0"></asp:TextBox>
+                                                    TextMode="Number" placeholder="0"></asp:TextBox>
                                                 <label for="<%=txtChickenTotal.ClientID%>">Total</label>
                                             </div>
                                         </div>

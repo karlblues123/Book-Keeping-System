@@ -38,7 +38,10 @@
 
     </script>
     <div class="container-fluid" style="padding-left:0;padding-right:0;">
-        <asp:UpdatePanel runat="server" ID="upMain">
+        <asp:UpdatePanel runat="server" ID="upMain" UpdateMode="Conditional">
+            <Triggers>
+                <asp:PostBackTrigger ControlID="lnkConfirmDelete" />
+            </Triggers>
             <ContentTemplate>
                 <asp:Panel runat="server" ID="pList" CssClass="card" style="border:none;">
                     <div class="card-header bg-info bg-opacity-25" style="height:57px;">
@@ -118,7 +121,7 @@
                                     </div>
                                     <div class="input-group-text d-flex align-items-center">
                                         VAT
-                                        <asp:CheckBox runat="server" ID="cbVAT" CssClass="form-check"/>
+                                        <asp:CheckBox runat="server" ID="cbVAT"/>
                                     </div>
                                 </div>
                             </div>
@@ -130,9 +133,9 @@
                                 </div>
                             </div>
                         </div>
-                        <%-- Save and Back Buttons --%>
+                        <%-- Save, Back, and Delete Buttons --%>
                         <div class="row mt-2">
-                            <div class="col-3">
+                            <div class="col-5">
                                 <asp:LinkButton runat="server" ID="lnkBack" CssClass="btn btn-outline-warning" 
                                     OnClick="lnkBack_Click">
                                     <b class="fa fa-arrow-circle-left"></b> Back
@@ -141,10 +144,30 @@
                                     OnClick="lnkSave_Click">
                                     <b class="fa fa-save"></b> Save
                                 </asp:LinkButton>
+                                <button id="delete-btn" class="btn btn-outline-danger" 
+                                    data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                    <b class="fa fa-trash"></b> Delete
+                                </button>
                             </div>
                         </div>
                     </div>
                 </asp:Panel>
+                <div class="modal fade" id="delete-modal" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                Are you sure you want to delete <asp:Label runat="server" ID="lblModalSupplier" Text="supplier"></asp:Label>?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                                <asp:LinkButton runat="server" ID="lnkConfirmDelete" CssClass="btn btn-outline-danger" 
+                                    OnClick="lnkConfirmDelete_Click">
+                                    <b class="fa fa-trash"></b> Delete
+                                </asp:LinkButton> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>

@@ -101,9 +101,14 @@
                                     <%-- Branch Name --%>
                                     <div class="row mt-2">
                                         <div class="col">
-                                            <div class="form-floating small">
-                                                <asp:TextBox runat="server" ID="txtBranchName" CssClass="form-control" placeholder="Branch Name"></asp:TextBox>
-                                                <label for="txtBranchName">Branch Name</label>
+                                            <div class="input-group">
+                                                <div class="form-floating small">
+                                                    <asp:TextBox runat="server" ID="txtBranchName" CssClass="form-control" placeholder="Branch Name"></asp:TextBox>
+                                                    <label for="txtBranchName">Branch Name</label>
+                                                </div>
+                                                <div class="input-group-text d-flex align-items-center">
+                                                   Open <asp:CheckBox runat="server" ID="cbOpen"/>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -210,6 +215,39 @@
                                                                 <asp:TextBox runat="server" ID="txtRemarks" CssClass="form-control"
                                                                     placeholder="Remarks"></asp:TextBox>
                                                                 <label for="txtRemarks">Remarks</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-2">
+                                                    <div class="card" style="padding-left:0;padding-right:0;">
+                                                        <div class="card-header">
+                                                            <div class="row">
+                                                                <div class="col-8">
+                                                                    <input class="form-control" id="supplier-search" />
+                                                                </div>
+                                                                <div class="col-4">
+                                                                    <asp:DropDownList runat="server" ID="ddSupplierType" 
+                                                                        CssClass="form-control"></asp:DropDownList>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <asp:GridView runat="server" ID="gvUtilitySuppliers" AutoGenerateColumns="false" 
+                                                                CssClass="table table-responsive">
+                                                                <Columns>
+                                                                    <asp:BoundField DataField="SupplierID" ItemStyle-Width="5%"/>
+                                                                    <asp:BoundField DataField="Supplier_Name" HeaderText="Name" ItemStyle-Width="40%"/>
+                                                                    <asp:BoundField DataField="TIN" HeaderText="TIN" ItemStyle-Width="35%" />
+                                                                    <asp:TemplateField ItemStyle-Width="20%">
+                                                                        <ItemTemplate>
+                                                                            <asp:LinkButton runat="server" ID="lnkUtilitySelect" 
+                                                                                CssClass="btn btn-sm btn-outline-primary">
+                                                                                <b class="fa fa-check-circle"></b> Select
+                                                                            </asp:LinkButton>
+                                                                        </ItemTemplate>
+                                                                    </asp:TemplateField>
+                                                                </Columns>
+                                                            </asp:GridView>
                                                         </div>
                                                     </div>
                                                 </div>

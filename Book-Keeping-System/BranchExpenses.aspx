@@ -46,7 +46,7 @@
             document.getElementById("<%=txtPurchaseTotal.ClientID%>").value = vatable + nonvat + vat;
         }
 
-        <%--function CalculateUtilityTotal() {
+        function CalculateUtilityTotal() {
             var vatable = 0, nonvat = 0, vat = 0;
             if (document.getElementById('<%=txtUtilityVATAmount.ClientID%>').value != null) {
                 vatable = + Number.parseFloat(document.getElementById('<%=txtUtilityVATAmount.ClientID%>').value).toFixed(2);
@@ -60,7 +60,7 @@
                 vat = + Number.parseFloat(document.getElementById('<%=txtUtilityVAT.ClientID%>').value).toFixed(2);
             }
             document.getElementById("<%=txtUtilityTotal.ClientID%>").value = vatable + nonvat + vat;
-        }--%>
+        }
 
         function CalculatePurchaseVAT() {
             var total = 0, vatable = 0;
@@ -72,7 +72,7 @@
             document.getElementById('<%=txtPurchaseVAT.ClientID%>').value = (total - vatable).toFixed(2);
         }
 
-       <%-- function CalculateUtilityVAT() {
+       function CalculateUtilityVAT() {
             var total = 0, vatable = 0;
             if (document.getElementById('<%=txtUtilityTotal.ClientID%>').value != null) {
                 total = +Number.parseFloat(document.getElementById('<%=txtUtilityTotal.ClientID%>').value).toFixed(2);
@@ -80,7 +80,7 @@
             }
             document.getElementById('<%=txtUtilityVATAmount.ClientID%>').value = vatable;
             document.getElementById('<%=txtUtilityVAT.ClientID%>').value = (total - vatable).toFixed(2);
-        }--%>
+        }
 
         function CalculateExpenses() {
             var charcoal = 0, foil = 0, fare = 0, grass = 0, lemon = 0, sili = 0, sauce = 0;
@@ -140,7 +140,7 @@
             });
         });
 
-        // For Calendar Inputs
+        <%--// For Calendar Inputs
         $(function setCalendarInput() {
             var dateToday = new Date();
             $('.calendarInput').datepicker({ maxDate: 0 });
@@ -174,7 +174,7 @@
                         totalAmount.addEventListener("input", calculateVatProcess);
 
 
-                    });
+                    });--%>
 
         //On UpdatePanel Refresh
         var prm = Sys.WebForms.PageRequestManager.getInstance();
@@ -193,7 +193,7 @@
                         });
                     });
 
-                    // For Calendar Inputs
+                    <%--// For Calendar Inputs
                     $(function setCalendarInput() {
                         var dateToday = new Date();
                         $('.calendarInput').datepicker({ maxDate: 0 });
@@ -227,18 +227,19 @@
                         totalAmount.addEventListener("input", calculateVatProcess);
 
 
-                    });
+                    });--%>
 
                 }
             });
         };
     </script>
+
     <div class="container-fluid" style="padding-left:0;padding-right:0;">
         <%-- Main Card --%>
         <div class="card" style="border:0;">
             <%-- Main Card Header --%>
             <div class="card-header bg-warning bg-opacity-25">
-                Branch - Expenses
+                <b>Branch - Expenses</b>
             </div>
             <%-- Main Card Body --%>
             <div class="card-body">
@@ -288,7 +289,7 @@
                                         <%-- Nav Pills --%>
                                         <ul class="nav nav-pills nav-fill" id="form-pills" role="tablist">
                                             <li class="nav-item">
-                                                <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-utility" 
+                                                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-utility" 
                                                     type="button" role="tab" aria-controls="tab-sales" aria-selected="false">Utility</button>
                                             </li>
                                             <li class="nav-item">
@@ -312,7 +313,6 @@
                                             </Triggers>
                                             <ContentTemplate>
                                                 <asp:TextBox runat="server" ID="txtDate" CssClass="form-control" TextMode="Date"></asp:TextBox>
-                                                
                                             </ContentTemplate>
                                         </asp:UpdatePanel>
                                     </div>
@@ -323,7 +323,7 @@
                                 <div class="tab-pane fade" id="tab-utility">
                                     <asp:UpdatePanel runat="server" ID="upUtility" UpdateMode="Conditional">
                                         <ContentTemplate>
-                                            <%-- Branch Name --%>
+                                            <%-- Supplier --%>
                                             <div class="row m-2">
                                                 <div class="col-8">
                                                     <div class="form-floating">
@@ -341,11 +341,7 @@
                                                 </div>
 
                                             </div>
-                                            <%-- TIN 
-                                            <div class="row m-2">
-                                              
-                                            </div>--%>
-                                            <%-- Receipt Number --%>
+                                            <%-- Receipt Number and Coverage --%>
                                             <div class="row m-2">
                                                 <div class="col-4">
                                                     <div class="form-floating">
@@ -356,39 +352,37 @@
 
                                                 <div class="col-4">
                                                     <div class="form-floating">
-                                                        <asp:TextBox runat="server" ID="txtUtilityFrom" CssClass="form-control calendarInput"></asp:TextBox>
+                                                        <asp:TextBox runat="server" ID="txtUtilityFrom" CssClass="form-control" TextMode="Date"></asp:TextBox>
                                                         <label for="<%=txtUtilityFrom.ClientID%>">From</label>
                                                     </div>
                                                 </div>
                                                  <div class="col-4">
                                                     <div class="form-floating">
-                                                        <asp:TextBox runat="server" ID="txtUtilityTo" CssClass="form-control calendarInput"></asp:TextBox>
+                                                        <asp:TextBox runat="server" ID="txtUtilityTo" CssClass="form-control" TextMode="Date"></asp:TextBox>
                                                         <label for="<%=txtUtilityTo.ClientID%>">To</label>
                                                     </div>
                                                 </div>
-                                               
-                                                
                                             </div>
                                             <%-- Amount & VAT --%>
                                             <div class="row m-2">
                                                 <div class="col-3">
                                                     <div class="form-floating">
                                                         <asp:TextBox runat="server" ID="txtUtilityVATAmount" CssClass="form-control" 
-                                                            TextMode="Number" Text="0"></asp:TextBox>
+                                                            TextMode="Number" Text="0" onchange="CalculateUtilityTotal()"></asp:TextBox>
                                                         <label for="<%=txtUtilityVATAmount.ClientID%>">VATable</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-3">
                                                     <div class="form-floating">
                                                         <asp:TextBox runat="server" ID="txtUtilityNonVATAmount" CssClass="form-control"
-                                                            TextMode="Number" Text="0"></asp:TextBox>
+                                                            TextMode="Number" Text="0" onchange="CalculateUtilityTotal()"></asp:TextBox>
                                                         <label for="<%=txtUtilityNonVATAmount.ClientID%>">NonVAT</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-3">
                                                     <div class="form-floating">
                                                         <asp:TextBox runat="server" ID="txtUtilityVAT" CssClass="form-control"
-                                                            TextMode="Number" Text="0"></asp:TextBox>
+                                                            TextMode="Number" Text="0" onchange="CalculateUtilityTotal()"></asp:TextBox>
                                                         <label for="<%=txtUtilityVAT.ClientID%>">VAT</label>
                                                     </div>
                                                    
@@ -440,20 +434,19 @@
                                             <asp:Panel runat="server" ID="pPurchase" Visible="true">
                                                 <%-- Supplier --%>
                                                 <div class="row m-2">
-                                                    <div class="input-group">
-                                                        <div class="form-floating">
-                                                            <asp:DropDownList runat="server" ID="ddPurchaseSupplier" CssClass="form-select"></asp:DropDownList>
-                                                            <label for="<%=ddPurchaseSupplier.ClientID%>">Supplier</label>
+                                                    <div class="col-8">
+                                                        <div class="input-group">
+                                                            <div class="form-floating">
+                                                                <asp:DropDownList runat="server" ID="ddPurchaseSupplier" CssClass="form-select"></asp:DropDownList>
+                                                                <label for="<%=ddPurchaseSupplier.ClientID%>">Supplier</label>
+                                                            </div>
+                                                            <asp:LinkButton runat="server" ID="lnkNewSupplier" 
+                                                                CssClass="btn btn-primary d-flex align-items-center" OnClick="lnkNewSupplier_Click">
+                                                                <b class="fa fa-plus-circle"></b>
+                                                            </asp:LinkButton>
                                                         </div>
-                                                        <asp:LinkButton runat="server" ID="lnkNewSupplier" 
-                                                            CssClass="btn btn-primary d-flex align-items-center" OnClick="lnkNewSupplier_Click">
-                                                            <b class="fa fa-plus-circle"></b>
-                                                        </asp:LinkButton>
                                                     </div>
-                                                </div>
-                                                <%-- TIN --%>
-                                                <div class="row m-2">
-                                                    <div class="col">
+                                                    <div class="col-4">
                                                         <div class="form-floating">
                                                             <asp:TextBox runat="server" ID="txtSupplierTIN" CssClass="form-control"></asp:TextBox>
                                                             <label for="<%=txtSupplierTIN.ClientID%>">TIN</label>

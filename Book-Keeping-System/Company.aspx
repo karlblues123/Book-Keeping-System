@@ -62,11 +62,25 @@
                         <div class="row mt-2 tab-content">
                             <%-- Basic Pane--%>
                             <div class="tab-pane fade show active" id="tab-basic">
-                                <div class="row">
+                                <div class="row mt-2">
                                     <div class="col-6">
                                         <div class="form-floating">
                                             <asp:TextBox runat="server" ID="txtCompanyName" CssClass="form-control"></asp:TextBox>
                                             <label for="<%=txtCompanyName.ClientID%>">Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-floating">
+                                            <asp:TextBox runat="server" ID="txtCompanyTIN" CssClass="form-control"></asp:TextBox>
+                                            <label for="<%=txtCompanyTIN.ClientID%>">TIN</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <asp:TextBox runat="server" ID="txtCompanyAddress" CssClass="form-control"></asp:TextBox>
+                                            <label for="<%=txtCompanyAddress.ClientID%>">Address</label>
                                         </div>
                                     </div>
                                 </div>
@@ -74,10 +88,11 @@
                             <%-- Company Expenses Pane--%>
                             <div class="tab-pane fade" id="tab-expense">
                                 <div class="row mt-2">
-                                    <div class="col">
-                                        <div class="input-group">
-                                            <asp:TextBox runat="server" ID="txtExpenseSearch" CssClass="form-control"></asp:TextBox>
-                                        </div>
+                                    <div class="col-8">
+                                        <asp:TextBox runat="server" ID="txtExpenseSearch" CssClass="form-control"></asp:TextBox>
+                                    </div>
+                                    <div class="col-4">
+                                        <asp:DropDownList runat="server" ID="ddMonth" CssClass="form-control"></asp:DropDownList>
                                     </div>
                                 </div>
                                 <div class="row">

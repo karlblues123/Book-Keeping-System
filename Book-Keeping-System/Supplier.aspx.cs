@@ -37,6 +37,7 @@ namespace Book_Keeping_System
             return dr;
         }
 
+        #region EVENTS
         protected void lnkSave_Click(object sender, EventArgs e)
         {
 
@@ -111,11 +112,11 @@ namespace Book_Keeping_System
                     txtSupplierAddress.Text = dvr["Supplier_Address"].ToString();
                     txtSupplierTIN.Text = dvr["TIN"].ToString();
                     cbVAT.Checked = (bool)dvr["IsVat"];
-                    
+                    lblModalSupplier.Text = txtSupplierName.Text;
                 }
 
                 ViewState["V_ACTION"] = 1; //This will hold the option for action.
-
+                upMain.Update();
             }
             else
             {
@@ -123,6 +124,14 @@ namespace Book_Keeping_System
 
             }
          }
+
+        protected void lnkConfirmDelete_Click(object sender, EventArgs e)
+        {
+            //TODO Delete supplier in database
+
+            pList.Visible = true;
+            pForm.Visible = false;
+        }
 
         protected void gvSupplierList_RowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -132,6 +141,7 @@ namespace Book_Keeping_System
                 ScriptManager.GetCurrent(this).RegisterAsyncPostBackControl(edit);
             }
         }
+        #endregion
 
         #region "Local UserDefined Function"
 
@@ -165,8 +175,9 @@ namespace Book_Keeping_System
             ddSupplierType.DataBind();
         }
 
+
         #endregion
 
-     
+        
     }
 }

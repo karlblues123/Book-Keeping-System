@@ -13,6 +13,24 @@ namespace Book_Keeping_System {
     public partial class CompanyExpenses {
         
         /// <summary>
+        /// gvSupplierList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvSupplierList;
+        
+        /// <summary>
+        /// upHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upHeader;
+        
+        /// <summary>
         /// ddCompanyList control.
         /// </summary>
         /// <remarks>
@@ -22,13 +40,13 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.DropDownList ddCompanyList;
         
         /// <summary>
-        /// upDate control.
+        /// hfMode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upDate;
+        protected global::System.Web.UI.WebControls.HiddenField hfMode;
         
         /// <summary>
         /// txtDate control.
@@ -47,15 +65,6 @@ namespace Book_Keeping_System {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel upUtility;
-        
-        /// <summary>
-        /// gvUtilitySupplierList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvUtilitySupplierList;
         
         /// <summary>
         /// txtUtilitySupplier control.
@@ -173,15 +182,6 @@ namespace Book_Keeping_System {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel upMisc;
-        
-        /// <summary>
-        /// gvMiscSupplierList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvMiscSupplierList;
         
         /// <summary>
         /// txtMiscSupplier control.
