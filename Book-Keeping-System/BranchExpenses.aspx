@@ -138,6 +138,13 @@
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
+
+            $('[id*=supplier-search]').on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $('[id*=gvUtilitySupplierList] tr').filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
         });
 
         <%--// For Calendar Inputs
@@ -190,6 +197,13 @@
                             $('[id*=gvBranchList] tr').filter(function () {
                                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                             });
+                        });
+                    });
+
+                    $('[id*=supplier-search]').on("keyup", function () {
+                        var value = $(this).val().toLowerCase();
+                        $('[id*=gvUtilitySupplierList] tr').filter(function () {
+                            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                         });
                     });
 
@@ -437,18 +451,18 @@
                                                     <div class="col-8">
                                                         <div class="input-group">
                                                             <div class="form-floating">
-                                                                <asp:DropDownList runat="server" ID="ddPurchaseSupplier" CssClass="form-select"></asp:DropDownList>
-                                                                <label for="<%=ddPurchaseSupplier.ClientID%>">Supplier</label>
+                                                                <asp:TextBox runat="server" ID="txtPurchaseSupplier" CssClass="form-control" ReadOnly="true"></asp:TextBox>
+                                                                <label for="<%=txtPurchaseSupplier.ClientID%>">Supplier</label>
                                                             </div>
                                                             <asp:LinkButton runat="server" ID="lnkNewSupplier" 
                                                                 CssClass="btn btn-primary d-flex align-items-center" OnClick="lnkNewSupplier_Click">
-                                                                <b class="fa fa-plus-circle"></b>
+                                                                <b class="fa fa-search"></b>
                                                             </asp:LinkButton>
                                                         </div>
                                                     </div>
                                                     <div class="col-4">
                                                         <div class="form-floating">
-                                                            <asp:TextBox runat="server" ID="txtSupplierTIN" CssClass="form-control"></asp:TextBox>
+                                                            <asp:TextBox runat="server" ID="txtPurchaseTIN" CssClass="form-control"></asp:TextBox>
                                                             <label for="<%=txtSupplierTIN.ClientID%>">TIN</label>
                                                         </div>
                                                     </div>
@@ -516,49 +530,95 @@
                                                 </div>
                                             </asp:Panel>
                                             <asp:Panel runat="server" ID="pSupplier" Visible="false">
-                                                <div class="row m-2">
-                                                    <h6>New Supplier</h6>
-                                                </div>
-                                                <%-- Supplier Name --%>
-                                                <div class="row m-2">
-                                                    <div class="col">
-                                                        <div class="form-floating">
-                                                            <asp:TextBox runat="server" ID="txtSupplierName" CssClass="form-control" 
-                                                                AutoCompleteType="Disabled"></asp:TextBox>
-                                                            <label for="<%=txtSupplierName.ClientID%>">Name</label>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="row m-2">
+                                                            <h6>New Supplier</h6>
+                                                        </div>
+                                                        <%-- Supplier Name--%>
+                                                        <div class="row m-2">
+                                                            <div class="col">
+                                                                <div class="form-floating">
+                                                                    <asp:TextBox runat="server" ID="txtSupplierName" CssClass="form-control" 
+                                                                        AutoCompleteType="Disabled"></asp:TextBox>
+                                                                    <label for="<%=txtSupplierName.ClientID%>">Name</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <%-- Supplier Address --%>
+                                                        <div class="row m-2">
+                                                            <div class="col">
+                                                                <div class="form-floating">
+                                                                    <asp:TextBox runat="server" ID="txtSupplierAddress" CssClass="form-control" 
+                                                                        AutoCompleteType="Disabled"></asp:TextBox>
+                                                                    <label for="<%=txtSupplierAddress.ClientID%>">Address</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <%-- Supplier TIN --%>
+                                                        <div class="row m-2">
+                                                            <div class="input-group">
+                                                                <div class="form-floating">
+                                                                    <asp:TextBox runat="server" ID="txtSupplierTIN" CssClass="form-control" 
+                                                                        AutoCompleteType="Disabled"></asp:TextBox>
+                                                                    <label for="<%=txtSupplierTIN.ClientID%>">TIN</label>
+                                                                </div>
+                                                                <div class="input-group-text d-flex align-items-center">
+                                                                    VAT
+                                                                    <asp:CheckBox runat="server" ID="cbVAT" CssClass="form-check"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <%-- Supplier Type --%>
+                                                        <div class="row m-2">
+                                                            <div class="col">
+                                                                <div class="form-floating">
+                                                                    <asp:DropDownList runat="server" ID="ddNewSupplierType" CssClass="form-select"></asp:DropDownList>
+                                                                    <label for="<%=ddNewSupplierType.ClientID %>">Type</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row m-2">
+                                                            <div class="col">
+                                                                <asp:LinkButton runat="server" ID="lnkSupplierBack" CssClass="btn btn-outline-warning" OnClick="lnkSupplierBack_Click">Back</asp:LinkButton>
+                                                                <asp:LinkButton runat="server" ID="lnkSupplierSave" CssClass="btn btn-outline-primary" OnClick="lnkSupplierSave_Click">Save</asp:LinkButton>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <%-- Supplier Address --%>
-                                                <div class="row m-2">
-                                                    <div class="col">
-                                                        <div class="form-floating">
-                                                            <asp:TextBox runat="server" ID="txtSupplierAddress" CssClass="form-control" 
-                                                                AutoCompleteType="Disabled"></asp:TextBox>
-                                                            <label for="<%=txtSupplierAddress.ClientID%>">Address</label>
+                                                    <%-- Supplier List --%>
+                                                    <div class="col-6">
+                                                        <div class="card" style="padding-left:0;padding-right:0;">
+                                                            <div class="card-header">
+                                                                <div class="row">
+                                                                    <%-- Supplier Search Bar --%>
+                                                                    <div class="col-8">
+                                                                        <input class="form-control" id="supplier-search" />
+                                                                    </div>
+                                                                    <div class="col-4">
+                                                                        <asp:DropDownList runat="server" ID="ddSupplierType" 
+                                                                            CssClass="form-control"></asp:DropDownList>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-body" style="height:300px;overflow-y:scroll;">
+                                                                <asp:GridView runat="server" ID="gvPurchaseSupplierList" AutoGenerateColumns="false" 
+                                                                    CssClass="table table-responsive" OnRowDataBound="gvUtilitySupplierList_RowDataBound" OnRowCreated="gvUtilitySupplierList_RowDataBound">
+                                                                    <Columns>
+                                                                        <asp:BoundField DataField="SupplierID" ItemStyle-Width="5%"/>
+                                                                        <asp:BoundField DataField="Supplier_Name" HeaderText="Name" ItemStyle-Width="40%"/>
+                                                                        <asp:BoundField DataField="TIN" HeaderText="TIN" ItemStyle-Width="35%" />
+                                                                        <asp:TemplateField ItemStyle-Width="20%">
+                                                                            <ItemTemplate>
+                                                                                <asp:LinkButton runat="server" ID="lnkSupplierSelect" 
+                                                                                    CssClass="btn btn-sm btn-outline-primary" OnClick="lnkSupplierSelect_Click">
+                                                                                    <b class="fa fa-check-circle"></b> Select
+                                                                                </asp:LinkButton>
+                                                                            </ItemTemplate>
+                                                                        </asp:TemplateField>
+                                                                    </Columns>
+                                                                </asp:GridView>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <%-- Supplier TIN --%>
-                                                <div class="row m-2">
-                                                    <div class="input-group">
-                                                        <div class="form-floating">
-                                                            <asp:TextBox runat="server" ID="TextBox1" CssClass="form-control" 
-                                                                AutoCompleteType="Disabled"></asp:TextBox>
-                                                            <label for="<%=txtSupplierTIN.ClientID%>">TIN</label>
-                                                        </div>
-                                                        <div class="input-group-text d-flex align-items-center">
-                                                            VAT
-                                                            <asp:CheckBox runat="server" ID="cbVAT" CssClass="form-check"/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row m-2">
-                                                    <div class="col-1">
-                                                        <asp:LinkButton runat="server" ID="lnkSupplierBack" CssClass="btn btn-outline-warning" OnClick="lnkSupplierBack_Click">Back</asp:LinkButton>
-                                                    </div>
-                                                    <div class="col-1">
-                                                        <asp:LinkButton runat="server" ID="lnkSupplierSave" CssClass="btn btn-outline-primary" OnClick="lnkSupplierSave_Click">Save</asp:LinkButton>
                                                     </div>
                                                 </div>
                                             </asp:Panel>

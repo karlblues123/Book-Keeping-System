@@ -321,14 +321,14 @@
                                                         <%-- Supplier --%>
                                                         <div class="col-8">
                                                             <div class="form-floating">
-                                                                <asp:TextBox runat="server" ID="txtMiscSupplier" CssClass="form-control"></asp:TextBox>
+                                                                <asp:TextBox runat="server" ID="txtMiscSupplier" CssClass="form-control" ReadOnly="true"></asp:TextBox>
                                                                 <label for="<%=txtMiscSupplier.ClientID%>">Supplier</label>
                                                             </div>
                                                         </div>
                                                         <%-- TIN --%>
                                                         <div class="col-4">
                                                             <div class="form-floating">
-                                                                <asp:TextBox runat="server" ID="txtMiscTIN" CssClass="form-control"></asp:TextBox>
+                                                                <asp:TextBox runat="server" ID="txtMiscTIN" CssClass="form-control" ReadOnly="true"></asp:TextBox>
                                                                 <label for="<%=txtMiscTIN.ClientID%>">TIN</label>
                                                             </div>
                                                         </div> 
@@ -410,37 +410,42 @@
                                             <asp:AsyncPostBackTrigger ControlID="lnkSupplierClear" EventName="Click" />
                                         </Triggers>
                                         <ContentTemplate>
-                                            <%-- Supplier Name --%>
+                                            <%-- Supplier Name & TIN --%>
                                             <div class="row m-2">
-                                                <div class="col">
+                                                <div class="col-8">
                                                     <div class="form-floating">
                                                         <asp:TextBox runat="server" ID="txtSupplierName" CssClass="form-control" 
                                                             AutoCompleteType="Disabled"></asp:TextBox>
                                                         <label for="<%=txtSupplierName.ClientID%>">Name</label>
                                                     </div>
                                                 </div>
+                                                <div class="col-4">
+                                                    <div class="input-group">
+                                                        <div class="form-floating">
+                                                            <asp:TextBox runat="server" ID="txtSupplierTIN" CssClass="form-control" 
+                                                                AutoCompleteType="Disabled"></asp:TextBox>
+                                                            <label for="<%=txtSupplierTIN.ClientID%>">TIN</label>
+                                                        </div>
+                                                        <div class="input-group-text d-flex align-items-center">
+                                                            VAT
+                                                            <asp:CheckBox runat="server" ID="cbVAT" CssClass="form-check"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <%-- Supplier Address --%>
+                                            <%-- Supplier Address and Type --%>
                                             <div class="row m-2">
-                                                <div class="col">
+                                                <div class="col-8">
                                                     <div class="form-floating">
                                                         <asp:TextBox runat="server" ID="txtSupplierAddress" CssClass="form-control" 
                                                             AutoCompleteType="Disabled"></asp:TextBox>
                                                         <label for="<%=txtSupplierAddress.ClientID%>">Address</label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <%-- Supplier TIN --%>
-                                            <div class="row m-2">
-                                                <div class="input-group">
+                                                <div class="col-4">
                                                     <div class="form-floating">
-                                                        <asp:TextBox runat="server" ID="txtSupplierTIN" CssClass="form-control" 
-                                                            AutoCompleteType="Disabled"></asp:TextBox>
-                                                        <label for="<%=txtSupplierTIN.ClientID%>">TIN</label>
-                                                    </div>
-                                                    <div class="input-group-text d-flex align-items-center">
-                                                        VAT
-                                                        <asp:CheckBox runat="server" ID="cbVAT" CssClass="form-check"/>
+                                                        <asp:DropDownList runat="server" ID="ddSupplierType" CssClass="form-select"></asp:DropDownList>
+                                                        <label for="<%=ddSupplierType.ClientID%>">Type</label>
                                                     </div>
                                                 </div>
                                             </div>

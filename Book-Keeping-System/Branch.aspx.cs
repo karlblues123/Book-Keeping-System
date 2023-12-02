@@ -20,6 +20,7 @@ namespace Book_Keeping_System
             {
                 DISPLAY_BRANCH_LISTS();
                 DISPLAY_COMPANY_LISTS();
+                DISPLAY_SUPPLIER_LIST();
                 //DISPLAY_SUPERVISOR_LISTS();
             }
         }
@@ -81,12 +82,24 @@ namespace Book_Keeping_System
         {
             txtBranchName.Text = "";
             txtBranch_Address.Text = "";
-            ddSupervisorLists.SelectedIndex = 0;
+            //ddSupervisorLists.SelectedIndex = 0;
             ddCompanyLists.SelectedIndex = 0;
 
            
 
             ViewState["V_BRANCHCODE"] = "";
+
+        }
+
+        private void DISPLAY_SUPPLIER_LIST()
+        {
+            DataTable dt = oMaster.GET_SUPPLIER_LISTS();
+
+            //TODO Get Utility Suppliers and Misc Suppliers
+
+            //Display Utility Suppliers in the list
+            gvUtilitySupplierList.DataSource = dt;
+            gvUtilitySupplierList.DataBind();
 
         }
 

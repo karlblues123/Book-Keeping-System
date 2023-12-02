@@ -202,13 +202,13 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.Panel pPurchase;
         
         /// <summary>
-        /// ddPurchaseSupplier control.
+        /// txtPurchaseSupplier control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddPurchaseSupplier;
+        protected global::System.Web.UI.WebControls.TextBox txtPurchaseSupplier;
         
         /// <summary>
         /// lnkNewSupplier control.
@@ -220,13 +220,13 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.LinkButton lnkNewSupplier;
         
         /// <summary>
-        /// txtSupplierTIN control.
+        /// txtPurchaseTIN control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSupplierTIN;
+        protected global::System.Web.UI.WebControls.TextBox txtPurchaseTIN;
         
         /// <summary>
         /// txtPurchaseReceipt control.
@@ -328,13 +328,13 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.TextBox txtSupplierAddress;
         
         /// <summary>
-        /// TextBox1 control.
+        /// txtSupplierTIN control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox txtSupplierTIN;
         
         /// <summary>
         /// cbVAT control.
@@ -344,6 +344,15 @@ namespace Book_Keeping_System {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox cbVAT;
+        
+        /// <summary>
+        /// ddNewSupplierType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddNewSupplierType;
         
         /// <summary>
         /// lnkSupplierBack control.
@@ -362,6 +371,24 @@ namespace Book_Keeping_System {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkSupplierSave;
+        
+        /// <summary>
+        /// ddSupplierType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddSupplierType;
+        
+        /// <summary>
+        /// gvPurchaseSupplierList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvPurchaseSupplierList;
         
         /// <summary>
         /// upPurchaseList control.

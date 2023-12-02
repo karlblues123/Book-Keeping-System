@@ -21,9 +21,12 @@ namespace Book_Keeping_System
             {
                 DISPLAY_BRANCH_LISTS();
                 CLEAR_UTILITY_INPUTS();
+                DISPLAY_SUPPLIER_LIST();
             }
         }
 
+
+        #region EVENTS
         protected void lnkRecordExpenses_Click(object sender, EventArgs e)
         {
             DateTime dt;
@@ -88,6 +91,75 @@ namespace Book_Keeping_System
            
         }
 
+        protected void ddUtilitySupplier_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataView dv = oBK.GET_BRANCH_DEFAULT_UTILITIES().DefaultView;
+            dv.RowFilter = "ID ='" + Convert.ToInt32(ddUtilitySupplier.SelectedValue).ToString() + "'";
+            if (dv.Count > 0)
+            {
+                foreach (DataRowView drv in dv)
+                {
+                    txtUtilityTIN.Text = drv.Row["TIN"].ToString();
+
+                }
+
+            }
+            else
+            {
+                txtUtilityTIN.Text = "";
+            }
+        }
+
+        protected void lnkRecordUtility_Click(object sender, EventArgs e)
+        {
+            //Save the transaction record
+            oBK.INSERT_BRANCH_UTILITY_TRANS(Convert.ToInt32(ViewState["V_BRANCHID"]), Convert.ToInt32(ddUtilitySupplier.SelectedValue), txtUtilityTIN.Text, txtUtilityReceipt.Text,
+                                             Convert.ToDouble(txtUtilityVATAmount.Text), Convert.ToDouble(txtUtilityNonVATAmount.Text),
+                                             Convert.ToDouble(txtUtilityVAT.Text), Convert.ToDouble(txtUtilityTotal.Text),
+                                             Convert.ToDateTime(txtUtilityFrom.Text), Convert.ToDateTime(txtUtilityTo.Text), txtUtilityParticulars.Text, txtUtilityRemarks.Text);
+            CLEAR_UTILITY_INPUTS();
+
+            //Success toast message
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('Utility Expense transaction record successfully process.');</script>", false);
+
+        }
+
+        protected void lnkSupplierSelect_Click(object sender, EventArgs e)
+        {
+            var selEdit = (Control)sender;
+            GridViewRow r = (GridViewRow)selEdit.NamingContainer;
+            int _supplierID = Convert.ToInt32(r.Cells[0].Text);
+
+            DataView dv = oMaster.GET_SUPPLIER_LISTS().DefaultView;
+            dv.RowFilter = "SupplierID='" + _supplierID + "'";
+
+            //TODO ViewState Is Supplier Non-VAT
+            if (dv.Count > 0)
+            {
+                foreach (DataRowView dvr in dv)
+                {
+
+                    txtPurchaseSupplier.Text = dvr["Supplier_Name"].ToString();
+                    txtPurchaseTIN.Text = dvr["TIN"].ToString();
+                    upPurchase.Update();
+
+                }
+                pPurchase.Visible = true;
+                pSupplier.Visible = false;
+            }
+        }
+
+        protected void gvUtilitySupplierList_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            foreach (GridViewRow row in gvPurchaseList.Rows)
+            {
+                LinkButton edit = row.FindControl("lnkSupplierSelect") as LinkButton;
+                ScriptManager.GetCurrent(this).RegisterAsyncPostBackControl(edit);
+            }
+        }
+
+        #endregion
+
         #region LOCAL FUNCTIONS
         private void DISPLAY_BRANCH_LISTS()
         {
@@ -136,39 +208,20 @@ namespace Book_Keeping_System
             txtUtilityTo.Text = oBK.GetServerDate().ToShortDateString();
         }
 
+        private void DISPLAY_SUPPLIER_LIST()
+        {
+            DataTable dt = oMaster.GET_SUPPLIER_LISTS();
+
+            //TODO Get Utility Suppliers and Misc Suppliers
+
+            //Display Utility Suppliers in the list
+            gvPurchaseSupplierList.DataSource = dt;
+            gvPurchaseSupplierList.DataBind();
+
+        }
+
         #endregion
 
-        protected void ddUtilitySupplier_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DataView dv = oBK.GET_BRANCH_DEFAULT_UTILITIES().DefaultView;
-            dv.RowFilter = "ID ='" + Convert.ToInt32(ddUtilitySupplier.SelectedValue).ToString() + "'";
-            if (dv.Count > 0)
-            {
-                foreach (DataRowView drv in dv)
-                {
-                    txtUtilityTIN.Text = drv.Row["TIN"].ToString();
-              
-                }
-                
-            }
-            else
-            {
-                txtUtilityTIN.Text = "";
-            }
-        }
-
-        protected void lnkRecordUtility_Click(object sender, EventArgs e)
-        {
-            //Save the transaction record
-            oBK.INSERT_BRANCH_UTILITY_TRANS(Convert.ToInt32(ViewState["V_BRANCHID"]), Convert.ToInt32(ddUtilitySupplier.SelectedValue), txtUtilityTIN.Text, txtUtilityReceipt.Text,
-                                             Convert.ToDouble(txtUtilityVATAmount.Text), Convert.ToDouble(txtUtilityNonVATAmount.Text),
-                                             Convert.ToDouble(txtUtilityVAT.Text), Convert.ToDouble(txtUtilityTotal.Text),
-                                             Convert.ToDateTime(txtUtilityFrom.Text), Convert.ToDateTime(txtUtilityTo.Text), txtUtilityParticulars.Text, txtUtilityRemarks.Text);
-            CLEAR_UTILITY_INPUTS();
-
-            //Success toast message
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('Utility Expense transaction record successfully process.');</script>", false);
-
-        }
+        
     }
 }

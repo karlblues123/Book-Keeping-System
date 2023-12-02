@@ -202,13 +202,13 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.DropDownList ddSupplierType;
         
         /// <summary>
-        /// gvUtilitySuppliers control.
+        /// gvUtilitySupplierList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvUtilitySuppliers;
+        protected global::System.Web.UI.WebControls.GridView gvUtilitySupplierList;
         
         /// <summary>
         /// lnkProviderBack control.

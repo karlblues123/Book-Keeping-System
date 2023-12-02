@@ -12,6 +12,13 @@
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
+
+            $('[id*=supplier-search]').on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $('[id*=gvUtilitySupplierList] tr').filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
         });
 
 
@@ -29,6 +36,13 @@
                             $('[id*=gvBranchList] tr').filter(function () {
                                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                             });
+                        });
+                    });
+
+                    $('[id*=supplier-search]').on("keyup", function () {
+                        var value = $(this).val().toLowerCase();
+                        $('[id*=gvUtilitySupplierList] tr').filter(function () {
+                            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                         });
                     });
 
@@ -231,8 +245,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="card-body">
-                                                            <asp:GridView runat="server" ID="gvUtilitySuppliers" AutoGenerateColumns="false" 
+                                                        <div class="card-body" style="overflow:scroll;height:300px;">
+                                                            <asp:GridView runat="server" ID="gvUtilitySupplierList" AutoGenerateColumns="false" 
                                                                 CssClass="table table-responsive">
                                                                 <Columns>
                                                                     <asp:BoundField DataField="SupplierID" ItemStyle-Width="5%"/>
