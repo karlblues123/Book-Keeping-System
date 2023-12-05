@@ -247,7 +247,7 @@
                                                         </div>
                                                         <div class="card-body" style="overflow:scroll;height:300px;">
                                                             <asp:GridView runat="server" ID="gvUtilitySupplierList" AutoGenerateColumns="false" 
-                                                                CssClass="table table-responsive">
+                                                                CssClass="table table-responsive" OnRowCreated="gvUtilitySupplierList_RowCreated" OnRowDataBound="gvUtilitySupplierList_RowCreated">
                                                                 <Columns>
                                                                     <asp:BoundField DataField="SupplierID" ItemStyle-Width="5%"/>
                                                                     <asp:BoundField DataField="Supplier_Name" HeaderText="Name" ItemStyle-Width="40%"/>
@@ -255,7 +255,7 @@
                                                                     <asp:TemplateField ItemStyle-Width="20%">
                                                                         <ItemTemplate>
                                                                             <asp:LinkButton runat="server" ID="lnkUtilitySelect" 
-                                                                                CssClass="btn btn-sm btn-outline-primary">
+                                                                                CssClass="btn btn-sm btn-outline-primary" OnClick="lnkUtilitySelect_Click">
                                                                                 <b class="fa fa-check-circle"></b> Select
                                                                             </asp:LinkButton>
                                                                         </ItemTemplate>
@@ -285,7 +285,7 @@
                                                                     List of Assigned Provider
                                                                 </div>
                                                                 <div class="col-3">
-                                                                    <asp:LinkButton runat="server" ID="lnkAddNewProvider" OnClick="lnkAddNewProvider_Click"  CssClass="btn btn-outline-primary btn-sm">
+                                                                    <asp:LinkButton runat="server" ID="lnkAddNewProvider" OnClick="lnkAddNewProvider_Click" CssClass="btn btn-outline-primary btn-sm">
                                                                         New Provider
                                                                     </asp:LinkButton>
                                                                 </div>

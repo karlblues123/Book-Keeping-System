@@ -184,6 +184,15 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.LinkButton lnkRecordUtility;
         
         /// <summary>
+        /// lnkUtilityClear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkUtilityClear;
+        
+        /// <summary>
         /// upPurchase control.
         /// </summary>
         /// <remarks>
@@ -299,6 +308,15 @@ namespace Book_Keeping_System {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkRecordPurchase;
+        
+        /// <summary>
+        /// lnkPurchaseClear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkPurchaseClear;
         
         /// <summary>
         /// pSupplier control.

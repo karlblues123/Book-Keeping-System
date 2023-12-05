@@ -429,8 +429,9 @@
                                             </div>
                                             <%-- Button --%>
                                             <div class="row m-2">
-                                                <div class="col-2">
+                                                <div class="col-4">
                                                     <asp:LinkButton runat="server" ID="lnkRecordUtility" OnClick="lnkRecordUtility_Click" CssClass="btn btn-outline-success">Record</asp:LinkButton>
+                                                    <asp:LinkButton runat="server" ID="lnkUtilityClear" OnClick="lnkUtilityClear_Click" CssClass="btn btn-outline-warning">Clear</asp:LinkButton>
                                                 </div>
                                             </div>
                                         </ContentTemplate>
@@ -443,6 +444,7 @@
                                             <asp:AsyncPostBackTrigger ControlID="lnkSupplierSave" EventName="Click" />
                                             <asp:AsyncPostBackTrigger ControlID="lnkNewSupplier" EventName="Click" />
                                             <asp:AsyncPostBackTrigger ControlID="lnkSupplierBack" EventName="Click" />
+                                            <asp:AsyncPostBackTrigger ControlID="lnkPurchaseClear" EventName="Click" />
                                         </Triggers>
                                         <ContentTemplate>
                                             <asp:Panel runat="server" ID="pPurchase" Visible="true">
@@ -524,8 +526,9 @@
                                                </div>
                                                 <%-- Button --%>
                                                 <div class="row m-2">
-                                                    <div class="col-2">
+                                                    <div class="col-4">
                                                         <asp:LinkButton runat="server" ID="lnkRecordPurchase" CssClass="btn btn-outline-success">Record</asp:LinkButton>
+                                                        <asp:LinkButton runat="server" ID="lnkPurchaseClear" CssClass="btn btn-outline-warning" OnClick="lnkPurchaseClear_Click">Clear</asp:LinkButton>
                                                     </div>
                                                 </div>
                                             </asp:Panel>

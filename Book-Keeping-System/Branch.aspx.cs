@@ -105,6 +105,8 @@ namespace Book_Keeping_System
 
         #endregion
 
+        #region EVENTS
+
         protected void lnkEdit_Click(object sender, EventArgs e)
         {
            
@@ -204,5 +206,40 @@ namespace Book_Keeping_System
                 lnkProviderBack_Click(sender, e);
             }
         }
+
+        protected void lnkUtilitySelect_Click(object sender, EventArgs e)
+        {
+            var selEdit = (Control)sender;
+            GridViewRow r = (GridViewRow)selEdit.NamingContainer;
+            int _supplierID = Convert.ToInt32(r.Cells[0].Text);
+
+            DataView dv = oMaster.GET_SUPPLIER_LISTS().DefaultView;
+            dv.RowFilter = "SupplierID='" + _supplierID + "'";
+
+            if (dv.Count > 0)
+            {
+                foreach (DataRowView dvr in dv)
+                {
+                    txtProvider.Text = dvr["Supplier_Name"].ToString();
+                    txtTIN.Text = dvr["TIN"].ToString();
+
+                }
+                
+            }
+        }
+
+        protected void gvUtilitySupplierList_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+            foreach (GridViewRow row in gvUtilitySupplierList.Rows)
+            {
+                LinkButton edit = row.FindControl("lnkUtilitySelect") as LinkButton;
+                ScriptManager.GetCurrent(this).RegisterAsyncPostBackControl(edit);
+            }
+        }
+
+
+        #endregion
+
+
     }
 }

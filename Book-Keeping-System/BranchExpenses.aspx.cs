@@ -158,6 +158,16 @@ namespace Book_Keeping_System
             }
         }
 
+        protected void lnkUtilityClear_Click(object sender, EventArgs e)
+        {
+            CLEAR_UTILITY_INPUTS();
+        }
+
+
+        protected void lnkPurchaseClear_Click(object sender, EventArgs e)
+        {
+            CLEAR_PURCHASE_INPUTS();
+        }
         #endregion
 
         #region LOCAL FUNCTIONS
@@ -208,6 +218,17 @@ namespace Book_Keeping_System
             txtUtilityTo.Text = oBK.GetServerDate().ToShortDateString();
         }
 
+        private void CLEAR_PURCHASE_INPUTS()
+        {
+            txtPurchaseSupplier.Text = String.Empty;
+            txtPurchaseTIN.Text = String.Empty;
+            txtPurchaseReceipt.Text = String.Empty;
+            txtPurchaseVATAmount.Text = "0";
+            txtPurchaseNonVATAmount.Text = "0";
+            txtPurchaseVAT.Text = "0";
+            txtPurchaseParticulars.Text = String.Empty;
+        }
+
         private void DISPLAY_SUPPLIER_LIST()
         {
             DataTable dt = oMaster.GET_SUPPLIER_LISTS();
@@ -219,6 +240,8 @@ namespace Book_Keeping_System
             gvPurchaseSupplierList.DataBind();
 
         }
+
+
 
         #endregion
 
