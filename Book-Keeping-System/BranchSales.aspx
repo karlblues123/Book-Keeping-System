@@ -89,7 +89,7 @@
                                 <div class="row">
                                     <div class="input-group">
                                         <span class="input-group-text"><b class="fa fa-building"></b></span>
-                                        <asp:TextBox runat="server" ID="txtBranchSearch" CssClass="form-control"></asp:TextBox>
+                                        <asp:TextBox runat="server" ID="txtBranchSearch" CssClass="form-control" AutoCompleteType="Disabled"></asp:TextBox>
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +127,7 @@
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-3">
-                                            <asp:TextBox runat="server" ID="txtSelectedBranch" CssClass="form-control" Text="No Branch Selected" ReadOnly="true"></asp:TextBox>
+                                            <asp:TextBox runat="server" ID="txtSelectedBranch" CssClass="form-control" ReadOnly="true" placeholder="No Branch Selected"></asp:TextBox>
                                         </div>
                                         <div class="col-3 offset-6">
                                             <asp:TextBox runat="server" ID="txtDate" CssClass="form-control" TextMode="Date"></asp:TextBox>
@@ -143,7 +143,7 @@
                                             <%-- Quantity --%>
                                             <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtChickenQuantity" CssClass="form-control" 
-                                                    TextMode="Number" onchange="CalculateChickenSales()" ReadOnly="true" placeholder="0"></asp:TextBox>
+                                                    TextMode="Number" onchange="CalculateChickenSales()">0</asp:TextBox>
                                                 <label for="<%=txtChickenQuantity.ClientID%>">Quantity</label>
                                             </div>
                                         </div>
@@ -151,7 +151,7 @@
                                             <%-- Price --%>
                                             <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtChickenPrice" CssClass="form-control" 
-                                                    TextMode="Number" onchange="CalculateChickenSales()" ReadOnly="true" placeholder="0"></asp:TextBox>
+                                                    TextMode="Number" onchange="CalculateChickenSales()">0</asp:TextBox>
                                                 <label for="<%=txtChickenPrice.ClientID%>">Price</label>
                                             </div>
                                         </div>
@@ -159,14 +159,14 @@
                                             <%-- Total --%>
                                             <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtChickenTotal" CssClass="form-control" 
-                                                    TextMode="Number" placeholder="0"></asp:TextBox>
+                                                    TextMode="Number">0</asp:TextBox>
                                                 <label for="<%=txtChickenTotal.ClientID%>">Total</label>
                                             </div>
                                         </div>
                                         <%-- Buttons --%>
                                         <div class="col-3">
                                             <asp:LinkButton runat="server" ID="lnkChickenRecordSale" CssClass="btn btn-outline-success" 
-                                                OnClick="lnkRecordSale_Click" Enabled="false">Record</asp:LinkButton>
+                                                OnClick="lnkRecordSale_Click">Record</asp:LinkButton>
                                         </div>
                                     </div>
                                     <%-- Atsara Sales --%>
@@ -176,7 +176,7 @@
                                             <%-- Quantity --%>
                                             <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtAtsaraQuantity" CssClass="form-control" 
-                                                    TextMode="Number" onchange="CalculateAtsaraSales()" ReadOnly="true" placeholder="0"></asp:TextBox>
+                                                    TextMode="Number" onchange="CalculateAtsaraSales()">0</asp:TextBox>
                                                 <label for="<%=txtAtsaraQuantity.ClientID%>">Quantity</label>
                                             </div>
                                         </div>
@@ -184,7 +184,7 @@
                                             <%-- Price --%>
                                             <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtAtsaraPrice" CssClass="form-control" 
-                                                    TextMode="Number" onchange="CalculateAtsaraSales()" ReadOnly="true" placeholder="0"></asp:TextBox>
+                                                    TextMode="Number" onchange="CalculateAtsaraSales()">0</asp:TextBox>
                                                 <label for="<%=txtAtsaraPrice.ClientID%>">Price</label>
                                             </div>
                                         </div>
@@ -192,14 +192,14 @@
                                             <%-- Total --%>
                                             <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtAtsaraTotal" CssClass="form-control" 
-                                                    TextMode="Number" ReadOnly="true" placeholder="0"></asp:TextBox>
+                                                    TextMode="Number">0</asp:TextBox>
                                                 <label for="<%=txtAtsaraTotal.ClientID%>">Total</label>
                                             </div>
                                         </div>
                                         <%-- Button --%>
                                         <div class="col-3">
                                             <asp:LinkButton runat="server" ID="lnkAtsaraRecordSale" CssClass="btn btn-outline-success" 
-                                                OnClick="lnkRecordSale_Click" Enabled="false">Record</asp:LinkButton>
+                                                OnClick="lnkRecordSale_Click">Record</asp:LinkButton>
                                         </div>
                                     </div>
                                 </div>

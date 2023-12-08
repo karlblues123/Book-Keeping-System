@@ -408,6 +408,7 @@
                                     <asp:UpdatePanel runat="server" ID="upNewSupplier" UpdateMode="Conditional" ChildrenAsTriggers="false">
                                         <Triggers>
                                             <asp:AsyncPostBackTrigger ControlID="lnkSupplierClear" EventName="Click" />
+                                            <asp:AsyncPostBackTrigger ControlID="lnkSupplierSave" EventName="Click" />
                                         </Triggers>
                                         <ContentTemplate>
                                             <%-- Supplier Name & TIN --%>

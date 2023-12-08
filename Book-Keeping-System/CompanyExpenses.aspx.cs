@@ -80,6 +80,10 @@ namespace Book_Keeping_System
             txtSupplierName.Text = String.Empty;
             txtSupplierAddress.Text = String.Empty;
             txtSupplierTIN.Text = String.Empty;
+
+            txtSupplierName.CssClass = "form-control";
+            txtSupplierAddress.CssClass = "form-control";
+            txtSupplierTIN.CssClass = "form-control";
         }
 
 
@@ -106,6 +110,13 @@ namespace Book_Keeping_System
 
         protected void lnkSupplierSave_Click(object sender, EventArgs e)
         {
+            if (String.IsNullOrEmpty(txtSupplierName.Text))
+                txtSupplierName.CssClass += " is-invalid";
+            if (String.IsNullOrEmpty(txtSupplierTIN.Text))
+                txtSupplierTIN.CssClass += " is-invalid";
+            if (String.IsNullOrEmpty(txtSupplierAddress.Text))
+                txtSupplierAddress.CssClass += " is-invalid";
+
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('New Supplier saved.')", true);
         }
 

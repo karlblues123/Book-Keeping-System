@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
-
+using System.Text.RegularExpressions;
 
 namespace Book_Keeping_System
 {
@@ -29,17 +29,33 @@ namespace Book_Keeping_System
         protected void lnkRecordSale_Click(object sender, EventArgs e)
         {
             DateTime dt;
-            if (DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt))
+
+            //Add is-invalid CSS Class to fields with empty or invalid inputs
+            if (String.IsNullOrEmpty(txtSelectedBranch.Text))
+                txtSelectedBranch.CssClass += " is-invalid";
+            if(!DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt))
+                txtDate.CssClass += " is-invalid";
+
+            if (DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt) && !String.IsNullOrEmpty(txtSelectedBranch.Text))
             {
-                //TODO Insert Branch Sales in DB
+               
+                    //TODO Insert Branch Sales in DB
 
-                txtDate.Text = DateTime.Parse(txtDate.Text).AddDays(1).ToString("yyyy-MM-dd");
+                    //Revert CSS classes to the original
+                    txtDate.CssClass = "form-control";
+                    txtSelectedBranch.CssClass = "form-control";
 
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('Sales recorded')", true);
-                CLEAR_INPUTS();
+                    txtDate.Text = DateTime.Parse(txtDate.Text).AddDays(1).ToString("yyyy-MM-dd");
+
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('Sales recorded')", true);
+                    CLEAR_INPUTS();
             }
             else
+            {
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowError", "ShowError('Invalid Input. Please check.')", true);
+                
+            }
+                
         }
 
         protected void lnkEdit_Click(object sender, EventArgs e)
@@ -64,7 +80,6 @@ namespace Book_Keeping_System
 
                 }
 
-                ENABLE_FORM();
             }
         }
         #endregion
@@ -74,18 +89,6 @@ namespace Book_Keeping_System
         protected void Show_Toast(object sender, EventArgs e)
         {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('Sales recorded')", true);
-        }
-
-        private void ENABLE_FORM()
-        {
-            txtChickenPrice.ReadOnly = false;
-            txtChickenQuantity.ReadOnly = false;
-
-            txtAtsaraPrice.ReadOnly = false;
-            txtAtsaraQuantity.ReadOnly = false;
-
-            lnkChickenRecordSale.Enabled = true;
-            lnkAtsaraRecordSale.Enabled = true;
         }
 
         private void DISPLAY_BRANCH_LISTS()
