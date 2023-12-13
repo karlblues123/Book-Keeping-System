@@ -22,6 +22,7 @@ namespace Book_Keeping_System
                 DISPLAY_BRANCH_LISTS();
                 CLEAR_UTILITY_INPUTS();
                 DISPLAY_SUPPLIER_LIST();
+                pSupplier.Visible = false;
             }
         }
 

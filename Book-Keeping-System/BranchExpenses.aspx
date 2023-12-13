@@ -130,22 +130,24 @@
                 + Number.parseInt(packaging, 10) + Number.parseInt(cleaning, 10) + Number.parseInt(misc, 10) + Number.parseInt(maint,10);
         }
 
-        //Search function
-        $(function searchInput() {
-            $('[id*=txtBranchSearch]').on("keyup", function () {
+        function pageLoad() {
+            //Search function for Branch List
+            $('[id*=txtBranchSearch]').off().on("keyup", function () {
                 var value = $(this).val().toLowerCase();
                 $('[id*=gvBranchList] tr').filter(function () {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
 
-            $('[id*=supplier-search]').on("keyup", function () {
+            //Search function for Supplier List
+            $('[id*=supplier-search]').off().on("keyup", function () {
                 var value = $(this).val().toLowerCase();
-                $('[id*=gvUtilitySupplierList] tr').filter(function () {
+                console.log(value);
+                $('[id*=gvPurchaseSupplierList] tr').filter(function () {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
-        });
+        }
 
         <%--// For Calendar Inputs
         $(function setCalendarInput() {
@@ -184,7 +186,7 @@
                     });--%>
 
         //On UpdatePanel Refresh
-        var prm = Sys.WebForms.PageRequestManager.getInstance();
+        <%--var prm = Sys.WebForms.PageRequestManager.getInstance();
         if (prm != null) {
             prm.add_endRequest(function (sender, e) {
                 if (sender._postBackSettings.panelsToUpdate != null) {
@@ -192,18 +194,22 @@
 
                     //Search function
                     $(function searchInput() {
+
+                        __doPostBack("<%=upPurchase.UniqueID%>", '');
                         $('[id*=txtBranchSearch]').on("keyup", function () {
                             var value = $(this).val().toLowerCase();
                             $('[id*=gvBranchList] tr').filter(function () {
                                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                             });
                         });
-                    });
 
-                    $('[id*=supplier-search]').on("keyup", function () {
-                        var value = $(this).val().toLowerCase();
-                        $('[id*=gvUtilitySupplierList] tr').filter(function () {
-                            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                        $('[id*=supplier-search]').on("keyup", function () {
+                            var value = $(this).val().toLowerCase();
+                            console.log(value);
+                            $('[id*=gvPurchaseSupplierList] tr').filter(function () {
+                                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                            });
+                            
                         });
                     });
 
@@ -243,16 +249,16 @@
 
                     });--%>
 
-                }
-            });
-        };
+            //    }
+            //});--%>
+        //};
     </script>
 
     <div class="container-fluid" style="padding-left:0;padding-right:0;">
         <%-- Main Card --%>
         <div class="card" style="border:0;">
             <%-- Main Card Header --%>
-            <div class="card-header bg-warning bg-opacity-25">
+            <div class="card-header bg-success-subtle">
                 <b>Branch - Expenses</b>
             </div>
             <%-- Main Card Body --%>
@@ -425,7 +431,6 @@
                                                         <label for="txtUtilityParticulars">Remarks</label>
                                                     </div>
                                                 </div>
-                                               
                                             </div>
                                             <%-- Button --%>
                                             <div class="row m-2">
@@ -532,7 +537,7 @@
                                                     </div>
                                                 </div>
                                             </asp:Panel>
-                                            <asp:Panel runat="server" ID="pSupplier" Visible="false">
+                                            <asp:Panel runat="server" ID="pSupplier">
                                                 <div class="row">
                                                     <div class="col-6">
                                                         <div class="row m-2">
@@ -800,8 +805,6 @@
                     </div>
                 </div>
             </div>
-
-         
         </div>
         <%-- Success Toast --%>
         <div class="position-fixed bottom-0 end-0 p-3 " style="z-index: 11">

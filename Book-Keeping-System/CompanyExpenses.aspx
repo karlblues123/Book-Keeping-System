@@ -112,7 +112,7 @@
     <div class="containter-fluid" style="padding-left:0;padding-right:0;">
         <%-- Main Card --%>
         <div class="card" style="border:0;">
-            <div class="card-header bg-warning bg-opacity-25">
+            <div class="card-header bg-success-subtle">
                 <b>Company - Expenses</b>
             </div>
             <div class="card-body">
@@ -123,8 +123,8 @@
                                 <div class="row">
                                     <div class="col">
                                         <%-- Search Textbox --%>
-                                        <input type="text" id="search-bar" placeholder="Search" 
-                                            class="form-control form-control-sm" role="search" />
+                                        <input type="text" id="search-bar" placeholder="Search Supplier" 
+                                            class="form-control" role="search" />
                                     </div>
                                 </div>
                             </div>
@@ -155,15 +155,14 @@
                                 <asp:UpdatePanel runat="server" ID="upHeader" UpdateMode="Conditional" ChildrenAsTriggers="false">
                                     <ContentTemplate>
                                         <div class="row">
-                                            <div class="col-3">
+                                            <div class="col-4">
                                                 <div class="input-group">
-                                                    <span class="input-group-text"><b class="fa fa-briefcase"></b></span>
                                                     <%-- Company Dropdown List --%>
                                                     <asp:DropDownList runat="server" ID="ddCompanyList" CssClass="form-control"></asp:DropDownList>
                                                 </div>
                                                 <asp:HiddenField runat="server" ID="hfMode" Value="none" />
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-5">
                                                 <ul class="nav nav-pills" id="form-pills" role="tablist">
                                                     <%-- Tab Link Utility --%>
                                                     <li id="nav-utility" class="nav-item" role="presentation">

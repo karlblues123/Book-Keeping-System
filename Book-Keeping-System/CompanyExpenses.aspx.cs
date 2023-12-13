@@ -64,6 +64,7 @@ namespace Book_Keeping_System
             txtUtilityTotal.Text = "0";
             txtUtilityFrom.Text = String.Empty;
             txtUtilityTo.Text = String.Empty;
+            txtUtilitySupplier.CssClass = "form-control";
 
             txtMiscSupplier.Text = String.Empty;
             txtMiscTIN.Text = String.Empty;
@@ -99,13 +100,20 @@ namespace Book_Keeping_System
 
         protected void lnkUtilitySubmit_Click(object sender, EventArgs e)
         {
-            Show_Message_Toast("Expenses recorded");
-            CLEAR_INPUT();
+            if (String.IsNullOrEmpty(txtUtilitySupplier.Text))
+                txtUtilitySupplier.CssClass += " is-invalid";
+
+            if(!String.IsNullOrEmpty(txtUtilitySupplier.Text))
+            {
+                Show_Message_Toast("Expenses recorded");
+                CLEAR_INPUT();
+            }
+            
         }
 
         private void Show_Message_Toast(string msg)
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('Sales recorded')", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('" + msg + "')", true);
         }
 
         protected void lnkSupplierSave_Click(object sender, EventArgs e)

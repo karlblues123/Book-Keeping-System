@@ -15,37 +15,41 @@
             toast.show();
         }
 
-        //Search function
-        $(function searchInput() {
-            $('[id*=txtBranchSearch]').on("keyup", function () {
-                var value = $(this).val().toLowerCase();
-                $('[id*=gvBranchList] tr').filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        function pageLoad() {
+            //Search function
+            $(function searchInput() {
+                $('[id*=search-bar]').off().on("keyup", function () {
+                    var value = $(this).val().toLowerCase();
+                    $('[id*=gvBranchList] tr').filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
                 });
             });
-        });
-
-
-        //On UpdatePanel Refresh
-        var prm = Sys.WebForms.PageRequestManager.getInstance();
-        if (prm != null) {
-            prm.add_endRequest(function (sender, e) {
-                if (sender._postBackSettings.panelsToUpdate != null) {
-
-
-                    //Search function
-                    $(function searchInput() {
-                        $('[id*=txtBranchSearch]').on("keyup", function () {
-                            var value = $(this).val().toLowerCase();
-                            $('[id*=gvBranchList] tr').filter(function () {
-                                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                            });
-                        });
-                    });
-
-                }
-            });
         }
+
+        
+
+
+        ////On UpdatePanel Refresh
+        //var prm = Sys.WebForms.PageRequestManager.getInstance();
+        //if (prm != null) {
+        //    prm.add_endRequest(function (sender, e) {
+        //        if (sender._postBackSettings.panelsToUpdate != null) {
+
+
+        //            //Search function
+        //            $(function searchInput() {
+        //                $('[id*=search-bar]').on("keyup", function () {
+        //                    var value = $(this).val().toLowerCase();
+        //                    $('[id*=gvBranchList] tr').filter(function () {
+        //                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        //                    });
+        //                });
+        //            });
+
+        //        }
+        //    });
+        //}
 
         //Client-side calculate the sales of chicken
         function CalculateChickenSales() {
@@ -75,7 +79,7 @@
         <%-- Main Card --%>
         <div class="card" style="border:0;">
             <%-- Main Card Header --%>
-            <div class="card-header bg-warning bg-opacity-25">
+            <div class="card-header bg-success-subtle">
                 <b>Branch - Sales</b>
             </div>
             <%-- Main Card Body --%>
@@ -88,8 +92,9 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="input-group">
-                                        <span class="input-group-text"><b class="fa fa-building"></b></span>
-                                        <asp:TextBox runat="server" ID="txtBranchSearch" CssClass="form-control" AutoCompleteType="Disabled"></asp:TextBox>
+                                        <%-- Search Textbox --%>
+                                        <input type="text" id="search-bar" placeholder="Search Branch" 
+                                            class="form-control" role="search" />
                                     </div>
                                 </div>
                             </div>

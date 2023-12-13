@@ -26,7 +26,7 @@
      <asp:ScriptManager runat="server" ID="ScriptManager1">
     </asp:ScriptManager>
             <%-- Navbar --%>
-            <nav class="navbar navbar-expand-sm bg-light navbar-light">
+            <nav class="navbar navbar-expand-sm bg-success-subtle navbar-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="Home.aspx"><b class="fa fa-home"></b></a>
                     <div class="collapse navbar-collapse" id="navbarGeneral">

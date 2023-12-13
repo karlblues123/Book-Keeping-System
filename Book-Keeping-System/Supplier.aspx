@@ -4,37 +4,40 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <script type="text/javascript">
        
-        //Search function
-        $(function searchInput() {
-            $('[id*=search-bar]').on("keyup", function () {
-                var value = $(this).val().toLowerCase();
-                $('[id*=gvSupplierList] tr').filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
+         function pageLoad() {
+             //Search function
+             $(function searchInput() {
+                 $('[id*=search-bar]').off().on("keyup", function () {
+                     var value = $(this).val().toLowerCase();
+                     $('[id*=gvSupplierList] tr').filter(function () {
+                         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                     });
+                 });
+             });
+         }
+        
 
 
-        //On UpdatePanel Refresh
-        var prm = Sys.WebForms.PageRequestManager.getInstance();
-        if (prm != null) {
-            prm.add_endRequest(function (sender, e) {
-                if (sender._postBackSettings.panelsToUpdate != null) {
+        ////On UpdatePanel Refresh
+        //var prm = Sys.WebForms.PageRequestManager.getInstance();
+        //if (prm != null) {
+        //    prm.add_endRequest(function (sender, e) {
+        //        if (sender._postBackSettings.panelsToUpdate != null) {
 
 
-                    //Search function
-                    $(function searchInput() {
-                        $('[id*=search-bar]').on("keyup", function () {
-                            var value = $(this).val().toLowerCase();
-                            $('[id*=gvSupplierList] tr').filter(function () {
-                                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                            });
-                        });
-                    });
+        //            //Search function
+        //            $(function searchInput() {
+        //                $('[id*=search-bar]').on("keyup", function () {
+        //                    var value = $(this).val().toLowerCase();
+        //                    $('[id*=gvSupplierList] tr').filter(function () {
+        //                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        //                    });
+        //                });
+        //            });
 
-                }
-            });
-        };
+        //        }
+        //    });
+        //};
 
     </script>
     <div class="container-fluid" style="padding-left:0;padding-right:0;">
@@ -44,7 +47,7 @@
             </Triggers>
             <ContentTemplate>
                 <asp:Panel runat="server" ID="pList" CssClass="card" style="border:none;">
-                    <div class="card-header bg-info bg-opacity-25" style="height:57px;">
+                    <div class="card-header bg-success-subtle" style="height:57px;">
                         <div class="row d-flex align-items-center">
                             <div class="col-8">
                                 <b class="fa fa-handshake-o"></b><b class="m-2">Suppliers Information</b>

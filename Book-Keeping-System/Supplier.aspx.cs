@@ -42,29 +42,44 @@ namespace Book_Keeping_System
         {
 
             //Validation
-            if ((int)ViewState["V_ACTION"] == 1) //It will proceed to Update
+
+            if (String.IsNullOrEmpty(txtSupplierName.Text))
+                txtSupplierName.CssClass += " is-invalid";
+            if (String.IsNullOrEmpty(txtSupplierTIN.Text))
+                txtSupplierTIN.CssClass += " is-invalid";
+            if (String.IsNullOrEmpty(txtSupplierAddress.Text))
+                txtSupplierAddress.CssClass += " is-invalid";
+
+            if(!String.IsNullOrEmpty(txtSupplierName.Text) && !String.IsNullOrEmpty(txtSupplierTIN.Text) && !String.IsNullOrEmpty(txtSupplierAddress.Text))
             {
-                oMaster.UPDATE_SUPPLIER_DATA((int)ViewState["V_SUPPLIERID"], txtSupplierName.Text, txtSupplierAddress.Text, txtSupplierTIN.Text, cbVAT.Checked);
+                if ((int)ViewState["V_ACTION"] == 1) //It will proceed to Update
+                {
+                    oMaster.UPDATE_SUPPLIER_DATA((int)ViewState["V_SUPPLIERID"], txtSupplierName.Text, txtSupplierAddress.Text, txtSupplierTIN.Text, cbVAT.Checked);
 
-                //Success toast message
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('Supplier Data updated!');</script>", false);
+                    //Success toast message
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('Supplier Data updated!');</script>", false);
+                }
+                else //Will proceed to Insert Action
+                {
+                    //This will Insert new Record of Supplier in database
+                    oMaster.INSERT_SUPPLIER_DATA(txtSupplierName.Text, txtSupplierAddress.Text, txtSupplierTIN.Text, cbVAT.Checked);
+                    //Success toast message
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('New Supplier Added.');</script>", false);
+
+                }
+
+                DISPLAY_SUPPLIER_LISTS();
+
+
+                //Return to default
+                pList.Visible = true;
+                pForm.Visible = false;
             }
-            else //Will proceed to Insert Action
-            {
-                //This will Insert new Record of Supplier in database
-                oMaster.INSERT_SUPPLIER_DATA(txtSupplierName.Text, txtSupplierAddress.Text, txtSupplierTIN.Text, cbVAT.Checked);
-                //Success toast message
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('New Supplier Added.');</script>", false);
-
-            }
+            //TODO add in error toast
+            
 
 
-            DISPLAY_SUPPLIER_LISTS();
-
-
-            //Return to default
-            pList.Visible = true;
-            pForm.Visible = false;
+            
         }
 
         protected void lnkNewSupplier_Click(object sender, EventArgs e)

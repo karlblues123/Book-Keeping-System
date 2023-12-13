@@ -4,51 +4,68 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <script type="text/javascript">
        
-        //Search function
-        $(function searchInput() {
-            $('[id*=search-bar]').on("keyup", function () {
+        function pageLoad() {
+            //Search function for Branch List
+            $('[id*=search-bar]').off().on("keyup", function () {
                 var value = $(this).val().toLowerCase();
                 $('[id*=gvBranchList] tr').filter(function () {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
 
-            $('[id*=supplier-search]').on("keyup", function () {
+            //Search function for Supplier List
+            $('[id*=supplier-search]').off().on("keyup", function () {
                 var value = $(this).val().toLowerCase();
                 $('[id*=gvUtilitySupplierList] tr').filter(function () {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
-        });
+        }
+
+        ////Search function
+        //$(function searchInput() {
+        //    $('[id*=search-bar]').on("keyup", function () {
+        //        var value = $(this).val().toLowerCase();
+        //        $('[id*=gvBranchList] tr').filter(function () {
+        //            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        //        });
+        //    });
+
+        //    $('[id*=supplier-search]').on("keyup", function () {
+        //        var value = $(this).val().toLowerCase();
+        //        $('[id*=gvUtilitySupplierList] tr').filter(function () {
+        //            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        //        });
+        //    });
+        //});
 
 
-        //On UpdatePanel Refresh
-        var prm = Sys.WebForms.PageRequestManager.getInstance();
-        if (prm != null) {
-            prm.add_endRequest(function (sender, e) {
-                if (sender._postBackSettings.panelsToUpdate != null) {
+        ////On UpdatePanel Refresh
+        //var prm = Sys.WebForms.PageRequestManager.getInstance();
+        //if (prm != null) {
+        //    prm.add_endRequest(function (sender, e) {
+        //        if (sender._postBackSettings.panelsToUpdate != null) {
 
 
-                    //Search function
-                    $(function searchInput() {
-                        $('[id*=search-bar]').on("keyup", function () {
-                            var value = $(this).val().toLowerCase();
-                            $('[id*=gvBranchList] tr').filter(function () {
-                                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                            });
-                        });
-                    });
+        //            //Search function
+        //            $(function searchInput() {
+        //                $('[id*=search-bar]').on("keyup", function () {
+        //                    var value = $(this).val().toLowerCase();
+        //                    $('[id*=gvBranchList] tr').filter(function () {
+        //                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        //                    });
+        //                });
 
-                    $('[id*=supplier-search]').on("keyup", function () {
-                        var value = $(this).val().toLowerCase();
-                        $('[id*=gvUtilitySupplierList] tr').filter(function () {
-                            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                        });
-                    });
-
-                }
-            });
-        };
+        //                $('[id*=supplier-search]').on("keyup", function () {
+        //                    var value = $(this).val().toLowerCase();
+        //                    $('[id*=gvUtilitySupplierList] tr').filter(function () {
+        //                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        //                    });
+        //                });
+        //            });
+        //        }
+        //    });
+        //};
 
     </script>
 
@@ -58,10 +75,10 @@
                 <asp:Panel runat="server" ID="panelBranchLists">
                     <div class="card" style="border:0;">
                         <%-- Header --%>
-                        <div class="card-header bg-warning bg-opacity-25" style="height:57px">
+                        <div class="card-header bg-success-subtle" style="height:57px">
                             <div class="row d-flex align-items-center">
                                 <div class="col-8">
-                                    <b class="fa fa-building text-info"></b>  <b>Branches Information</b>
+                                    <b class="fa fa-building"></b>  <b>Branches Information</b>
                                 </div>
                                 <%-- Search Bar --%>
                                 <div class="col-4">
@@ -104,9 +121,8 @@
                 <asp:Panel runat="server" ID="panelBranchInputForm" Visible="false">
                     <div class="card" style="border:0;">
                         <%-- Header --%>
-                        <div class="card-header bg-warning bg-opacity-25" style="height:57px">
-                            <h5>Branch Details</h5>
-                            <asp:Label runat="server" ID="lblBranchName"></asp:Label>
+                        <div class="card-header bg-success-subtle" style="height:57px">
+                            <b>Branch Details</b>
                         </div>
                         <%-- Body --%>
                         <div class="card-body ms-5 me-5">
@@ -237,7 +253,7 @@
                                                         <div class="card-header">
                                                             <div class="row">
                                                                 <div class="col-8">
-                                                                    <input class="form-control" id="supplier-search" />
+                                                                    <input class="form-control" id="supplier-search" role="search"/>
                                                                 </div>
                                                                 <div class="col-4">
                                                                     <asp:DropDownList runat="server" ID="ddSupplierType" 
