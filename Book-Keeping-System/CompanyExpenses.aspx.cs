@@ -27,6 +27,8 @@ namespace Book_Keeping_System
                 DISPLAY_SUPPLIER_LIST();
 
             }
+
+            
         }
 
         #region LOCAL FUNCTIONS
@@ -47,14 +49,14 @@ namespace Book_Keeping_System
 
             //TODO Get Utility Suppliers and Misc Suppliers
 
-            //Display Utility Suppliers in the list
             gvSupplierList.DataSource = dt;
             gvSupplierList.DataBind();
 
         }
 
-        private void CLEAR_INPUT()
+        private void CLEAR_UTILITY_INPUT()
         {
+            //Clear fields
             txtUtilitySupplier.Text = String.Empty;
             txtUtilityTIN.Text = String.Empty;
             txtUtilityReceipt.Text = String.Empty;
@@ -64,8 +66,18 @@ namespace Book_Keeping_System
             txtUtilityTotal.Text = "0";
             txtUtilityFrom.Text = String.Empty;
             txtUtilityTo.Text = String.Empty;
-            txtUtilitySupplier.CssClass = "form-control";
 
+            //Set CSS classes to default
+            txtDate.CssClass = "form-control";
+            txtUtilitySupplier.CssClass = "form-control";
+            txtUtilityTIN.CssClass = "form-control";
+            txtUtilityTotal.CssClass = "form-control";
+            
+        }
+
+        private void CLEAR_MISC_INPUT()
+        {
+            //Clear fields
             txtMiscSupplier.Text = String.Empty;
             txtMiscTIN.Text = String.Empty;
             txtMiscReceipt.Text = String.Empty;
@@ -73,20 +85,36 @@ namespace Book_Keeping_System
             txtMiscNonVATAmount.Text = "0";
             txtMiscVAT.Text = "0";
             txtMiscTotal.Text = "0";
+            txtMiscParticulars.Text = String.Empty;
 
+            //Set CSS classes to default
+            txtDate.CssClass = "form-control";
+            txtDate.CssClass = "form-control";
+            txtMiscTotal.CssClass = "form-control";
         }
 
         private void CLEAR_NEW_SUPPLIER_INPUT()
         {
+            //Clear fields
             txtSupplierName.Text = String.Empty;
             txtSupplierAddress.Text = String.Empty;
             txtSupplierTIN.Text = String.Empty;
 
+            //Set CSS classes to default
             txtSupplierName.CssClass = "form-control";
             txtSupplierAddress.CssClass = "form-control";
             txtSupplierTIN.CssClass = "form-control";
         }
 
+        private void Show_Message_Toast(string msg)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('" + msg + "');</script>", false);
+        }
+
+        private void Show_Error_Toast(string msg)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Error", "<script>showToastError('"+ msg +"');</script>", false);
+        }
 
         #endregion
 
@@ -94,38 +122,102 @@ namespace Book_Keeping_System
 
         protected void lnkMiscSubmit_Click(object sender, EventArgs e)
         {
-            Show_Message_Toast("Expenses recorded");
-            CLEAR_INPUT();
+
+            DateTime dt;
+
+            //Add is-valid CSS class appropriately
+            if (!DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt))
+                txtDate.CssClass += " is-invalid";
+            else
+                txtDate.CssClass = "form-control";
+
+            if (double.Parse(txtMiscTotal.Text) <= 0.00)
+                txtMiscTotal.CssClass += " is-invalid";
+            else
+                txtMiscTotal.CssClass = "form-control";
+
+            //Validate Input
+            if (DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt) && double.Parse(txtMiscTotal.Text) > 0.00)
+            {
+                //TODO Insert to database
+                Show_Message_Toast("Expenses recorded");
+                CLEAR_MISC_INPUT();
+            }
+            else
+            {
+                Show_Error_Toast("Invalid Input. Please check the highlighted fields.");
+            }
+                
         }
 
         protected void lnkUtilitySubmit_Click(object sender, EventArgs e)
         {
+            DateTime dt;
+
+            //Add is-invalid CSS class appropriately
             if (String.IsNullOrEmpty(txtUtilitySupplier.Text))
-                txtUtilitySupplier.CssClass += " is-invalid";
-
-            if(!String.IsNullOrEmpty(txtUtilitySupplier.Text))
             {
-                Show_Message_Toast("Expenses recorded");
-                CLEAR_INPUT();
+                txtUtilitySupplier.CssClass += " is-invalid";
+                txtUtilityTIN.CssClass += " is-invalid";
             }
-            
-        }
+                
+            else
+            {
+                txtUtilitySupplier.CssClass = "form-control";
+                txtUtilityTIN.CssClass = "form-control";
+            }
 
-        private void Show_Message_Toast(string msg)
-        {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('" + msg + "')", true);
+            if (double.Parse(txtUtilityTotal.Text) <= 0.00)
+            {
+                txtUtilityTotal.CssClass += " is-invalid";
+            }
+            else
+                txtUtilityTotal.CssClass = "form-control";
+                
+            if (!DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt))
+                txtDate.CssClass += " is-invalid";
+            else
+                txtDate.CssClass = "form-control";
+
+            //Validate input
+            if (!String.IsNullOrEmpty(txtUtilitySupplier.Text) && DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt) && double.Parse(txtUtilityTotal.Text) > 0.00)
+            {
+                //TODO Insert to database
+                Show_Message_Toast("Expenses recorded");
+                CLEAR_UTILITY_INPUT();
+            }
+            else
+                Show_Error_Toast("Invalid Input. Please check the highlighted fields.");
         }
+        
 
         protected void lnkSupplierSave_Click(object sender, EventArgs e)
         {
+            //Add is-invalid CSS class appropriately
             if (String.IsNullOrEmpty(txtSupplierName.Text))
                 txtSupplierName.CssClass += " is-invalid";
+            else
+                txtSupplierName.CssClass = "form-control";
+
             if (String.IsNullOrEmpty(txtSupplierTIN.Text))
                 txtSupplierTIN.CssClass += " is-invalid";
+            else
+                txtSupplierTIN.CssClass = "form-control";
+
             if (String.IsNullOrEmpty(txtSupplierAddress.Text))
                 txtSupplierAddress.CssClass += " is-invalid";
+            else
+                txtSupplierAddress.CssClass = "form-control";
 
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('New Supplier saved.')", true);
+            //Validate Input
+            if(!String.IsNullOrEmpty(txtSupplierName.Text) && !String.IsNullOrEmpty(txtSupplierTIN.Text) && !String.IsNullOrEmpty(txtSupplierAddress.Text))
+            {
+                //TODO Insert to database
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('New Supplier saved.')", true);
+                CLEAR_NEW_SUPPLIER_INPUT();
+            }
+            else
+                Show_Error_Toast("Invalid Input. Please check the highlighted fields.");
         }
 
         protected void lnkSupplierSelect_Click(object sender, EventArgs e)
@@ -168,14 +260,19 @@ namespace Book_Keeping_System
             }
         }
 
-        protected void lnkInputClear_Click(object sender, EventArgs e)
+        protected void lnkUtilityClear_Click(object sender, EventArgs e)
         {
-            CLEAR_INPUT();
+            CLEAR_UTILITY_INPUT();
         }
 
         protected void lnkSupplierClear_Click(object sender, EventArgs e)
         {
             CLEAR_NEW_SUPPLIER_INPUT();
+        }
+
+        protected void lnkMiscClear_Click(object sender, EventArgs e)
+        {
+            CLEAR_MISC_INPUT();
         }
 
 

@@ -42,13 +42,20 @@ namespace Book_Keeping_System
         {
 
             //Validation
-
             if (String.IsNullOrEmpty(txtSupplierName.Text))
                 txtSupplierName.CssClass += " is-invalid";
+            else
+                txtSupplierName.CssClass = "form-control";
+
             if (String.IsNullOrEmpty(txtSupplierTIN.Text))
                 txtSupplierTIN.CssClass += " is-invalid";
+            else
+                txtSupplierTIN.CssClass = "form-control";
+
             if (String.IsNullOrEmpty(txtSupplierAddress.Text))
                 txtSupplierAddress.CssClass += " is-invalid";
+            else
+                txtSupplierAddress.CssClass = "form-control";
 
             if(!String.IsNullOrEmpty(txtSupplierName.Text) && !String.IsNullOrEmpty(txtSupplierTIN.Text) && !String.IsNullOrEmpty(txtSupplierAddress.Text))
             {
@@ -76,7 +83,10 @@ namespace Book_Keeping_System
                 pForm.Visible = false;
             }
             //TODO add in error toast
-            
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Error", "<script>showToastError('Invalid input. Please check the highlighted fields.');</script>", false);
+            }
 
 
             

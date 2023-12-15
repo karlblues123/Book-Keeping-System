@@ -31,14 +31,14 @@ namespace Book_Keeping_System
         protected void lnkRecordExpenses_Click(object sender, EventArgs e)
         {
             DateTime dt;
-            if(DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt))
+            if (DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt))
             {
                 txtDate.Text = DateTime.Parse(txtDate.Text).AddDays(1).ToString("yyyy-MM-dd");
 
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('Expenses recorded')", true);
+                Show_Message_Toast("Expense recorded.");
             }
             else
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowError", "ShowError('Invalid Input. Please check.')", true);
+                Show_Error_Toast("Invalid input. Please check the highlighted fields.");
         }
 
         protected void lnkSupplierSave_Click(object sender, EventArgs e)
@@ -113,15 +113,36 @@ namespace Book_Keeping_System
 
         protected void lnkRecordUtility_Click(object sender, EventArgs e)
         {
-            //Save the transaction record
-            oBK.INSERT_BRANCH_UTILITY_TRANS(Convert.ToInt32(ViewState["V_BRANCHID"]), Convert.ToInt32(ddUtilitySupplier.SelectedValue), txtUtilityTIN.Text, txtUtilityReceipt.Text,
-                                             Convert.ToDouble(txtUtilityVATAmount.Text), Convert.ToDouble(txtUtilityNonVATAmount.Text),
-                                             Convert.ToDouble(txtUtilityVAT.Text), Convert.ToDouble(txtUtilityTotal.Text),
-                                             Convert.ToDateTime(txtUtilityFrom.Text), Convert.ToDateTime(txtUtilityTo.Text), txtUtilityParticulars.Text, txtUtilityRemarks.Text);
-            CLEAR_UTILITY_INPUTS();
+            //Add is-invalid CSS class appropriately
+            if (String.IsNullOrEmpty(txtSelectedBranch.Text))
+                txtSelectedBranch.CssClass += " is-invalid";
+            else
+                txtSelectedBranch.CssClass = "form-control"; 
 
-            //Success toast message
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('Utility Expense transaction record successfully process.');</script>", false);
+            if(double.Parse(txtUtilityTotal.Text) <= 0.00)
+            {
+                txtUtilityTotal.CssClass += " is-invalid";
+            }
+            else
+                txtUtilityTotal.CssClass = "form-control";
+
+
+            if(double.Parse(txtUtilityTotal.Text) > 0.00 && !String.IsNullOrEmpty(txtSelectedBranch.Text))
+            {
+                //Save the transaction record
+                oBK.INSERT_BRANCH_UTILITY_TRANS(Convert.ToInt32(ViewState["V_BRANCHID"]), Convert.ToInt32(ddUtilitySupplier.SelectedValue), txtUtilityTIN.Text, txtUtilityReceipt.Text,
+                                                 Convert.ToDouble(txtUtilityVATAmount.Text), Convert.ToDouble(txtUtilityNonVATAmount.Text),
+                                                 Convert.ToDouble(txtUtilityVAT.Text), Convert.ToDouble(txtUtilityTotal.Text),
+                                                 Convert.ToDateTime(txtUtilityFrom.Text), Convert.ToDateTime(txtUtilityTo.Text), txtUtilityParticulars.Text, txtUtilityRemarks.Text);
+                CLEAR_UTILITY_INPUTS();
+
+                //Success toast message
+                Show_Message_Toast("Utility Expense transaction record successfully process.");
+            }
+            else
+            {
+                Show_Error_Toast("Invalid input. Please check the highlighted fields.");
+            }
 
         }
 
@@ -242,10 +263,18 @@ namespace Book_Keeping_System
 
         }
 
+        private void Show_Message_Toast(string msg)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('" + msg + "');</script>", false);
+        }
 
+        private void Show_Error_Toast(string msg)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Error", "<script>showToastError('" + msg + "');</script>", false);
+        }
 
         #endregion
 
-        
+
     }
 }

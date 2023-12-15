@@ -33,26 +33,29 @@ namespace Book_Keeping_System
             //Add is-invalid CSS Class to fields with empty or invalid inputs
             if (String.IsNullOrEmpty(txtSelectedBranch.Text))
                 txtSelectedBranch.CssClass += " is-invalid";
+            else
+                txtSelectedBranch.CssClass = "form-control";
+
             if(!DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt))
                 txtDate.CssClass += " is-invalid";
+            else
+                txtDate.CssClass = "form-control";
 
             if (DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt) && !String.IsNullOrEmpty(txtSelectedBranch.Text))
             {
                
-                    //TODO Insert Branch Sales in DB
+                //TODO Insert Branch Sales in DB
 
-                    //Revert CSS classes to the original
-                    txtDate.CssClass = "form-control";
-                    txtSelectedBranch.CssClass = "form-control";
+                txtDate.Text = DateTime.Parse(txtDate.Text).AddDays(1).ToString("yyyy-MM-dd");
 
-                    txtDate.Text = DateTime.Parse(txtDate.Text).AddDays(1).ToString("yyyy-MM-dd");
+                Show_Message_Toast("Sales recorded.");
+                CLEAR_INPUTS();
 
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('Sales recorded')", true);
-                    CLEAR_INPUTS();
+                ScriptManager.GetCurrent(this.Page).SetFocus(this.txtChickenQuantity);
             }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowError", "ShowError('Invalid Input. Please check.')", true);
+                Show_Error_Toast("Invalid input. Please check the highlighted fields.");
                 
             }
                 
@@ -86,16 +89,21 @@ namespace Book_Keeping_System
 
         #region LOCAL FUNCTIONS
 
-        protected void Show_Toast(object sender, EventArgs e)
+        private void Show_Message_Toast(string msg)
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('Sales recorded')", true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('" + msg + "');</script>", false);
+        }
+
+        private void Show_Error_Toast(string msg)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Error", "<script>showToastError('" + msg + "');</script>", false);
         }
 
         private void DISPLAY_BRANCH_LISTS()
         {
             DataTable dt = oMaster.GET_BRANCH_LISTS();
 
-            //Display sa gridview
+            //Display in GridView
             gvBranchList.DataSource = dt;
             gvBranchList.DataBind();
         }
