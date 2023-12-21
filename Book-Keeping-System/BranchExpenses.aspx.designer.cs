@@ -49,24 +49,6 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.TextBox txtSelectedBranch;
         
         /// <summary>
-        /// upDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upDate;
-        
-        /// <summary>
-        /// txtDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDate;
-        
-        /// <summary>
         /// upUtility control.
         /// </summary>
         /// <remarks>
@@ -76,6 +58,24 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.UpdatePanel upUtility;
         
         /// <summary>
+        /// ddExpenseType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddExpenseType;
+        
+        /// <summary>
+        /// panelSupplierDropDown control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panelSupplierDropDown;
+        
+        /// <summary>
         /// ddUtilitySupplier control.
         /// </summary>
         /// <remarks>
@@ -83,6 +83,24 @@ namespace Book_Keeping_System {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddUtilitySupplier;
+        
+        /// <summary>
+        /// panelSupplierNameText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panelSupplierNameText;
+        
+        /// <summary>
+        /// txtSupplierName1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSupplierName1;
         
         /// <summary>
         /// txtUtilityTIN control.
@@ -101,6 +119,15 @@ namespace Book_Keeping_System {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtUtilityReceipt;
+        
+        /// <summary>
+        /// txtAppliedDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAppliedDate;
         
         /// <summary>
         /// txtUtilityFrom control.
@@ -418,13 +445,13 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.UpdatePanel upPurchaseList;
         
         /// <summary>
-        /// gvPurchaseList control.
+        /// gvBranchExpensesRecordLists control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvPurchaseList;
+        protected global::System.Web.UI.WebControls.GridView gvBranchExpensesRecordLists;
         
         /// <summary>
         /// upExpenses control.
