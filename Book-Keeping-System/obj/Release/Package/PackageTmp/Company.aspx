@@ -2,67 +2,122 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container-fluid">
-            <div class="card m-2">
-                <%-- Main Header --%>
-                <div class="card-header">
-                    Company
-                </div>
-                <%-- Body --%>
-                <div class="card-body">
-                    <div class="card">
-                        <div class="card-header">
-                            <%-- Search Header --%>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="search-bar" />
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-                                </button>
+    <div class="container-fluid" style="padding-left:0;padding-right:0;">
+        <asp:UpdatePanel runat="server" ID="upMain">
+            <ContentTemplate>
+                <asp:Panel runat="server" ID="pList" CssClass="card" style="border:0;">
+                    <%-- Main Header --%>
+                    <div class="card-header bg-success-subtle" style="height:57px;">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-8">
+                                <b class="fa fa-briefcase"></b><b> Company</b>
+                            </div>
+                            <div class="col-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control form-control-sm" id="search-bar" 
+                                        role="search" placeholder="Search"/>
+                                    <button class="btn btn-outline-primary btn-sm">
+                                        <b class="fa fa-plus-circle"></b>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <%-- List --%>
-                            <asp:GridView runat="server" ID="gvCompanyList" AutoGenerateColumns="false" CssClass="table">
-                                <Columns>
-                                    <asp:BoundField DataField="CompanyName" HeaderText="Address" />
-                                    <asp:TemplateField>
-                                        <ItemTemplate>
-                                            <asp:LinkButton runat="server" ID="lnkEdit" CssClass="btn btn-primary">Edit</asp:LinkButton>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                </Columns>
-                            </asp:GridView>
+                    </div>
+                    <%-- Body --%>
+                    <div class="card-body ms-5 me-5" style="height:550px;overflow-y:scroll">
+                        <%-- GridView List --%>
+                        <asp:GridView runat="server" ID="gvCompanyList" AutoGenerateColumns="false" CssClass="table">
+                            <Columns>
+                                <asp:BoundField DataField="Company_Name" HeaderText="Name" />
+                                <asp:TemplateField>
+                                    <ItemTemplate>
+                                        <asp:LinkButton runat="server" ID="lnkView" CssClass="btn btn-outline-primary" OnClick="lnkView_Click"><b class="fa fa-search"></b> View</asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                        </asp:GridView>
+                    </div> 
+                </asp:Panel>
+                <asp:Panel runat="server" ID="pDetails" CssClass="card" Visible="false" style="border:0;">
+                    <div class="card-header bg-success-subtle" style="height:57px;">
+                        <%-- Tabs --%>
+                        <ul class="nav nav-pills" id="form-pills" role="tablist">
+                            <%-- Basic Tab --%>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-basic"
+                                    type="button" role="tab" aria-controls="tab-basic" aria-selected="true">
+                                    Basic
+                                </button>
+                            </li>
+                            <%-- Expense Tab --%>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-expense"
+                                    type="button" role="tab" aria-controls="tab-expense" aria-selected="false">
+                                    Expense
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body ms-5 me-5">
+                        <div class="row mt-2 tab-content">
+                            <%-- Basic Pane--%>
+                            <div class="tab-pane fade show active" id="tab-basic">
+                                <div class="row mt-2">
+                                    <div class="col-6">
+                                        <div class="form-floating">
+                                            <asp:TextBox runat="server" ID="txtCompanyName" CssClass="form-control"></asp:TextBox>
+                                            <label for="<%=txtCompanyName.ClientID%>">Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-floating">
+                                            <asp:TextBox runat="server" ID="txtCompanyTIN" CssClass="form-control"></asp:TextBox>
+                                            <label for="<%=txtCompanyTIN.ClientID%>">TIN</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <asp:TextBox runat="server" ID="txtCompanyAddress" CssClass="form-control"></asp:TextBox>
+                                            <label for="<%=txtCompanyAddress.ClientID%>">Address</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%-- Company Expenses Pane--%>
+                            <div class="tab-pane fade" id="tab-expense">
+                                <div class="row mt-2">
+                                    <div class="col-8">
+                                        <asp:TextBox runat="server" ID="txtExpenseSearch" CssClass="form-control"></asp:TextBox>
+                                    </div>
+                                    <div class="col-4">
+                                        <asp:DropDownList runat="server" ID="ddMonth" CssClass="form-control"></asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <asp:GridView runat="server" ID="gvCompanyExpenses" CssClass="table table-responsive" AutoGenerateColumns="false">
+                                            <Columns>
+                                                <%-- Date of Expense --%>
+                                                <asp:BoundField DataField="SupplierName" />
+                                                <%-- Expense Total --%>
+                                                <%-- TODO Insert Expense List --%>
+                                            </Columns>
+                                        </asp:GridView>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-1">
+                                <%-- Back Button --%>
+                                <asp:LinkButton runat="server" ID="lnkBack" CssClass="btn btn-outline-warning" OnClick="lnkBack_Click">Back</asp:LinkButton>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </asp:Panel>
+            </ContentTemplate>
+        </asp:UpdatePanel>
     </div> 
-    <%-- Modal --%>
-    <div class="modal" tabindex="-1" id="addModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <%-- Modal Header --%>
-                <div class="modal-header">
-                    <asp:Label runat="server" ID="lblModal">New Company</asp:Label>
-                </div>
-                <%-- Modal Body --%>
-                <div class="modal-body">
-                    <%-- Address --%>
-                    <div class="input-group m-2">
-                        <span class="input-group-text">
-                            Name
-                        </span>
-                        <asp:TextBox runat="server" ID="txtName" CssClass="form-control" 
-                            placeholder="Name" AutoCompleteType="Disabled"></asp:TextBox>
-                    </div>
-                    
-                </div>
-                <%-- Modal Footer --%>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnClose">Close</button>
-                    <asp:LinkButton runat="server" ID="lnkSave" CssClass="btn btn-primary">Save</asp:LinkButton>
-                </div>
-            </div>
-        </div>
-    </div>
 </asp:Content>

@@ -39,6 +39,15 @@ namespace Book_Keeping_System
             }
             else
                 Show_Error_Toast("Invalid input. Please check the highlighted fields.");
+            //    DateTime dt;
+            //    if(DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt))
+            //    {
+            //        txtDate.Text = DateTime.Parse(txtDate.Text).AddDays(1).ToString("yyyy-MM-dd");
+
+            //        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('Expenses recorded')", true);
+            //    }
+            //    else
+            //        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowError", "ShowError('Invalid Input. Please check.')", true);
         }
 
         protected void lnkSupplierSave_Click(object sender, EventArgs e)
@@ -87,9 +96,12 @@ namespace Book_Keeping_System
 
                 DISPLAY_UTILITIES(_branchCode);
 
+                DISPLAY_EXPENSES_TYPE_LISTS();
+
+                DISPLAY_BRANCH_EXPENSES_RECORD_LISTS(_branchID);
             }
 
-           
+
         }
 
         protected void ddUtilitySupplier_SelectedIndexChanged(object sender, EventArgs e)
@@ -101,7 +113,7 @@ namespace Book_Keeping_System
                 foreach (DataRowView drv in dv)
                 {
                     txtUtilityTIN.Text = drv.Row["TIN"].ToString();
-
+                    ViewState["SUPPLIERID"] = Convert.ToInt32(ddUtilitySupplier.SelectedValue).ToString();
                 }
 
             }
@@ -144,6 +156,41 @@ namespace Book_Keeping_System
                 Show_Error_Toast("Invalid input. Please check the highlighted fields.");
             }
 
+            //Condition before Saving
+            if (Convert.ToDouble(txtUtilityTotal.Text) > 0)
+            {
+
+
+                //Save the transaction record
+                oBK.INSERT_BRANCH_UTILITY_TRANS(Convert.ToInt32(ViewState["V_BRANCHID"]), Convert.ToInt32(ViewState["SUPPLIERID"]), txtSupplierName1.Text, txtUtilityTIN.Text, txtUtilityReceipt.Text,
+                                                 Convert.ToDouble(txtUtilityVATAmount.Text), Convert.ToDouble(txtUtilityNonVATAmount.Text),
+                                                 Convert.ToDouble(txtUtilityVAT.Text), Convert.ToDouble(txtUtilityTotal.Text),
+                                                 Convert.ToDateTime(txtAppliedDate.Text), Convert.ToDateTime(txtUtilityFrom.Text), Convert.ToDateTime(txtUtilityTo.Text), txtUtilityParticulars.Text, txtUtilityRemarks.Text, Convert.ToInt16(ddExpenseType.SelectedValue));
+
+                //Refresh display record lists
+                DISPLAY_BRANCH_EXPENSES_RECORD_LISTS(Convert.ToInt32(ViewState["V_BRANCHID"]));
+
+                CLEAR_UTILITY_INPUTS();
+
+                if (ddExpenseType.SelectedIndex == 1)
+                {
+                    //Success toast message
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('Utility Expense transaction record successfully process.');</script>", false);
+                }
+                else
+                {
+                    //Success toast message
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('Purchase transaction record successfully process.');</script>", false);
+
+                }
+            }
+
+            else
+            {
+                //Success toast message
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastError('Zero Total Amount Expense not allowed.');</script>", false);
+
+            }
         }
 
         protected void lnkSupplierSelect_Click(object sender, EventArgs e)
@@ -173,11 +220,11 @@ namespace Book_Keeping_System
 
         protected void gvUtilitySupplierList_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            foreach (GridViewRow row in gvPurchaseList.Rows)
-            {
-                LinkButton edit = row.FindControl("lnkSupplierSelect") as LinkButton;
-                ScriptManager.GetCurrent(this).RegisterAsyncPostBackControl(edit);
-            }
+            //foreach (GridViewRow row in gvExpensesLists.Rows)
+            //{
+            //    LinkButton edit = row.FindControl("lnkSupplierSelect") as LinkButton;
+            //    ScriptManager.GetCurrent(this).RegisterAsyncPostBackControl(edit);
+            //}
         }
 
         protected void lnkUtilityClear_Click(object sender, EventArgs e)
@@ -214,19 +261,47 @@ namespace Book_Keeping_System
                 ddUtilitySupplier.DataTextField = dv.Table.Columns["ProviderName"].ToString();
                 ddUtilitySupplier.DataValueField = dv.Table.Columns["ID"].ToString();
                 ddUtilitySupplier.DataBind();
+                //ddUtilitySupplier.Items.Insert(0, new ListItem("*Select Provider"));
             }
             else {
-                ddUtilitySupplier.Items.Clear();
-
+                ddUtilitySupplier.DataSource = null;
+                ddUtilitySupplier.DataBind();
+               
+                ViewState["SUPPLIERID"] = 0;
             }
 
 
         }
 
+        private void DISPLAY_EXPENSES_TYPE_LISTS()
+        {
+            DataTable dt = oBK.GET_EXPENSES_LISTS();
+            ddExpenseType.DataSource = dt;
+            ddExpenseType.DataTextField = dt.Columns["Expenses_Desc"].ToString();
+            ddExpenseType.DataValueField = dt.Columns["ExpensesID"].ToString();
+            ddExpenseType.DataBind();
+            ddExpenseType.Items.Insert(0, new ListItem("-Select Expense Entry-"));
+        }
+
+
+        private void DISPLAY_BRANCH_EXPENSES_RECORD_LISTS(int _branchID)
+        {
+            DataTable dt = oBK.GET_BRANCH_EXPENSES_RECORD_LISTS(_branchID);
+            if (dt.Rows.Count > 0)
+            {
+                gvBranchExpensesRecordLists.DataSource = dt;
+                gvBranchExpensesRecordLists.DataBind();
+            }
+            else
+            {
+                gvBranchExpensesRecordLists.DataSource = null;
+                gvBranchExpensesRecordLists.DataBind();
+            }
+        }
 
         private void CLEAR_UTILITY_INPUTS()
         {
-            ddUtilitySupplier.SelectedIndex = 0;
+            //ddUtilitySupplier.SelectedIndex = 0;
             txtUtilityReceipt.Text = "";
             txtUtilityVATAmount.Text = "0";
             txtUtilityVAT.Text = "0";
@@ -235,9 +310,18 @@ namespace Book_Keeping_System
             txtUtilityParticulars.Text = "";
             txtUtilityRemarks.Text = "";
 
-            ddUtilitySupplier.Focus();
+            txtSupplierName1.Text = "";
+            txtUtilityTIN.Text = "";
+            txtUtilityReceipt.Text = "";
+
+            ddExpenseType.SelectedIndex = 0;
+
+            //ddUtilitySupplier.Focus();
+            txtAppliedDate.Text = oBK.GetServerDate().ToShortDateString();
             txtUtilityFrom.Text = oBK.GetServerDate().ToShortDateString();
             txtUtilityTo.Text = oBK.GetServerDate().ToShortDateString();
+
+
         }
 
         private void CLEAR_PURCHASE_INPUTS()
@@ -273,8 +357,32 @@ namespace Book_Keeping_System
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Error", "<script>showToastError('" + msg + "');</script>", false);
         }
 
+
         #endregion
 
 
+        protected void ddExpenseType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddExpenseType.SelectedIndex == 2)
+            {
+                panelSupplierDropDown.Visible = false;
+                panelSupplierNameText.Visible = true;
+                txtUtilityTIN.ReadOnly = false;
+                
+                txtUtilityTo.Visible = false;
+                txtUtilityFrom.Visible = false;
+            }
+            else
+            {
+                txtSupplierName1.Text = "";
+                panelSupplierDropDown.Visible = true;
+                panelSupplierNameText.Visible = false;
+                txtUtilityTIN.ReadOnly = true;
+                txtUtilityTIN.Text = "";
+                txtUtilityTo.Visible = true;
+                txtUtilityFrom.Visible = true;
+            }
+
+        }
     }
 }

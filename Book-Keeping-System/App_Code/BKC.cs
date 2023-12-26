@@ -52,6 +52,29 @@ namespace Book_Keeping_System
         }
 
 
+        public DataTable GET_BRANCH_EXPENSES_RECORD_LISTS(int _branchID)
+        {
+            DataTable dt = new DataTable();
+
+           
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+
+                using (SqlCommand cmd = new SqlCommand("[BK].[spGET_BRANCH_EXPENSES_RECORD_LISTS]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@BRANCHID", _branchID);
+                    
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+                }
+            }
+
+            return dt;
+
+        }
+
 
 
         #endregion
@@ -87,9 +110,9 @@ namespace Book_Keeping_System
 
 
         //INSERT UTILITY EXPENSES TRANSACTION
-        public void INSERT_BRANCH_UTILITY_TRANS(int _branchID, int _supplierID, string _TIN, string _rcptNum,
+        public void INSERT_BRANCH_UTILITY_TRANS(int _branchID, int _supplierID, string _supplierName, string _TIN, string _rcptNum,
                                                 double _vatableAmount, double _nonVat, double _vat, double _totalAmount,
-                                                DateTime _dateFrom, DateTime _dateTo, string _particulars, string _remarks)
+                                                DateTime _dateApplied, DateTime _dateFrom, DateTime _dateTo, string _particulars, string _remarks, int _expensesID)
 
         {
             using (SqlConnection cn = new SqlConnection(CS))
@@ -101,16 +124,19 @@ namespace Book_Keeping_System
 
                     cmd.Parameters.AddWithValue("@BRANCHID", _branchID);
                     cmd.Parameters.AddWithValue("@SUPPLIERID", _supplierID);
+                    cmd.Parameters.AddWithValue("@SUPPLIERNAME", _supplierName);
                     cmd.Parameters.AddWithValue("@TIN", _TIN);
                     cmd.Parameters.AddWithValue("@RCPTNUM", _rcptNum);
                     cmd.Parameters.AddWithValue("@VATABLE_AMOUNT", _vatableAmount);
                     cmd.Parameters.AddWithValue("@NON_VAT", _nonVat);
                     cmd.Parameters.AddWithValue("@VAT", _vat);
                     cmd.Parameters.AddWithValue("@TOTAL_AMOUNT", _totalAmount);
+                    cmd.Parameters.AddWithValue("@APPLIED_DATE", _dateApplied);
                     cmd.Parameters.AddWithValue("@DATE_FROM", _dateFrom);
                     cmd.Parameters.AddWithValue("@DATE_TO", _dateTo);
                     cmd.Parameters.AddWithValue("@PARTICULARS", _particulars);
                     cmd.Parameters.AddWithValue("@REMARKS", _remarks);
+                    cmd.Parameters.AddWithValue("@EXPENSESID", _expensesID);
 
 
                     cn.Open();

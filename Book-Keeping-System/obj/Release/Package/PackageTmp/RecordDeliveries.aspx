@@ -3,13 +3,13 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid">
-        <div class="card m-2">
+        <div class="card">
             <div class="card-header">
-                Deliveries
+                <b class="fa fa-truck"></b> Deliveries
             </div>
             <div class="card-body">
                 <%-- Form Card --%>
-                <div class="card m-2">
+                <div class="card">
                     <%-- Form Card Header --%>
                     <div class="card-header">
                         <div class="row">
@@ -43,12 +43,12 @@
                             <asp:UpdatePanel runat="server" ID="upOut" UpdateMode="Conditional" ChildrenAsTriggers="false">
                                 <Triggers></Triggers>
                                 <ContentTemplate>
-                                    <div class="row m-2">
+                                    <div class="row mt-2">
                                         <div class="col-6">
                                             <%-- Branch Dropdown --%>
-                                            <div class="input-group">
-                                                <span class="input-group-text">Branch</span>
+                                            <div class="form-floating">
                                                 <asp:DropDownList runat="server" ID="ddBranchList" CssClass="form-control"></asp:DropDownList>
+                                                <label for="<%=ddBranchList.ClientID%>">Branch</label>
                                             </div>
                                         </div>
                                     </div>
@@ -88,7 +88,7 @@
                                         <div class="col-2">
                                             <%-- Issue Delivery Button --%>
                                             <asp:LinkButton runat="server" ID="lnkIssueDelivery" 
-                                                CssClass="btn btn-success">Issue Delivery</asp:LinkButton>
+                                                CssClass="btn btn-success">Record</asp:LinkButton>
                                         </div>
                                     </div>
                                 </ContentTemplate>
@@ -98,70 +98,84 @@
                             <asp:UpdatePanel runat="server" ID="upIn" UpdateMode="Conditional" ChildrenAsTriggers="false">
                                 <Triggers></Triggers>
                                 <ContentTemplate>
-                                    <%-- Supplier --%>
                                     <div class="row m-2">
-                                        <div class="col-8">
-                                            <div class="input-group">
-                                                <span class="input-group-text">Supplier</span>
+                                        <%-- Supplier --%>
+                                        <div class="col-6">
+                                            <div class="form-floating">
                                                 <asp:DropDownList runat="server" ID="ddSupplier" CssClass="form-control"></asp:DropDownList>
+                                                <label for="<%=ddSupplier.ClientID%>">Supplier</label>
+                                            </div>
+                                        </div>
+                                        <%-- TIN --%>
+                                        <div class="col-6">
+                                            <div class="form-floating">
+                                                <asp:TextBox runat="server" ID="txtSupplierTIN" CssClass="form-control"></asp:TextBox>
+                                                <label for="<%=txtSupplierTIN.ClientID%>">TIN</label>
                                             </div>
                                         </div>
                                     </div>
-                                    <%-- TIN --%>
                                     <div class="row m-2">
-                                        <div class="col-8">
-                                            <div class="input-group">
-                                                <span class="input-group-text">TIN</span>
-                                                <asp:TextBox runat="server" ID="txtSupplierTIN" CssClass="form-control"></asp:TextBox>
+                                        <%-- Company --%>
+                                        <div class="col-6">
+                                            <div class="form-floating">
+                                                <asp:DropDownList runat="server" ID="txtCompany" CssClass="form-control"></asp:DropDownList>
+                                                <label for="<%=txtCompany.ClientID%>">Company</label>
+                                            </div>
+                                        </div>
+                                        <%-- PO Number --%>
+                                        <div class="col-6">
+                                            <div class="form-floating">
+                                                <asp:TextBox runat="server" ID="txtPO" CssClass="form-control"></asp:TextBox>
+                                                <label for="<%=txtPO.ClientID%>">PO Number</label>
                                             </div>
                                         </div>
                                     </div>
                                     <%-- Fresh --%>
                                     <div class="row m-2">
                                         <div class="col-6">
-                                            <%-- Stock Textbox --%>
-                                            <div class="input-group">
-                                                <span class="input-group-text">Fresh</span>
+                                            <%-- Stock --%>
+                                            <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtInFreshStock" CssClass="form-control" TextMode="Number"></asp:TextBox>
+                                                <label for="<%=txtInFreshStock.ClientID %>">Fresh</label>
                                             </div>
                                         </div>
                                         <div class="col-6">
-                                            <%-- Price Textbox --%>
-                                            <div class="input-group">
-                                                <span class="input-group-text">Price</span>
+                                            <%-- Price --%>
+                                            <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtInFreshPrice" CssClass="form-control" TextMode="Number"></asp:TextBox>
+                                                <label for="<%=txtInFreshPrice.ClientID %>">Price</label>
                                             </div>
                                         </div>
                                     </div>
                                     <%-- Frozen --%>
                                     <div class="row m-2">
                                         <div class="col-6">
-                                            <%-- Stock Textbox --%>
-                                            <div class="input-group">
-                                                <span class="input-group-text">Frozen</span>
+                                            <%-- Stock --%>
+                                            <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtInFrozenStock" CssClass="form-control" TextMode="Number"></asp:TextBox>
+                                                <label for="<%=txtInFrozenStock.ClientID %>">Frozen</span>
                                             </div>
                                         </div>
                                         <div class="col-6">
-                                            <%-- Price Textbox --%>
-                                            <div class="input-group">
-                                                <span class="input-group-text">Price</span>
+                                            <%-- Price --%>
+                                            <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtInFrozenPrice" CssClass="form-control" TextMode="Number"></asp:TextBox>
+                                                <label for="<%=txtInFrozenPrice.ClientID %>">Price</label>
                                             </div>
                                         </div>
                                     </div>
                                     <%-- Amount & Check Number --%>
                                     <div class="row m-2">
                                         <div class="col-6">
-                                            <div class="input-group">
-                                                <span class="input-group-text">Amount</span>
+                                            <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtAmount" CssClass="form-control"></asp:TextBox>
+                                                <label for="<%=txtAmount.ClientID %>">Amount</label>
                                             </div>
                                         </div>
                                         <div class="col-6">
-                                            <div class="input-group">
-                                                <span class="input-group-text">Check Number</span>
+                                            <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtCheckNumber" CssClass="form-control"></asp:TextBox>
+                                                <label for="<%=txtCheckNumber.ClientID %>">Check Number</>
                                             </div>
                                         </div>
                                     </div>
