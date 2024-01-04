@@ -3,17 +3,17 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <script type="text/javascript">
-        function ShowToast(msg) {
-            document.getElementById('toast-message').textContent = msg;
-            var toast = new bootstrap.Toast(document.getElementById('success-toast'));
-            toast.show();
-        };
+        //function ShowToast(msg) {
+        //    document.getElementById('toast-message').textContent = msg;
+        //    var toast = new bootstrap.Toast(document.getElementById('success-toast'));
+        //    toast.show();
+        //};
 
-        function ShowError(msg) {
-            document.getElementById('error-message').textContent = msg;
-            var toast = new bootstrap.Toast(document.getElementById('error-toast'));
-            toast.show();
-        }
+        //function ShowError(msg) {
+        //    document.getElementById('error-message').textContent = msg;
+        //    var toast = new bootstrap.Toast(document.getElementById('error-toast'));
+        //    toast.show();
+        //}
 
         function CalculateUtilityTotal() {
             var vatable = 0, nonvat = 0, vat = 0;
@@ -67,46 +67,83 @@
             document.getElementById('<%=txtMiscVAT.ClientID%>').value = (total - vatable).toFixed(2);
         }
 
+        function RetainSelectedTab() {
+            if ($('#<%=hfMode.ClientID%>').val() === "util") {
+                var trigger = bootstrap.Tab.getOrCreateInstance($('button[data-bs-target="#tab-utility"]'));
+                trigger.show();
+            }
+
+            if ($('#<%=hfMode.ClientID%>').val() === "misc") {
+                var trigger = bootstrap.Tab.getOrCreateInstance($('button[data-bs-target="#tab-misc"]'));
+                trigger.show();
+            }
+
+            if ($('#<%=hfMode.ClientID%>').val() === "new") {
+                var trigger = bootstrap.Tab.getOrCreateInstance($('button[data-bs-target="#tab-new-supplier"]'));
+                trigger.show();
+            }
+        }
+
         //Search function
-        $(function searchInput() {
-            $('[id*=search-bar]').on("keyup", function () {
+        function pageLoad() {
+            $('[id*=search-bar]').off().on("keyup", function () {
                 var value = $(this).val().toLowerCase();
                 $('[id*=gvSupplierList] tr').filter(function () {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
-        });
 
-        $(function () {
-            $('[id*=nav-utility]').click(function (e) {
+            $('button[data-bs-target="#tab-utility"]').off().click(function (e) {
                 e.preventDefault();
+                var trigger = bootstrap.Tab.getOrCreateInstance($('button[data-bs-target="#tab-utility"]'));
+                trigger.show();
                 $('#<%=hfMode.ClientID%>').val("util");
             });
 
-            $('[id*=nav-misc]').click(function (e) {
+            $('button[data-bs-target="#tab-misc"]').off().click(function (e) {
                 e.preventDefault();
+                var trigger = bootstrap.Tab.getOrCreateInstance($('button[data-bs-target="#tab-misc"]'));
+                trigger.show();
                 $('#<%=hfMode.ClientID%>').val("misc");
             });
-        })
+
+            $('button[data-bs-target="#tab-new-supplier"]').off().click(function (e) {
+                e.preventDefault();
+                var trigger = bootstrap.Tab.getOrCreateInstance($('button[data-bs-target="#tab-new-supplier"]'));
+                trigger.show();
+                $('#<%=hfMode.ClientID%>').val("new");
+            });
+
+            RetainSelectedTab();
+        }
+            
+
+        //$(function searchInput() {
+            
+        //});
+
+        //$(function () {
+            
+        //})
 
         //On UpdatePanel Refresh
-        var prm = Sys.WebForms.PageRequestManager.getInstance();
-        if (prm != null) {
-            prm.add_endRequest(function (sender, e) {
-                if (sender._postBackSettings.panelsToUpdate != null) {
-                    //Search function
-                    $(function searchInput() {
-                        $('[id*=search-bar]').on("keyup", function () {
-                            var value = $(this).val().toLowerCase();
-                            $('[id*=gvSupplierList] tr').filter(function () {
-                                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                            });
-                        });
-                    });
+        //var prm = Sys.WebForms.PageRequestManager.getInstance();
+        //if (prm != null) {
+        //    prm.add_endRequest(function (sender, e) {
+        //        if (sender._postBackSettings.panelsToUpdate != null) {
+        //            //Search function
+        //            $(function searchInput() {
+        //                $('[id*=search-bar]').on("keyup", function () {
+        //                    var value = $(this).val().toLowerCase();
+        //                    $('[id*=gvSupplierList] tr').filter(function () {
+        //                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        //                    });
+        //                });
+        //            });
 
-                }
-            });
-        };
+        //        }
+        //    });
+        //};
 
     </script>
     <div class="containter-fluid" style="padding-left:0;padding-right:0;">
@@ -153,6 +190,12 @@
                         <div class="card">
                             <div class="card-header">
                                 <asp:UpdatePanel runat="server" ID="upHeader" UpdateMode="Conditional" ChildrenAsTriggers="false">
+                                    <Triggers>
+                                        <asp:AsyncPostBackTrigger ControlID="lnkUtilitySubmit" EventName="Click" />
+                                        <asp:AsyncPostBackTrigger ControlID="lnkUtilityClear" EventName="Click" />
+                                        <asp:AsyncPostBackTrigger ControlID="lnkMiscSubmit" EventName="Click" />
+                                        <asp:AsyncPostBackTrigger ControlID="lnkMiscClear" EventName="Click" />
+                                    </Triggers>
                                     <ContentTemplate>
                                         <div class="row">
                                             <div class="col-4">
@@ -296,7 +339,7 @@
                                                                 Submit
                                                             </asp:LinkButton>
                                                             <asp:LinkButton runat="server" ID="lnkUtilityClear" CssClass="btn btn-outline-warning" 
-                                                                OnClick="lnkInputClear_Click">
+                                                                OnClick="lnkUtilityClear_Click">
                                                                 Clear
                                                             </asp:LinkButton>
                                                         </div>
@@ -394,7 +437,7 @@
                                                             <asp:LinkButton runat="server" ID="lnkMiscSubmit" CssClass="btn btn-outline-success" 
                                                                 OnClick="lnkMiscSubmit_Click">Submit</asp:LinkButton>
                                                             <asp:LinkButton runat="server" ID="lnkMiscClear" CssClass="btn btn-outline-warning" 
-                                                                OnClick="lnkInputClear_Click">Clear</asp:LinkButton>
+                                                                OnClick="lnkMiscClear_Click">Clear</asp:LinkButton>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -469,20 +512,20 @@
         </div>
     </div>
     <%-- Success Toast --%>
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-        <div id="success-toast" class="toast hide text-bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+    <%--<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="success-toast" class="toast hide text-bg-success" role="status" aria-live="polite" aria-atomic="true" data-bs-delay="3000">
             <div class="toast-body">
                 <span id="toast-message"></span><button type="button" class="btn-close float-end" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
-    </div>
+    </div>--%>
     <%-- Error Toast --%>
-    <div class="position-fixed bottom-0 end-0 p-3 " style="z-index: 11">
-        <div class="toast hide text-bg-danger border-0" id="error-toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <%--<div class="position-fixed bottom-0 end-0 p-3 " style="z-index: 11">
+        <div class="toast hide text-bg-danger border-0" id="error-toast" role="status" aria-live="polite" aria-atomic="true" data-bs-delay="3000">
             <div class="toast-body">
                 <span id="error-message"></span><button type="button" class="btn-close float-end" 
                     data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
-    </div>
+    </div>--%>
 </asp:Content>

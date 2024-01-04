@@ -6,11 +6,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>D:\Published Site\BKS\12212023</_PublishTargetUrl>
+    <_PublishTargetUrl>D:\Published Site\BKS\01042024</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Book-Keeping-System.dll">
-      <publishTime>12/21/2023 18:02:53</publishTime>
+      <publishTime>01/04/2024 15:12:57</publishTime>
     </File>
     <File Include="bin/CrystalDecisions.CrystalReports.Engine.dll">
       <publishTime>09/20/2023 11:53:39</publishTime>
@@ -100,25 +100,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/20/2023 11:53:39</publishTime>
     </File>
     <File Include="Branch.aspx">
-      <publishTime>12/14/2023 09:42:32</publishTime>
+      <publishTime>01/03/2024 21:19:35</publishTime>
     </File>
     <File Include="BranchDailySalesExpenses.aspx">
       <publishTime>08/24/2023 09:45:38</publishTime>
     </File>
     <File Include="BranchExpenses.aspx">
-      <publishTime>12/21/2023 18:02:35</publishTime>
+      <publishTime>01/03/2024 21:19:35</publishTime>
     </File>
     <File Include="BranchMonthlyExpenses.aspx">
       <publishTime>08/24/2023 09:45:38</publishTime>
     </File>
     <File Include="BranchSales.aspx">
-      <publishTime>12/14/2023 09:42:32</publishTime>
+      <publishTime>01/03/2024 21:19:35</publishTime>
     </File>
     <File Include="Company.aspx">
       <publishTime>12/07/2023 14:10:52</publishTime>
     </File>
     <File Include="CompanyExpenses.aspx">
-      <publishTime>12/14/2023 09:42:32</publishTime>
+      <publishTime>01/03/2024 21:19:35</publishTime>
     </File>
     <File Include="Content/bootstrap-grid.css">
       <publishTime>09/28/2023 10:27:22</publishTime>
@@ -1423,10 +1423,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/24/2023 09:45:38</publishTime>
     </File>
     <File Include="Login.aspx">
-      <publishTime>09/20/2023 11:53:39</publishTime>
+      <publishTime>01/03/2024 21:19:35</publishTime>
     </File>
     <File Include="Main.Master">
-      <publishTime>12/14/2023 09:42:32</publishTime>
+      <publishTime>12/21/2023 18:05:11</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>09/20/2023 11:53:39</publishTime>
@@ -1681,10 +1681,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/20/2023 11:53:39</publishTime>
     </File>
     <File Include="Supplier.aspx">
-      <publishTime>12/14/2023 09:42:32</publishTime>
+      <publishTime>01/03/2024 21:19:35</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/20/2023 21:22:44</publishTime>
+      <publishTime>01/04/2024 15:12:57</publishTime>
     </File>
   </ItemGroup>
 </Project>

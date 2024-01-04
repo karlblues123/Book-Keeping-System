@@ -5,8 +5,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Book Keeping System</title>
-    <link href="css/bootstrap.css" rel="stylesheet" />
-    <script src="js/bootstrap.js"></script>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/font-awesome.css" rel="stylesheet" />
+     <link href="Content/toastr.css" rel="stylesheet" />
+    <link href="Content/jquery-ui.css" rel="stylesheet" />
+
+    <script src="Scripts/jquery-3.6.0.min.js"></script>
+    <script src="Scripts/jquery-ui-1.12.1.min.js"></script>
+     <script src="scripts/toastr.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/bootstrap.bundle.min.js"></script>
     <style>
         #logincard {
             position: absolute;
@@ -26,15 +34,6 @@
             background-image: linear-gradient(to bottom right, white , #5da363);
         }
 
-        .feather {
-            width: 24px;
-              height: 24px;
-              stroke: blue;
-              stroke-width: 2;
-              stroke-linecap: round;
-              stroke-linejoin: round;
-              fill: none;
-        }
     </style>
 </head>
 <body>
@@ -44,29 +43,32 @@
         <%-- Login --%>
         <div class="card" id="logincard">
             <%-- Header --%>
-            <div class="card-header" style="background-color:powderblue">Login</div>
+            <div class="card-header bg-success-subtle">Login</div>
             <%-- Body --%>
             <div class="card-body">
                 <%-- Username Textbox --%>
-                <div class="input-group mb-2">
-                    <span class="input-group-text">
-                        <object type="image/svg+xml" data="css/feather/user.svg"></object>
-                    </span>
-                    <asp:TextBox runat="server" ID="txtUsername" CssClass="form-control" 
-                        AutoCompleteType="Disabled" placeholder="Username"></asp:TextBox>
+                <div class="row m-2">
+                    <div class="form-floating">
+                        <asp:TextBox runat="server" ID="txtUsername" CssClass="form-control" 
+                            AutoCompleteType="Disabled"></asp:TextBox>
+                        <label for="<%=txtUsername.ClientID%>">Username</label>
+                    </div>
+                    
                 </div>
                 <%-- Password Textbox --%>
-                <div class="input-group mb-2">
-                    <span class="input-group-text">
-                        <object type="image/svg+xml" data="css/feather/key.svg"></object>
-                    </span>
-                    <asp:TextBox runat="server" ID="txtPassword" CssClass="form-control" 
-                        AutoCompleteType="Disabled" TextMode="Password" placeholder="Password"></asp:TextBox>
+                <div class="row m-2">
+                    <div class="form-floating">
+                        <asp:TextBox runat="server" ID="txtPassword" CssClass="form-control" 
+                            AutoCompleteType="Disabled" TextMode="Password"></asp:TextBox>
+                        <label for="<%=txtPassword.ClientID%>">Password</label>
+                    </div>
                 </div>
                 <%-- Login Button --%>
-                <div class="clearfix">
-                    <asp:LinkButton runat="server" ID="btnLogin" CssClass="btn btn-success float-end" 
-                        OnClick="btnLogin_Click">Login</asp:LinkButton>
+                <div class="row m-2">
+                    <div class="col-3 offset-9">
+                        <asp:LinkButton runat="server" ID="btnLogin" CssClass="btn btn-success float-end" 
+                            OnClick="btnLogin_Click">Login</asp:LinkButton>
+                    </div>
                 </div>
             </div>
             <%-- Footer --%>

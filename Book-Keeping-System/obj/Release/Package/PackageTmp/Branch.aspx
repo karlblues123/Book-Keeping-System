@@ -295,7 +295,7 @@
                                             <asp:Panel runat="server" ID="pProviderList" Visible="true">
                                                 <div class="row m-2">
                                                     <div class="card" style="padding-left:0;padding-right:0;">
-                                                        <div class="card-header bg-info bg-opacity-25">
+                                                        <div class="card-header">
                                                             <div class="row">
                                                                 <div class="col-9">
                                                                     List of Assigned Provider

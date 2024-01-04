@@ -89,7 +89,7 @@
                     </div>
                 </asp:Panel>
                 <asp:Panel runat="server" ID="pForm" Visible="false" CssClass="card" style="border:none;">
-                    <div class="card-header bg-info bg-opacity-25 d-flex align-items-center" style="height:57px;">
+                    <div class="card-header bg-success-subtle d-flex align-items-center" style="height:57px;">
                         <b class="fa fa-edit"></b><b class="ms-2">Supplier Form</b>
                     </div>
                     <div class="card-body ms-5 me-5">
@@ -155,7 +155,8 @@
                         </div>
                     </div>
                 </asp:Panel>
-                <div class="modal fade" id="delete-modal" tabindex="-1">
+                <%-- Delete Modal --%>
+                <div class="modal fade" role="dialog" id="delete-modal" tabindex="-1">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-body">

@@ -142,10 +142,12 @@ namespace Book_Keeping_System
             if(double.Parse(txtUtilityTotal.Text) > 0.00 && !String.IsNullOrEmpty(txtSelectedBranch.Text))
             {
                 //Save the transaction record
-                oBK.INSERT_BRANCH_UTILITY_TRANS(Convert.ToInt32(ViewState["V_BRANCHID"]), Convert.ToInt32(ddUtilitySupplier.SelectedValue), txtUtilityTIN.Text, txtUtilityReceipt.Text,
+                //Save the transaction record
+                oBK.INSERT_BRANCH_UTILITY_TRANS(Convert.ToInt32(ViewState["V_BRANCHID"]), Convert.ToInt32(ViewState["SUPPLIERID"]), txtSupplierName1.Text, txtUtilityTIN.Text, txtUtilityReceipt.Text,
                                                  Convert.ToDouble(txtUtilityVATAmount.Text), Convert.ToDouble(txtUtilityNonVATAmount.Text),
                                                  Convert.ToDouble(txtUtilityVAT.Text), Convert.ToDouble(txtUtilityTotal.Text),
-                                                 Convert.ToDateTime(txtUtilityFrom.Text), Convert.ToDateTime(txtUtilityTo.Text), txtUtilityParticulars.Text, txtUtilityRemarks.Text);
+                                                 Convert.ToDateTime(txtAppliedDate.Text), Convert.ToDateTime(txtUtilityFrom.Text), Convert.ToDateTime(txtUtilityTo.Text), txtUtilityParticulars.Text, txtUtilityRemarks.Text, Convert.ToInt16(ddExpenseType.SelectedValue));
+
                 CLEAR_UTILITY_INPUTS();
 
                 //Success toast message

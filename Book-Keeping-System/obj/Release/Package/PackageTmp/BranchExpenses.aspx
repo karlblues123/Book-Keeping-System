@@ -131,6 +131,76 @@
                + Number.parseInt(packaging, 10) + Number.parseInt(cleaning, 10) + Number.parseInt(misc, 10) + Number.parseInt(maint, 10);
        }
 
+        function RetainSelectedTab() {
+            if ($('#<%=hfMode.ClientID%>').val() === "util") {
+                var trigger = bootstrap.Tab.getOrCreateInstance($('button[data-bs-target="#tab-utility"]'));
+                trigger.show();
+            }
+
+            if ($('#<%=hfMode.ClientID%>').val() === "purchase") {
+                var trigger = bootstrap.Tab.getOrCreateInstance($('button[data-bs-target="#tab-purchase"]'));
+                trigger.show();
+            }
+
+            if ($('#<%=hfMode.ClientID%>').val() === "list") {
+                var trigger = bootstrap.Tab.getOrCreateInstance($('button[data-bs-target="#tab-purchase-list"]'));
+                trigger.show();
+            }
+
+            if ($('#<%=hfMode.ClientID%>').val() === "expenses") {
+                var trigger = bootstrap.Tab.getOrCreateInstance($('button[data-bs-target="#tab-expenses"]'));
+                trigger.show();
+            }
+        }
+
+        function pageLoad() {
+            //Search function for Branch List
+            $('[id*=txtBranchSearch]').off().on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $('[id*=gvBranchList] tr').filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
+            //Search function for Supplier List
+            $('[id*=supplier-search]').off().on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                console.log(value);
+                $('[id*=gvPurchaseSupplierList] tr').filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
+            $('button[data-bs-target="#tab-utility"]').off().click(function (e) {
+                e.preventDefault();
+                var trigger = bootstrap.Tab.getOrCreateInstance($('button[data-bs-target="#tab-utility"]'));
+                trigger.show();
+                $('#<%=hfMode.ClientID%>').val("util");
+            });
+
+            $('button[data-bs-target="#tab-purchase"]').off().click(function (e) {
+                e.preventDefault();
+                var trigger = bootstrap.Tab.getOrCreateInstance($('button[data-bs-target="#tab-purchase"]'));
+                trigger.show();
+                $('#<%=hfMode.ClientID%>').val("purchase");
+            });
+
+            $('button[data-bs-target="#tab-purchase-list"]').off().click(function (e) {
+                e.preventDefault();
+                var trigger = bootstrap.Tab.getOrCreateInstance($('button[data-bs-target="#tab-purchase-list"]'));
+                trigger.show();
+                $('#<%=hfMode.ClientID%>').val("list");
+            });
+
+            $('button[data-bs-target="#tab-expenses"]').off().click(function (e) {
+                e.preventDefault();
+                var trigger = bootstrap.Tab.getOrCreateInstance($('button[data-bs-target="#tab-expenses"]'));
+                trigger.show();
+                $('#<%=hfMode.ClientID%>').val("expenses");
+            });
+
+            RetainSelectedTab();
+        }
        function pageLoad() {
            //Search function for Branch List
            $('[id*=txtBranchSearch]').off().on("keyup", function () {
@@ -183,7 +253,6 @@
             vatableAmount.addEventListener("input", calculateVatProcess);
             vatAmount.addEventListener("input", calculateVatProcess);
             totalAmount.addEventListener("input", calculateVatProcess);
-
 
         });
 
@@ -306,6 +375,7 @@
                                     <div class="col-3">
                                         <asp:TextBox runat="server" ID="txtSelectedBranch" CssClass="form-control"
                                             ReadOnly="True" Text="No Branch Selected"></asp:TextBox>
+                                        <asp:HiddenField runat="server" ID="hfMode" />
                                     </div>
                                     <div class="col-9">
                                         <%-- Nav Pills --%>
@@ -873,17 +943,17 @@
             </div>
         </div>
         <%-- Success Toast --%>
-        <div class="position-fixed bottom-0 end-0 p-3 " style="z-index: 11">
-            <div class="toast text-bg-success" id="success-toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <%--<div class="position-fixed bottom-0 end-0 p-3 " style="z-index: 11">
+            <div class="toast text-bg-success" id="success-toast" role="status" aria-live="polite" aria-atomic="true" data-bs-delay="3000">
                 <div class="toast-body">
                     <span id="toast-message"></span>
                     <button type="button" class="btn-close float-end" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
             </div>
-        </div>
+        </div>--%>
         <%-- Error Toast --%>
-        <div class="position-fixed bottom-0 end-0 p-3 " style="z-index: 11">
-            <div class="toast hide text-bg-danger border-0" id="error-toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <%--<div class="position-fixed bottom-0 end-0 p-3 " style="z-index: 11">
+            <div class="toast hide text-bg-danger border-0" id="error-toast" role="status" aria-live="polite" aria-atomic="true" data-bs-delay="3000">
                 <div class="toast-body">
                     <span id="error-message"></span>
                     <button type="button" class="btn-close float-end"
@@ -891,6 +961,6 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </div>--%>
     </div>
 </asp:Content>

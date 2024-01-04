@@ -3,17 +3,17 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <script type="text/javascript">
-        function ShowToast(msg) {
-            document.getElementById('toast-message').textContent = msg;
-            var toast = new bootstrap.Toast(document.getElementById('success-toast'));
-            toast.show();
-        };
+        //function ShowToast(msg) {
+        //    document.getElementById('toast-message').textContent = msg;
+        //    var toast = new bootstrap.Toast(document.getElementById('success-toast'));
+        //    toast.show();
+        //};
 
-        function ShowError(msg) {
-            document.getElementById('error-message').textContent = msg;
-            var toast = new bootstrap.Toast(document.getElementById('error-toast'));
-            toast.show();
-        }
+        //function ShowError(msg) {
+        //    document.getElementById('error-message').textContent = msg;
+        //    var toast = new bootstrap.Toast(document.getElementById('error-toast'));
+        //    toast.show();
+        //}
 
         function pageLoad() {
             //Search function
@@ -108,7 +108,7 @@
                                             <asp:TemplateField>
                                                 <ItemTemplate>
                                                    <asp:LinkButton runat="server" ID="lnkEdit" CssClass="btn btn-outline-primary btn-sm" 
-                                                       OnClick="lnkEdit_Click">
+                                                       OnClick="lnkEdit_Click" TabIndex="-1">
                                                        <b class="fa fa-pencil"></b> Select
                                                    </asp:LinkButton>
                                                 </ItemTemplate>
@@ -132,7 +132,8 @@
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-3">
-                                            <asp:TextBox runat="server" ID="txtSelectedBranch" CssClass="form-control" ReadOnly="true" placeholder="No Branch Selected"></asp:TextBox>
+                                            <asp:TextBox runat="server" ID="txtSelectedBranch" CssClass="form-control" ReadOnly="true" 
+                                                placeholder="No Branch Selected" TabIndex="-1"></asp:TextBox>
                                         </div>
                                         <div class="col-3 offset-6">
                                             <asp:TextBox runat="server" ID="txtDate" CssClass="form-control" TextMode="Date"></asp:TextBox>
@@ -148,7 +149,7 @@
                                             <%-- Quantity --%>
                                             <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtChickenQuantity" CssClass="form-control" 
-                                                    TextMode="Number" onchange="CalculateChickenSales()">0</asp:TextBox>
+                                                    TextMode="Number" onchange="CalculateChickenSales()" TabIndex="0">0</asp:TextBox>
                                                 <label for="<%=txtChickenQuantity.ClientID%>">Quantity</label>
                                             </div>
                                         </div>
@@ -156,7 +157,7 @@
                                             <%-- Price --%>
                                             <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtChickenPrice" CssClass="form-control" 
-                                                    TextMode="Number" onchange="CalculateChickenSales()">0</asp:TextBox>
+                                                    TextMode="Number" onchange="CalculateChickenSales()" TabIndex="0">0</asp:TextBox>
                                                 <label for="<%=txtChickenPrice.ClientID%>">Price</label>
                                             </div>
                                         </div>
@@ -164,14 +165,14 @@
                                             <%-- Total --%>
                                             <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtChickenTotal" CssClass="form-control" 
-                                                    TextMode="Number">0</asp:TextBox>
+                                                    TextMode="Number" TabIndex="0">0</asp:TextBox>
                                                 <label for="<%=txtChickenTotal.ClientID%>">Total</label>
                                             </div>
                                         </div>
                                         <%-- Buttons --%>
                                         <div class="col-3">
                                             <asp:LinkButton runat="server" ID="lnkChickenRecordSale" CssClass="btn btn-outline-success" 
-                                                OnClick="lnkRecordSale_Click">Record</asp:LinkButton>
+                                                OnClick="lnkRecordSale_Click" TabIndex="0">Record</asp:LinkButton>
                                         </div>
                                     </div>
                                     <%-- Atsara Sales --%>
@@ -181,7 +182,7 @@
                                             <%-- Quantity --%>
                                             <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtAtsaraQuantity" CssClass="form-control" 
-                                                    TextMode="Number" onchange="CalculateAtsaraSales()">0</asp:TextBox>
+                                                    TextMode="Number" onchange="CalculateAtsaraSales()" TabIndex="0">0</asp:TextBox>
                                                 <label for="<%=txtAtsaraQuantity.ClientID%>">Quantity</label>
                                             </div>
                                         </div>
@@ -189,7 +190,7 @@
                                             <%-- Price --%>
                                             <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtAtsaraPrice" CssClass="form-control" 
-                                                    TextMode="Number" onchange="CalculateAtsaraSales()">0</asp:TextBox>
+                                                    TextMode="Number" onchange="CalculateAtsaraSales()" TabIndex="0">0</asp:TextBox>
                                                 <label for="<%=txtAtsaraPrice.ClientID%>">Price</label>
                                             </div>
                                         </div>
@@ -197,14 +198,14 @@
                                             <%-- Total --%>
                                             <div class="form-floating">
                                                 <asp:TextBox runat="server" ID="txtAtsaraTotal" CssClass="form-control" 
-                                                    TextMode="Number">0</asp:TextBox>
+                                                    TextMode="Number" TabIndex="0">0</asp:TextBox>
                                                 <label for="<%=txtAtsaraTotal.ClientID%>">Total</label>
                                             </div>
                                         </div>
                                         <%-- Button --%>
                                         <div class="col-3">
                                             <asp:LinkButton runat="server" ID="lnkAtsaraRecordSale" CssClass="btn btn-outline-success" 
-                                                OnClick="lnkRecordSale_Click">Record</asp:LinkButton>
+                                                OnClick="lnkRecordSale_Click" TabIndex="0">Record</asp:LinkButton>
                                         </div>
                                     </div>
                                 </div>
@@ -216,22 +217,22 @@
             </div>
         </div>
         <%-- Success Toast --%>
-        <div class="position-fixed bottom-0 end-0 p-3 " style="z-index: 11">
-            <div id="success-toast" class="toast hide text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <%--<div class="position-fixed bottom-0 end-0 p-3 " style="z-index: 11">
+            <div id="success-toast" class="toast hide text-bg-success border-0" role="status" aria-live="polite" aria-atomic="true" data-bs-delay="3000">
                 <div class="toast-body">
                   <span id="toast-message"></span><button type="button" class="btn-close float-end" 
                       data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
             </div>
-        </div>
+        </div>--%>
         <%-- Error Toast --%>
-        <div class="position-fixed bottom-0 end-0 p-3 " style="z-index: 11">
-            <div class="toast hide text-bg-danger border-0" id="error-toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <%--<div class="position-fixed bottom-0 end-0 p-3 " style="z-index: 11">
+            <div class="toast hide text-bg-danger border-0" id="error-toast" role="status" aria-live="polite" aria-atomic="true" data-bs-delay="3000">
                 <div class="toast-body">
                     <span id="error-message"></span><button type="button" class="btn-close float-end" 
                         data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
             </div>
-        </div>
+        </div>--%>
     </div>
 </asp:Content>
