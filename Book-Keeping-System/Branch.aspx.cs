@@ -131,7 +131,6 @@ namespace Book_Keeping_System
                 panelBranchLists.Visible = false;
                 panelBranchInputForm.Visible = true;
 
-                panelSideInputs.Enabled = true;
 
                 foreach (DataRowView dvr in dv)
                 {
@@ -161,7 +160,6 @@ namespace Book_Keeping_System
         {
             panelBranchLists.Visible = false;
             panelBranchInputForm.Visible = true;
-            panelSideInputs.Enabled = false;
 
             CLEAR_INPUTS();
 
