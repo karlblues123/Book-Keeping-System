@@ -102,7 +102,8 @@ namespace Book_Keeping_System
 
         #region "INSERT/UPDATE Area"
 
-        public void INSERT_SUPPLIER_DATA(string _supplierName, string _supplierAddress, string _TIN, bool _isVat)
+        public void INSERT_SUPPLIER_DATA(string _supplierName, string _supplierAddress, string _TIN, bool _isVat, 
+            string contact_number, string contact_person)
         {
             using (SqlConnection cn = new SqlConnection(CS))
             {
@@ -115,7 +116,9 @@ namespace Book_Keeping_System
                     cmd.Parameters.AddWithValue("@SUPPLIER_ADDRESS", _supplierAddress);
                     cmd.Parameters.AddWithValue("@TIN", _TIN);
                     cmd.Parameters.AddWithValue("@ISVAT", _isVat);
-                    
+                    cmd.Parameters.AddWithValue("@CONTACTNUMBER", contact_number);
+                    cmd.Parameters.AddWithValue("@CONTACTPERSON", contact_person);
+
 
                     cn.Open();
 
@@ -126,7 +129,8 @@ namespace Book_Keeping_System
         }
 
 
-        public void UPDATE_SUPPLIER_DATA(int _supplierID ,string _supplierName, string _supplierAddress, string _TIN, bool _isVat)
+        public void UPDATE_SUPPLIER_DATA(int _supplierID ,string _supplierName, string _supplierAddress, string _TIN, bool _isVat,
+            string contact_number, string contact_person)
         {
             using (SqlConnection cn = new SqlConnection(CS))
             {
@@ -139,6 +143,8 @@ namespace Book_Keeping_System
                     cmd.Parameters.AddWithValue("@SUPPLIER_ADDRESS", _supplierAddress);
                     cmd.Parameters.AddWithValue("@TIN", _TIN);
                     cmd.Parameters.AddWithValue("@ISVAT", _isVat);
+                    cmd.Parameters.AddWithValue("@CONTACTNUMBER", contact_number);
+                    cmd.Parameters.AddWithValue("@CONTACTPERSON", contact_person);
 
 
                     cn.Open();

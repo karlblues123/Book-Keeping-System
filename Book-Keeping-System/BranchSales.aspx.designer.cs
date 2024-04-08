@@ -13,15 +13,6 @@ namespace Book_Keeping_System {
     public partial class BranchSales {
         
         /// <summary>
-        /// panelGridViewLists control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panelGridViewLists;
-        
-        /// <summary>
         /// gvBranchList control.
         /// </summary>
         /// <remarks>
@@ -49,6 +40,15 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.TextBox txtSelectedBranch;
         
         /// <summary>
+        /// hiddenSelectedBranch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hiddenSelectedBranch;
+        
+        /// <summary>
         /// txtDate control.
         /// </summary>
         /// <remarks>
@@ -56,6 +56,24 @@ namespace Book_Keeping_System {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDate;
+        
+        /// <summary>
+        /// txtInvoiceStart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtInvoiceStart;
+        
+        /// <summary>
+        /// txtInvoiceEnd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtInvoiceEnd;
         
         /// <summary>
         /// txtChickenQuantity control.
@@ -85,15 +103,6 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.TextBox txtChickenTotal;
         
         /// <summary>
-        /// lnkChickenRecordSale control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkChickenRecordSale;
-        
-        /// <summary>
         /// txtAtsaraQuantity control.
         /// </summary>
         /// <remarks>
@@ -121,12 +130,12 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.TextBox txtAtsaraTotal;
         
         /// <summary>
-        /// lnkAtsaraRecordSale control.
+        /// lnkSaveSales control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkAtsaraRecordSale;
+        protected global::System.Web.UI.WebControls.LinkButton lnkSaveSales;
     }
 }

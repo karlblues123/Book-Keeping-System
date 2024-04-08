@@ -14,96 +14,315 @@ namespace Book_Keeping_System
     public partial class CompanyExpenses : System.Web.UI.Page
     {
         MasterC oMaster = new MasterC();
+        BKC oBK = new BKC();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!IsPostBack)
             {
-                ddUtilityType.Items.Add(new ListItem("Electricity","1"));
-                ddUtilityType.Items.Add(new ListItem("Water", "2"));
-                ddUtilityType.Items.Add(new ListItem("Internet", "3"));
-
+                
+                DISPLAY_EXPENSE_TYPES();
                 DISPLAY_COMPANY_LISTS();
                 DISPLAY_SUPPLIER_LIST();
+                if (Session["EditExpense"] != null)
+                {
+                    this.hiddenSelectedExpense.Value = Session["EditExpense"].ToString();
+                    int id = int.Parse(Session["EditExpense"].ToString());
+                    this.DISPLAY_SELECTED_EXPENSE(id);
+                    Session.Remove("EditExpense");
+                }
+            }
+        }
 
+        #region LOCAL FUNCTIONS
+        private void DISPLAY_EXPENSE_TYPES()
+        {
+            DataTable data = oBK.GET_EXPENSE_TYPES();
+
+            ddType.DataTextField = "TypeName";
+            ddType.DataValueField = "ID";
+            ddType.DataSource = data;
+            ddType.DataBind();
+        }
+
+
+        private void DISPLAY_COMPANY_LISTS()
+        {
+            DataTable data = this.oMaster.GET_COMPANY_LISTS();
+
+            this.gvCompany.DataSource = data;
+            this.gvCompany.DataBind();
+        }
+
+        private void DISPLAY_SUPPLIER_LIST()
+        {
+            DataTable data = this.oMaster.GET_SUPPLIER_LISTS();
+
+            this.gvSupplierList.DataSource = data;
+            this.gvSupplierList.DataBind();
+
+        }
+
+        private void CLEAR_INPUT()
+        {
+            //Clear fields
+            this.txtDate.Text = string.Empty;
+            this.txtSupplier.Text = string.Empty;
+            this.txtTIN.Text = string.Empty;
+            this.txtInvoice.Text = string.Empty;
+            this.txtVATAmount.Text = "0";
+            this.txtNonVATAmount.Text = "0";
+            this.txtVAT.Text = "0";
+            this.txtTotal.Text = "0";
+            this.txtTendered.Text = "0";
+            this.txtUtilityFrom.Text = string.Empty;
+            this.txtUtilityTo.Text = string.Empty;
+            this.hiddenSelectedCompany.Value = string.Empty;
+            this.hiddenSelectedSupplier.Value = string.Empty;
+            this.cbIsCheque.Checked = false;
+            this.txtCheque.Enabled = false;
+            this.txtSelectedCompany.Text = "No Company Selected";
+            this.txtRemarks.Text = string.Empty;
+            this.txtAccountNumber.Text = string.Empty;
+
+            //Set CSS classes to default
+            this.txtDate.CssClass = "form-control";
+            this.txtSupplier.CssClass = "form-control";
+            this.txtTIN.CssClass = "form-control";
+            this.txtInvoice.CssClass = "form-control";
+            this.txtTotal.CssClass = "form-control";
+            this.txtCheque.CssClass = "form-control";
+            this.txtUtilityFrom.CssClass = "form-control";
+            this.txtUtilityTo.CssClass = "form-control";
+            this.txtInvoice.CssClass = "form-control";
+            this.txtSelectedCompany.CssClass = "form-control";
+        }
+
+        private void DISPLAY_SELECTED_EXPENSE(int id)
+        {
+            DataRow data = this.oBK.GET_SELECTED_EXPENSE(id).Rows[0];
+
+            this.txtSupplier.Text = data["Supplier_Name"].ToString();
+            this.txtTIN.Text = data["TIN"].ToString();
+            this.txtInvoice.Text = data["Invoice"].ToString();
+            this.txtVATAmount.Text = data["VATable"].ToString();
+            this.txtNonVATAmount.Text = data["NonVAT"].ToString();
+            this.txtVAT.Text = data["VATAmount"].ToString();
+            this.txtTotal.Text = data["TotalAmount"].ToString();
+            this.txtTendered.Text = data["AmountTendered"].ToString();
+            this.txtUtilityFrom.Text = data["FromDate"].ToString();
+            this.txtUtilityTo.Text = data["ToDate"].ToString();
+            this.txtAccountNumber.Text = data["AccountNumber"].ToString();
+            this.hiddenSelectedCompany.Value = data["AccountCode"].ToString();
+            this.hiddenSelectedSupplier.Value = data["SupplierID"].ToString();
+            this.txtCheque.Text = data["ChequeNumber"].ToString();
+            this.ddType.SelectedValue = data["Type"].ToString();
+            this.cbIsCheque.Checked = !string.IsNullOrEmpty(this.txtCheque.Text);
+            this.txtRemarks.Text = data["Remarks"].ToString();
+            this.txtDate.Text = Convert.ToDateTime(data["Date"]).ToString("yyyy-MM-dd");
+
+            DataView dv = oMaster.GET_COMPANY_LISTS().DefaultView;
+            dv.RowFilter = "CompanyCode='" + this.hiddenSelectedCompany.Value.ToString() + "'";
+
+            DataRowView row = dv[0];
+
+            this.txtSelectedCompany.Text = row["Company_Name"].ToString();
+        }
+
+        private bool VALIDATE_EXPENSE_FORM()
+        {
+            bool is_valid = true;
+
+            if (string.IsNullOrEmpty(this.hiddenSelectedCompany.Value))
+            {
+                this.txtSelectedCompany.CssClass += " is-invalid";
+                is_valid = false;
+            }
+            else
+                this.txtSelectedCompany.CssClass = "form-control";
+
+            if (string.IsNullOrEmpty(this.txtDate.Text))
+            {
+                this.txtDate.CssClass += " is-invalid";
+                is_valid = false;
+            }
+            else
+                this.txtDate.CssClass = "form-control";
+
+            if (string.IsNullOrEmpty(this.hiddenSelectedSupplier.Value))
+            {
+                this.txtSupplier.CssClass += " is-invalid";
+                this.txtTIN.CssClass += " is-invalid";
+                is_valid = false;
+            }
+            else
+            {
+                this.txtSupplier.CssClass = "form-control";
+                this.txtTIN.CssClass = "form-control";
+            }
+
+            if (string.IsNullOrEmpty(this.txtInvoice.Text))
+            {
+                this.txtInvoice.CssClass += " is-invalid";
+                is_valid = false;
+            }
+            else
+                this.txtInvoice.CssClass = "form-control";
+
+            if (string.IsNullOrEmpty(this.txtTotal.Text) || decimal.Parse(this.txtTotal.Text) <= 0)
+            {
+                this.txtTotal.CssClass += " is-invalid";
+                is_valid = false;
+            }
+            else
+                this.txtTotal.CssClass = "form-control";
+
+            if (this.cbIsCheque.Checked && string.IsNullOrEmpty(this.txtCheque.Text))
+            {
+                this.txtCheque.CssClass += " is-invalid";
+                is_valid = false;
+            }
+            else
+                this.txtCheque.CssClass = "form-control";
+
+            if(ddType.SelectedIndex > 0)
+            {
+                if (string.IsNullOrEmpty(this.txtUtilityTo.Text))
+                {
+                    this.txtUtilityTo.CssClass += " is-invalid";
+                    is_valid = false;
+                }
+                else
+                    this.txtUtilityTo.CssClass = "form-control";
+
+                if (string.IsNullOrEmpty(this.txtUtilityFrom.Text))
+                {
+                    this.txtUtilityFrom.CssClass += " is-invalid";
+                    is_valid = false;
+                }
+                else
+                    this.txtUtilityFrom.CssClass = "form-control";
+
+                if (string.IsNullOrEmpty(this.txtAccountNumber.Text))
+                {
+                    this.txtAccountNumber.CssClass += " is-invalid";
+                    is_valid = false;
+                }
+                else
+                    this.txtAccountNumber.CssClass = "form-control";
+            }
+
+            if (!is_valid)
+                Show_Error_Toast("Error - Invalid Input");
+
+            return is_valid;
+        }
+
+        private bool VALIDATE_NEW_SUPPLIER()
+        {
+            bool is_valid = true;
+
+            if (string.IsNullOrEmpty(this.txtNewSupplierName.Text) || string.IsNullOrEmpty(this.txtNewSupplierTIN.Text) 
+                || string.IsNullOrEmpty(this.txtNewSupplierAddress.Text))
+                is_valid = false;
+                
+
+            return is_valid;
+        }
+
+        private void INSERT_PURCHASE_EXPENSE()
+        {
+            int type = int.Parse(this.ddType.SelectedValue);
+            if(type == 1)
+            {
+                string account_code = this.hiddenSelectedCompany.Value;
+                int supplier_id = int.Parse(this.hiddenSelectedSupplier.Value);
+                string invoice = this.txtInvoice.Text;
+                string po_code = this.txtPO.Text == string.Empty ? "None Stated" : this.txtPO.Text;
+                decimal vatable = 0.00m;
+                decimal.TryParse(this.txtVATAmount.Text, out vatable);
+                decimal nonvat = 0.00m;
+                decimal.TryParse(this.txtNonVATAmount.Text, out nonvat);
+                decimal vat_amount = 0.00m;
+                decimal.TryParse(this.txtVAT.Text, out vat_amount);
+                decimal total_amount = 0.00m;
+                decimal.TryParse(this.txtTotal.Text, out total_amount);
+                string remarks = this.txtRemarks.Text;
+                decimal amount_tendered = 0.00m;
+                decimal.TryParse(this.txtTendered.Text, out amount_tendered);
+                DateTime date = DateTime.Parse(this.txtDate.Text);
+                string cheque_number = this.txtCheque.Text;
+
+                this.oBK.INSERT_PURCHASE_EXPENSE(account_code, supplier_id, invoice, po_code, type, vatable, nonvat, vat_amount, total_amount, 
+                    remarks, amount_tendered, date,cheque_number);
+
+                Show_Message_Toast("Successfully recorded Purchase expenses");
             }
 
             
         }
 
-        #region LOCAL FUNCTIONS
-
-        private void DISPLAY_COMPANY_LISTS()
+        private void INSERT_UTILITY_EXPENSE()
         {
-            DataTable dt = oMaster.GET_COMPANY_LISTS();
+            int type = int.Parse(this.ddType.SelectedValue);
+            if(type > 1)
+            {
+                string account_code = this.hiddenSelectedCompany.Value;
+                int supplier_id = int.Parse(this.hiddenSelectedSupplier.Value);
+                string invoice = this.txtInvoice.Text;
+                string po_code = this.txtPO.Text == string.Empty ? "None Stated" : this.txtPO.Text;
 
-            ddCompanyList.DataSource = dt;
-            ddCompanyList.DataTextField = dt.Columns["Company_Name"].ToString();
-            ddCompanyList.DataValueField = dt.Columns["CompanyCode"].ToString();
-            ddCompanyList.DataBind();
-        }
+                decimal vatable = 0.00m;
+                decimal.TryParse(this.txtVATAmount.Text, out vatable);
+                decimal nonvat = 0.00m;
+                decimal.TryParse(this.txtNonVATAmount.Text, out nonvat);
+                decimal vat_amount = 0.00m;
+                decimal.TryParse(this.txtVAT.Text, out vat_amount);
+                decimal total_amount = 0.00m;
+                decimal.TryParse(this.txtTotal.Text, out total_amount);
+                string remarks = this.txtRemarks.Text;
+                decimal amount_tendered = 0.00m;
+                decimal.TryParse(this.txtTendered.Text, out amount_tendered);
+                DateTime date = DateTime.Today;
+                DateTime.TryParse(this.txtDate.Text, out date);
+                DateTime from_date = DateTime.Today;
+                DateTime.TryParse(this.txtUtilityFrom.Text, out from_date);
+                DateTime to_date = DateTime.Today;
+                DateTime.TryParse(this.txtUtilityTo.Text, out to_date);
+                string account_number = this.txtAccountNumber.Text == string.Empty ? "None specified" : this.txtAccountNumber.Text;
+                string cheque_number = this.txtCheque.Text;
 
-        private void DISPLAY_SUPPLIER_LIST()
-        {
-            DataTable dt = oMaster.GET_SUPPLIER_LISTS();
+                this.oBK.INSERT_UTILITY_EXPENSE(account_code, supplier_id, invoice, po_code, type, vatable, nonvat, vat_amount, total_amount, 
+                    remarks, amount_tendered, date, from_date, to_date, account_number, cheque_number);
 
-            //TODO Get Utility Suppliers and Misc Suppliers
-
-            gvSupplierList.DataSource = dt;
-            gvSupplierList.DataBind();
-
-        }
-
-        private void CLEAR_UTILITY_INPUT()
-        {
-            //Clear fields
-            txtUtilitySupplier.Text = String.Empty;
-            txtUtilityTIN.Text = String.Empty;
-            txtUtilityReceipt.Text = String.Empty;
-            txtUtilityVATAmount.Text = "0";
-            txtUtilityNonVATAmount.Text = "0";
-            txtUtilityVAT.Text = "0";
-            txtUtilityTotal.Text = "0";
-            txtUtilityFrom.Text = String.Empty;
-            txtUtilityTo.Text = String.Empty;
-
-            //Set CSS classes to default
-            txtDate.CssClass = "form-control";
-            txtUtilitySupplier.CssClass = "form-control";
-            txtUtilityTIN.CssClass = "form-control";
-            txtUtilityTotal.CssClass = "form-control";
+                Show_Message_Toast("Successfully recorded Utility expenses");
+            }
             
         }
 
-        private void CLEAR_MISC_INPUT()
+        private void INSERT_NEW_SUPPLIER()
         {
-            //Clear fields
-            txtMiscSupplier.Text = String.Empty;
-            txtMiscTIN.Text = String.Empty;
-            txtMiscReceipt.Text = String.Empty;
-            txtMiscVATAmount.Text = "0";
-            txtMiscNonVATAmount.Text = "0";
-            txtMiscVAT.Text = "0";
-            txtMiscTotal.Text = "0";
-            txtMiscParticulars.Text = String.Empty;
+            //Validate the form
+            if (this.VALIDATE_NEW_SUPPLIER())
+            {
+                //Insert the new Supplier
+                oMaster.INSERT_SUPPLIER_DATA(this.txtNewSupplierName.Text,this.txtNewSupplierAddress.Text, this.txtNewSupplierTIN.Text, cbVAT.Checked,
+                    string.Empty,string.Empty);
 
-            //Set CSS classes to default
-            txtDate.CssClass = "form-control";
-            txtDate.CssClass = "form-control";
-            txtMiscTotal.CssClass = "form-control";
+                //Show Success toast
+                Show_Message_Toast("Successfully added " + this.txtNewSupplierName.Text + " to the database");
+
+                //Refresh the Supplier List
+                this.DISPLAY_SUPPLIER_LIST();
+            }
+            //Display Error toast
+            else
+                Show_Error_Toast("Error - Invalid input. Please resubmit with complete information.");
         }
 
-        private void CLEAR_NEW_SUPPLIER_INPUT()
+        private void UPDATE_EXPENSE()
         {
-            //Clear fields
-            txtSupplierName.Text = String.Empty;
-            txtSupplierAddress.Text = String.Empty;
-            txtSupplierTIN.Text = String.Empty;
-
-            //Set CSS classes to default
-            txtSupplierName.CssClass = "form-control";
-            txtSupplierAddress.CssClass = "form-control";
-            txtSupplierTIN.CssClass = "form-control";
+            //TODO Update Expense
         }
 
         private void Show_Message_Toast(string msg)
@@ -119,171 +338,85 @@ namespace Book_Keeping_System
         #endregion
 
         #region EVENTS
-
-        protected void lnkMiscSubmit_Click(object sender, EventArgs e)
-        {
-
-            DateTime dt;
-
-            //Add is-valid CSS class appropriately
-            if (!DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt))
-                txtDate.CssClass += " is-invalid";
-            else
-                txtDate.CssClass = "form-control";
-
-            if (double.Parse(txtMiscTotal.Text) <= 0.00)
-                txtMiscTotal.CssClass += " is-invalid";
-            else
-                txtMiscTotal.CssClass = "form-control";
-
-            //Validate Input
-            if (DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt) && double.Parse(txtMiscTotal.Text) > 0.00)
-            {
-                //TODO Insert to database
-                Show_Message_Toast("Expenses recorded");
-                CLEAR_MISC_INPUT();
-            }
-            else
-            {
-                Show_Error_Toast("Invalid Input. Please check the highlighted fields.");
-            }
-                
-        }
-
-        protected void lnkUtilitySubmit_Click(object sender, EventArgs e)
-        {
-            DateTime dt;
-
-            //Add is-invalid CSS class appropriately
-            if (String.IsNullOrEmpty(txtUtilitySupplier.Text))
-            {
-                txtUtilitySupplier.CssClass += " is-invalid";
-                txtUtilityTIN.CssClass += " is-invalid";
-            }
-                
-            else
-            {
-                txtUtilitySupplier.CssClass = "form-control";
-                txtUtilityTIN.CssClass = "form-control";
-            }
-
-            if (double.Parse(txtUtilityTotal.Text) <= 0.00)
-            {
-                txtUtilityTotal.CssClass += " is-invalid";
-            }
-            else
-                txtUtilityTotal.CssClass = "form-control";
-                
-            if (!DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt))
-                txtDate.CssClass += " is-invalid";
-            else
-                txtDate.CssClass = "form-control";
-
-            //Validate input
-            if (!String.IsNullOrEmpty(txtUtilitySupplier.Text) && DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt) && double.Parse(txtUtilityTotal.Text) > 0.00)
-            {
-                //TODO Insert to database
-                Show_Message_Toast("Expenses recorded");
-                CLEAR_UTILITY_INPUT();
-            }
-            else
-                Show_Error_Toast("Invalid Input. Please check the highlighted fields.");
-        }
-        
-
-        protected void lnkSupplierSave_Click(object sender, EventArgs e)
-        {
-            //Add is-invalid CSS class appropriately
-            if (String.IsNullOrEmpty(txtSupplierName.Text))
-                txtSupplierName.CssClass += " is-invalid";
-            else
-                txtSupplierName.CssClass = "form-control";
-
-            if (String.IsNullOrEmpty(txtSupplierTIN.Text))
-                txtSupplierTIN.CssClass += " is-invalid";
-            else
-                txtSupplierTIN.CssClass = "form-control";
-
-            if (String.IsNullOrEmpty(txtSupplierAddress.Text))
-                txtSupplierAddress.CssClass += " is-invalid";
-            else
-                txtSupplierAddress.CssClass = "form-control";
-
-            //Validate Input
-            if(!String.IsNullOrEmpty(txtSupplierName.Text) && !String.IsNullOrEmpty(txtSupplierTIN.Text) && !String.IsNullOrEmpty(txtSupplierAddress.Text))
-            {
-                //TODO Insert to database
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('New Supplier saved.')", true);
-                CLEAR_NEW_SUPPLIER_INPUT();
-            }
-            else
-                Show_Error_Toast("Invalid Input. Please check the highlighted fields.");
-        }
-
         protected void lnkSupplierSelect_Click(object sender, EventArgs e)
         {
-
             var selEdit = (Control)sender;
             GridViewRow r = (GridViewRow)selEdit.NamingContainer;
-            int _supplierID = Convert.ToInt32(r.Cells[0].Text);
+            int _supplierID = int.Parse(this.gvSupplierList.DataKeys[r.RowIndex].Value.ToString());
 
             DataView dv = oMaster.GET_SUPPLIER_LISTS().DefaultView;
             dv.RowFilter = "SupplierID='" + _supplierID + "'";
 
-            //TODO ViewState Is Supplier Non-VAT
-            if (dv.Count > 0)
+            DataRowView row = dv[0];
+
+            this.hiddenSelectedSupplier.Value = _supplierID.ToString();
+            this.txtSupplier.Text = row["Supplier_Name"].ToString();
+            this.txtTIN.Text = row["TIN"].ToString();
+        }
+
+        protected void ddType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(ddType.SelectedIndex > 0)
             {
-                foreach (DataRowView dvr in dv)
-                {
-                    if(hfMode.Value.Equals("util"))
-                    {
-                        txtUtilitySupplier.Text = dvr["Supplier_Name"].ToString();
-                        txtUtilityTIN.Text = dvr["TIN"].ToString();
-                        upUtility.Update();
-                    }
-                    else if(hfMode.Value.Equals("misc"))
-                    {
-                        txtMiscSupplier.Text = dvr["Supplier_Name"].ToString();
-                        txtMiscTIN.Text = dvr["TIN"].ToString();
-                        upMisc.Update();
-                    }
-                }
+                this.txtUtilityFrom.Enabled = true;
+                this.txtUtilityTo.Enabled = true;
+                this.txtAccountNumber.Enabled = true;
+            }
+            else
+            {
+                this.txtUtilityFrom.Enabled = false;
+                this.txtUtilityTo.Enabled = false;
+                this.txtAccountNumber.Enabled = false;
             }
         }
 
-        protected void gvSupplierList_RowDataBound(object sender, GridViewRowEventArgs e)
+        protected void lnkSelectCompany_Click(object sender, EventArgs e)
         {
-            foreach (GridViewRow row in gvSupplierList.Rows)
+            var selEdit = (Control)sender;
+            GridViewRow r = (GridViewRow)selEdit.NamingContainer;
+            int _supplierID = int.Parse(this.gvCompany.DataKeys[r.RowIndex].Value.ToString());
+
+            DataView dv = oMaster.GET_COMPANY_LISTS().DefaultView;
+            dv.RowFilter = "CompanyID='" + _supplierID + "'";
+
+            DataRowView row = dv[0];
+
+            this.hiddenSelectedCompany.Value = row["CompanyCode"].ToString();
+            this.txtSelectedCompany.Text = row["Company_Name"].ToString();
+            upForm.Update();
+        }
+
+        protected void lnkSubmit_Click(object sender, EventArgs e)
+        {
+            if (VALIDATE_EXPENSE_FORM())
             {
-                LinkButton edit = row.FindControl("lnkSupplierSelect") as LinkButton;
-                ScriptManager.GetCurrent(this).RegisterAsyncPostBackControl(edit);
+                if (int.Parse(ddType.SelectedValue.ToString()) == 1)
+                    this.INSERT_PURCHASE_EXPENSE();
+                else
+                    this.INSERT_UTILITY_EXPENSE();
+
+                //TODO Update Expense
             }
         }
 
-        protected void lnkUtilityClear_Click(object sender, EventArgs e)
+        protected void cbIsCheque_CheckedChanged(object sender, EventArgs e)
         {
-            CLEAR_UTILITY_INPUT();
+            this.txtCheque.Enabled = this.cbIsCheque.Checked;
+            if (!this.cbIsCheque.Checked)
+                this.txtCheque.Text = string.Empty;
         }
 
-        protected void lnkSupplierClear_Click(object sender, EventArgs e)
+        protected void lnkClear_Click(object sender, EventArgs e)
         {
-            CLEAR_NEW_SUPPLIER_INPUT();
+            this.CLEAR_INPUT();
         }
 
-        protected void lnkMiscClear_Click(object sender, EventArgs e)
+        protected void btnNewSupplierSubmit_Click(object sender, EventArgs e)
         {
-            CLEAR_MISC_INPUT();
+            this.INSERT_NEW_SUPPLIER();
         }
-
-
         #endregion
 
 
-
-        //private void Show_Error_Toast(string msg)
-        //{
-        //    lblErrorMsg.Text = msg;
-        //    Page.ClientScript.RegisterStartupScript(this.GetType(), "ShowError", "ShowError()", true);
-        //}
     }
 }
