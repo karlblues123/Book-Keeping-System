@@ -64,7 +64,7 @@
                                     <%--<li><a class="dropdown-item" href="ReportDeliveries.aspx">Deliveries</a></li>--%>
                                     <li><a class="dropdown-item" href="ReportVAT.aspx">VAT</a></li>
                                     <%--<li><a class="dropdown-item disabled" href="#">Inventory</a></li>--%>
-                                    <li><a class="dropdown-item" href="ReportSales.aspx">Sales</a></li>
+                                    <li><a class="dropdown-item" href="ReportSales2.aspx">Sales</a></li>
                                     <%--<li><a class="dropdown-item disabled" href="#">Accounts Payable</a></li>
                                     <li><a class="dropdown-item disabled" href="#">Accounts Receivable</a></li>--%>
                                 </ul>
