@@ -42,14 +42,14 @@
                             <li class="nav-item my-1" role="presentation">
                                 <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-basic"
                                     type="button" role="tab" aria-controls="tab-basic" aria-selected="true">
-                                    Basic
+                                    <span class="fa fa-info-circle"></span> <span class="d-none d-xxl-inline">Basic</span>
                                 </button>
                             </li>
                             <%-- Expense Tab --%>
                             <li class="nav-item my-1" role="presentation">
                                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-expense"
                                     type="button" role="tab" aria-controls="tab-expense" aria-selected="false">
-                                    Expense
+                                    <span class="fa fa-list-alt"></span> <span class="d-none d-xxl-inline">Expense</span>
                                 </button>
                             </li>
                         </ul>

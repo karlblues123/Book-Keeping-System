@@ -16,14 +16,14 @@ namespace Book_Keeping_System {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class repDailyDeliveries : ReportClass {
+    public class repColumnarSales : ReportClass {
         
-        public repDailyDeliveries() {
+        public repColumnarSales() {
         }
         
         public override string ResourceName {
             get {
-                return "repDailyDeliveries.rpt";
+                return "repColumnarSales.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace Book_Keeping_System {
         
         public override string FullResourceName {
             get {
-                return "Book_Keeping_System.repDailyDeliveries.rpt";
+                return "Book_Keeping_System.repColumnarSales.rpt";
             }
             set {
                 // Do nothing
@@ -66,7 +66,7 @@ namespace Book_Keeping_System {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section3 {
+        public CrystalDecisions.CrystalReports.Engine.Section GroupHeaderSection1 {
             get {
                 return this.ReportDefinition.Sections[2];
             }
@@ -74,7 +74,7 @@ namespace Book_Keeping_System {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
+        public CrystalDecisions.CrystalReports.Engine.Section GroupHeaderSection2 {
             get {
                 return this.ReportDefinition.Sections[3];
             }
@@ -82,17 +82,57 @@ namespace Book_Keeping_System {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section5 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section3 {
             get {
                 return this.ReportDefinition.Sections[4];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection2 {
+            get {
+                return this.ReportDefinition.Sections[5];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection1 {
+            get {
+                return this.ReportDefinition.Sections[6];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
+            get {
+                return this.ReportDefinition.Sections[7];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.CrystalReports.Engine.Section Section5 {
+            get {
+                return this.ReportDefinition.Sections[8];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_date_coverage {
+            get {
+                return this.DataDefinition.ParameterFields[0];
             }
         }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedrepDailyDeliveries : Component, ICachedReport {
+    public class CachedrepColumnarSales : Component, ICachedReport {
         
-        public CachedrepDailyDeliveries() {
+        public CachedrepColumnarSales() {
         }
         
         [Browsable(false)]
@@ -129,7 +169,7 @@ namespace Book_Keeping_System {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            repDailyDeliveries rpt = new repDailyDeliveries();
+            repColumnarSales rpt = new repColumnarSales();
             rpt.Site = this.Site;
             return rpt;
         }

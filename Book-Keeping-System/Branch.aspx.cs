@@ -27,6 +27,7 @@ namespace Book_Keeping_System
                 //DISPLAY_SUPPLIER_LIST();
                 //DISPLAY_SUPERVISOR_LISTS();
             }
+            this.DISPLAY_SUPPLIER_LIST();
         }
 
 
@@ -181,6 +182,18 @@ namespace Book_Keeping_System
             }
         }
 
+        private void DISPLAY_BRANCH_RENTAL_CONTRACTS()
+        {
+            if (!string.IsNullOrEmpty(this.hiddenSelectedBranch.Value))
+            {
+                DataTable data = this.oBK.GET_RENTAL_CONTRACTS(this.hiddenSelectedBranch.Value);
+
+                this.lblNoContracts.Visible = !(data.Rows.Count > 0);
+                this.gvRentalContract.DataSource = data;
+                this.gvRentalContract.DataBind();
+            }
+        }
+
         private void CLEAR_BASIC()
         {
             txtBranchName.Text = string.Empty;
@@ -216,6 +229,11 @@ namespace Book_Keeping_System
             this.gvSupplierList.DataSource = data;
             this.gvSupplierList.DataBind();
 
+            foreach (GridViewRow row in this.gvSupplierList.Rows)
+            {
+                LinkButton btn = row.FindControl("lnkSupplierSelect") as LinkButton;
+                ScriptManager.GetCurrent(this).RegisterAsyncPostBackControl(btn);
+            }
         }
 
         //private void DISPLAY_SUPPLIER_LIST()
@@ -282,6 +300,8 @@ namespace Book_Keeping_System
 
 
             this.oBK.INSERT_BRANCH_RENTAL_CONTRACT(lessor, lessee, from_date, to_date, branch_code, remarks);
+
+            this.Show_Message_Toast("Successfully added a new Contract for " + this.txtBranchName.Text + " branch with " + this.txtLessor);
         }
 
 
@@ -322,6 +342,7 @@ namespace Book_Keeping_System
                 pBranchInputForm.Visible = true;
 
                 this.DISPLAY_BRANCH_EXPENSES(this.hiddenSelectedBranch.Value);
+                this.DISPLAY_BRANCH_RENTAL_CONTRACTS();
 
                 foreach (DataRowView dvr in dv)
                 {
@@ -502,6 +523,9 @@ namespace Book_Keeping_System
             this.hiddenSelectedLessor.Value = _supplierID.ToString();
             this.txtLessor.Text = row["Supplier_Name"].ToString();
             this.txtLessorTIN.Text = row["TIN"].ToString();
+
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "CloseModal", "<script>closeSupplierModal();</script>", false);
+            upRental.Update();
         }
 
         protected void btnSaveNewContract_Click(object sender, EventArgs e)
@@ -511,6 +535,11 @@ namespace Book_Keeping_System
             else
                 this.Show_Error_Toast("Error - Invalid Input. Please check the highlighted fields.");
             
+        }
+
+        protected void lnkSave_Click(object sender, EventArgs e)
+        {
+
         }
 
         protected void gvBranchSales_RowDataBound(object sender, GridViewRowEventArgs e)

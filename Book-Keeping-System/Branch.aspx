@@ -28,8 +28,12 @@
         }
 
         function setContractRemarks(remarks) {
-            $('#contract-remark').val(expense);
+            $('#contract-remark').val(remarks);
             bootstrap.Modal.getOrCreateInstance($('#contract-modal')).toggle();
+        }
+
+        function closeSupplierModal() {
+            bootstrap.Modal.getOrCreateInstance($('#supplier-modal')).toggle();
         }
 
         ////Search function
@@ -129,7 +133,7 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-basic" 
                                     type="button" role="tab" aria-controls="tab-basic" aria-selected="true">
-                                    Basic
+                                    <span class="fa fa-info-circle"></span> <span class="d-none d-xxl-inline">Basic</span>
                                 </button>
                             </li>
                             <%--<li class="nav-item" role="presentation">
@@ -147,19 +151,19 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-sales"
                                     type="button" role="tab" aria-controls="tab-sales" aria-selected="false">
-                                    Sales
+                                    <span class="fa fa-money"></span> <span class="d-none d-xxl-inline">Sales</span>
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-expenses"
                                     type="button" role="tab" aria-controls="tab-expenses" aria-selected="false">
-                                    Expenses
+                                    <span class="fa fa-list-alt"></span> <span class="d-none d-xxl-inline">Expenses</span>
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-rental" type="button" 
                                     role="tab" aria-controls="tab-rental" aria-selected="false">
-                                    Rental
+                                    <span class="fa fa-building"></span> <span class="d-none d-xxl-inline">Rental</span>
                                 </button>
                             </li>
                         </ul>
@@ -194,7 +198,7 @@
                             <div class="col">
                                 <div class="form-floating small">
                                     <asp:TextBox runat="server" ID="txtBranch_Address" CssClass="form-control"
-                                        placeholder="Address"></asp:TextBox>
+                                        placeholder="Address" AutoCompleteType="Disabled"></asp:TextBox>
                                     <label for="txtBranchName">Branch Address</label>
                                 </div>
                             </div>
@@ -216,9 +220,9 @@
                             </div>
                         </div>
                         <div class="row mt-2">
-                            <%-- Save & Back --%>
+                            <%-- Save --%>
                             <div class="col-4">
-                                <asp:LinkButton runat="server" ID="lnkSave" CssClass="btn btn-primary">
+                                <asp:LinkButton runat="server" ID="lnkSave" CssClass="btn btn-primary" OnClick="lnkSave_Click">
                                     <b class="fa fa-save"></b> Save
                                 </asp:LinkButton>
                             </div>
@@ -764,14 +768,14 @@
                     <div class="modal-body overflow-y-auto">
                         <%-- Supplier List --%>
                         <asp:GridView runat="server" ID="gvSupplierList" CssClass="table table-hover small" AutoGenerateColumns="false" 
-                            ShowHeader="true" GridLines="Horizontal" DataKeyNames="SupplierID">
+                            DataKeyNames="SupplierID">
                             <Columns>
                                 <asp:BoundField DataField="Supplier_Name" HeaderText="Name" ItemStyle-Width="40%"/>
                                 <asp:BoundField DataField="TIN" HeaderText="TIN" ItemStyle-Width="40%" />
                                 <asp:TemplateField ItemStyle-Width="20%">
                                     <ItemTemplate>
                                         <asp:LinkButton runat="server" ID="lnkSupplierSelect" 
-                                            CssClass="btn btn-sm btn-outline-primary" OnClick="lnkSupplierSelect_Click">
+                                            CssClass="btn btn-sm btn-primary" OnClick="lnkSupplierSelect_Click">
                                             <b class="fa fa-check-circle"></b> Select
                                         </asp:LinkButton>
                                     </ItemTemplate>

@@ -290,6 +290,37 @@ namespace Book_Keeping_System
             }
         }
 
+        public void UPDATE_BRANCH_SALES(string branch_code, SqlDateTime date, string starting_invoice, string ending_invoice,
+            int chicken_quantity, decimal chicken_price, decimal chicken_total, int atsara_quantity, decimal atsara_price,
+            decimal atsara_total)
+        {
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("[BK].[spUPDATE_BRANCH_SALES]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+
+                    cmd.Parameters.AddWithValue("@BRANCHCODE", branch_code);
+                    cmd.Parameters.AddWithValue("@DATE", date);
+                    cmd.Parameters.AddWithValue("@STARTINGINVOICE", starting_invoice);
+                    cmd.Parameters.AddWithValue("@ENDINGINVOICE", ending_invoice);
+                    cmd.Parameters.AddWithValue("@CHICKENQUANTITY", chicken_quantity);
+                    cmd.Parameters.AddWithValue("@CHICKENPRICE", chicken_price);
+                    cmd.Parameters.AddWithValue("@CHICKENTOTAL", chicken_total);
+                    cmd.Parameters.AddWithValue("@ATSARAQUANTITY", atsara_quantity);
+                    cmd.Parameters.AddWithValue("@ATSARAPRICE", atsara_price);
+                    cmd.Parameters.AddWithValue("@ATSARATOTAL", atsara_total);
+
+
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+
         public void INSERT_PURCHASE_EXPENSE(string account_code, int supplier_id, string invoice, string po_code, int type,
             decimal vatable, decimal nonvat, decimal vat_amount,decimal total_amount, string remarks, decimal amount_tendered, 
             SqlDateTime date, string cheque_number)
@@ -364,7 +395,7 @@ namespace Book_Keeping_System
         {
             using (SqlConnection cn = new SqlConnection(CS))
             {
-                using (SqlCommand cmd = new SqlCommand("[BK].[spGET_RENTAL_CONTRACTS]", cn))
+                using (SqlCommand cmd = new SqlCommand("[BK].[spINSERT_BRANCH_RENTAL_CONTRACT]", cn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
