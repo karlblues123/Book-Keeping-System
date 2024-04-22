@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
+using CrystalDecisions.Web;
 
 
 namespace Book_Keeping_System
@@ -14,42 +15,76 @@ namespace Book_Keeping_System
     public partial class ReportSales2 : System.Web.UI.Page
     {
         ReportDocument oReportDocument = new ReportDocument();
+        MasterC oMaster = new MasterC();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                txtDateFrom.Text = DateTime.Now.ToShortDateString(); //oSys.GET_SERVER_DATE_TIME().ToShortDateString();
-                txtDateTo.Text = DateTime.Now.ToShortDateString(); //oSys.GET_SERVER_DATE_TIME().ToShortDateString();
+                this.DISPLAY_LIST_COMPANIES();
+                this.txtDateFrom.Text = DateTime.Now.ToString("yyyy-MM-dd"); //oSys.GET_SERVER_DATE_TIME().ToShortDateString();
+                this.txtDateTo.Text = DateTime.Now.ToString("yyyy-MM-dd"); //oSys.GET_SERVER_DATE_TIME().ToShortDateString();
             }
-
-            displayReport();
         }
-        private void displayReport()
+
+        #region LOCAL FUNCTIONS
+        private void DISPLAY_REPORT()
         {
-            DateTime dtStartDate = Convert.ToDateTime(txtDateFrom.Text);
-            DateTime dtEndDate = Convert.ToDateTime(txtDateTo.Text);
+            //Get the date coverage
+            DateTime dtStartDate = DateTime.Parse(txtDateFrom.Text);
+            DateTime dtEndDate = DateTime.Parse(txtDateTo.Text);
 
-            ParameterRangeValue myDateRangeValue = new ParameterRangeValue();
-            myDateRangeValue.StartValue = dtStartDate; 
-            myDateRangeValue.EndValue = dtEndDate;
+            if (dtStartDate <= dtEndDate)
+            {
+                //Load the report
+                oReportDocument.Load(Server.MapPath("~/repColumnarSales.rpt"));
 
+                //Set the parameters needed
+                oReportDocument.SetParameterValue("@FROMDATE", dtStartDate);
+                oReportDocument.SetParameterValue("@TODATE", dtEndDate);
+                oReportDocument.SetParameterValue("@COMPANYCODE", ddCompany.SelectedValue.ToString());
 
+                oReportDocument.SetDatabaseLogon("sa", "p@ssw0rd"); // Supply user credentials
 
-            oReportDocument.Load(Server.MapPath("~/repColumnarSales.rpt"));
+                //Display the data
+                CRV.ReportSource = oReportDocument;
+                this.lblNoReport.Visible = false;
+            }
+            else
+            {
+                this.Show_Error_Toast("Error - Date input is invalid.");
 
-            oReportDocument.SetParameterValue("date_coverage", myDateRangeValue);
+                CRV.ReportSource = null;
+                this.lblNoReport.Visible = true;
+            }
+                
             
-            oReportDocument.SetDatabaseLogon("sa", "p@ssw0rd"); // Supply user credentials
-
-           
-           CRV.ReportSource = oReportDocument;
-
         }
+
+        private void DISPLAY_LIST_COMPANIES()
+        {
+            DataTable data = oMaster.GET_COMPANY_LISTS();
+
+            ddCompany.DataTextField = "Company_Name";
+            ddCompany.DataValueField = "CompanyCode";
+            ddCompany.DataSource = data;
+            ddCompany.DataBind();
+        }
+
+        private void Show_Error_Toast(string msg)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Error", "<script>showToastError('" + msg + "');</script>", false);
+        }
+        #endregion
+
+        #region EVENTS
 
         protected void lnkSelect_Click(object sender, EventArgs e)
         {
             //call display refresh
-            displayReport();
+            DISPLAY_REPORT();
         }
+
+        #endregion
     }
 }

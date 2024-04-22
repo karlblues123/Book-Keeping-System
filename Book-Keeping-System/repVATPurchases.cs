@@ -16,14 +16,14 @@ namespace Book_Keeping_System {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class repColumnarSales : ReportClass {
+    public class repVATPurchases : ReportClass {
         
-        public repColumnarSales() {
+        public repVATPurchases() {
         }
         
         public override string ResourceName {
             get {
-                return "repColumnarSales.rpt";
+                return "repVATPurchases.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace Book_Keeping_System {
         
         public override string FullResourceName {
             get {
-                return "Book_Keeping_System.repColumnarSales.rpt";
+                return "Book_Keeping_System.repVATPurchases.rpt";
             }
             set {
                 // Do nothing
@@ -90,7 +90,7 @@ namespace Book_Keeping_System {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_COMPANYCODE {
+        public CrystalDecisions.Shared.IParameterField Parameter_ACCOUNTCODE {
             get {
                 return this.DataDefinition.ParameterFields[0];
             }
@@ -114,9 +114,9 @@ namespace Book_Keeping_System {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedrepColumnarSales : Component, ICachedReport {
+    public class CachedrepVATPurchases : Component, ICachedReport {
         
-        public CachedrepColumnarSales() {
+        public CachedrepVATPurchases() {
         }
         
         [Browsable(false)]
@@ -153,7 +153,7 @@ namespace Book_Keeping_System {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            repColumnarSales rpt = new repColumnarSales();
+            repVATPurchases rpt = new repVATPurchases();
             rpt.Site = this.Site;
             return rpt;
         }

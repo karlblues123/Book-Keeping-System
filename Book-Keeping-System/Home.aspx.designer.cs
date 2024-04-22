@@ -11,5 +11,41 @@ namespace Book_Keeping_System {
     
     
     public partial class Home {
+        
+        /// <summary>
+        /// pMissingSales control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pMissingSales;
+        
+        /// <summary>
+        /// gvNoSalesBranch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvNoSalesBranch;
+        
+        /// <summary>
+        /// pExpiringContracts control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pExpiringContracts;
+        
+        /// <summary>
+        /// gvExpiringContractBranch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvExpiringContractBranch;
     }
 }

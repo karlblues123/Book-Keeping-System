@@ -15,15 +15,15 @@ namespace Book_Keeping_System
     {
         MasterC oMaster = new MasterC();
         BKC oBK = new BKC();
+        xSysC oSys = new xSysC();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!IsPostBack)
             {
-                
-                DISPLAY_EXPENSE_TYPES();
-                DISPLAY_COMPANY_LISTS();
-                DISPLAY_SUPPLIER_LIST();
+                this.DISPLAY_EXPENSE_TYPES();
+                this.DISPLAY_COMPANY_LISTS();
+                this.DISPLAY_SUPPLIER_LIST();
                 if (Session["EditExpense"] != null)
                 {
                     this.hiddenSelectedExpense.Value = Session["EditExpense"].ToString();
@@ -39,10 +39,10 @@ namespace Book_Keeping_System
         {
             DataTable data = oBK.GET_EXPENSE_TYPES();
 
-            ddType.DataTextField = "TypeName";
-            ddType.DataValueField = "ID";
-            ddType.DataSource = data;
-            ddType.DataBind();
+            this.ddType.DataTextField = "TypeName";
+            this.ddType.DataValueField = "ID";
+            this.ddType.DataSource = data;
+            this.ddType.DataBind();
         }
 
 
@@ -63,6 +63,16 @@ namespace Book_Keeping_System
 
         }
 
+        private void DISPLAY_COMPANY_EXPENSES(string company_code)
+        {   
+            //Get the list of expenses of a company
+            DataTable data = this.oBK.GET_LIST_EXPENSES(company_code);
+
+            //Display the output to the controls
+            this.gvExpenses.DataSource = data;
+            this.gvExpenses.DataBind();
+        }
+
         private void CLEAR_INPUT()
         {
             //Clear fields
@@ -79,6 +89,7 @@ namespace Book_Keeping_System
             this.txtUtilityTo.Text = string.Empty;
             this.hiddenSelectedCompany.Value = string.Empty;
             this.hiddenSelectedSupplier.Value = string.Empty;
+            this.hiddenSelectedExpense.Value = string.Empty;
             this.cbIsCheque.Checked = false;
             this.txtCheque.Enabled = false;
             this.txtSelectedCompany.Text = "No Company Selected";
@@ -96,12 +107,17 @@ namespace Book_Keeping_System
             this.txtUtilityTo.CssClass = "form-control";
             this.txtInvoice.CssClass = "form-control";
             this.txtSelectedCompany.CssClass = "form-control";
+
+            this.gvExpenses.DataSource = null;
+            this.gvExpenses.DataBind();
         }
 
         private void DISPLAY_SELECTED_EXPENSE(int id)
         {
+            //Get the data
             DataRow data = this.oBK.GET_SELECTED_EXPENSE(id).Rows[0];
 
+            //Display the data
             this.txtSupplier.Text = data["Supplier_Name"].ToString();
             this.txtTIN.Text = data["TIN"].ToString();
             this.txtInvoice.Text = data["Invoice"].ToString();
@@ -117,7 +133,7 @@ namespace Book_Keeping_System
             this.hiddenSelectedSupplier.Value = data["SupplierID"].ToString();
             this.txtCheque.Text = data["ChequeNumber"].ToString();
             this.ddType.SelectedValue = data["Type"].ToString();
-            this.cbIsCheque.Checked = !string.IsNullOrEmpty(this.txtCheque.Text);
+            this.cbIsCheque.Checked = !string.IsNullOrWhiteSpace(this.txtCheque.Text);
             this.txtRemarks.Text = data["Remarks"].ToString();
             this.txtDate.Text = Convert.ToDateTime(data["Date"]).ToString("yyyy-MM-dd");
 
@@ -133,7 +149,7 @@ namespace Book_Keeping_System
         {
             bool is_valid = true;
 
-            if (string.IsNullOrEmpty(this.hiddenSelectedCompany.Value))
+            if (string.IsNullOrWhiteSpace(this.hiddenSelectedCompany.Value))
             {
                 this.txtSelectedCompany.CssClass += " is-invalid";
                 is_valid = false;
@@ -141,7 +157,7 @@ namespace Book_Keeping_System
             else
                 this.txtSelectedCompany.CssClass = "form-control";
 
-            if (string.IsNullOrEmpty(this.txtDate.Text))
+            if (string.IsNullOrWhiteSpace(this.txtDate.Text))
             {
                 this.txtDate.CssClass += " is-invalid";
                 is_valid = false;
@@ -149,7 +165,7 @@ namespace Book_Keeping_System
             else
                 this.txtDate.CssClass = "form-control";
 
-            if (string.IsNullOrEmpty(this.hiddenSelectedSupplier.Value))
+            if (string.IsNullOrWhiteSpace(this.hiddenSelectedSupplier.Value))
             {
                 this.txtSupplier.CssClass += " is-invalid";
                 this.txtTIN.CssClass += " is-invalid";
@@ -161,7 +177,7 @@ namespace Book_Keeping_System
                 this.txtTIN.CssClass = "form-control";
             }
 
-            if (string.IsNullOrEmpty(this.txtInvoice.Text))
+            if (string.IsNullOrWhiteSpace(this.txtInvoice.Text))
             {
                 this.txtInvoice.CssClass += " is-invalid";
                 is_valid = false;
@@ -169,7 +185,7 @@ namespace Book_Keeping_System
             else
                 this.txtInvoice.CssClass = "form-control";
 
-            if (string.IsNullOrEmpty(this.txtTotal.Text) || decimal.Parse(this.txtTotal.Text) <= 0)
+            if (string.IsNullOrWhiteSpace(this.txtTotal.Text) || decimal.Parse(this.txtTotal.Text) <= 0)
             {
                 this.txtTotal.CssClass += " is-invalid";
                 is_valid = false;
@@ -177,7 +193,7 @@ namespace Book_Keeping_System
             else
                 this.txtTotal.CssClass = "form-control";
 
-            if (this.cbIsCheque.Checked && string.IsNullOrEmpty(this.txtCheque.Text))
+            if (this.cbIsCheque.Checked && string.IsNullOrWhiteSpace(this.txtCheque.Text))
             {
                 this.txtCheque.CssClass += " is-invalid";
                 is_valid = false;
@@ -187,7 +203,7 @@ namespace Book_Keeping_System
 
             if(ddType.SelectedIndex > 0)
             {
-                if (string.IsNullOrEmpty(this.txtUtilityTo.Text))
+                if (string.IsNullOrWhiteSpace(this.txtUtilityTo.Text))
                 {
                     this.txtUtilityTo.CssClass += " is-invalid";
                     is_valid = false;
@@ -195,7 +211,7 @@ namespace Book_Keeping_System
                 else
                     this.txtUtilityTo.CssClass = "form-control";
 
-                if (string.IsNullOrEmpty(this.txtUtilityFrom.Text))
+                if (string.IsNullOrWhiteSpace(this.txtUtilityFrom.Text))
                 {
                     this.txtUtilityFrom.CssClass += " is-invalid";
                     is_valid = false;
@@ -203,7 +219,7 @@ namespace Book_Keeping_System
                 else
                     this.txtUtilityFrom.CssClass = "form-control";
 
-                if (string.IsNullOrEmpty(this.txtAccountNumber.Text))
+                if (string.IsNullOrWhiteSpace(this.txtAccountNumber.Text))
                 {
                     this.txtAccountNumber.CssClass += " is-invalid";
                     is_valid = false;
@@ -222,19 +238,20 @@ namespace Book_Keeping_System
         {
             bool is_valid = true;
 
-            if (string.IsNullOrEmpty(this.txtNewSupplierName.Text) || string.IsNullOrEmpty(this.txtNewSupplierTIN.Text) 
-                || string.IsNullOrEmpty(this.txtNewSupplierAddress.Text))
+            if (string.IsNullOrWhiteSpace(this.txtNewSupplierName.Text) || string.IsNullOrWhiteSpace(this.txtNewSupplierTIN.Text) 
+                || string.IsNullOrWhiteSpace(this.txtNewSupplierAddress.Text))
                 is_valid = false;
                 
 
             return is_valid;
         }
 
-        private void INSERT_PURCHASE_EXPENSE()
+        private void UPSERT_PURCHASE_EXPENSE()
         {
             int type = int.Parse(this.ddType.SelectedValue);
             if(type == 1)
             {
+                //Get the data
                 string account_code = this.hiddenSelectedCompany.Value;
                 int supplier_id = int.Parse(this.hiddenSelectedSupplier.Value);
                 string invoice = this.txtInvoice.Text;
@@ -253,10 +270,34 @@ namespace Book_Keeping_System
                 DateTime date = DateTime.Parse(this.txtDate.Text);
                 string cheque_number = this.txtCheque.Text;
 
-                this.oBK.INSERT_PURCHASE_EXPENSE(account_code, supplier_id, invoice, po_code, type, vatable, nonvat, vat_amount, total_amount, 
-                    remarks, amount_tendered, date,cheque_number);
+                if (string.IsNullOrWhiteSpace(this.hiddenSelectedExpense.Value))
+                {
+                    //Insert the new Purchase Expense
+                    this.oBK.INSERT_PURCHASE_EXPENSE(account_code, supplier_id, invoice, po_code, type, vatable, nonvat, vat_amount, total_amount,
+                        remarks, amount_tendered, date, cheque_number);
 
-                Show_Message_Toast("Successfully recorded Purchase expenses");
+                    //Insert an Audit Log
+                    this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.COMPANYEXPENSES.ToString(), "INSERT", Session["Username"].ToString());
+
+                    //Show Success Toast
+                    Show_Message_Toast("Successfully recorded Purchase expense");
+                }
+                else
+                {
+                    //Get the ID of the Expense
+                    int expense_id = int.Parse(this.hiddenSelectedExpense.Value);
+
+                    //Update the Expense
+                    this.oBK.UPDATE_PURCHASE_EXPENSE(expense_id, invoice, po_code, vatable, nonvat, vat_amount, total_amount, 
+                        remarks, amount_tendered, date);
+
+                    //Insert an Audit Log
+                    this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.COMPANYEXPENSES.ToString(), "UPDATE", Session["Username"].ToString());
+
+                    //Show Success Toast
+                    this.Show_Message_Toast("Successfully updated this expense");
+                }
+
             }
 
             
@@ -267,6 +308,7 @@ namespace Book_Keeping_System
             int type = int.Parse(this.ddType.SelectedValue);
             if(type > 1)
             {
+                //Get the data
                 string account_code = this.hiddenSelectedCompany.Value;
                 int supplier_id = int.Parse(this.hiddenSelectedSupplier.Value);
                 string invoice = this.txtInvoice.Text;
@@ -292,10 +334,34 @@ namespace Book_Keeping_System
                 string account_number = this.txtAccountNumber.Text == string.Empty ? "None specified" : this.txtAccountNumber.Text;
                 string cheque_number = this.txtCheque.Text;
 
-                this.oBK.INSERT_UTILITY_EXPENSE(account_code, supplier_id, invoice, po_code, type, vatable, nonvat, vat_amount, total_amount, 
-                    remarks, amount_tendered, date, from_date, to_date, account_number, cheque_number);
+                if (string.IsNullOrWhiteSpace(this.hiddenSelectedExpense.Value))
+                {
+                    //Insert the new Utility Expense
+                    this.oBK.INSERT_UTILITY_EXPENSE(account_code, supplier_id, invoice, po_code, type, vatable, nonvat, vat_amount, total_amount,
+                        remarks, amount_tendered, date, from_date, to_date, account_number, cheque_number);
 
-                Show_Message_Toast("Successfully recorded Utility expenses");
+                    //Insert an Audit Log
+                    this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.COMPANYEXPENSES.ToString(), "INSERT", Session["Username"].ToString());
+
+                    //Show Success toast
+                    Show_Message_Toast("Successfully recorded Utility expense");
+                }
+                else
+                {
+                    //Get the ID of the Expense
+                    int expense_id = int.Parse(this.hiddenSelectedExpense.Value);
+
+                    //Update the Expense
+                    this.oBK.UPDATE_UTILITY_EXPENSE(expense_id, invoice, po_code, vatable, nonvat, vat_amount, total_amount, remarks, 
+                        amount_tendered, date, from_date, to_date, account_number);
+
+                    //Insert an Audit Log
+                    this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.COMPANYEXPENSES.ToString(), "UPDATE", Session["Username"].ToString());
+
+                    //Show Success toast
+                    Show_Message_Toast("Successfully updated this expense");
+                }
+                
             }
             
         }
@@ -305,9 +371,17 @@ namespace Book_Keeping_System
             //Validate the form
             if (this.VALIDATE_NEW_SUPPLIER())
             {
+                //Get the data for Insert
+                string supplier_name = this.txtNewSupplierName.Text;
+                string supplier_address = this.txtNewSupplierAddress.Text;
+                string supplier_TIN = this.txtNewSupplierTIN.Text;
+                bool is_vat = this.cbVAT.Checked;
+
                 //Insert the new Supplier
-                oMaster.INSERT_SUPPLIER_DATA(this.txtNewSupplierName.Text,this.txtNewSupplierAddress.Text, this.txtNewSupplierTIN.Text, cbVAT.Checked,
-                    string.Empty,string.Empty);
+                this.oMaster.INSERT_SUPPLIER_DATA(supplier_name, supplier_address, supplier_TIN, is_vat, string.Empty, string.Empty);
+
+                //Insert an Audit Log
+                this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.SUPPLIERDATA.ToString(), "INSERT", Session["Username"].ToString());
 
                 //Show Success toast
                 Show_Message_Toast("Successfully added " + this.txtNewSupplierName.Text + " to the database");
@@ -318,11 +392,6 @@ namespace Book_Keeping_System
             //Display Error toast
             else
                 Show_Error_Toast("Error - Invalid input. Please resubmit with complete information.");
-        }
-
-        private void UPDATE_EXPENSE()
-        {
-            //TODO Update Expense
         }
 
         private void Show_Message_Toast(string msg)
@@ -356,7 +425,8 @@ namespace Book_Keeping_System
 
         protected void ddType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(ddType.SelectedIndex > 0)
+            //Toggle the Utility fields
+            if (ddType.SelectedIndex > 0)
             {
                 this.txtUtilityFrom.Enabled = true;
                 this.txtUtilityTo.Enabled = true;
@@ -383,7 +453,9 @@ namespace Book_Keeping_System
 
             this.hiddenSelectedCompany.Value = row["CompanyCode"].ToString();
             this.txtSelectedCompany.Text = row["Company_Name"].ToString();
-            upForm.Update();
+            this.DISPLAY_COMPANY_EXPENSES(this.hiddenSelectedCompany.Value);
+            this.upForm.Update();
+            this.upExpenses.Update();
         }
 
         protected void lnkSubmit_Click(object sender, EventArgs e)
@@ -391,11 +463,10 @@ namespace Book_Keeping_System
             if (VALIDATE_EXPENSE_FORM())
             {
                 if (int.Parse(ddType.SelectedValue.ToString()) == 1)
-                    this.INSERT_PURCHASE_EXPENSE();
+                    this.UPSERT_PURCHASE_EXPENSE();
                 else
                     this.INSERT_UTILITY_EXPENSE();
 
-                //TODO Update Expense
             }
         }
 
@@ -414,6 +485,17 @@ namespace Book_Keeping_System
         protected void btnNewSupplierSubmit_Click(object sender, EventArgs e)
         {
             this.INSERT_NEW_SUPPLIER();
+        }
+
+        protected void btnSelectExpense_Click(object sender, EventArgs e)
+        {
+            var selEdit = (Control)sender;
+            GridViewRow r = (GridViewRow)selEdit.NamingContainer;
+            int expense_id = int.Parse(this.gvExpenses.DataKeys[r.RowIndex].Value.ToString());
+
+            this.DISPLAY_SELECTED_EXPENSE(expense_id);
+            upForm.Update();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "CloseModal", "<script>closeExpensesModal();</script>", false);
         }
         #endregion
 

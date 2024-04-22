@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="Book_Keeping_System.Login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SignUp.aspx.cs" Inherits="Book_Keeping_System.SignUp" %>
 
 <!DOCTYPE html>
 
@@ -36,6 +36,25 @@
 
     </style>
     <script type="text/javascript">
+        function showToastSuccess(msg, contentMessage) {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "progressBar": true,
+                "preventDuplicates": false,
+                "positionClass": "toast-top-right",
+                "showDuration": "400",
+                "hideDuration": "1000",
+                "timeOut": "3000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr.success(msg, contentMessage)
+        }
+
         function showToastError(msg, contentMessage) {
             toastr.options = {
                 "closeButton": true,
@@ -63,7 +82,7 @@
         <%-- Login --%>
         <div class="card" id="logincard">
             <%-- Header --%>
-            <div class="card-header bg-success-subtle">Login</div>
+            <div class="card-header bg-success-subtle">Sign Up</div>
             <%-- Body --%>
             <div class="card-body">
                 <%-- Username Textbox --%>
@@ -83,11 +102,18 @@
                         <label for="<%=txtPassword.ClientID%>" class="ms-2">Password</label>
                     </div>
                 </div>
-                <%-- Login Button --%>
+                <%-- Confirm Password Textbox --%>
+                <div class="row m-2">
+                    <div class="form-floating">
+                        <asp:TextBox runat="server" ID="txtConfirmPassword" CssClass="form-control" 
+                            AutoCompleteType="Disabled" TextMode="Password"></asp:TextBox>
+                        <label for="<%=txtConfirmPassword.ClientID%>" class="ms-2">Confirm Password</label>
+                    </div>
+                </div>
+                <%-- Sign Up Button --%>
                 <div class="row m-2">
                     <div class="col-3 offset-9">
-                        <asp:LinkButton runat="server" ID="btnLogin" CssClass="btn btn-success float-end" 
-                            OnClick="btnLogin_Click">Login</asp:LinkButton>
+                        <asp:LinkButton runat="server" ID="btnSignUp" CssClass="btn btn-success float-end" OnClick="btnSignUp_Click">Sign Up</asp:LinkButton>
                     </div>
                 </div>
             </div>

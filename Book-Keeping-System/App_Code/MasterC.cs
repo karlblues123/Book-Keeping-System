@@ -155,7 +155,31 @@ namespace Book_Keeping_System
             }
         }
 
+        internal void UPDATE_BRANCH(string branch_code, string branch_name, string branch_tin, string branch_address, string company_code,
+            int supervisor_id, bool is_active)
+        {
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("[Master].[spUPDATE_BRANCH]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
 
+                    cmd.Parameters.AddWithValue("@BRANCHCODE", branch_code);
+                    cmd.Parameters.AddWithValue("@BRANCHNAME", branch_name);
+                    cmd.Parameters.AddWithValue("@BRANCHTIN", branch_tin);
+                    cmd.Parameters.AddWithValue("@BRANCHADDRESS", branch_address);
+                    cmd.Parameters.AddWithValue("@COMPANYCODE", company_code);
+                    cmd.Parameters.AddWithValue("@SUPERVISOR", supervisor_id);
+                    cmd.Parameters.AddWithValue("@ACTIVE", is_active);
+
+
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
         #endregion
     }
 }

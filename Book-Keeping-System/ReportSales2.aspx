@@ -5,69 +5,59 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <script type="text/javascript">
+    <%--<script type="text/javascript">
 
-        $(function calendarInput() {
-            $('.calendarInput').datepicker({ maxDate: 30 });
-        });
+        //$(function calendarInput() {
+        //    $('.calendarInput').datepicker({ maxDate: 30 });
+        //});
 
-    </script>
+    </script>--%>
 
     <div class="container-fluid">
-        
-        <%-- Main Card --%>
-        <div class="card m-2">
-            <%-- Main Card Body --%>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-4">
-                        <%-- Selection Card --%>
-                        <div class="card">
-                            <%-- Selection Card Body --%>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="input-group input-group-sm">
-                                            <span class="input-group-text"><span class="fa fa-calendar"></span>From:</span>
-                                            <asp:TextBox runat="server" ID="txtDateFrom" placeholder="Select Date" CssClass="form-control calendarInput"></asp:TextBox>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="col-6">
-                                        <div class="input-group input-group-sm">
-                                            <span class="input-group-text"><span class="fa fa-calendar"></span>To:</span>
-                                            <asp:TextBox runat="server" ID="txtDateTo" placeholder="Select Date" CssClass="form-control calendarInput"></asp:TextBox>
-
-                                        </div>
-                                    </div>
+        <div class="row mt-3 mx-1">
+            <div class="col-4">
+                <%-- Selection Card --%>
+                <div class="card">
+                    <%-- Selection Card Body --%>
+                    <div class="card-body">
+                        <div class="row my-2">
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    <asp:TextBox runat="server" ID="txtDateFrom" TextMode="Date" CssClass="form-control"></asp:TextBox>
+                                    <label for="<%=txtDateFrom.ClientID%>">From</label>
                                 </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    <asp:TextBox runat="server" ID="txtDateTo" TextMode="Date" CssClass="form-control"></asp:TextBox>
+                                    <label for="<%=txtDateTo.ClientID%>">To</label>
+                                </div>
+                            </div>
+                        </div>
 
-                                <%-- Dropdown --%>
-                                <div class="input-group">
-                                    <span class="input-group-text">Company</span>
-                                    <asp:DropDownList runat="server" ID="ddDropdown" CssClass="form-control"></asp:DropDownList>
-                                </div>      
-                            </div>
-                            <%-- Selection Card Footer --%>
-                            <div class="card-footer">
-                                <%-- Select Button --%>
-                                <asp:LinkButton runat="server" ID="lnkSelect" CssClass="btn btn-success" OnClick="lnkSelect_Click">Select</asp:LinkButton>
-                            </div>
-                        </div>
+                        <%-- Dropdown --%>
+                        <div class="form-floating my-2">
+                            <asp:DropDownList runat="server" ID="ddCompany" CssClass="form-select"></asp:DropDownList>
+                            <label for="<%=ddCompany.ClientID%>">Company</label>
+                        </div>      
                     </div>
-                    <div class="col-8">
-                        <%-- Output Card --%>
-                        <div class="card">
-                            <%-- Output Card Body --%>
-                            <div class="card-body">
-                                WIP
-                                <%-- Crystal Report goes here --%>
-                                <CR:CrystalReportViewer ID="CRV" runat="server" AutoDataBind="true" 
-                                    PageZoomFactor="75"
-                                    HasToggleGroupTreeButton="false" HasToggleParameterPanelButton="False" DisplayToolbar="True" ToolPanelView="None" />
-                            </div>
-                        </div>
+                    <%-- Selection Card Footer --%>
+                    <div class="card-footer">
+                        <%-- Select Button --%>
+                        <asp:LinkButton runat="server" ID="lnkSelect" CssClass="btn btn-success" OnClick="lnkSelect_Click">Select</asp:LinkButton>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <%-- Output Card --%>
+                <div class="card">
+                    <%-- Output Card Body --%>
+                    <div class="card-body">
+                        <asp:Label runat="server" ID="lblNoReport" CssClass="my-2"><p class="text-center">Select the parameters to display a report</p></asp:Label>
+                        <%-- Crystal Report goes here --%>
+                        <CR:CrystalReportViewer ID="CRV" runat="server" AutoDataBind="true" 
+                            PageZoomFactor="75"
+                            HasToggleGroupTreeButton="false" HasToggleParameterPanelButton="False" DisplayToolbar="True" ToolPanelView="None" />
                     </div>
                 </div>
             </div>

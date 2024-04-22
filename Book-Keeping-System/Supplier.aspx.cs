@@ -13,6 +13,7 @@ namespace Book_Keeping_System
 
         MasterC oMaster = new MasterC();
         BKC oBK = new BKC();
+        xSysC oSys = new xSysC();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -76,22 +77,22 @@ namespace Book_Keeping_System
             bool isValidated = false;
 
             //Validation
-            if (String.IsNullOrEmpty(txtSupplierName.Text))
+            if (string.IsNullOrWhiteSpace(txtSupplierName.Text))
                 txtSupplierName.CssClass += " is-invalid";
             else
                 txtSupplierName.CssClass = "form-control";
 
-            if (String.IsNullOrEmpty(txtSupplierTIN.Text))
+            if (string.IsNullOrWhiteSpace(txtSupplierTIN.Text))
                 txtSupplierTIN.CssClass += " is-invalid";
             else
                 txtSupplierTIN.CssClass = "form-control";
 
-            if (String.IsNullOrEmpty(txtSupplierAddress.Text))
+            if (string.IsNullOrWhiteSpace(txtSupplierAddress.Text))
                 txtSupplierAddress.CssClass += " is-invalid";
             else
                 txtSupplierAddress.CssClass = "form-control";
 
-            if (!String.IsNullOrEmpty(txtSupplierName.Text) && !String.IsNullOrEmpty(txtSupplierTIN.Text) && !String.IsNullOrEmpty(txtSupplierAddress.Text))
+            if (!string.IsNullOrWhiteSpace(txtSupplierName.Text) && !string.IsNullOrWhiteSpace(txtSupplierTIN.Text) && !string.IsNullOrWhiteSpace(txtSupplierAddress.Text))
                 isValidated = true;
 
             return isValidated;
@@ -102,9 +103,20 @@ namespace Book_Keeping_System
             //Validate the form
             if (VALIDATE_FORM())
             {
+                //Get the data for Update
+                int id = int.Parse(this.hiddenSelectedSupplier.Value);
+                string supplier_name = this.txtSupplierName.Text;
+                string supplier_address = this.txtSupplierAddress.Text;
+                string supplier_TIN = this.txtSupplierTIN.Text;
+                bool is_vat = this.cbVAT.Checked;
+                string supplier_contact = this.txtContactNumber.Text;
+                string supplier_person = this.txtContactPerson.Text;
+
                 //Insert the new Supplier
-                oMaster.INSERT_SUPPLIER_DATA(txtSupplierName.Text, txtSupplierAddress.Text, txtSupplierTIN.Text, cbVAT.Checked,
-                    this.txtContactNumber.Text,this.txtContactPerson.Text);
+                oMaster.INSERT_SUPPLIER_DATA(supplier_name, supplier_address, supplier_TIN, is_vat, supplier_contact, supplier_person);
+
+                //Insert an Audit Log
+                this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.SUPPLIERDATA.ToString(), "INSERT", Session["Username"].ToString());
 
                 //Show Success toast
                 Show_Message_Toast("Successfully added " + txtSupplierName.Text + " to the database");
@@ -114,7 +126,7 @@ namespace Book_Keeping_System
             }
             //Display Error toast
             else
-                Show_Error_Toast("Error - Invalid input. Please resubmit with complete information.");
+                Show_Error_Toast("Error - Invalid input. Please resubmit with complete necessary information.");
         }
 
         private void UPDATE_SUPPLIER()
@@ -122,11 +134,20 @@ namespace Book_Keeping_System
             //Validate the form
             if (VALIDATE_FORM())
             {
+                //Get the data for Update
                 int id = int.Parse(this.hiddenSelectedSupplier.Value);
-                
+                string supplier_name = this.txtSupplierName.Text;
+                string supplier_address = this.txtSupplierAddress.Text;
+                string supplier_TIN = this.txtSupplierTIN.Text;
+                bool is_vat = this.cbVAT.Checked;
+                string supplier_contact = this.txtContactNumber.Text;
+                string supplier_person = this.txtContactPerson.Text;
+
                 //Update the selected Supplier
-                oMaster.UPDATE_SUPPLIER_DATA(id, txtSupplierName.Text, txtSupplierAddress.Text, txtSupplierTIN.Text, cbVAT.Checked,
-                    this.txtContactNumber.Text,this.txtContactPerson.Text);
+                this.oMaster.UPDATE_SUPPLIER_DATA(id,supplier_name,supplier_address,supplier_TIN,is_vat,supplier_contact,supplier_person);
+
+                //Insert an Audit Log
+                this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.SUPPLIERDATA.ToString(), "UPDATE", Session["Username"].ToString());
 
                 //Show Success toast
                 Show_Message_Toast("Successfully updated " + txtSupplierName.Text);

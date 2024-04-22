@@ -31,13 +31,13 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.TextBox txtDateTo;
         
         /// <summary>
-        /// ddDropdown control.
+        /// ddCompany control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddDropdown;
+        protected global::System.Web.UI.WebControls.DropDownList ddCompany;
         
         /// <summary>
         /// lnkSelect control.
@@ -47,6 +47,15 @@ namespace Book_Keeping_System {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkSelect;
+        
+        /// <summary>
+        /// lblNoReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNoReport;
         
         /// <summary>
         /// CRV control.

@@ -82,7 +82,7 @@ namespace Book_Keeping_System
 
         private void DISPLAY_EXPENSE_DETAILS()
         {
-            if (!string.IsNullOrEmpty(this.hiddenSelectedExpense.Value))
+            if (!string.IsNullOrWhiteSpace(this.hiddenSelectedExpense.Value))
             {
                 //Parse the Expense ID from the HiddenField control
                 int id = int.Parse(this.hiddenSelectedExpense.Value);
@@ -142,6 +142,8 @@ namespace Book_Keeping_System
 
             this.DISPLAY_COMPANY_DETAILS();
             this.DISPLAY_COMPANY_EXPENSES(this.hiddenSelectedCompany.Value);
+            ddMonthFilter.SelectedIndex = DateTime.Today.Month - 1;
+            ddYearFilter.SelectedValue = DateTime.Today.Year.ToString();
         }
 
         protected void lnkBack_Click(object sender, EventArgs e)

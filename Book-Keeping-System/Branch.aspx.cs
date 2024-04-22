@@ -13,6 +13,7 @@ namespace Book_Keeping_System
     {
         MasterC oMaster = new MasterC();
         BKC oBK = new BKC();
+        xSysC oSys = new xSysC();
         decimal chicken_total, atsara_total;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -21,8 +22,8 @@ namespace Book_Keeping_System
             {
                 this.DISPLAY_MONTH_FILTER();
                 this.DISPLAY_YEAR_FILTER();
-                DISPLAY_BRANCH_LISTS();
-                DISPLAY_COMPANY_LISTS();
+                this.DISPLAY_BRANCH_LISTS();
+                this.DISPLAY_COMPANY_LISTS();
                 this.DISPLAY_SUPPLIER_LIST();
                 //DISPLAY_SUPPLIER_LIST();
                 //DISPLAY_SUPERVISOR_LISTS();
@@ -37,7 +38,7 @@ namespace Book_Keeping_System
         {
             DataTable dt = oMaster.GET_BRANCH_LISTS();
 
-            //Display sa gridview
+            
             gvBranchList.DataSource = dt;
             gvBranchList.DataBind();
         }
@@ -106,11 +107,25 @@ namespace Book_Keeping_System
             ddExpenseYearFilter.SelectedValue = DateTime.Today.Year.ToString();
         }
 
-        private void DISPLAY_BRANCH_SALES(string branch_code)
+        private void DISPLAY_BRANCH_DETAILS()
+        {
+            //Get the selected Branch based on its Branch Code
+            DataView data = this.oMaster.GET_BRANCH_LISTS().DefaultView;
+            data.RowFilter = "BranchCode='" + this.hiddenSelectedBranch.Value.ToString() + "'";
+
+            //Display the basic details to the fields
+            this.txtBranchName.Text = data[0]["Branch_Name"].ToString();
+            this.txtBranch_Address.Text = data[0]["Branch_Address"].ToString();
+            this.txtBranchTIN.Text = data[0]["BranchTIN"].ToString();
+            this.ddCompanyLists.SelectedValue = data[0]["CompanyCode"].ToString();
+            this.cbOpen.Checked = bool.Parse(data[0]["IsActive"].ToString());
+        }
+
+        private void DISPLAY_BRANCH_SALES()
         {
             chicken_total = 0.00m;
             atsara_total = 0.00m;
-            DataView data = this.oBK.GET_BRANCH_SALES(branch_code).DefaultView;
+            DataView data = this.oBK.GET_BRANCH_SALES(this.hiddenSelectedBranch.Value.ToString()).DefaultView;
 
             //Apply the month and year filter
             data.RowFilter = "Date >= #" + ddSalesMonthFilter.SelectedValue + "/01/" + ddSalesYearFilter.SelectedValue + "# AND Date <= #" +
@@ -122,10 +137,10 @@ namespace Book_Keeping_System
             this.gvBranchSales.DataBind();
         }
 
-        private void DISPLAY_BRANCH_EXPENSES(string branch_code)
+        private void DISPLAY_BRANCH_EXPENSES()
         {
             //Get the list of expenses of a company as a DataView
-            DataView data = oBK.GET_LIST_EXPENSES(branch_code).DefaultView;
+            DataView data = oBK.GET_LIST_EXPENSES(this.hiddenSelectedBranch.Value.ToString()).DefaultView;
 
             //Apply the month and year filter
             data.RowFilter = "Date >= #" + ddExpenseMonthFilter.SelectedValue + "/01/" + ddExpenseYearFilter.SelectedValue + "# AND Date <= #" +
@@ -140,7 +155,7 @@ namespace Book_Keeping_System
 
         private void DISPLAY_EXPENSE_DETAILS()
         {
-            if (!string.IsNullOrEmpty(this.hiddenSelectedExpense.Value))
+            if (!string.IsNullOrWhiteSpace(this.hiddenSelectedExpense.Value))
             {
                 //Parse the Expense ID from the HiddenField control
                 int id = int.Parse(this.hiddenSelectedExpense.Value);
@@ -184,11 +199,10 @@ namespace Book_Keeping_System
 
         private void DISPLAY_BRANCH_RENTAL_CONTRACTS()
         {
-            if (!string.IsNullOrEmpty(this.hiddenSelectedBranch.Value))
+            if (!string.IsNullOrWhiteSpace(this.hiddenSelectedBranch.Value))
             {
                 DataTable data = this.oBK.GET_RENTAL_CONTRACTS(this.hiddenSelectedBranch.Value);
 
-                this.lblNoContracts.Visible = !(data.Rows.Count > 0);
                 this.gvRentalContract.DataSource = data;
                 this.gvRentalContract.DataBind();
             }
@@ -203,6 +217,10 @@ namespace Book_Keeping_System
 
             this.hiddenSelectedBranch.Value = string.Empty;
 
+            ddSalesMonthFilter.SelectedIndex = DateTime.Today.Month - 1;
+            ddExpenseMonthFilter.SelectedIndex = DateTime.Today.Month - 1;
+            ddSalesYearFilter.SelectedValue = DateTime.Today.Year.ToString();
+            ddExpenseYearFilter.SelectedValue = DateTime.Today.Year.ToString();
             //ViewState["V_BRANCHCODE"] = "";
 
         }
@@ -245,12 +263,27 @@ namespace Book_Keeping_System
         //    gvUtilitySupplierList.DataBind();
 
         //}
+        private bool VALIDATE_BRANCH_FORM()
+        {
+            bool is_valid = true;
+
+            if (string.IsNullOrWhiteSpace(this.txtBranchName.Text))
+            {
+                is_valid = false;
+                this.txtBranchName.CssClass += " is-invalid";
+            }
+            else
+                this.txtBranchName.CssClass = "form-control";
+
+            return is_valid;
+        }
+
 
         private bool VALIDATE_CONTRACT_FORM()
         {
             bool is_valid = true;
 
-            if (string.IsNullOrEmpty(this.hiddenSelectedLessor.Value))
+            if (string.IsNullOrWhiteSpace(this.hiddenSelectedLessor.Value))
             {
                 this.txtLessor.CssClass += " is-invalid";
                 this.txtLessorTIN.CssClass += " is-invalid";
@@ -262,7 +295,7 @@ namespace Book_Keeping_System
                 this.txtLessorTIN.CssClass = "form-control";
             }
 
-            if (string.IsNullOrEmpty(this.txtLessee.Text))
+            if (string.IsNullOrWhiteSpace(this.txtLessee.Text))
             {
                 this.txtLessee.CssClass += " is-invalid";
                 is_valid = false;
@@ -270,7 +303,7 @@ namespace Book_Keeping_System
             else
                 this.txtLessee.CssClass = "form-control";
 
-            if (string.IsNullOrEmpty(this.txtFromContract.Text))
+            if (string.IsNullOrWhiteSpace(this.txtFromContract.Text))
             {
                 this.txtFromContract.CssClass += " is-invalid";
                 is_valid = false;
@@ -278,7 +311,7 @@ namespace Book_Keeping_System
             else
                 this.txtFromContract.CssClass = "form-control";
 
-            if (string.IsNullOrEmpty(this.txtToContract.Text))
+            if (string.IsNullOrWhiteSpace(this.txtToContract.Text))
             {
                 this.txtToContract.CssClass += " is-invalid";
                 is_valid = false;
@@ -291,6 +324,7 @@ namespace Book_Keeping_System
 
         private void INSERT_RENTAL_CONTRACT()
         {
+            //Get the data for Insert
             int lessor = int.Parse(this.hiddenSelectedLessor.Value);
             string lessee = this.txtLessee.Text;
             DateTime from_date = DateTime.Parse(this.txtFromContract.Text);
@@ -298,10 +332,36 @@ namespace Book_Keeping_System
             string branch_code = this.hiddenSelectedBranch.Value;
             string remarks = this.txtContractRemarks.Text;
 
-
+            //Insert the new Rental Contract
             this.oBK.INSERT_BRANCH_RENTAL_CONTRACT(lessor, lessee, from_date, to_date, branch_code, remarks);
 
-            this.Show_Message_Toast("Successfully added a new Contract for " + this.txtBranchName.Text + " branch with " + this.txtLessor);
+            //Insert an Audit Log
+            this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.BRANCHDATA.ToString(), "INSERT", Session["Username"].ToString());
+
+            this.Show_Message_Toast("Successfully added a new Contract for " + this.txtBranchName.Text + " branch with " + this.txtLessor.Text);
+        }
+
+        private void UPDATE_BRANCH()
+        {
+            //Get the data for Update
+            string branch_code = this.hiddenSelectedBranch.Value;
+            string branch_name = this.txtBranchName.Text;
+            string branch_address = this.txtBranch_Address.Text;
+            string branch_TIN = this.txtBranchTIN.Text;
+            string company_code = this.ddCompanyLists.SelectedValue;
+            int supervisor_id = 0;
+            bool is_active = this.cbOpen.Checked;
+
+            //Update the selected Branch
+            this.oMaster.UPDATE_BRANCH(branch_code, branch_name, branch_TIN, branch_address, company_code, supervisor_id, is_active);
+
+            //Insert an Audit Log
+            this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.BRANCHDATA.ToString(), "UPDATE", Session["Username"].ToString());
+
+            //Show Success Toast
+            this.Show_Message_Toast("Successfully Updated " + branch_name);
+
+            this.DISPLAY_BRANCH_LISTS();
         }
 
 
@@ -322,47 +382,54 @@ namespace Book_Keeping_System
         {
             var selEdit = (Control)sender;
             GridViewRow r = (GridViewRow)selEdit.NamingContainer;
-            int _branchID = Convert.ToInt32(this.gvBranchList.DataKeys[r.RowIndex].Values[0].ToString());
+            //int _branchID = Convert.ToInt32(this.gvBranchList.DataKeys[r.RowIndex].Values[0].ToString());
             //ViewState["V_SUPPLIERID"] = _supplierID;
 
             string _branchCode = this.gvBranchList.DataKeys[r.RowIndex].Values[1].ToString();
             this.hiddenSelectedBranch.Value = _branchCode;
             //ViewState["V_BRANCHCODE"] = _branchCode ;
 
+            panelBranchLists.Visible = false;
+            pBranchInputForm.Visible = true;
 
-            DataView dv = oMaster.GET_BRANCH_LISTS().DefaultView;
-            dv.RowFilter = "BranchID='" + _branchID + "'";
+            this.DISPLAY_BRANCH_DETAILS();
+            this.DISPLAY_BRANCH_SALES();
+            this.DISPLAY_BRANCH_EXPENSES();
+            this.DISPLAY_BRANCH_RENTAL_CONTRACTS();
+
+            //DataView dv = oMaster.GET_BRANCH_LISTS().DefaultView;
+            //dv.RowFilter = "BranchID='" + _branchID + "'";
 
 
-            if (dv.Count > 0)
-            {
+            //if (dv.Count > 0)
+            //{
               
-                //Show the entry field
-                panelBranchLists.Visible = false;
-                pBranchInputForm.Visible = true;
+            //    //Show the entry field
+            //    panelBranchLists.Visible = false;
+            //    pBranchInputForm.Visible = true;
 
-                this.DISPLAY_BRANCH_EXPENSES(this.hiddenSelectedBranch.Value);
-                this.DISPLAY_BRANCH_RENTAL_CONTRACTS();
+            //    this.DISPLAY_BRANCH_EXPENSES(this.hiddenSelectedBranch.Value);
+            //    this.DISPLAY_BRANCH_RENTAL_CONTRACTS();
 
-                foreach (DataRowView dvr in dv)
-                {
-                    //Display Details
-                    txtBranchName.Text = dvr["Branch_Name"].ToString().Trim();
-                    //ddSupervisorLists.SelectedValue = dvr["SupervisorID"].ToString();
-                    ddCompanyLists.SelectedValue = dvr["CompanyCode"].ToString();
-                    this.txtBranchTIN.Text = dvr["BranchTIN"].ToString();
-                    //txtSupplierTIN.Text = dvr["S_TIN"].ToString();
-                    //cbVAT.Checked = (bool)dvr["IsVat"];
+            //    foreach (DataRowView dvr in dv)
+            //    {
+            //        //Display Details
+            //        txtBranchName.Text = dvr["Branch_Name"].ToString().Trim();
+            //        //ddSupervisorLists.SelectedValue = dvr["SupervisorID"].ToString();
+            //        ddCompanyLists.SelectedValue = dvr["CompanyCode"].ToString();
+            //        this.txtBranchTIN.Text = dvr["BranchTIN"].ToString();
+            //        //txtSupplierTIN.Text = dvr["S_TIN"].ToString();
+            //        //cbVAT.Checked = (bool)dvr["IsVat"];
 
-                }
+            //    }
 
-                //ViewState["V_ACTION"] = 1; //This will hold the option for action.
+            //    //ViewState["V_ACTION"] = 1; //This will hold the option for action.
 
-                //Calling display function for default utilities
-                //DISPLAY_BRANCH_DEFAULT_UTILITIES(_branchCode);
+            //    //Calling display function for default utilities
+            //    //DISPLAY_BRANCH_DEFAULT_UTILITIES(_branchCode);
 
-                this.DISPLAY_BRANCH_SALES(_branchCode);
-            }
+            //    this.DISPLAY_BRANCH_SALES();
+            //}
         }
 
         protected void lnkBack_Click(object sender, EventArgs e)
@@ -404,7 +471,7 @@ namespace Book_Keeping_System
 
         //protected void lnkSaveProvider_Click(object sender, EventArgs e)
         //{
-        //    if (!string.IsNullOrEmpty(txtProvider.Text))
+        //    if (!string.IsNullOrWhiteSpace(txtProvider.Text))
         //    {
         //        oBK.INSERT_DEFAULT_BRANCH_UTILITIES(ViewState["V_BRANCHCODE"].ToString(), txtProvider.Text.Trim(), txtProviderAcctNumber.Text, txtTIN.Text, txtRemarks.Text);
 
@@ -452,12 +519,14 @@ namespace Book_Keeping_System
 
         protected void ddSalesMonthFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.DISPLAY_BRANCH_SALES(this.hiddenSelectedBranch.Value);
+            if (!string.IsNullOrWhiteSpace(this.hiddenSelectedBranch.Value))
+                this.DISPLAY_BRANCH_SALES();
         }
 
         protected void ddSalesYearFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.DISPLAY_BRANCH_SALES(this.hiddenSelectedBranch.Value);
+            if (!string.IsNullOrWhiteSpace(this.hiddenSelectedBranch.Value))
+                this.DISPLAY_BRANCH_SALES();
         }
 
         protected void gvBranchSales_RowCreated(object sender, GridViewRowEventArgs e)
@@ -482,12 +551,14 @@ namespace Book_Keeping_System
 
         protected void ddExpenseMonthFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.DISPLAY_BRANCH_EXPENSES(this.hiddenSelectedBranch.Value);
+            if(!string.IsNullOrWhiteSpace(this.hiddenSelectedBranch.Value))
+                this.DISPLAY_BRANCH_EXPENSES();
         }
 
         protected void ddExpenseYearFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.DISPLAY_BRANCH_EXPENSES(this.hiddenSelectedBranch.Value);
+            if (!string.IsNullOrWhiteSpace(this.hiddenSelectedBranch.Value))
+                this.DISPLAY_BRANCH_EXPENSES();
         }
 
         protected void hiddenSelectedExpense_ValueChanged(object sender, EventArgs e)
@@ -539,7 +610,18 @@ namespace Book_Keeping_System
 
         protected void lnkSave_Click(object sender, EventArgs e)
         {
+            if (this.VALIDATE_BRANCH_FORM())
+            {
+                this.UPDATE_BRANCH();
+            }
+            else
+                this.Show_Error_Toast("Error - Invalid input. Please check the highlighted fields.");
+        }
 
+        protected void btnExpenseEdit_Click(object sender, EventArgs e)
+        {
+            Session["EditExpense"] = this.hiddenSelectedExpense.Value;
+            Response.Redirect("BranchExpenses.aspx");
         }
 
         protected void gvBranchSales_RowDataBound(object sender, GridViewRowEventArgs e)

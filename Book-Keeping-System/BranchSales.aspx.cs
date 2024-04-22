@@ -16,13 +16,13 @@ namespace Book_Keeping_System
 
         MasterC oMaster = new MasterC();
         BKC oBK = new BKC();
+        xSysC oSys = new xSysC();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 DISPLAY_BRANCH_LISTS();
-
             }
         }
 
@@ -42,7 +42,8 @@ namespace Book_Keeping_System
 
         private void DISPLAY_BRANCH_LISTS()
         {
-            DataTable data = oMaster.GET_BRANCH_LISTS();
+            DataView data = oMaster.GET_BRANCH_LISTS().DefaultView;
+            data.RowFilter = "IsActive = 1";
 
             //Display in GridView
             gvBranchList.DataSource = data;
@@ -91,7 +92,7 @@ namespace Book_Keeping_System
             DateTime dt;
 
             //Add is-invalid CSS Class to fields with empty or invalid inputs
-            if (string.IsNullOrEmpty(txtSelectedBranch.Text))
+            if (string.IsNullOrWhiteSpace(txtSelectedBranch.Text))
                 txtSelectedBranch.CssClass += " is-invalid";
             else
                 txtSelectedBranch.CssClass = "form-control";
@@ -101,23 +102,23 @@ namespace Book_Keeping_System
             else
                 txtDate.CssClass = "form-control";
 
-            if (string.IsNullOrEmpty(txtInvoiceStart.Text))
+            if (string.IsNullOrWhiteSpace(txtInvoiceStart.Text))
                 txtInvoiceStart.CssClass += " is-invalid";
             else
                 txtInvoiceStart.CssClass = "form-control";
 
-            if (string.IsNullOrEmpty(txtInvoiceEnd.Text))
+            if (string.IsNullOrWhiteSpace(txtInvoiceEnd.Text))
                 txtInvoiceEnd.CssClass += " is-invalid";
             else
                 txtInvoiceEnd.CssClass = "form-control";
 
-            if (string.IsNullOrEmpty(txtChickenTotal.Text))
+            if (string.IsNullOrWhiteSpace(txtChickenTotal.Text))
                 txtChickenTotal.CssClass += " is-invalid";
             else
                 txtChickenTotal.CssClass = "form-control";
 
-            if (!string.IsNullOrEmpty(txtSelectedBranch.Text) && DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt)
-                && !string.IsNullOrEmpty(txtChickenTotal.Text) && !string.IsNullOrEmpty(txtInvoiceStart.Text) && !string.IsNullOrEmpty(txtInvoiceEnd.Text))
+            if (!string.IsNullOrWhiteSpace(txtSelectedBranch.Text) && DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt)
+                && !string.IsNullOrWhiteSpace(txtChickenTotal.Text) && !string.IsNullOrWhiteSpace(txtInvoiceStart.Text) && !string.IsNullOrWhiteSpace(txtInvoiceEnd.Text))
                 isValidated = true;
 
             return isValidated;
@@ -147,19 +148,25 @@ namespace Book_Keeping_System
 
                 if(data.Rows.Count > 0)
                 {
-                    oBK.UPDATE_BRANCH_SALES(this.hiddenSelectedBranch.Value, date, this.txtInvoiceStart.Text,
+                    //Update the Sales
+                    this.oBK.UPDATE_BRANCH_SALES(this.hiddenSelectedBranch.Value, date, this.txtInvoiceStart.Text,
                     this.txtInvoiceEnd.Text, chicken_quantity, chicken_price, chicken_total, atsara_quantity, atsara_price,
                     atsara_total);
+
+                    //Insert logs
+                    this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.BRANCHSALES.ToString(), "UPDATE", Session["Username"].ToString());
 
                     Show_Message_Toast("Successfully updated " + date.ToString("yyyy-MM-dd") + " sales for " + this.txtSelectedBranch.Text);
                 }
                 else
                 {
                     //Insert Sales into database
-                    oBK.INSERT_BRANCH_SALES(this.hiddenSelectedBranch.Value, date, this.txtInvoiceStart.Text,
+                    this.oBK.INSERT_BRANCH_SALES(this.hiddenSelectedBranch.Value, date, this.txtInvoiceStart.Text,
                         this.txtInvoiceEnd.Text, chicken_quantity, chicken_price, chicken_total, atsara_quantity, atsara_price,
                         atsara_total);
 
+                    //Insert logs
+                    this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.BRANCHSALES.ToString(), "INSERT", Session["Username"].ToString());
 
                     //Show success toast
                     Show_Message_Toast("Successfully recorded " + date.ToString("yyyy-MM-dd") + " sales for " + this.txtSelectedBranch.Text);
@@ -213,7 +220,7 @@ namespace Book_Keeping_System
 
         protected void txtDate_TextChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(this.hiddenSelectedBranch.Value))
+            if (!string.IsNullOrWhiteSpace(this.hiddenSelectedBranch.Value))
             {
                 this.DISPLAY_DAY_SALE();
             }

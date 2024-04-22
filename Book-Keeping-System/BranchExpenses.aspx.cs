@@ -14,6 +14,7 @@ namespace Book_Keeping_System
 
         MasterC oMaster = new MasterC();
         BKC oBK = new BKC();
+        xSysC oSys = new xSysC();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,13 +25,21 @@ namespace Book_Keeping_System
                 //CLEAR_UTILITY_INPUTS();
                 this.DISPLAY_SUPPLIER_LIST();
                 //pSupplier.Visible = false;
+                if (Session["EditExpense"] != null)
+                {
+                    this.hiddenSelectedExpense.Value = Session["EditExpense"].ToString();
+                    int id = int.Parse(Session["EditExpense"].ToString());
+                    this.DISPLAY_SELECTED_EXPENSE(id);
+                    Session.Remove("EditExpense");
+                }
             }
         }
 
         #region LOCAL FUNCTIONS
         private void DISPLAY_BRANCH_LISTS()
         {
-            DataTable data = oMaster.GET_BRANCH_LISTS();
+            DataView data = oMaster.GET_BRANCH_LISTS().DefaultView;
+            data.RowFilter = "IsActive = 1";
 
             //Display the data in the GridView
             gvBranchList.DataSource = data;
@@ -47,8 +56,6 @@ namespace Book_Keeping_System
             ddType.DataBind();
         }
 
-        
-
         private void DISPLAY_SUPPLIER_LIST()
         {
             DataTable data = this.oMaster.GET_SUPPLIER_LISTS();
@@ -56,6 +63,49 @@ namespace Book_Keeping_System
             this.gvSupplierList.DataSource = data;
             this.gvSupplierList.DataBind();
 
+        }
+
+        private void DISPLAY_BRANCH_EXPENSES(string branch_code)
+        {
+            //Get the list of expenses of a company
+            DataTable data = this.oBK.GET_LIST_EXPENSES(branch_code);
+
+            //Display the output to the controls
+            this.gvExpenses.DataSource = data;
+            this.gvExpenses.DataBind();
+        }
+
+        private void DISPLAY_SELECTED_EXPENSE(int id)
+        {
+            //Get the data
+            DataRow data = this.oBK.GET_SELECTED_EXPENSE(id).Rows[0];
+
+            //Display the data
+            this.txtSupplier.Text = data["Supplier_Name"].ToString();
+            this.txtTIN.Text = data["TIN"].ToString();
+            this.txtInvoice.Text = data["Invoice"].ToString();
+            this.txtVATAmount.Text = data["VATable"].ToString();
+            this.txtNonVATAmount.Text = data["NonVAT"].ToString();
+            this.txtVAT.Text = data["VATAmount"].ToString();
+            this.txtTotal.Text = data["TotalAmount"].ToString();
+            this.txtTendered.Text = data["AmountTendered"].ToString();
+            this.txtUtilityFrom.Text = data["FromDate"].ToString();
+            this.txtUtilityTo.Text = data["ToDate"].ToString();
+            this.txtAccountNumber.Text = data["AccountNumber"].ToString();
+            this.hiddenSelectedBranch.Value = data["AccountCode"].ToString();
+            this.hiddenSelectedSupplier.Value = data["SupplierID"].ToString();
+            this.txtCheque.Text = data["ChequeNumber"].ToString();
+            this.ddType.SelectedValue = data["Type"].ToString();
+            this.cbIsCheque.Checked = !string.IsNullOrWhiteSpace(this.txtCheque.Text);
+            this.txtRemarks.Text = data["Remarks"].ToString();
+            this.txtDate.Text = Convert.ToDateTime(data["Date"]).ToString("yyyy-MM-dd");
+
+            DataView dv = oMaster.GET_BRANCH_LISTS().DefaultView;
+            dv.RowFilter = "BranchCode='" + this.hiddenSelectedBranch.Value.ToString() + "'";
+
+            DataRowView row = dv[0];
+
+            this.txtSelectedBranch.Text = row["Branch_Name"].ToString();
         }
 
         private void CLEAR()
@@ -94,7 +144,7 @@ namespace Book_Keeping_System
         {
             bool is_valid = true;
 
-            if (string.IsNullOrEmpty(this.hiddenSelectedBranch.Value))
+            if (string.IsNullOrWhiteSpace(this.hiddenSelectedBranch.Value))
             {
                 this.txtSelectedBranch.CssClass += " is-invalid";
                 is_valid = false;
@@ -102,7 +152,7 @@ namespace Book_Keeping_System
             else
                 this.txtSelectedBranch.CssClass = "form-control";
 
-            if (string.IsNullOrEmpty(this.txtDate.Text))
+            if (string.IsNullOrWhiteSpace(this.txtDate.Text))
             {
                 this.txtDate.CssClass += " is-invalid";
                 is_valid = false;
@@ -110,7 +160,7 @@ namespace Book_Keeping_System
             else
                 this.txtDate.CssClass = "form-control";
 
-            if (string.IsNullOrEmpty(this.hiddenSelectedSupplier.Value))
+            if (string.IsNullOrWhiteSpace(this.hiddenSelectedSupplier.Value))
             {
                 this.txtSupplier.CssClass += " is-invalid";
                 this.txtTIN.CssClass += " is-invalid";
@@ -122,7 +172,7 @@ namespace Book_Keeping_System
                 this.txtTIN.CssClass = "form-control";
             }
 
-            if (string.IsNullOrEmpty(this.txtInvoice.Text))
+            if (string.IsNullOrWhiteSpace(this.txtInvoice.Text))
             {
                 this.txtInvoice.CssClass += " is-invalid";
                 is_valid = false;
@@ -130,7 +180,7 @@ namespace Book_Keeping_System
             else
                 this.txtInvoice.CssClass = "form-control";
 
-            if (string.IsNullOrEmpty(this.txtTotal.Text) || decimal.Parse(this.txtTotal.Text) <= 0)
+            if (string.IsNullOrWhiteSpace(this.txtTotal.Text) || decimal.Parse(this.txtTotal.Text) <= 0)
             {
                 this.txtTotal.CssClass += " is-invalid";
                 is_valid = false;
@@ -140,7 +190,7 @@ namespace Book_Keeping_System
 
             if (ddType.SelectedIndex > 0)
             {
-                if (string.IsNullOrEmpty(this.txtUtilityTo.Text))
+                if (string.IsNullOrWhiteSpace(this.txtUtilityTo.Text))
                 {
                     this.txtUtilityTo.CssClass += " is-invalid";
                     is_valid = false;
@@ -148,7 +198,7 @@ namespace Book_Keeping_System
                 else
                     this.txtUtilityTo.CssClass = "form-control";
 
-                if (string.IsNullOrEmpty(this.txtUtilityFrom.Text))
+                if (string.IsNullOrWhiteSpace(this.txtUtilityFrom.Text))
                 {
                     this.txtUtilityFrom.CssClass += " is-invalid";
                     is_valid = false;
@@ -156,7 +206,7 @@ namespace Book_Keeping_System
                 else
                     this.txtUtilityFrom.CssClass = "form-control";
 
-                if (string.IsNullOrEmpty(this.txtAccountNumber.Text))
+                if (string.IsNullOrWhiteSpace(this.txtAccountNumber.Text))
                 {
                     this.txtAccountNumber.CssClass += " is-invalid";
                     is_valid = false;
@@ -175,8 +225,8 @@ namespace Book_Keeping_System
         {
             bool is_valid = true;
 
-            if (string.IsNullOrEmpty(this.txtNewSupplierName.Text) || string.IsNullOrEmpty(this.txtNewSupplierTIN.Text)
-                || string.IsNullOrEmpty(this.txtNewSupplierAddress.Text))
+            if (string.IsNullOrWhiteSpace(this.txtNewSupplierName.Text) || string.IsNullOrWhiteSpace(this.txtNewSupplierTIN.Text)
+                || string.IsNullOrWhiteSpace(this.txtNewSupplierAddress.Text))
                 is_valid = false;
 
 
@@ -188,6 +238,7 @@ namespace Book_Keeping_System
             int type = int.Parse(this.ddType.SelectedValue);
             if (type == 1)
             {
+                //Get the data for Insert
                 string account_code = this.hiddenSelectedBranch.Value;
                 int supplier_id = int.Parse(this.hiddenSelectedSupplier.Value);
                 string invoice = this.txtInvoice.Text;
@@ -206,8 +257,12 @@ namespace Book_Keeping_System
                 DateTime date = DateTime.Parse(this.txtDate.Text);
                 string cheque_number = this.txtCheque.Text;
 
+                //Insert the new Purchase Expense
                 this.oBK.INSERT_PURCHASE_EXPENSE(account_code, supplier_id, invoice, po_code, type, vatable, nonvat, vat_amount, total_amount,
                     remarks, amount_tendered, date, cheque_number);
+
+                //Insert an Audit Log
+                this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.BRANCHEXPENSES.ToString(), "INSERT", Session["Username"].ToString());
 
                 Show_Message_Toast("Successfully recorded Purchase expenses");
             }
@@ -220,6 +275,7 @@ namespace Book_Keeping_System
             int type = int.Parse(this.ddType.SelectedValue);
             if (type > 1)
             {
+                //Get the data for Insert
                 string account_code = this.hiddenSelectedBranch.Value;
                 int supplier_id = int.Parse(this.hiddenSelectedSupplier.Value);
                 string invoice = this.txtInvoice.Text;
@@ -245,9 +301,14 @@ namespace Book_Keeping_System
                 string account_number = this.txtAccountNumber.Text == string.Empty ? "None specified" : this.txtAccountNumber.Text;
                 string cheque_number = this.txtCheque.Text;
 
+                //Insert the new Utility Expense
                 this.oBK.INSERT_UTILITY_EXPENSE(account_code, supplier_id, invoice, po_code, type, vatable, nonvat, vat_amount, total_amount,
                     remarks, amount_tendered, date, from_date, to_date, account_number, cheque_number);
 
+                //Insert an Audit Log
+                this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.BRANCHEXPENSES.ToString(), "INSERT", Session["Username"].ToString());
+
+                //Show Success Toast
                 Show_Message_Toast("Successfully recorded Utility expenses");
             }
 
@@ -258,9 +319,17 @@ namespace Book_Keeping_System
             //Validate the form
             if (this.VALIDATE_NEW_SUPPLIER())
             {
+                //Get the data for Insert
+                string supplier_name = this.txtNewSupplierName.Text;
+                string supplier_address = this.txtNewSupplierAddress.Text;
+                string supplier_TIN = this.txtNewSupplierTIN.Text;
+                bool is_vat = this.cbVAT.Checked;
+
                 //Insert the new Supplier
-                oMaster.INSERT_SUPPLIER_DATA(this.txtNewSupplierName.Text, this.txtNewSupplierAddress.Text, this.txtNewSupplierTIN.Text, cbVAT.Checked,
-                    string.Empty,string.Empty);
+                this.oMaster.INSERT_SUPPLIER_DATA(supplier_name,supplier_address,supplier_TIN,is_vat,string.Empty,string.Empty);
+
+                //Insert an Audit Log
+                this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.SUPPLIERDATA.ToString(), "INSERT", Session["Username"].ToString());
 
                 //Show Success toast
                 Show_Message_Toast("Successfully added " + this.txtNewSupplierName.Text + " to the database");
@@ -282,32 +351,9 @@ namespace Book_Keeping_System
         {
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Error", "<script>showToastError('" + msg + "');</script>", false);
         }
-
-
         #endregion
 
         #region EVENTS
-        protected void lnkRecordExpenses_Click(object sender, EventArgs e)
-        {
-            DateTime dt;
-            if (DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt))
-            {
-                txtDate.Text = DateTime.Parse(txtDate.Text).AddDays(1).ToString("yyyy-MM-dd");
-
-                Show_Message_Toast("Expense recorded.");
-            }
-            else
-                Show_Error_Toast("Invalid input. Please check the highlighted fields.");
-            //    DateTime dt;
-            //    if(DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt))
-            //    {
-            //        txtDate.Text = DateTime.Parse(txtDate.Text).AddDays(1).ToString("yyyy-MM-dd");
-
-            //        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('Expenses recorded')", true);
-            //    }
-            //    else
-            //        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowError", "ShowError('Invalid Input. Please check.')", true);
-        }
 
         protected void lnkEdit_Click(object sender, EventArgs e)
         {
@@ -331,6 +377,9 @@ namespace Book_Keeping_System
                 this.txtSelectedBranch.Text = row["Branch_Name"].ToString();
 
                 upForm.Update();
+
+                this.DISPLAY_BRANCH_EXPENSES(this.hiddenSelectedBranch.Value);
+                this.upExpenses.Update();
 
             //    //Disable the script to directly input on expenses form 10.19.2023
             //    //ScriptManager.RegisterStartupScript(this, this.GetType(), "EnableNavs", "EnableNavs()", true);
@@ -428,9 +477,42 @@ namespace Book_Keeping_System
         {
             this.INSERT_NEW_SUPPLIER();
         }
+
+        protected void btnSelectExpense_Click(object sender, EventArgs e)
+        {
+            var selEdit = (Control)sender;
+            GridViewRow r = (GridViewRow)selEdit.NamingContainer;
+            int expense_id = int.Parse(this.gvExpenses.DataKeys[r.RowIndex].Value.ToString());
+
+            this.DISPLAY_SELECTED_EXPENSE(expense_id);
+            upForm.Update();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "CloseModal", "<script>closeExpensesModal();</script>", false);
+        }
+
         #endregion
 
         #region DEPRECIATED
+        //protected void lnkRecordExpenses_Click(object sender, EventArgs e)
+        //{
+        //    DateTime dt;
+        //    if (DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt))
+        //    {
+        //        txtDate.Text = DateTime.Parse(txtDate.Text).AddDays(1).ToString("yyyy-MM-dd");
+
+        //        Show_Message_Toast("Expense recorded.");
+        //    }
+        //    else
+        //        Show_Error_Toast("Invalid input. Please check the highlighted fields.");
+        //    //    DateTime dt;
+        //    //    if(DateTime.TryParseExact(txtDate.Text, "yyyy-MM-dd", new CultureInfo("en-US"), DateTimeStyles.None, out dt))
+        //    //    {
+        //    //        txtDate.Text = DateTime.Parse(txtDate.Text).AddDays(1).ToString("yyyy-MM-dd");
+
+        //    //        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowToast", "ShowToast('Expenses recorded')", true);
+        //    //    }
+        //    //    else
+        //    //        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ShowError", "ShowError('Invalid Input. Please check.')", true);
+        //}
 
         //private void DISPLAY_UTILITIES(string _branchCode)
         //{
@@ -585,7 +667,7 @@ namespace Book_Keeping_System
         //protected void lnkRecordUtility_Click(object sender, EventArgs e)
         //{
         //    //Add is-invalid CSS class appropriately
-        //    if (String.IsNullOrEmpty(txtSelectedBranch.Text))
+        //    if (String.IsNullOrWhiteSpace(txtSelectedBranch.Text))
         //        txtSelectedBranch.CssClass += " is-invalid";
         //    else
         //        txtSelectedBranch.CssClass = "form-control"; 
@@ -598,7 +680,7 @@ namespace Book_Keeping_System
         //        txtUtilityTotal.CssClass = "form-control";
 
 
-        //    if(double.Parse(txtUtilityTotal.Text) > 0.00 && !String.IsNullOrEmpty(txtSelectedBranch.Text))
+        //    if(double.Parse(txtUtilityTotal.Text) > 0.00 && !String.IsNullOrWhiteSpace(txtSelectedBranch.Text))
         //    {
         //        //Save the transaction record
         //        //Save the transaction record

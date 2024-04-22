@@ -11,7 +11,14 @@ namespace Book_Keeping_System
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Username"] == null || Session["AccessLevel"] == null)
+                Response.Redirect("Login.aspx");
+        }
 
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Response.Redirect("Login.aspx");
         }
     }
 }

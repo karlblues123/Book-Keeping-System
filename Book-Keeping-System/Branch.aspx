@@ -102,10 +102,11 @@
                         <Columns>
                             <%-- <asp:BoundField DataField="BranchAddress" HeaderText="Address" />
                             <asp:BoundField DataField="BranchStatus" HeaderText="Status" />--%>
-                            <asp:BoundField DataField="Branch_Name" HeaderText="Branch" />
+                            <asp:BoundField DataField="Branch_Name" HeaderText="Branch" ItemStyle-Width="30%" />
                             <%--<asp:BoundField DataField="Supervisor_Name" HeaderText="Supervisor" />--%>
-                            <asp:BoundField DataField="Company_Name"  HeaderText="Company"/>
-                            <asp:TemplateField>
+                            <asp:BoundField DataField="Company_Name"  HeaderText="Company" ItemStyle-Width="30%"/>
+                            <asp:BoundField DataField="IsActive" HeaderText="Active" ItemStyle-Width="20%" />
+                            <asp:TemplateField ItemStyle-Width="20%">
                                 <ItemTemplate>
                                     <asp:LinkButton runat="server" ID="lnkEdit" CssClass="btn btn-primary" OnClick="lnkEdit_Click">
                                         <span class="fa fa-search"></span>
@@ -129,7 +130,7 @@
                         <asp:LinkButton runat="server" ID="lnkBack" CssClass="btn" OnClick="lnkBack_Click">
                             <span class="fa fa-arrow-left"></span>
                         </asp:LinkButton>
-                        <ul class="nav nav-pills ms-2" id="myTab" role="tablist">
+                        <ul class="nav nav-pills ms-2 <%if (string.IsNullOrWhiteSpace(this.hiddenSelectedBranch.Value)) Response.Write("visually-hidden"); %>" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-basic" 
                                     type="button" role="tab" aria-controls="tab-basic" aria-selected="true">
@@ -177,7 +178,8 @@
                                 <div class="input-group">
                                     <div class="form-floating">
                                         <%-- Branch Name --%>
-                                        <asp:TextBox runat="server" ID="txtBranchName" CssClass="form-control" placeholder="Branch Name"></asp:TextBox>
+                                        <asp:TextBox runat="server" ID="txtBranchName" CssClass="form-control" placeholder="Branch Name" 
+                                            AutoCompleteType="Disabled"></asp:TextBox>
                                         <label for="<%=txtBranchName.ClientID%>">Branch Name</label>
                                     </div>
                                     <div class="input-group-text d-flex align-items-center">
@@ -188,7 +190,7 @@
                             <div class="col-4">
                                 <div class="form-floating">
                                     <%-- Branch TIN --%>
-                                    <asp:TextBox runat="server" ID="txtBranchTIN" CssClass="form-control"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="txtBranchTIN" CssClass="form-control" AutoCompleteType="Disabled"></asp:TextBox>
                                     <label for="<%=txtBranchTIN.ClientID%>">TIN</label>
                                 </div>
                             </div>
@@ -524,9 +526,8 @@
                                         <div class="col">
                                             <div class="container-fluid" style="max-height:85vh;">
                                                 <%-- Contract List --%>
-                                                <asp:Label runat="server" ID="lblNoContracts"><p class="text-center">No Contracts Found</p></asp:Label>
                                                 <asp:GridView runat="server" ID="gvRentalContract" AutoGenerateColumns="false" CssClass="table table-responsive" 
-                                                    DataKeyNames="ID">
+                                                    DataKeyNames="ID" EmptyDataText="No contracts found.">
                                                     <Columns>
                                                         <asp:BoundField DataField="Supplier_Name" HeaderText="Lessor" />
                                                         <asp:BoundField DataField="TIN" HeaderText="TIN" />
@@ -749,7 +750,7 @@
                         </asp:UpdatePanel>
                     </div>
                     <div class="modal-footer">
-                        <asp:LinkButton runat="server" ID="btnExpenseEdit" CssClass="btn btn-success">
+                        <asp:LinkButton runat="server" ID="btnExpenseEdit" CssClass="btn btn-success" OnClick="btnExpenseEdit_Click">
                             Edit
                         </asp:LinkButton>
                     </div>

@@ -20,6 +20,10 @@
             document.getElementById("<%=txtTotal.ClientID%>").value = vatable + nonvat + vat;
         }
 
+        function closeExpensesModal() {
+            bootstrap.Modal.getOrCreateInstance($('#expense-modal')).toggle();
+        }
+
         <%--function CalculateUtilityVAT() {
             var total = 0, vatable = 0;
             if (document.getElementById('<%=txtTotal.ClientID%>').value != null) {
@@ -47,6 +51,13 @@
                 });
             });
 
+            $('[id*=expense-search]').off().on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $('[id*=gvExpenses] tr').filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
         }
             
     </script>
@@ -55,7 +66,7 @@
             <ContentTemplate>
                 <div class="row mt-3 mx-1">
                     <div class="col-4">
-                        <div class="card" style="max-height:85vh;">
+                        <div class="card" style="max-height:80vh;">
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col">
@@ -91,10 +102,16 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-4">
-                                        <%-- Selected Company Controls --%>
-                                        <asp:TextBox runat="server" ID="txtSelectedCompany" CssClass="form-control" ReadOnly="true" 
-                                            Text="No Company Selected"></asp:TextBox>
-                                        <asp:HiddenField runat="server" ID="hiddenSelectedCompany" />
+                                        <div class="input-group">
+                                            <%-- Selected Company Controls --%>
+                                            <asp:TextBox runat="server" ID="txtSelectedCompany" CssClass="form-control" ReadOnly="true" 
+                                                Text="No Company Selected"></asp:TextBox>
+                                            <asp:HiddenField runat="server" ID="hiddenSelectedCompany" />
+                                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#expense-modal">
+                                                <span class="fa fa-search"></span>
+                                            </button>
+                                        </div>
+                                        
                                     </div>
                                     <div class="col-3 offset-5">
                                         <%-- Date --%>
@@ -203,28 +220,28 @@
                                     <div class="col-3">
                                         <div class="form-floating">
                                             <asp:TextBox runat="server" ID="txtVATAmount" CssClass="form-control" 
-                                                TextMode="Number" Text="0" onchange="CalculateTotal();"></asp:TextBox>
+                                                TextMode="Number" Text="0" onchange="CalculateTotal();" AutoCompleteType="Disabled"></asp:TextBox>
                                             <label for="<%=txtVATAmount.ClientID%>">VATable</label>
                                         </div>
                                     </div>
                                     <div class="col-3">
                                         <div class="form-floating">
                                             <asp:TextBox runat="server" ID="txtNonVATAmount" CssClass="form-control"
-                                                TextMode="Number" Text="0" onchange="CalculateTotal();"></asp:TextBox>
+                                                TextMode="Number" Text="0" onchange="CalculateTotal();" AutoCompleteType="Disabled"></asp:TextBox>
                                             <label for="<%=txtNonVATAmount.ClientID%>">Non-VAT</label>
                                         </div>
                                     </div>
                                     <div class="col-3">
                                         <div class="form-floating">
                                             <asp:TextBox runat="server" ID="txtVAT" CssClass="form-control" 
-                                                TextMode="Number" Text="0" onchange="CalculateTotal();"></asp:TextBox>
+                                                TextMode="Number" Text="0" onchange="CalculateTotal();" AutoCompleteType="Disabled"></asp:TextBox>
                                             <label for="<%=txtVAT.ClientID%>">VAT</label>
                                         </div>
                                     </div>
                                     <div class="col-3">
                                         <div class="form-floating">
                                             <asp:TextBox runat="server" ID="txtTotal" CssClass="form-control" 
-                                                TextMode="Number" Text="0"></asp:TextBox>
+                                                TextMode="Number" Text="0" AutoCompleteType="Disabled"></asp:TextBox>
                                             <label for="<%=txtTotal.ClientID%>">Total</label>
                                         </div>
                                     </div>
@@ -240,7 +257,7 @@
                                     <div class="col-4">
                                         <div class="form-floating">
                                             <%-- Cheque Number --%>
-                                            <asp:TextBox runat="server" ID="txtCheque" CssClass="form-control" Enabled="false"></asp:TextBox>
+                                            <asp:TextBox runat="server" ID="txtCheque" CssClass="form-control" Enabled="false" AutoCompleteType="Disabled"></asp:TextBox>
                                             <label for="<%=txtCheque.ClientID%>">Cheque Number</label>
                                         </div>
                                     </div>
@@ -508,6 +525,39 @@
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
+        <%-- Company Expense List --%>
+        <div class="modal fade" id="expense-modal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <asp:UpdatePanel runat="server" ID="upExpenses" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <div class="modal-header">
+                                <input type="text" class="form-control w-25" id="expense-search" placeholder="Search" />
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <asp:GridView runat="server" ID="gvExpenses" CssClass="table table-responsive" AutoGenerateColumns="false" 
+                                    DataKeyNames="ID">
+                                    <Columns>
+                                        <asp:BoundField DataField="Supplier_Name" HeaderText="Supplier" ItemStyle-Width="40%" />
+                                        <asp:BoundField DataField="TypeName" HeaderText="Type" ItemStyle-Width="20%" />
+                                        <asp:BoundField DataField="TotalAmount" HeaderText="Total" DataFormatString="{0:N2}" ItemStyle-Width="20%" />
+                                        <asp:BoundField DataField="Date" HeaderText="Date" DataFormatString="{0:M/d/yyyy}" ItemStyle-Width="15%" />
+                                        <asp:TemplateField>
+                                            <ItemTemplate>
+                                                <asp:LinkButton runat="server" ID="btnSelectExpense" CssClass="btn btn-primary" OnClick="btnSelectExpense_Click">
+                                                    <span class="fa fa-edit"></span>
+                                                </asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>  
+            </div>
+        </div>
     </div>
 </asp:Content>

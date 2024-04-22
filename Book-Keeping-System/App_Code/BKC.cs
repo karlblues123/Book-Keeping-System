@@ -32,25 +32,25 @@ namespace Book_Keeping_System
 
         }
 
-        public DataTable GET_BRANCH_DEFAULT_UTILITIES()
-        {
-            DataTable dt = new DataTable();
+        //public DataTable GET_BRANCH_DEFAULT_UTILITIES()
+        //{
+        //    DataTable dt = new DataTable();
 
-            using (SqlConnection cn = new SqlConnection(CS))
-            {
-                using (SqlCommand cmd = new SqlCommand("[BK].[spGET_BRANCH_DEFAULT_EXPENSES]", cn))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
+        //    using (SqlConnection cn = new SqlConnection(CS))
+        //    {
+        //        using (SqlCommand cmd = new SqlCommand("[BK].[spGET_BRANCH_DEFAULT_EXPENSES]", cn))
+        //        {
+        //            cmd.CommandType = CommandType.StoredProcedure;
 
-                    SqlDataAdapter da = new SqlDataAdapter();
-                    da.SelectCommand = cmd;
-                    da.Fill(dt);
-                }
-            }
+        //            SqlDataAdapter da = new SqlDataAdapter();
+        //            da.SelectCommand = cmd;
+        //            da.Fill(dt);
+        //        }
+        //    }
 
-            return dt;
+        //    return dt;
 
-        }
+        //}
 
 
         public DataTable GET_BRANCH_EXPENSES_RECORD_LISTS(int _branchID)
@@ -110,6 +110,50 @@ namespace Book_Keeping_System
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@BRANCHCODE", branch_code);
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+                }
+            }
+
+            return dt;
+        }
+
+        public DataTable GET_NO_SALE_LIST_BRANCHES(DateTime from_date, DateTime to_date)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+
+                using (SqlCommand cmd = new SqlCommand("[BK].[spGET_LIST_BRANCHES_NO_SALE]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@FROMDATE", from_date);
+                    cmd.Parameters.AddWithValue("@TODATE", to_date);
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+                }
+            }
+
+            return dt;
+        }
+
+        public DataTable GET_EXPIRING_CONTRACT_BRANCHES(DateTime from_date, DateTime to_date)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+
+                using (SqlCommand cmd = new SqlCommand("[BK].[spGET_BRANCHES_WITH_EXPIRING_CONTRACTS]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@FROMDATE", from_date);
+                    cmd.Parameters.AddWithValue("@TODATE", to_date);
 
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     da.Fill(dt);
@@ -354,6 +398,35 @@ namespace Book_Keeping_System
             }
         }
 
+        internal void UPDATE_PURCHASE_EXPENSE(int expense_id, string invoice, string po_code, decimal vatable, decimal nonvat,
+            decimal vat_amount, decimal total_amount, string remarks, decimal amount_tendered, DateTime date)
+        {
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("[BK].[spUPDATE_PURCHASE_EXPENSE]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+
+                    cmd.Parameters.AddWithValue("@ID", expense_id);
+                    cmd.Parameters.AddWithValue("@INVOICE", invoice);
+                    cmd.Parameters.AddWithValue("@POCODE", po_code);
+                    cmd.Parameters.AddWithValue("@VATABLE", vatable);
+                    cmd.Parameters.AddWithValue("@NONVAT", nonvat);
+                    cmd.Parameters.AddWithValue("@VATAMOUNT", vat_amount);
+                    cmd.Parameters.AddWithValue("@TOTALAMOUNT", total_amount);
+                    cmd.Parameters.AddWithValue("@REMARKS", remarks);
+                    cmd.Parameters.AddWithValue("@AMOUNTTENDERED", amount_tendered);
+                    cmd.Parameters.AddWithValue("@DATE", date);
+
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+
         public void INSERT_UTILITY_EXPENSE(string account_code, int supplier_id, string invoice, string po_code, int type,
             decimal vatable, decimal nonvat, decimal vat_amount, decimal total_amount, string remarks, decimal amount_tendered,
             SqlDateTime date, SqlDateTime from_date,SqlDateTime to_date, string account_number,string cheque_number)
@@ -381,6 +454,39 @@ namespace Book_Keeping_System
                     cmd.Parameters.AddWithValue("@TODATE", to_date);
                     cmd.Parameters.AddWithValue("@ACCOUNTNUMBER", account_number);
                     cmd.Parameters.AddWithValue("@CHEQUENUMBER", cheque_number);
+
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+
+        internal void UPDATE_UTILITY_EXPENSE(int expense_id, string invoice, string po_code,
+            decimal vatable, decimal nonvat, decimal vat_amount, decimal total_amount, string remarks, decimal amount_tendered,
+            SqlDateTime date, SqlDateTime from_date, SqlDateTime to_date, string account_number)
+        {
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("[BK].[spUPDATE_UTILITY_EXPENSE]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+
+                    cmd.Parameters.AddWithValue("@ID", expense_id);
+                    cmd.Parameters.AddWithValue("@INVOICE", invoice);
+                    cmd.Parameters.AddWithValue("@POCODE", po_code);
+                    cmd.Parameters.AddWithValue("@VATABLE", vatable);
+                    cmd.Parameters.AddWithValue("@NONVAT", nonvat);
+                    cmd.Parameters.AddWithValue("@VATAMOUNT", vat_amount);
+                    cmd.Parameters.AddWithValue("@TOTALAMOUNT", total_amount);
+                    cmd.Parameters.AddWithValue("@REMARKS", remarks);
+                    cmd.Parameters.AddWithValue("@AMOUNTTENDERED", amount_tendered);
+                    cmd.Parameters.AddWithValue("@DATE", date);
+                    cmd.Parameters.AddWithValue("@FROMDATE", from_date);
+                    cmd.Parameters.AddWithValue("@TODATE", to_date);
+                    cmd.Parameters.AddWithValue("@ACCOUNTNUMBER", account_number);
 
                     cn.Open();
 
