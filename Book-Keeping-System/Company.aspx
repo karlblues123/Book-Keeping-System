@@ -3,7 +3,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid">
-        <asp:Panel runat="server" ID="pList" CssClass="card mt-3" style="max-height:85vh;">
+        <h6 class="m-2">Company Data</h6>
+        <asp:Panel runat="server" ID="pList" CssClass="card" style="max-height:85vh;">
             <%-- Main Header --%>
             <div class="card-header">
                 <div class="row d-flex align-items-center">

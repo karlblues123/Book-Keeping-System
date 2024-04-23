@@ -111,10 +111,11 @@ namespace Book_Keeping_System
         {
             //Get the selected Branch based on its Branch Code
             DataView data = this.oMaster.GET_BRANCH_LISTS().DefaultView;
-            data.RowFilter = "BranchCode='" + this.hiddenSelectedBranch.Value.ToString() + "'";
+            data.RowFilter = "BranchCode='" + this.txtBranchCode.Text + "'";
 
             //Display the basic details to the fields
             this.txtBranchName.Text = data[0]["Branch_Name"].ToString();
+            this.txtBranchCode.ReadOnly = (!string.IsNullOrWhiteSpace(data[0]["BranchCode"].ToString()));
             this.txtBranch_Address.Text = data[0]["Branch_Address"].ToString();
             this.txtBranchTIN.Text = data[0]["BranchTIN"].ToString();
             this.ddCompanyLists.SelectedValue = data[0]["CompanyCode"].ToString();
@@ -125,7 +126,7 @@ namespace Book_Keeping_System
         {
             chicken_total = 0.00m;
             atsara_total = 0.00m;
-            DataView data = this.oBK.GET_BRANCH_SALES(this.hiddenSelectedBranch.Value.ToString()).DefaultView;
+            DataView data = this.oBK.GET_BRANCH_SALES(this.txtBranchCode.Text.ToString()).DefaultView;
 
             //Apply the month and year filter
             data.RowFilter = "Date >= #" + ddSalesMonthFilter.SelectedValue + "/01/" + ddSalesYearFilter.SelectedValue + "# AND Date <= #" +
@@ -139,7 +140,7 @@ namespace Book_Keeping_System
         private void DISPLAY_BRANCH_EXPENSES()
         {
             //Get the list of expenses of a company as a DataView
-            DataView data = oBK.GET_LIST_EXPENSES(this.hiddenSelectedBranch.Value.ToString()).DefaultView;
+            DataView data = oBK.GET_LIST_EXPENSES(this.txtBranchCode.Text.ToString()).DefaultView;
 
             //Apply the month and year filter
             data.RowFilter = "Date >= #" + ddExpenseMonthFilter.SelectedValue + "/01/" + ddExpenseYearFilter.SelectedValue + "# AND Date <= #" +
@@ -197,9 +198,9 @@ namespace Book_Keeping_System
 
         private void DISPLAY_BRANCH_RENTAL_CONTRACTS()
         {
-            if (!string.IsNullOrWhiteSpace(this.hiddenSelectedBranch.Value))
+            if (!string.IsNullOrWhiteSpace(this.txtBranchCode.Text))
             {
-                DataTable data = this.oBK.GET_RENTAL_CONTRACTS(this.hiddenSelectedBranch.Value);
+                DataTable data = this.oBK.GET_RENTAL_CONTRACTS(this.txtBranchCode.Text);
 
                 this.gvRentalContract.DataSource = data;
                 this.gvRentalContract.DataBind();
@@ -208,12 +209,16 @@ namespace Book_Keeping_System
 
         private void CLEAR_BASIC()
         {
-            txtBranchName.Text = string.Empty;
-            txtBranch_Address.Text = string.Empty;
+            this.txtBranchName.Text = string.Empty;
+            this.txtBranch_Address.Text = string.Empty;
+            this.txtBranchCode.Text = string.Empty;
+            this.txtBranchCode.ReadOnly = false;
+            this.txtBranchTIN.Text = string.Empty;
             //ddSupervisorLists.SelectedIndex = 0;
-            ddCompanyLists.SelectedIndex = 0;
+            this.ddCompanyLists.SelectedIndex = 0;
+            this.cbOpen.Checked = false;
 
-            this.hiddenSelectedBranch.Value = string.Empty;
+            this.txtBranchCode.Text = string.Empty;
 
             ddSalesMonthFilter.SelectedIndex = DateTime.Today.Month - 1;
             ddExpenseMonthFilter.SelectedIndex = DateTime.Today.Month - 1;
@@ -264,6 +269,14 @@ namespace Book_Keeping_System
         private bool VALIDATE_BRANCH_FORM()
         {
             bool is_valid = true;
+
+            if (string.IsNullOrWhiteSpace(this.txtBranchCode.Text))
+            {
+                is_valid = false;
+                this.txtBranchCode.CssClass += " is_invalid";
+            }
+            else
+                this.txtBranchCode.CssClass = "form-control";
 
             if (string.IsNullOrWhiteSpace(this.txtBranchName.Text))
             {
@@ -327,7 +340,7 @@ namespace Book_Keeping_System
             string lessee = this.txtLessee.Text;
             DateTime from_date = DateTime.Parse(this.txtFromContract.Text);
             DateTime to_date = DateTime.Parse(this.txtToContract.Text);
-            string branch_code = this.hiddenSelectedBranch.Value;
+            string branch_code = this.txtBranchCode.Text;
             string remarks = this.txtContractRemarks.Text;
 
             //Insert the new Rental Contract
@@ -339,10 +352,10 @@ namespace Book_Keeping_System
             this.Show_Message_Toast("Successfully added a new Contract for " + this.txtBranchName.Text + " branch with " + this.txtLessor.Text);
         }
 
-        private void UPDATE_BRANCH()
+        private void UPSERT_BRANCH()
         {
-            //Get the data for Update
-            string branch_code = this.hiddenSelectedBranch.Value;
+            //Get the data
+            string branch_code = this.txtBranchCode.Text;
             string branch_name = this.txtBranchName.Text;
             string branch_address = this.txtBranch_Address.Text;
             string branch_TIN = this.txtBranchTIN.Text;
@@ -351,13 +364,13 @@ namespace Book_Keeping_System
             bool is_active = this.cbOpen.Checked;
 
             //Update the selected Branch
-            this.oMaster.UPDATE_BRANCH(branch_code, branch_name, branch_TIN, branch_address, company_code, supervisor_id, is_active);
+            this.oMaster.UPSERT_BRANCH(branch_code, branch_name, branch_TIN, branch_address, company_code, supervisor_id, is_active);
 
             //Insert an Audit Log
             this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.BRANCHDATA.ToString(), "UPDATE", Session["Username"].ToString());
 
             //Show Success Toast
-            this.Show_Message_Toast("Successfully Updated " + branch_name);
+            this.Show_Message_Toast("Successfully Recorded " + branch_name);
 
             this.DISPLAY_BRANCH_LISTS();
         }
@@ -384,7 +397,7 @@ namespace Book_Keeping_System
             //ViewState["V_SUPPLIERID"] = _supplierID;
 
             string _branchCode = this.gvBranchList.DataKeys[r.RowIndex].Values[1].ToString();
-            this.hiddenSelectedBranch.Value = _branchCode;
+            this.txtBranchCode.Text = _branchCode;
             //ViewState["V_BRANCHCODE"] = _branchCode ;
 
             panelBranchLists.Visible = false;
@@ -406,7 +419,7 @@ namespace Book_Keeping_System
             //    panelBranchLists.Visible = false;
             //    pBranchInputForm.Visible = true;
 
-            //    this.DISPLAY_BRANCH_EXPENSES(this.hiddenSelectedBranch.Value);
+            //    this.DISPLAY_BRANCH_EXPENSES(this.txtBranchCode.Text);
             //    this.DISPLAY_BRANCH_RENTAL_CONTRACTS();
 
             //    foreach (DataRowView dvr in dv)
@@ -517,13 +530,13 @@ namespace Book_Keeping_System
 
         protected void ddSalesMonthFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(this.hiddenSelectedBranch.Value))
+            if (!string.IsNullOrWhiteSpace(this.txtBranchCode.Text))
                 this.DISPLAY_BRANCH_SALES();
         }
 
         protected void ddSalesYearFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(this.hiddenSelectedBranch.Value))
+            if (!string.IsNullOrWhiteSpace(this.txtBranchCode.Text))
                 this.DISPLAY_BRANCH_SALES();
         }
 
@@ -549,13 +562,13 @@ namespace Book_Keeping_System
 
         protected void ddExpenseMonthFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(!string.IsNullOrWhiteSpace(this.hiddenSelectedBranch.Value))
+            if(!string.IsNullOrWhiteSpace(this.txtBranchCode.Text))
                 this.DISPLAY_BRANCH_EXPENSES();
         }
 
         protected void ddExpenseYearFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(this.hiddenSelectedBranch.Value))
+            if (!string.IsNullOrWhiteSpace(this.txtBranchCode.Text))
                 this.DISPLAY_BRANCH_EXPENSES();
         }
 
@@ -610,7 +623,7 @@ namespace Book_Keeping_System
         {
             if (this.VALIDATE_BRANCH_FORM())
             {
-                this.UPDATE_BRANCH();
+                this.UPSERT_BRANCH();
             }
             else
                 this.Show_Error_Toast("Error - Invalid input. Please check the highlighted fields.");

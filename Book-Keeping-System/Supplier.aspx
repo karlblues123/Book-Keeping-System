@@ -46,7 +46,8 @@
 
     </script>
     <div class="container-fluid">
-        <div class="card my-3" style="max-height:85vh;">
+        <h6 class="m-2">Supplier Data</h6>
+        <div class="card" style="max-height:85vh;">
             <div class="card-header">
                 <div class="row d-flex align-items-center">
                     <div class="col-4">
@@ -60,7 +61,7 @@
             </div>
             <div class="card-body overflow-y-auto">
                 <%-- Supplier List GridView --%>                              
-                <asp:GridView runat="server" ID="gvSupplierList" CssClass="table table-hover small" AutoGenerateColumns="false" 
+                <asp:GridView runat="server" ID="gvSupplierList" CssClass="table table-hover" AutoGenerateColumns="false" 
                     ShowHeader="true" GridLines="Horizontal" DataKeyNames="SupplierID">
                     <Columns>
                         <asp:BoundField DataField="Supplier_Name" HeaderText="Name" ItemStyle-Width="20%"/>

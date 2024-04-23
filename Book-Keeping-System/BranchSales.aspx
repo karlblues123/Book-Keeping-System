@@ -76,7 +76,8 @@
         }
     </script>
     <div class="container-fluid">
-        <div class="row mt-3">
+        <h6 class="m-2">Branch Sales</h6>
+        <div class="row">
             <div class="col-4">
                 <%-- Branch Card --%>
                 <div class="card" style="max-height:85vh;">
@@ -91,7 +92,7 @@
                         </div>
                     </div>
                     <div class="card-body overflow-y-auto">
-                        <asp:GridView runat="server" ID="gvBranchList" AutoGenerateColumns="false" CssClass="table table-responsive small" 
+                        <asp:GridView runat="server" ID="gvBranchList" AutoGenerateColumns="false" CssClass="table table-responsive" 
                             DataKeyNames="BranchCode">
                             <Columns>
                                 <asp:BoundField DataField="Branch_Name" HeaderText="Branch" />

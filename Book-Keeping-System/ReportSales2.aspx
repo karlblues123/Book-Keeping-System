@@ -14,7 +14,8 @@
     </script>--%>
 
     <div class="container-fluid">
-        <div class="row mt-3 mx-1">
+        <h6 class="m-2">Sales Report</h6>
+        <div class="row">
             <div class="col-4">
                 <%-- Selection Card --%>
                 <div class="card">

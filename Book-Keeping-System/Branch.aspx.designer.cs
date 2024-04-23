@@ -49,15 +49,6 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.Panel pBranchInputForm;
         
         /// <summary>
-        /// hiddenSelectedBranch control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hiddenSelectedBranch;
-        
-        /// <summary>
         /// lnkBack control.
         /// </summary>
         /// <remarks>
@@ -92,6 +83,15 @@ namespace Book_Keeping_System {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtBranchTIN;
+        
+        /// <summary>
+        /// txtBranchCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtBranchCode;
         
         /// <summary>
         /// txtBranch_Address control.

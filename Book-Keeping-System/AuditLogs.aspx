@@ -15,7 +15,8 @@
         }
     </script>
     <div class="container-fluid">
-        <div class="row my-2">
+        <h6 class="m-2">Audit Logs</h6>
+        <div class="row">
             <div class="col">
                 <div class="card" style="max-height:80vh;">
                     <div class="card-header">

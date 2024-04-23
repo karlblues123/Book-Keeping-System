@@ -83,8 +83,9 @@
 
     </script>
     <div class="container-fluid">
+        <h6 class="m-2">Branch Data</h6>
         <asp:Panel runat="server" ID="panelBranchLists">
-            <div class="card mt-3" style="max-height:85vh;">
+            <div class="card" style="max-height:85vh;">
                 <%-- Header --%>
                 <div class="card-header">
                     <div class="row">
@@ -122,15 +123,14 @@
         </asp:Panel>
         <%-- Branch Data Panel --%>
         <asp:Panel runat="server" ID="pBranchInputForm" Visible="false">
-            <asp:HiddenField runat="server" ID="hiddenSelectedBranch" />
-            <div class="row mt-2">
+            <div class="row">
                 <%-- Sidebar Pills --%>
                 <aside class="col-auto col-md-1 col-xl-1">
                     <div class="d-flex flex-column align-items-center">
                         <asp:LinkButton runat="server" ID="lnkBack" CssClass="btn" OnClick="lnkBack_Click">
                             <span class="fa fa-arrow-left"></span>
                         </asp:LinkButton>
-                        <ul class="nav nav-pills ms-2 <%if (string.IsNullOrWhiteSpace(this.hiddenSelectedBranch.Value)) Response.Write("visually-hidden"); %>" id="myTab" role="tablist">
+                        <ul class="nav nav-pills ms-2 <%if (string.IsNullOrWhiteSpace(this.txtBranchCode.Text)) Response.Write("visually-hidden"); %>" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-basic" 
                                     type="button" role="tab" aria-controls="tab-basic" aria-selected="true">
@@ -197,11 +197,18 @@
                         </div>
                         <%-- Branch Address --%>
                         <div class="row mt-2">
-                            <div class="col">
+                            <div class="col-2">
+                                <div class="form-floating">
+                                    <asp:TextBox runat="server" ID="txtBranchCode" CssClass="form-control" placeholder="Code" 
+                                        AutoCompleteType="Disabled"></asp:TextBox>
+                                    <label for="<%=this.txtBranchCode.ClientID%>">Branch Code</label>
+                                </div>
+                            </div>
+                            <div class="col-10">
                                 <div class="form-floating small">
                                     <asp:TextBox runat="server" ID="txtBranch_Address" CssClass="form-control"
                                         placeholder="Address" AutoCompleteType="Disabled"></asp:TextBox>
-                                    <label for="txtBranchName">Branch Address</label>
+                                    <label for="<%=this.txtBranch_Address.ClientID%>">Branch Address</label>
                                 </div>
                             </div>
                         </div>

@@ -61,12 +61,13 @@
         }
             
     </script>
-    <div class="containter-fluid">
+    <div class="container-fluid">
+        <h6 class="m-2">Company Expenses</h6>
         <asp:UpdatePanel runat="server" ID="upForm" ChildrenAsTriggers="false" UpdateMode="Conditional">
             <ContentTemplate>
-                <div class="row mt-3 mx-1">
+                <div class="row">
                     <div class="col-4">
-                        <div class="card" style="max-height:80vh;">
+                        <div class="card" style="max-height:85vh;">
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col">

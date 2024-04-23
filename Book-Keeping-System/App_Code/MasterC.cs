@@ -94,9 +94,6 @@ namespace Book_Keeping_System
         }
 
 
-
-
-
         #endregion
 
 
@@ -155,12 +152,12 @@ namespace Book_Keeping_System
             }
         }
 
-        internal void UPDATE_BRANCH(string branch_code, string branch_name, string branch_tin, string branch_address, string company_code,
+        internal void UPSERT_BRANCH(string branch_code, string branch_name, string branch_tin, string branch_address, string company_code,
             int supervisor_id, bool is_active)
         {
             using (SqlConnection cn = new SqlConnection(CS))
             {
-                using (SqlCommand cmd = new SqlCommand("[Master].[spUPDATE_BRANCH]", cn))
+                using (SqlCommand cmd = new SqlCommand("[Master].[spUPSERT_BRANCH]", cn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
