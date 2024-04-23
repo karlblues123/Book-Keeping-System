@@ -157,15 +157,6 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.DropDownList ddSalesYearFilter;
         
         /// <summary>
-        /// lblNoSales control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNoSales;
-        
-        /// <summary>
         /// gvBranchSales control.
         /// </summary>
         /// <remarks>
@@ -200,15 +191,6 @@ namespace Book_Keeping_System {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddExpenseYearFilter;
-        
-        /// <summary>
-        /// lblNoExpenses control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNoExpenses;
         
         /// <summary>
         /// gvBranchExpenses control.

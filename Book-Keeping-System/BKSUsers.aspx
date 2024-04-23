@@ -16,7 +16,7 @@
                     </div>
                     <div class="card-body">
                         <%-- User List --%>
-                        <asp:GridView runat="server" ID="gvUsers" CssClass="table table-responsive" DataKeyNames="ID" AutoGenerateColumns="false" 
+                        <asp:GridView runat="server" ID="gvUsers" CssClass="table table-responsive" DataKeyNames="Username" AutoGenerateColumns="false" 
                             OnRowEditing="gvUsers_RowEditing" OnRowCancelingEdit="gvUsers_RowCancelingEdit" OnRowUpdating="gvUsers_RowUpdating">
                             <Columns>
                                 <asp:BoundField DataField="Username" HeaderText="Username" ReadOnly="true" ItemStyle-Width="40%" />

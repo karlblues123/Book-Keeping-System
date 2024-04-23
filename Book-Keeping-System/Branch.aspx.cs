@@ -132,7 +132,6 @@ namespace Book_Keeping_System
                 ddSalesMonthFilter.SelectedValue + "/" + DateTime.DaysInMonth(int.Parse(ddSalesYearFilter.SelectedValue), int.Parse(ddSalesMonthFilter.SelectedValue)).ToString() +
                 "/" + ddSalesYearFilter.SelectedValue + "#";
 
-            this.lblNoSales.Visible = !(data.Count > 0);
             this.gvBranchSales.DataSource = data;
             this.gvBranchSales.DataBind();
         }
@@ -150,7 +149,6 @@ namespace Book_Keeping_System
             //Display the output to the controls
             gvBranchExpenses.DataSource = data;
             gvBranchExpenses.DataBind();
-            this.lblNoExpenses.Visible = !(data.Count > 0);
         }
 
         private void DISPLAY_EXPENSE_DETAILS()

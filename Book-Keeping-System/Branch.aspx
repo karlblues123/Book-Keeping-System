@@ -426,12 +426,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <%-- No Sales Label --%>
-                                        <asp:Label runat="server" ID="lblNoSales"><p class="text-center">No Sales Found</p></asp:Label>
                                         <div class="container-fluid overflow-y-auto" style="max-height:80vh;">
                                             <%-- Sales GridView --%>
                                             <asp:GridView runat="server" ID="gvBranchSales" AutoGenerateColumns="false" CssClass="table table-responsive overflow-y-auto" 
-                                                OnRowCreated="gvBranchSales_RowCreated" OnRowDataBound="gvBranchSales_RowDataBound" ShowFooter="true">
+                                                OnRowCreated="gvBranchSales_RowCreated" OnRowDataBound="gvBranchSales_RowDataBound" ShowFooter="true" 
+                                                EmptyDataText="No Sales found." EmptyDataRowStyle-CssClass="text-center">
                                                 <Columns>
                                                     <asp:BoundField DataField="Date" HeaderText="Date" ItemStyle-Width="20%" DataFormatString="{0:M/d/yyyy}" />
                                                     <asp:TemplateField HeaderText="Invoice" ItemStyle-Width="40%">
@@ -490,10 +489,9 @@
                                 </div> 
                                 <div class="row">
                                     <div class="col">
-                                         <%-- Expenses Control --%>
-                                        <asp:Label runat="server" ID="lblNoExpenses"><p class="text-center">No Expenses Found</p></asp:Label>
                                         <asp:GridView runat="server" ID="gvBranchExpenses" CssClass="table table-responsive" 
-                                            AutoGenerateColumns="false" DataKeyNames="ID">
+                                            AutoGenerateColumns="false" DataKeyNames="ID" EmptyDataText="No Expenses found." 
+                                            EmptyDataRowStyle-CssClass="text-center">
                                             <Columns>
                                                 <asp:BoundField DataField="Supplier_Name" HeaderText="Supplier" ItemStyle-Width="40%" />
                                                 <asp:BoundField DataField="TypeName" HeaderText="Type" ItemStyle-Width="20%" />
@@ -527,7 +525,7 @@
                                             <div class="container-fluid" style="max-height:85vh;">
                                                 <%-- Contract List --%>
                                                 <asp:GridView runat="server" ID="gvRentalContract" AutoGenerateColumns="false" CssClass="table table-responsive" 
-                                                    DataKeyNames="ID" EmptyDataText="No contracts found.">
+                                                    DataKeyNames="ID" EmptyDataText="No contracts found." EmptyDataRowStyle-CssClass="text-center">
                                                     <Columns>
                                                         <asp:BoundField DataField="Supplier_Name" HeaderText="Lessor" />
                                                         <asp:BoundField DataField="TIN" HeaderText="TIN" />

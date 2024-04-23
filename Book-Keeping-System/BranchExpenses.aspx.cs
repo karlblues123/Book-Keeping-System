@@ -89,16 +89,30 @@ namespace Book_Keeping_System
             this.txtVAT.Text = data["VATAmount"].ToString();
             this.txtTotal.Text = data["TotalAmount"].ToString();
             this.txtTendered.Text = data["AmountTendered"].ToString();
-            this.txtUtilityFrom.Text = data["FromDate"].ToString();
-            this.txtUtilityTo.Text = data["ToDate"].ToString();
+            this.txtUtilityFrom.Text = Convert.ToDateTime(data["FromDate"].ToString()).ToString("yyyy-MM-dd");
+            this.txtUtilityTo.Text = Convert.ToDateTime(data["ToDate"].ToString()).ToString("yyyy-MM-dd");
             this.txtAccountNumber.Text = data["AccountNumber"].ToString();
             this.hiddenSelectedBranch.Value = data["AccountCode"].ToString();
             this.hiddenSelectedSupplier.Value = data["SupplierID"].ToString();
             this.txtCheque.Text = data["ChequeNumber"].ToString();
             this.ddType.SelectedValue = data["Type"].ToString();
             this.cbIsCheque.Checked = !string.IsNullOrWhiteSpace(this.txtCheque.Text);
+            this.txtCheque.Enabled = this.cbIsCheque.Checked;
             this.txtRemarks.Text = data["Remarks"].ToString();
             this.txtDate.Text = Convert.ToDateTime(data["Date"]).ToString("yyyy-MM-dd");
+
+            if (ddType.SelectedIndex > 0)
+            {
+                this.txtUtilityFrom.Enabled = true;
+                this.txtUtilityTo.Enabled = true;
+                this.txtAccountNumber.Enabled = true;
+            }
+            else
+            {
+                this.txtUtilityFrom.Enabled = false;
+                this.txtUtilityTo.Enabled = false;
+                this.txtAccountNumber.Enabled = false;
+            }
 
             DataView dv = oMaster.GET_BRANCH_LISTS().DefaultView;
             dv.RowFilter = "BranchCode='" + this.hiddenSelectedBranch.Value.ToString() + "'";
@@ -128,6 +142,12 @@ namespace Book_Keeping_System
             this.txtRemarks.Text = string.Empty;
             this.txtAccountNumber.Text = string.Empty;
 
+            this.txtUtilityFrom.Enabled = false;
+            this.txtUtilityTo.Enabled = false;
+            this.txtAccountNumber.Enabled = false;
+            this.cbIsCheque.Checked = false;
+            this.txtCheque.Enabled = this.cbIsCheque.Checked;
+
             //Set CSS classes to default
             this.txtDate.CssClass = "form-control";
             this.txtSupplier.CssClass = "form-control";
@@ -138,6 +158,9 @@ namespace Book_Keeping_System
             this.txtUtilityTo.CssClass = "form-control";
             this.txtInvoice.CssClass = "form-control";
             this.txtSelectedBranch.CssClass = "form-control";
+
+            this.gvExpenses.DataSource = null;
+            this.gvExpenses.DataBind();
         }
 
         private bool VALIDATE_EXPENSE_FORM()
@@ -233,7 +256,7 @@ namespace Book_Keeping_System
             return is_valid;
         }
 
-        private void INSERT_PURCHASE_EXPENSE()
+        private void UPSERT_PURCHASE_EXPENSE()
         {
             int type = int.Parse(this.ddType.SelectedValue);
             if (type == 1)
@@ -257,20 +280,37 @@ namespace Book_Keeping_System
                 DateTime date = DateTime.Parse(this.txtDate.Text);
                 string cheque_number = this.txtCheque.Text;
 
-                //Insert the new Purchase Expense
-                this.oBK.INSERT_PURCHASE_EXPENSE(account_code, supplier_id, invoice, po_code, type, vatable, nonvat, vat_amount, total_amount,
-                    remarks, amount_tendered, date, cheque_number);
+                if (string.IsNullOrWhiteSpace(this.hiddenSelectedExpense.Value))
+                {
+                    //Insert the new Purchase Expense
+                    this.oBK.INSERT_PURCHASE_EXPENSE(account_code, supplier_id, invoice, po_code, type, vatable, nonvat, vat_amount, total_amount,
+                        remarks, amount_tendered, date, cheque_number);
 
-                //Insert an Audit Log
-                this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.BRANCHEXPENSES.ToString(), "INSERT", Session["Username"].ToString());
+                    //Insert an Audit Log
+                    this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.BRANCHEXPENSES.ToString(), "INSERT", Session["Username"].ToString());
 
-                Show_Message_Toast("Successfully recorded Purchase expenses");
+                    Show_Message_Toast("Successfully recorded Purchase expense.");
+                }
+                else
+                {
+                    int id = int.Parse(this.hiddenSelectedExpense.Value);
+
+                    //Update the selected Purchase Expense
+                    this.oBK.UPDATE_PURCHASE_EXPENSE(id, invoice, po_code, vatable, nonvat, vat_amount, total_amount, remarks, amount_tendered, date);
+
+                    //Insert an Audit Log
+                    this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.BRANCHEXPENSES.ToString(), "UPDATE", Session["Username"].ToString());
+
+                    Show_Message_Toast("Successfully updated this expense.");
+                }
+
+                
             }
 
 
         }
 
-        private void INSERT_UTILITY_EXPENSE()
+        private void UPSERT_UTILITY_EXPENSE()
         {
             int type = int.Parse(this.ddType.SelectedValue);
             if (type > 1)
@@ -301,15 +341,34 @@ namespace Book_Keeping_System
                 string account_number = this.txtAccountNumber.Text == string.Empty ? "None specified" : this.txtAccountNumber.Text;
                 string cheque_number = this.txtCheque.Text;
 
-                //Insert the new Utility Expense
-                this.oBK.INSERT_UTILITY_EXPENSE(account_code, supplier_id, invoice, po_code, type, vatable, nonvat, vat_amount, total_amount,
-                    remarks, amount_tendered, date, from_date, to_date, account_number, cheque_number);
+                if (string.IsNullOrWhiteSpace(this.hiddenSelectedExpense.Value))
+                {
+                    //Insert the new Utility Expense
+                    this.oBK.INSERT_UTILITY_EXPENSE(account_code, supplier_id, invoice, po_code, type, vatable, nonvat, vat_amount, total_amount,
+                        remarks, amount_tendered, date, from_date, to_date, account_number, cheque_number);
 
-                //Insert an Audit Log
-                this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.BRANCHEXPENSES.ToString(), "INSERT", Session["Username"].ToString());
+                    //Insert an Audit Log
+                    this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.BRANCHEXPENSES.ToString(), "INSERT", Session["Username"].ToString());
 
-                //Show Success Toast
-                Show_Message_Toast("Successfully recorded Utility expenses");
+                    //Show Success Toast
+                    Show_Message_Toast("Successfully recorded Utility expense.");
+                }
+                else
+                {
+                    int id = int.Parse(this.hiddenSelectedExpense.Value);
+
+                    //Update the selected Expense
+                    this.oBK.UPDATE_UTILITY_EXPENSE(id, invoice, po_code, vatable, nonvat, vat_amount, total_amount, remarks, amount_tendered, 
+                        date, from_date, to_date, account_number);
+
+                    //Insert an Audit Log
+                    this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.BRANCHEXPENSES.ToString(), "UPDATE", Session["Username"].ToString());
+
+                    //Show Success Toast
+                    Show_Message_Toast("Successfully updated this expense.");
+                }
+
+                
             }
 
         }
@@ -413,11 +472,9 @@ namespace Book_Keeping_System
             if (VALIDATE_EXPENSE_FORM())
             {
                 if (int.Parse(ddType.SelectedValue.ToString()) == 1)
-                    this.INSERT_PURCHASE_EXPENSE();
+                    this.UPSERT_PURCHASE_EXPENSE();
                 else
-                    this.INSERT_UTILITY_EXPENSE();
-
-                //TODO Update Expense
+                    this.UPSERT_UTILITY_EXPENSE();
             }
         }
 
@@ -483,6 +540,7 @@ namespace Book_Keeping_System
             var selEdit = (Control)sender;
             GridViewRow r = (GridViewRow)selEdit.NamingContainer;
             int expense_id = int.Parse(this.gvExpenses.DataKeys[r.RowIndex].Value.ToString());
+            this.hiddenSelectedExpense.Value = expense_id.ToString();
 
             this.DISPLAY_SELECTED_EXPENSE(expense_id);
             upForm.Update();

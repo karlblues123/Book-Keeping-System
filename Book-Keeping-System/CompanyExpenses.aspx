@@ -538,7 +538,7 @@
                             </div>
                             <div class="modal-body">
                                 <asp:GridView runat="server" ID="gvExpenses" CssClass="table table-responsive" AutoGenerateColumns="false" 
-                                    DataKeyNames="ID">
+                                    DataKeyNames="ID" EmptyDataText="No Expenses found." EmptyDataRowStyle-CssClass="text-center">
                                     <Columns>
                                         <asp:BoundField DataField="Supplier_Name" HeaderText="Supplier" ItemStyle-Width="40%" />
                                         <asp:BoundField DataField="TypeName" HeaderText="Type" ItemStyle-Width="20%" />

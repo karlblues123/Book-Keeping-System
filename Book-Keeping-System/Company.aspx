@@ -104,10 +104,9 @@
                                 <div class="row my-2">
                                     <div class="col">
                                         <%-- Expenses List --%>
-                                        <asp:Label runat="server" ID="lblNoExpenses"><p class="text-center">No Expenses found</p></asp:Label>
                                         <asp:HiddenField runat="server" ID="hiddenSelectedCompany" />
                                         <asp:GridView runat="server" ID="gvCompanyExpenses" CssClass="table table-responsive" AutoGenerateColumns="false"
-                                            DataKeys="ID">
+                                            DataKeys="ID" EmptyDataText="No Expenses found." EmptyDataRowStyle-CssClass="text-center">
                                             <Columns>
                                                 <asp:BoundField DataField="Supplier_Name" HeaderText="Supplier" ItemStyle-Width="40%" />
                                                 <asp:BoundField DataField="TypeName" HeaderText="Type" ItemStyle-Width="20%" />

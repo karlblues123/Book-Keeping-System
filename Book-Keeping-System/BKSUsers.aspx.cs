@@ -33,7 +33,11 @@ namespace Book_Keeping_System
 
         private void UPDATE_USER(int index)
         {
-            //TODO Update selected User
+            string user = this.gvUsers.DataKeys[index].Value.ToString();
+            bool is_active = (this.gvUsers.Rows[index].FindControl("cbActive") as CheckBox).Checked;
+            //TODO Update user type
+
+            this.oSys.UPDATE_USER(user, is_active);
         }
         #endregion
 

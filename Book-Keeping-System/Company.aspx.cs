@@ -58,7 +58,6 @@ namespace Book_Keeping_System
             //Display the output to the controls
             gvCompanyExpenses.DataSource = data;
             gvCompanyExpenses.DataBind();
-            this.lblNoExpenses.Visible = !(data.Count > 0);
         }
 
         private void DISPLAY_MONTH_FILTER()

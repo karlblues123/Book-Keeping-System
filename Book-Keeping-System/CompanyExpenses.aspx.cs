@@ -96,6 +96,12 @@ namespace Book_Keeping_System
             this.txtRemarks.Text = string.Empty;
             this.txtAccountNumber.Text = string.Empty;
 
+            this.txtUtilityFrom.Enabled = false;
+            this.txtUtilityTo.Enabled = false;
+            this.txtAccountNumber.Enabled = false;
+            this.cbIsCheque.Checked = false;
+            this.txtCheque.Enabled = this.cbIsCheque.Checked;
+
             //Set CSS classes to default
             this.txtDate.CssClass = "form-control";
             this.txtSupplier.CssClass = "form-control";
@@ -126,16 +132,30 @@ namespace Book_Keeping_System
             this.txtVAT.Text = data["VATAmount"].ToString();
             this.txtTotal.Text = data["TotalAmount"].ToString();
             this.txtTendered.Text = data["AmountTendered"].ToString();
-            this.txtUtilityFrom.Text = data["FromDate"].ToString();
-            this.txtUtilityTo.Text = data["ToDate"].ToString();
+            this.txtUtilityFrom.Text = Convert.ToDateTime(data["FromDate"].ToString()).ToString("yyyy-MM-dd");
+            this.txtUtilityTo.Text = Convert.ToDateTime(data["ToDate"].ToString()).ToString("yyyy-MM-dd");
             this.txtAccountNumber.Text = data["AccountNumber"].ToString();
             this.hiddenSelectedCompany.Value = data["AccountCode"].ToString();
             this.hiddenSelectedSupplier.Value = data["SupplierID"].ToString();
             this.txtCheque.Text = data["ChequeNumber"].ToString();
             this.ddType.SelectedValue = data["Type"].ToString();
             this.cbIsCheque.Checked = !string.IsNullOrWhiteSpace(this.txtCheque.Text);
+            this.txtCheque.Enabled = this.cbIsCheque.Checked;
             this.txtRemarks.Text = data["Remarks"].ToString();
             this.txtDate.Text = Convert.ToDateTime(data["Date"]).ToString("yyyy-MM-dd");
+
+            if (ddType.SelectedIndex > 0)
+            {
+                this.txtUtilityFrom.Enabled = true;
+                this.txtUtilityTo.Enabled = true;
+                this.txtAccountNumber.Enabled = true;
+            }
+            else
+            {
+                this.txtUtilityFrom.Enabled = false;
+                this.txtUtilityTo.Enabled = false;
+                this.txtAccountNumber.Enabled = false;
+            }
 
             DataView dv = oMaster.GET_COMPANY_LISTS().DefaultView;
             dv.RowFilter = "CompanyCode='" + this.hiddenSelectedCompany.Value.ToString() + "'";
@@ -303,7 +323,7 @@ namespace Book_Keeping_System
             
         }
 
-        private void INSERT_UTILITY_EXPENSE()
+        private void UPSERT_UTILITY_EXPENSE()
         {
             int type = int.Parse(this.ddType.SelectedValue);
             if(type > 1)
@@ -465,7 +485,7 @@ namespace Book_Keeping_System
                 if (int.Parse(ddType.SelectedValue.ToString()) == 1)
                     this.UPSERT_PURCHASE_EXPENSE();
                 else
-                    this.INSERT_UTILITY_EXPENSE();
+                    this.UPSERT_UTILITY_EXPENSE();
 
             }
         }

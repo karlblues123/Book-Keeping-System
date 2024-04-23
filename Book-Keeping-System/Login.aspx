@@ -92,7 +92,7 @@
                 </div>
             </div>
             <%-- Footer --%>
-            <div class="card-footer">Book Keeping System version 1.0</div>
+            <div class="card-footer">Book Keeping System</div>
         </div>
     </div>
     </form>

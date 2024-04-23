@@ -153,6 +153,27 @@ namespace Book_Keeping_System
                 }
             }
         }
+
+        internal void UPDATE_USER(string username, bool is_active)
+        {
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("[xSys].[spUPDATE_USER]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+
+                    cmd.Parameters.AddWithValue("@USERNAME", username);
+                    cmd.Parameters.AddWithValue("@ISACTIVE", is_active);
+
+
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
         #endregion
     }
 }

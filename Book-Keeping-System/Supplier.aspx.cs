@@ -103,8 +103,6 @@ namespace Book_Keeping_System
             //Validate the form
             if (VALIDATE_FORM())
             {
-                //Get the data for Update
-                int id = int.Parse(this.hiddenSelectedSupplier.Value);
                 string supplier_name = this.txtSupplierName.Text;
                 string supplier_address = this.txtSupplierAddress.Text;
                 string supplier_TIN = this.txtSupplierTIN.Text;
