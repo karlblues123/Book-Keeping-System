@@ -12,15 +12,15 @@
 
     <script src="Scripts/jquery-3.6.0.min.js"></script>
     <script src="Scripts/jquery-ui-1.12.1.min.js"></script>
-     <script src="scripts/toastr.min.js"></script>
-    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="scripts/toastr.min.js"></script>
+    <%--<script src="Scripts/bootstrap.min.js"></script>--%>
     <script src="Scripts/bootstrap.bundle.min.js"></script>
     <style>
         #logincard {
             position: absolute;
-            width: 600px;
+            width: 40vw;
             top: 25%;
-            left: 27.5%;
+            left: 30%;
         }
 
         html {
@@ -35,6 +35,26 @@
         }
 
     </style>
+    <script type="text/javascript">
+        function showToastError(msg, contentMessage) {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "progressBar": true,
+                "preventDuplicates": false,
+                "positionClass": "toast-top-right",
+                "showDuration": "400",
+                "hideDuration": "1000",
+                "timeOut": "3000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr.error(msg, contentMessage)
+        }
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -51,7 +71,7 @@
                     <div class="form-floating">
                         <asp:TextBox runat="server" ID="txtUsername" CssClass="form-control" 
                             AutoCompleteType="Disabled"></asp:TextBox>
-                        <label for="<%=txtUsername.ClientID%>">Username</label>
+                        <label for="<%=txtUsername.ClientID%>" class="ms-2">Username</label>
                     </div>
                     
                 </div>
@@ -60,7 +80,7 @@
                     <div class="form-floating">
                         <asp:TextBox runat="server" ID="txtPassword" CssClass="form-control" 
                             AutoCompleteType="Disabled" TextMode="Password"></asp:TextBox>
-                        <label for="<%=txtPassword.ClientID%>">Password</label>
+                        <label for="<%=txtPassword.ClientID%>" class="ms-2">Password</label>
                     </div>
                 </div>
                 <%-- Login Button --%>
@@ -72,7 +92,7 @@
                 </div>
             </div>
             <%-- Footer --%>
-            <div class="card-footer">Book Keeping System version 1.0</div>
+            <div class="card-footer">Book Keeping System</div>
         </div>
     </div>
     </form>

@@ -16,6 +16,11 @@
              });
          }
         
+         function setSelectedSupplier(supplier) {
+             $('#<%=hiddenSelectedSupplier.ClientID%>').val(supplier);
+            bootstrap.Modal.getOrCreateInstance($('#new-supplier-modal')).toggle();
+            __doPostBack('<%=upSupplier.ClientID%>', '');
+         }
 
 
         ////On UpdatePanel Refresh
@@ -40,139 +45,121 @@
         //};
 
     </script>
-    <div class="container-fluid" style="padding-left:0;padding-right:0;">
-        <asp:UpdatePanel runat="server" ID="upMain" UpdateMode="Conditional">
-            <Triggers>
-                <asp:PostBackTrigger ControlID="lnkConfirmDelete" />
-            </Triggers>
-            <ContentTemplate>
-                <asp:Panel runat="server" ID="pList" CssClass="card" style="border:none;">
-                    <div class="card-header bg-success-subtle" style="height:57px;">
-                        <div class="row d-flex align-items-center">
-                            <div class="col-8">
-                                <b class="fa fa-handshake-o"></b><b class="m-2">Suppliers Information</b>
-                            </div>
-                            <div class="col-4">
-                                <div class="input-group">
-                                    <%-- Search Textbox --%>
-                                    <input type="text" id="search-bar" placeholder="Search" 
-                                        class="form-control form-control-sm" role="search" />
-                                    <%-- Add button --%>
-                                    <asp:LinkButton runat="server" ID="lnkNewSupplier" CssClass="btn btn-sm btn-outline-success" OnClick="lnkNewSupplier_Click">
-                                        <b class="fa fa-plus-circle"></b> New
-                                    </asp:LinkButton>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body ms-5 me-5">
-                        <%-- Supplier List GridView --%>
-                        <asp:Panel runat="server" ID="panelSupplierScroll" ScrollBars="Vertical" Height="600px">                                  
-                            <asp:GridView runat="server" ID="gvSupplierList" CssClass="table table-hover small" AutoGenerateColumns="false" 
-                                ShowHeader="true" GridLines="Horizontal" OnRowDataBound="gvSupplierList_RowDataBound">
-                                <Columns>
-                                    <asp:BoundField DataField="SupplierID" ItemStyle-Width="5%"/>
-                                    <asp:BoundField DataField="Supplier_Name" HeaderText="Name" ItemStyle-Width="15%"/>
-                                    <asp:BoundField DataField="Supplier_Address" HeaderText="Address" ItemStyle-Width="50%" />
-                                    <asp:BoundField DataField="TIN" HeaderText="TIN" ItemStyle-Width="15%" />
-                                    <asp:TemplateField ItemStyle-Width="15%">
-                                        <ItemTemplate>
-                                            <asp:LinkButton runat="server" ID="lnkEdit" 
-                                                CssClass="btn btn-sm btn-outline-primary" OnClick="lnkEdit_Click">
-                                                <b class="fa fa-pencil"></b> Edit
-                                            </asp:LinkButton>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                </Columns>
-                            </asp:GridView>
-                        </asp:Panel> 
-                    </div>
-                </asp:Panel>
-                <asp:Panel runat="server" ID="pForm" Visible="false" CssClass="card" style="border:none;">
-                    <div class="card-header bg-success-subtle d-flex align-items-center" style="height:57px;">
-                        <b class="fa fa-edit"></b><b class="ms-2">Supplier Form</b>
-                    </div>
-                    <div class="card-body ms-5 me-5">
-                        <%-- Supplier Name --%>
-                        <div class="row mt-2">
-                            <div class="col">
-                                <div class="form-floating">
-                                    <asp:TextBox runat="server" ID="txtSupplierName" CssClass="form-control" 
-                                        AutoCompleteType="Disabled"></asp:TextBox>
-                                    <label for="<%=txtSupplierName.ClientID%>">Name</label>
-                                </div>
-                            </div>
-                        </div>
-                        <%-- Supplier Address --%>
-                        <div class="row mt-2">
-                            <div class="col">
-                                <div class="form-floating">
-                                    <asp:TextBox runat="server" ID="txtSupplierAddress" CssClass="form-control" 
-                                        AutoCompleteType="Disabled"></asp:TextBox>
-                                    <label for="<%=txtSupplierAddress.ClientID%>">Address</label>
-                                </div>
-                            </div>
-                        </div>
-                        <%-- Supplier TIN --%>
-                        <div class="row mt-2">
-                            <div class="col-8">
-                                <div class="input-group">
-                                    <div class="form-floating">
-                                        <asp:TextBox runat="server" ID="txtSupplierTIN" CssClass="form-control" 
-                                            AutoCompleteType="Disabled"></asp:TextBox>
-                                        <label for="<%=txtSupplierTIN.ClientID%>">TIN</label>
-                                    </div>
-                                    <div class="input-group-text d-flex align-items-center">
-                                        VAT
-                                        <asp:CheckBox runat="server" ID="cbVAT"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <%-- Supplier Type --%>
-                            <div class="col-4">
-                                <div class="form-floating">
-                                    <asp:DropDownList runat="server" ID="ddSupplierType" CssClass="form-select"></asp:DropDownList>
-                                    <label for="<%=ddSupplierType.ClientID%>">Type</label>
-                                </div>
-                            </div>
-                        </div>
-                        <%-- Save, Back, and Delete Buttons --%>
-                        <div class="row mt-2">
-                            <div class="col-5">
-                                <asp:LinkButton runat="server" ID="lnkBack" CssClass="btn btn-outline-warning" 
-                                    OnClick="lnkBack_Click">
-                                    <b class="fa fa-arrow-circle-left"></b> Back
-                                </asp:LinkButton>
-                                <asp:LinkButton runat="server" ID="lnkSave" CssClass="btn btn-outline-primary" 
-                                    OnClick="lnkSave_Click">
-                                    <b class="fa fa-save"></b> Save
-                                </asp:LinkButton>
-                                <button id="delete-btn" class="btn btn-outline-danger" 
-                                    data-bs-toggle="modal" data-bs-target="#delete-modal">
-                                    <b class="fa fa-trash"></b> Delete
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </asp:Panel>
-                <%-- Delete Modal --%>
-                <div class="modal fade" role="dialog" id="delete-modal" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                Are you sure you want to delete <asp:Label runat="server" ID="lblModalSupplier" Text="supplier"></asp:Label>?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                                <asp:LinkButton runat="server" ID="lnkConfirmDelete" CssClass="btn btn-outline-danger" 
-                                    OnClick="lnkConfirmDelete_Click">
-                                    <b class="fa fa-trash"></b> Delete
-                                </asp:LinkButton> 
-                            </div>
+    <div class="container-fluid">
+        <h6 class="m-2">Supplier Data</h6>
+        <div class="card" style="max-height:85vh;">
+            <div class="card-header">
+                <div class="row d-flex align-items-center">
+                    <div class="col-4">
+                        <div class="input-group">
+                            <%-- Search Textbox --%>
+                            <input type="text" id="search-bar" placeholder="Search" class="form-control" 
+                                role="search" autocomplete="off" />
                         </div>
                     </div>
                 </div>
-            </ContentTemplate>
-        </asp:UpdatePanel>
+            </div>
+            <div class="card-body overflow-y-auto">
+                <%-- Supplier List GridView --%>                              
+                <asp:GridView runat="server" ID="gvSupplierList" CssClass="table table-hover" AutoGenerateColumns="false" 
+                    ShowHeader="true" GridLines="Horizontal" DataKeyNames="SupplierID">
+                    <Columns>
+                        <asp:BoundField DataField="Supplier_Name" HeaderText="Name" ItemStyle-Width="20%"/>
+                        <asp:BoundField DataField="Supplier_Address" HeaderText="Address" ItemStyle-Width="50%" />
+                        <asp:BoundField DataField="TIN" HeaderText="TIN" ItemStyle-Width="20%" />
+                        <asp:TemplateField ItemStyle-Width="10%">
+                            <ItemTemplate>
+                                <button type="button" class="btn btn-primary" onclick="setSelectedSupplier(<%#Eval("SupplierID").ToString()%>);return false;">
+                                    <span class="fa fa-search"></span>
+                                </button>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
+            </div>
+            <%-- Add button --%>
+            <button type="button" class="btn btn-success position-fixed end-0 bottom-0 mb-5 me-5" onclick='setSelectedSupplier(<%=string.Empty%>);'>
+                New Supplier <span class="fa fa-plus-circle"></span>
+            </button>
+        </div>
+        <%-- Supplier Modal --%>
+        <div class="modal fade" tabindex="-1" id="new-supplier-modal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6>Supplier Form</h6>
+                        <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <asp:UpdatePanel runat="server" ID="upSupplier" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <asp:HiddenField runat="server" ID="hiddenSelectedSupplier" OnValueChanged="hiddenSelectedSupplier_ValueChanged" />
+                                <div class="row my-2">
+                                    <div class="col-8">
+                                        <div class="form-floating">
+                                            <%-- Supplier Name --%>
+                                            <asp:TextBox runat="server" ID="txtSupplierName" CssClass="form-control" 
+                                                AutoCompleteType="Disabled"></asp:TextBox>
+                                            <label for="<%=txtSupplierName.ClientID%>">Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="input-group">
+                                            <div class="form-floating">
+                                                <%-- Supplier TIN --%>
+                                                <asp:TextBox runat="server" ID="txtSupplierTIN" CssClass="form-control" 
+                                                    AutoCompleteType="Disabled"></asp:TextBox>
+                                                <label for="<%=txtSupplierTIN.ClientID%>">TIN</label>
+                                            </div>
+                                            <div class="input-group-text d-flex align-items-center">
+                                                VAT
+                                                <asp:CheckBox runat="server" ID="cbVAT"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row my-2">
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <%-- Supplier Address --%>
+                                            <asp:TextBox runat="server" ID="txtSupplierAddress" CssClass="form-control" 
+                                                AutoCompleteType="Disabled"></asp:TextBox>
+                                            <label for="<%=txtSupplierAddress.ClientID%>">Address</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row my-2">
+                                    <div class="col-6">
+                                        <div class="form-floating">
+                                            <%-- Contact Number --%>
+                                            <asp:TextBox runat="server" ID="txtContactNumber" CssClass="form-control" 
+                                                AutoCompleteType="Disabled"></asp:TextBox>
+                                            <label for="<%=txtContactNumber.ClientID%>">Contact Number</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-floating">
+                                            <%-- Contact Person --%>
+                                            <asp:TextBox runat="server" ID="txtContactPerson" CssClass="form-control" 
+                                                AutoCompleteType="Disabled"></asp:TextBox>
+                                            <label for="<%=txtContactPerson.ClientID%>">Contact Person</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="hiddenSelectedSupplier" EventName="ValueChanged" />
+                            </Triggers>
+                        </asp:UpdatePanel>
+                    </div>
+                    <div class="modal-footer">
+                        <%-- Save Button --%>
+                        <asp:LinkButton runat="server" ID="lnkSave" CssClass="btn btn-success" OnClick="lnkSave_Click">
+                            Save
+                        </asp:LinkButton>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </asp:Content>

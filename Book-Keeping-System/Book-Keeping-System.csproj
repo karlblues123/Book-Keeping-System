@@ -46,6 +46,10 @@
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\WorkProjects\SGC_HRMS\DGMU_HR\bin\CrystalDecisions.Web.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -145,12 +149,9 @@
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
-    <Content Include="Expenses.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="ReportDeliveries.aspx" />
     <Content Include="Home.aspx" />
-    <Content Include="Inventory.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="packages.config" />
     <Content Include="Main.Master" />
@@ -213,7 +214,6 @@
   <ItemGroup>
     <Content Include="Purchases.aspx" />
     <Content Include="RecordDeliveries.aspx" />
-    <Content Include="Sales.aspx" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -283,6 +283,7 @@
     <Compile Include="App_Code\baseC.cs" />
     <Compile Include="App_Code\BKC.cs" />
     <Compile Include="App_Code\MasterC.cs" />
+    <Compile Include="App_Code\xSysC.cs" />
     <Compile Include="Branch.aspx.cs">
       <DependentUpon>Branch.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -318,33 +319,12 @@
     <Compile Include="CompanyExpenses.aspx.designer.cs">
       <DependentUpon>CompanyExpenses.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Expenses.aspx.cs">
-      <DependentUpon>Expenses.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Expenses.aspx.designer.cs">
-      <DependentUpon>Expenses.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ReportDeliveries.aspx.cs">
-      <DependentUpon>ReportDeliveries.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ReportDeliveries.aspx.designer.cs">
-      <DependentUpon>ReportDeliveries.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Inventory.aspx.cs">
-      <DependentUpon>Inventory.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Inventory.aspx.designer.cs">
-      <DependentUpon>Inventory.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -375,43 +355,6 @@
     <Compile Include="RecordDeliveries.aspx.designer.cs">
       <DependentUpon>RecordDeliveries.aspx</DependentUpon>
     </Compile>
-    <Compile Include="repDailyDeliveries.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>repDailyDeliveries.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="repMonthlyDailies.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>repMonthlyDailies.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="repVATSupply.cs">
-      <DependentUpon>repVATSupply.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="repVATWater.cs">
-      <DependentUpon>repVATWater.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="repVATElectric.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>repVATElectric.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Sales.aspx.cs">
-      <DependentUpon>Sales.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Sales.aspx.designer.cs">
-      <DependentUpon>Sales.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Supplier.aspx.cs">
       <DependentUpon>Supplier.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -426,28 +369,6 @@
     <Compile Include="ReportVAT.aspx.designer.cs">
       <DependentUpon>ReportVAT.aspx</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="repDailyDeliveries.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>repDailyDeliveries.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="repMonthlyDailies.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>repMonthlyDailies.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="repVATSupply.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>repVATSupply.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="repVATWater.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>repVATWater.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="repVATElectric.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>repVATElectric.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />

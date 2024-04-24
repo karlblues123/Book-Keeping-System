@@ -14,7 +14,7 @@
     <script src="Scripts/jquery-3.6.0.min.js"></script>
     <script src="Scripts/jquery-ui-1.12.1.min.js"></script>
      <script src="scripts/toastr.min.js"></script>
-    <script src="Scripts/bootstrap.min.js"></script>
+    <%--<script src="Scripts/bootstrap.min.js"></script>--%>
     <script src="Scripts/bootstrap.bundle.min.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -40,7 +40,6 @@
                                     <li><a class="nav-link" href="Supplier.aspx">Supplier</a></li>
                                     <li><a class="nav-link" href="Branch.aspx">Branch</a></li>
                                     <li><a class="nav-link" href="Company.aspx">Company</a></li>
-                                    <%--<li><a class="nav-link" href="Expenses.aspx">Expenses</a>--%>
                                 </ul>
                             </li>
                             <%-- Record Dropdown --%>
@@ -51,7 +50,6 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="nav-link" href="BranchSales.aspx">Branch - Sales</a></li>
                                     <li><a class="nav-link" href="BranchExpenses.aspx">Branch - Expenses</a></li>
-                                    <li><a class="nav-link" href="RecordDeliveries.aspx">Deliveries</a></li>
                                     <li><a class="nav-link" href="CompanyExpenses.aspx">Company - Expenses</a></li>
                                 </ul>
                             </li>
@@ -61,20 +59,27 @@
                                     Reports
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="ReportDeliveries.aspx">Deliveries</a></li>
                                     <li><a class="dropdown-item" href="ReportVAT.aspx">VAT</a></li>
-                                    <li><a class="dropdown-item disabled" href="#">Inventory</a></li>
-                                    <li><a class="dropdown-item disabled" href="#">Sales</a></li>
-                                    <%--<li><a class="dropdown-item disabled" href="#">Accounts Payable</a></li>
-                                    <li><a class="dropdown-item disabled" href="#">Accounts Receivable</a></li>--%>
+                                    <li><a class="dropdown-item" href="ReportSales2.aspx">Sales</a></li>
                                 </ul>
                           </li>
-                          <li class="nav-item dropdown position-absolute end-0">
+                          <%-- Admin Dropdown --%>
+                          <li class="nav-item dropdown <%if (int.Parse(Session["AccessLevel"].ToString()) != 1) Response.Write("visually-hidden"); %>">
                               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                  Username
+                                Admin
                               </a>
                               <ul class="dropdown-menu">
-                                  <li><a class="dropdown-item" href="Login.aspx">Logout</a></li>
+                                  <li><a class="nav-link" href="AuditLogs.aspx">Logs</a></li>
+                                  <li><a class="nav-link" href="BKSUsers.aspx">Users</a></li>
+                              </ul>
+                          </li>
+                          <li class="nav-item dropdown position-absolute end-0 me-5">
+                              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  <%=Session["Username"].ToString()%>
+                              </a>
+                              <ul class="dropdown-menu">
+                                  <li><a class="dropdown-item" href="ChangePassword.aspx">Change Password</a></li>
+                                  <li><asp:LinkButton runat="server" ID="btnLogout" CssClass="dropdown-item" OnClick="btnLogout_Click">Logout</asp:LinkButton></li>
                               </ul>
                           </li>
                         </ul>
@@ -84,44 +89,44 @@
 
 
      <script type="text/javascript">
-    function showToastSuccess(msg, contentMessage) {
-        toastr.options = {
-            "closeButton": true,
-            "debug": false,
-            "progressBar": true,
-            "preventDuplicates": false,
-            "positionClass": "toast-top-right",
-            "showDuration": "400",
-            "hideDuration": "1000",
-            "timeOut": "3000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
+        function showToastSuccess(msg, contentMessage) {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "progressBar": true,
+                "preventDuplicates": false,
+                "positionClass": "toast-top-right",
+                "showDuration": "400",
+                "hideDuration": "1000",
+                "timeOut": "3000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr.success(msg, contentMessage)
         }
-        toastr.success(msg, contentMessage)
-    }
 
-    function showToastError(msg, contentMessage) {
-        toastr.options = {
-            "closeButton": true,
-            "debug": false,
-            "progressBar": true,
-            "preventDuplicates": false,
-            "positionClass": "toast-top-right",
-            "showDuration": "400",
-            "hideDuration": "1000",
-            "timeOut": "3000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
+        function showToastError(msg, contentMessage) {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "progressBar": true,
+                "preventDuplicates": false,
+                "positionClass": "toast-top-right",
+                "showDuration": "400",
+                "hideDuration": "1000",
+                "timeOut": "3000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr.error(msg, contentMessage)
         }
-        toastr.error(msg, contentMessage)
-    }
-</script>
+    </script>
 
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
         
