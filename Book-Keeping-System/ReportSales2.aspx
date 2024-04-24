@@ -24,14 +24,14 @@
                         <div class="row my-2">
                             <div class="col-6">
                                 <div class="form-floating">
-                                    <asp:TextBox runat="server" ID="txtDateFrom" TextMode="Date" CssClass="form-control"></asp:TextBox>
-                                    <label for="<%=txtDateFrom.ClientID%>">From</label>
+                                    <asp:TextBox runat="server" ID="txtFromDate" TextMode="Date" CssClass="form-control"></asp:TextBox>
+                                    <label for="<%=this.txtFromDate.ClientID%>">From</label>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-floating">
-                                    <asp:TextBox runat="server" ID="txtDateTo" TextMode="Date" CssClass="form-control"></asp:TextBox>
-                                    <label for="<%=txtDateTo.ClientID%>">To</label>
+                                    <asp:TextBox runat="server" ID="txtToDate" TextMode="Date" CssClass="form-control"></asp:TextBox>
+                                    <label for="<%=this.txtToDate.ClientID%>">To</label>
                                 </div>
                             </div>
                         </div>

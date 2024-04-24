@@ -19,7 +19,7 @@ namespace Book_Keeping_System
         {
             if (!IsPostBack)
             {
-                DISPLAY_SUPPLIER_LISTS();
+                this.DISPLAY_SUPPLIER_LISTS();
             }
         }
 
@@ -27,20 +27,20 @@ namespace Book_Keeping_System
 
         private void DISPLAY_SUPPLIER_LISTS()
         {
-            DataTable dt = oMaster.GET_SUPPLIER_LISTS();
+            DataTable data = this.oMaster.GET_SUPPLIER_LISTS();
 
             //Display the data in the control
-            gvSupplierList.DataSource = dt;
-            gvSupplierList.DataBind();
+            this.gvSupplierList.DataSource = data;
+            this.gvSupplierList.DataBind();
         }
 
         private void CLEAR_INPUTS()
         {
-            hiddenSelectedSupplier.Value = string.Empty;
-            txtSupplierName.Text = string.Empty;
-            txtSupplierAddress.Text = string.Empty;
-            txtSupplierTIN.Text = string.Empty;
-            cbVAT.Checked = false;
+            this.hiddenSelectedSupplier.Value = string.Empty;
+            this.txtSupplierName.Text = string.Empty;
+            this.txtSupplierAddress.Text = string.Empty;
+            this.txtSupplierTIN.Text = string.Empty;
+            this.cbVAT.Checked = false;
         }
 
         private void DISPLAY_SELECTED_SUPPLIER()
@@ -49,21 +49,18 @@ namespace Book_Keeping_System
             if (!string.IsNullOrEmpty(this.hiddenSelectedSupplier.Value))
             {
                 //Get the selected Supplier
-                DataView dv = oMaster.GET_SUPPLIER_LISTS().DefaultView;
-                dv.RowFilter = "SupplierID='" + this.hiddenSelectedSupplier.Value + "'";
+                DataView data = this.oMaster.GET_SUPPLIER_LISTS().DefaultView;
+                data.RowFilter = "SupplierID='" + this.hiddenSelectedSupplier.Value + "'";
 
-                if (dv.Count > 0)
+                if (data.Count > 0)
                 {
-                    foreach (DataRowView dvr in dv)
-                    {
-                        //Display Details
-                        txtSupplierName.Text = dvr["Supplier_Name"].ToString();
-                        txtSupplierAddress.Text = dvr["Supplier_Address"].ToString();
-                        txtSupplierTIN.Text = dvr["TIN"].ToString();
-                        cbVAT.Checked = (bool)dvr["IsVat"];
-                        this.txtContactNumber.Text = dvr["Contact_Number"].ToString();
-                        this.txtContactPerson.Text = dvr["Contact_Person"].ToString();
-                    }
+                    //Display Details
+                    this.txtSupplierName.Text = data[0]["Supplier_Name"].ToString();
+                    this.txtSupplierAddress.Text = data[0]["Supplier_Address"].ToString();
+                    this.txtSupplierTIN.Text = data[0]["TIN"].ToString();
+                    this.cbVAT.Checked = bool.Parse(data[0]["IsVat"].ToString());
+                    this.txtContactNumber.Text = data[0]["Contact_Number"].ToString();
+                    this.txtContactPerson.Text = data[0]["Contact_Person"].ToString();
                 }
             }
             else
@@ -74,28 +71,29 @@ namespace Book_Keeping_System
 
         private bool VALIDATE_FORM()
         {
-            bool isValidated = false;
+            bool is_valid = false;
 
             //Validation
-            if (string.IsNullOrWhiteSpace(txtSupplierName.Text))
-                txtSupplierName.CssClass += " is-invalid";
+            if (string.IsNullOrWhiteSpace(this.txtSupplierName.Text))
+                this.txtSupplierName.CssClass += " is-invalid";
             else
-                txtSupplierName.CssClass = "form-control";
+                this.txtSupplierName.CssClass = "form-control";
 
-            if (string.IsNullOrWhiteSpace(txtSupplierTIN.Text))
-                txtSupplierTIN.CssClass += " is-invalid";
+            if (string.IsNullOrWhiteSpace(this.txtSupplierTIN.Text))
+                this.txtSupplierTIN.CssClass += " is-invalid";
             else
-                txtSupplierTIN.CssClass = "form-control";
+                this.txtSupplierTIN.CssClass = "form-control";
 
-            if (string.IsNullOrWhiteSpace(txtSupplierAddress.Text))
-                txtSupplierAddress.CssClass += " is-invalid";
+            if (string.IsNullOrWhiteSpace(this.txtSupplierAddress.Text))
+                this.txtSupplierAddress.CssClass += " is-invalid";
             else
-                txtSupplierAddress.CssClass = "form-control";
+                this.txtSupplierAddress.CssClass = "form-control";
 
-            if (!string.IsNullOrWhiteSpace(txtSupplierName.Text) && !string.IsNullOrWhiteSpace(txtSupplierTIN.Text) && !string.IsNullOrWhiteSpace(txtSupplierAddress.Text))
-                isValidated = true;
+            if (!string.IsNullOrWhiteSpace(this.txtSupplierName.Text) && !string.IsNullOrWhiteSpace(this.txtSupplierTIN.Text) 
+                && !string.IsNullOrWhiteSpace(this.txtSupplierAddress.Text))
+                is_valid = true;
 
-            return isValidated;
+            return is_valid;
         }
 
         private void INSERT_SUPPLIER()
@@ -111,20 +109,20 @@ namespace Book_Keeping_System
                 string supplier_person = this.txtContactPerson.Text;
 
                 //Insert the new Supplier
-                oMaster.INSERT_SUPPLIER_DATA(supplier_name, supplier_address, supplier_TIN, is_vat, supplier_contact, supplier_person);
+                this.oMaster.INSERT_SUPPLIER_DATA(supplier_name, supplier_address, supplier_TIN, is_vat, supplier_contact, supplier_person);
 
                 //Insert an Audit Log
                 this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.SUPPLIERDATA.ToString(), "INSERT", Session["Username"].ToString());
 
                 //Show Success toast
-                Show_Message_Toast("Successfully added " + txtSupplierName.Text + " to the database");
+                this.Show_Message_Toast("Successfully added " + txtSupplierName.Text + " to the database");
 
                 //Refresh the Supplier list
-                DISPLAY_SUPPLIER_LISTS();
+                this.DISPLAY_SUPPLIER_LISTS();
             }
             //Display Error toast
             else
-                Show_Error_Toast("Error - Invalid input. Please resubmit with complete necessary information.");
+                this.Show_Error_Toast("Error - Invalid input. Please resubmit with complete necessary information.");
         }
 
         private void UPDATE_SUPPLIER()
@@ -148,14 +146,14 @@ namespace Book_Keeping_System
                 this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.SUPPLIERDATA.ToString(), "UPDATE", Session["Username"].ToString());
 
                 //Show Success toast
-                Show_Message_Toast("Successfully updated " + txtSupplierName.Text);
+                this.Show_Message_Toast("Successfully updated " + txtSupplierName.Text);
 
                 //Refresh the Supplier list
-                DISPLAY_SUPPLIER_LISTS();
+                this.DISPLAY_SUPPLIER_LISTS();
             }
             //Display Error toast
             else
-                Show_Error_Toast("Error - Invalid input. Please check the highlighted fields.");
+                this.Show_Error_Toast("Error - Invalid input. Please check the highlighted fields.");
         }
 
         private void Show_Message_Toast(string msg)

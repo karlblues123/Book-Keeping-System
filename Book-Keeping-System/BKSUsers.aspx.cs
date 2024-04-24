@@ -16,6 +16,7 @@ namespace Book_Keeping_System
         {
             if (!IsPostBack)
             {
+                //Redirect back to Home page if the User is not an Admin
                 if (int.Parse(Session["AccessLevel"].ToString()) != 1)
                     Response.Redirect("Home.aspx");
                 this.DISPLAY_USERS();
@@ -25,18 +26,22 @@ namespace Book_Keeping_System
         #region LOCAL FUNCTIONS
         private void DISPLAY_USERS()
         {
+            //Get the list of users TODO filter out Admin users
             DataTable data = this.oSys.GET_LIST_USERS();
 
+            //Display the data to the control
             this.gvUsers.DataSource = data;
             this.gvUsers.DataBind();
         }
 
         private void UPDATE_USER(int index)
         {
+            //Get the data
             string user = this.gvUsers.DataKeys[index].Value.ToString();
             bool is_active = (this.gvUsers.Rows[index].FindControl("cbActive") as CheckBox).Checked;
             //TODO Update user type
 
+            //Update the selected User
             this.oSys.UPDATE_USER(user, is_active);
         }
         #endregion

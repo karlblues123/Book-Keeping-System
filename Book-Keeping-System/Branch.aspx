@@ -84,7 +84,7 @@
     </script>
     <div class="container-fluid">
         <h6 class="m-2">Branch Data</h6>
-        <asp:Panel runat="server" ID="panelBranchLists">
+        <asp:Panel runat="server" ID="pBranchLists">
             <div class="card" style="max-height:85vh;">
                 <%-- Header --%>
                 <div class="card-header">

@@ -37,7 +37,7 @@ namespace Book_Keeping_System
         #region LOCAL FUNCTIONS
         private void DISPLAY_EXPENSE_TYPES()
         {
-            DataTable data = oBK.GET_EXPENSE_TYPES();
+            DataTable data = this.oBK.GET_EXPENSE_TYPES();
 
             this.ddType.DataTextField = "TypeName";
             this.ddType.DataValueField = "ID";
@@ -221,7 +221,7 @@ namespace Book_Keeping_System
             else
                 this.txtCheque.CssClass = "form-control";
 
-            if(ddType.SelectedIndex > 0)
+            if(this.ddType.SelectedIndex > 0)
             {
                 if (string.IsNullOrWhiteSpace(this.txtUtilityTo.Text))
                 {
@@ -249,7 +249,7 @@ namespace Book_Keeping_System
             }
 
             if (!is_valid)
-                Show_Error_Toast("Error - Invalid Input");
+                this.Show_Error_Toast("Error - Invalid Input");
 
             return is_valid;
         }
@@ -300,7 +300,7 @@ namespace Book_Keeping_System
                     this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.COMPANYEXPENSES.ToString(), "INSERT", Session["Username"].ToString());
 
                     //Show Success Toast
-                    Show_Message_Toast("Successfully recorded Purchase expense");
+                    this.Show_Message_Toast("Successfully recorded Purchase expense");
                 }
                 else
                 {
@@ -364,7 +364,7 @@ namespace Book_Keeping_System
                     this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.COMPANYEXPENSES.ToString(), "INSERT", Session["Username"].ToString());
 
                     //Show Success toast
-                    Show_Message_Toast("Successfully recorded Utility expense");
+                    this.Show_Message_Toast("Successfully recorded Utility expense");
                 }
                 else
                 {
@@ -379,7 +379,7 @@ namespace Book_Keeping_System
                     this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.COMPANYEXPENSES.ToString(), "UPDATE", Session["Username"].ToString());
 
                     //Show Success toast
-                    Show_Message_Toast("Successfully updated this expense");
+                    this.Show_Message_Toast("Successfully updated this expense");
                 }
                 
             }
@@ -404,14 +404,14 @@ namespace Book_Keeping_System
                 this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.SUPPLIERDATA.ToString(), "INSERT", Session["Username"].ToString());
 
                 //Show Success toast
-                Show_Message_Toast("Successfully added " + this.txtNewSupplierName.Text + " to the database");
+                this.Show_Message_Toast("Successfully added " + this.txtNewSupplierName.Text + " to the database");
 
                 //Refresh the Supplier List
                 this.DISPLAY_SUPPLIER_LIST();
             }
             //Display Error toast
             else
-                Show_Error_Toast("Error - Invalid input. Please resubmit with complete information.");
+                this.Show_Error_Toast("Error - Invalid input. Please resubmit with complete information.");
         }
 
         private void Show_Message_Toast(string msg)
@@ -431,22 +431,20 @@ namespace Book_Keeping_System
         {
             var selEdit = (Control)sender;
             GridViewRow r = (GridViewRow)selEdit.NamingContainer;
-            int _supplierID = int.Parse(this.gvSupplierList.DataKeys[r.RowIndex].Value.ToString());
+            int supplier_id = int.Parse(this.gvSupplierList.DataKeys[r.RowIndex].Value.ToString());
 
-            DataView dv = oMaster.GET_SUPPLIER_LISTS().DefaultView;
-            dv.RowFilter = "SupplierID='" + _supplierID + "'";
+            DataView data = this.oMaster.GET_SUPPLIER_LISTS().DefaultView;
+            data.RowFilter = "SupplierID='" + supplier_id + "'";
 
-            DataRowView row = dv[0];
-
-            this.hiddenSelectedSupplier.Value = _supplierID.ToString();
-            this.txtSupplier.Text = row["Supplier_Name"].ToString();
-            this.txtTIN.Text = row["TIN"].ToString();
+            this.hiddenSelectedSupplier.Value = supplier_id.ToString();
+            this.txtSupplier.Text = data[0]["Supplier_Name"].ToString();
+            this.txtTIN.Text = data[0]["TIN"].ToString();
         }
 
         protected void ddType_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Toggle the Utility fields
-            if (ddType.SelectedIndex > 0)
+            if (this.ddType.SelectedIndex > 0)
             {
                 this.txtUtilityFrom.Enabled = true;
                 this.txtUtilityTo.Enabled = true;
@@ -464,15 +462,13 @@ namespace Book_Keeping_System
         {
             var selEdit = (Control)sender;
             GridViewRow r = (GridViewRow)selEdit.NamingContainer;
-            int _supplierID = int.Parse(this.gvCompany.DataKeys[r.RowIndex].Value.ToString());
+            int company_id = int.Parse(this.gvCompany.DataKeys[r.RowIndex].Value.ToString());
 
-            DataView dv = oMaster.GET_COMPANY_LISTS().DefaultView;
-            dv.RowFilter = "CompanyID='" + _supplierID + "'";
+            DataView data = oMaster.GET_COMPANY_LISTS().DefaultView;
+            data.RowFilter = "CompanyID='" + company_id + "'";
 
-            DataRowView row = dv[0];
-
-            this.hiddenSelectedCompany.Value = row["CompanyCode"].ToString();
-            this.txtSelectedCompany.Text = row["Company_Name"].ToString();
+            this.hiddenSelectedCompany.Value = data[0]["CompanyCode"].ToString();
+            this.txtSelectedCompany.Text = data[0]["Company_Name"].ToString();
             this.DISPLAY_COMPANY_EXPENSES(this.hiddenSelectedCompany.Value);
             this.upForm.Update();
             this.upExpenses.Update();
@@ -514,7 +510,7 @@ namespace Book_Keeping_System
             int expense_id = int.Parse(this.gvExpenses.DataKeys[r.RowIndex].Value.ToString());
 
             this.DISPLAY_SELECTED_EXPENSE(expense_id);
-            upForm.Update();
+            this.upForm.Update();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "CloseModal", "<script>closeExpensesModal();</script>", false);
         }
         #endregion

@@ -15,7 +15,7 @@
                 <asp:Panel runat="server" ID="pMissingSales" Visible="false">
                     <div class="card my-2" style="max-height:40vh;">
                         <div class="card-header bg-danger">
-                            <h6>Missing Sales</h6>
+                            <asp:Label runat="server" ID="lblMissingSales" CssClass="h6"></asp:Label>
                         </div>
                         <div class="card-body overflow-y-auto">
                             <%-- Branch List --%>

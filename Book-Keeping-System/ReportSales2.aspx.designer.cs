@@ -13,22 +13,22 @@ namespace Book_Keeping_System {
     public partial class ReportSales2 {
         
         /// <summary>
-        /// txtDateFrom control.
+        /// txtFromDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDateFrom;
+        protected global::System.Web.UI.WebControls.TextBox txtFromDate;
         
         /// <summary>
-        /// txtDateTo control.
+        /// txtToDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDateTo;
+        protected global::System.Web.UI.WebControls.TextBox txtToDate;
         
         /// <summary>
         /// ddCompany control.

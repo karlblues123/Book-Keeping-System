@@ -40,7 +40,6 @@
                                     <li><a class="nav-link" href="Supplier.aspx">Supplier</a></li>
                                     <li><a class="nav-link" href="Branch.aspx">Branch</a></li>
                                     <li><a class="nav-link" href="Company.aspx">Company</a></li>
-                                    <%--<li><a class="nav-link" href="Expenses.aspx">Expenses</a>--%>
                                 </ul>
                             </li>
                             <%-- Record Dropdown --%>
@@ -51,7 +50,6 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="nav-link" href="BranchSales.aspx">Branch - Sales</a></li>
                                     <li><a class="nav-link" href="BranchExpenses.aspx">Branch - Expenses</a></li>
-                                    <%--<li><a class="nav-link" href="RecordDeliveries.aspx">Deliveries</a></li>--%>
                                     <li><a class="nav-link" href="CompanyExpenses.aspx">Company - Expenses</a></li>
                                 </ul>
                             </li>

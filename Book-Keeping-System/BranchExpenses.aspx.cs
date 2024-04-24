@@ -38,22 +38,22 @@ namespace Book_Keeping_System
         #region LOCAL FUNCTIONS
         private void DISPLAY_BRANCH_LISTS()
         {
-            DataView data = oMaster.GET_BRANCH_LISTS().DefaultView;
+            DataView data = this.oMaster.GET_BRANCH_LISTS().DefaultView;
             data.RowFilter = "IsActive = 1";
 
-            //Display the data in the GridView
-            gvBranchList.DataSource = data;
-            gvBranchList.DataBind();
+            //Display the data in the control
+            this.gvBranchList.DataSource = data;
+            this.gvBranchList.DataBind();
         }
 
         private void DISPLAY_EXPENSE_TYPES()
         {
-            DataTable data = oBK.GET_EXPENSE_TYPES();
+            DataTable data = this.oBK.GET_EXPENSE_TYPES();
 
-            ddType.DataTextField = "TypeName";
-            ddType.DataValueField = "ID";
-            ddType.DataSource = data;
-            ddType.DataBind();
+            this.ddType.DataTextField = "TypeName";
+            this.ddType.DataValueField = "ID";
+            this.ddType.DataSource = data;
+            this.ddType.DataBind();
         }
 
         private void DISPLAY_SUPPLIER_LIST()
@@ -239,7 +239,7 @@ namespace Book_Keeping_System
             }
 
             if (!is_valid)
-                Show_Error_Toast("Error - Invalid Input");
+                this.Show_Error_Toast("Error - Invalid Input");
 
             return is_valid;
         }
@@ -289,7 +289,7 @@ namespace Book_Keeping_System
                     //Insert an Audit Log
                     this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.BRANCHEXPENSES.ToString(), "INSERT", Session["Username"].ToString());
 
-                    Show_Message_Toast("Successfully recorded Purchase expense.");
+                    this.Show_Message_Toast("Successfully recorded Purchase expense.");
                 }
                 else
                 {
@@ -301,13 +301,9 @@ namespace Book_Keeping_System
                     //Insert an Audit Log
                     this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.BRANCHEXPENSES.ToString(), "UPDATE", Session["Username"].ToString());
 
-                    Show_Message_Toast("Successfully updated this expense.");
+                    this.Show_Message_Toast("Successfully updated this expense.");
                 }
-
-                
             }
-
-
         }
 
         private void UPSERT_UTILITY_EXPENSE()
@@ -351,7 +347,7 @@ namespace Book_Keeping_System
                     this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.BRANCHEXPENSES.ToString(), "INSERT", Session["Username"].ToString());
 
                     //Show Success Toast
-                    Show_Message_Toast("Successfully recorded Utility expense.");
+                    this.Show_Message_Toast("Successfully recorded Utility expense.");
                 }
                 else
                 {
@@ -365,12 +361,9 @@ namespace Book_Keeping_System
                     this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.BRANCHEXPENSES.ToString(), "UPDATE", Session["Username"].ToString());
 
                     //Show Success Toast
-                    Show_Message_Toast("Successfully updated this expense.");
-                }
-
-                
+                    this.Show_Message_Toast("Successfully updated this expense.");
+                }  
             }
-
         }
 
         private void INSERT_NEW_SUPPLIER()
@@ -391,14 +384,14 @@ namespace Book_Keeping_System
                 this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.SUPPLIERDATA.ToString(), "INSERT", Session["Username"].ToString());
 
                 //Show Success toast
-                Show_Message_Toast("Successfully added " + this.txtNewSupplierName.Text + " to the database");
+                this.Show_Message_Toast("Successfully added " + this.txtNewSupplierName.Text + " to the database");
 
                 //Refresh the Supplier List
                 this.DISPLAY_SUPPLIER_LIST();
             }
             //Display Error toast
             else
-                Show_Error_Toast("Error - Invalid input. Please resubmit with complete information.");
+                this.Show_Error_Toast("Error - Invalid input. Please resubmit with complete information.");
         }
 
         private void Show_Message_Toast(string msg)
@@ -423,19 +416,16 @@ namespace Book_Keeping_System
             this.hiddenSelectedBranch.Value = branch_code;
             //ViewState["V_BRANCHID"] = Convert.ToInt32(r.Cells[0].Text);
 
-
-
-            DataView data = oMaster.GET_BRANCH_LISTS().DefaultView;
+            DataView data = this.oMaster.GET_BRANCH_LISTS().DefaultView;
             data.RowFilter = "BranchCode='" + branch_code + "'";
 
 
             if (data.Count > 0)
             {
-                DataRowView row = data[0];
 
-                this.txtSelectedBranch.Text = row["Branch_Name"].ToString();
+                this.txtSelectedBranch.Text = data[0]["Branch_Name"].ToString();
 
-                upForm.Update();
+                this.upForm.Update();
 
                 this.DISPLAY_BRANCH_EXPENSES(this.hiddenSelectedBranch.Value);
                 this.upExpenses.Update();
@@ -487,16 +477,15 @@ namespace Book_Keeping_System
         {
             var selEdit = (Control)sender;
             GridViewRow r = (GridViewRow)selEdit.NamingContainer;
-            int _supplierID = int.Parse(this.gvSupplierList.DataKeys[r.RowIndex].Value.ToString());
+            int supplier_id = int.Parse(this.gvSupplierList.DataKeys[r.RowIndex].Value.ToString());
 
-            DataView dv = oMaster.GET_SUPPLIER_LISTS().DefaultView;
-            dv.RowFilter = "SupplierID='" + _supplierID + "'";
+            DataView data = this.oMaster.GET_SUPPLIER_LISTS().DefaultView;
+            data.RowFilter = "SupplierID='" + supplier_id + "'";
 
-            DataRowView row = dv[0];
 
-            this.hiddenSelectedSupplier.Value = _supplierID.ToString();
-            this.txtSupplier.Text = row["Supplier_Name"].ToString();
-            this.txtTIN.Text = row["TIN"].ToString();
+            this.hiddenSelectedSupplier.Value = supplier_id.ToString();
+            this.txtSupplier.Text = data[0]["Supplier_Name"].ToString();
+            this.txtTIN.Text = data[0]["TIN"].ToString();
 
             ////TODO ViewState Is Supplier Non-VAT
             //if (dv.Count > 0)
@@ -516,7 +505,7 @@ namespace Book_Keeping_System
 
         protected void ddType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddType.SelectedIndex > 0)
+            if (this.ddType.SelectedIndex > 0)
             {
                 this.txtUtilityFrom.Enabled = true;
                 this.txtUtilityTo.Enabled = true;
@@ -543,7 +532,7 @@ namespace Book_Keeping_System
             this.hiddenSelectedExpense.Value = expense_id.ToString();
 
             this.DISPLAY_SELECTED_EXPENSE(expense_id);
-            upForm.Update();
+            this.upForm.Update();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "CloseModal", "<script>closeExpensesModal();</script>", false);
         }
 

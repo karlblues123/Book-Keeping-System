@@ -18,9 +18,9 @@ namespace Book_Keeping_System
         {
             if (!IsPostBack)
             {
-                DISPLAY_COMPANY_LISTS();
-                DISPLAY_MONTH_FILTER();
-                DISPLAY_YEAR_FILTER();
+                this.DISPLAY_COMPANY_LISTS();
+                this.DISPLAY_MONTH_FILTER();
+                this.DISPLAY_YEAR_FILTER();
             }
         }
 
@@ -29,8 +29,8 @@ namespace Book_Keeping_System
         {
             DataTable data = oMaster.GET_COMPANY_LISTS();
 
-            gvCompanyList.DataSource = data;
-            gvCompanyList.DataBind();
+            this.gvCompanyList.DataSource = data;
+            this.gvCompanyList.DataBind();
         }
 
         private void DISPLAY_COMPANY_DETAILS()
@@ -56,8 +56,8 @@ namespace Book_Keeping_System
                 "/"+ddYearFilter.SelectedValue+"#";
 
             //Display the output to the controls
-            gvCompanyExpenses.DataSource = data;
-            gvCompanyExpenses.DataBind();
+            this.gvCompanyExpenses.DataSource = data;
+            this.gvCompanyExpenses.DataBind();
         }
 
         private void DISPLAY_MONTH_FILTER()
@@ -65,18 +65,18 @@ namespace Book_Keeping_System
             for (int month = 1; month <= 12; month++)
             {
                 string monthName = DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
-                ddMonthFilter.Items.Add(new ListItem(monthName, month.ToString().PadLeft(2, '0')));
+                this.ddMonthFilter.Items.Add(new ListItem(monthName, month.ToString().PadLeft(2, '0')));
             }
-            ddMonthFilter.SelectedIndex = DateTime.Today.Month-1;
+            this.ddMonthFilter.SelectedIndex = DateTime.Today.Month-1;
         }
 
         private void DISPLAY_YEAR_FILTER()
         {
             for(int year = 2000; year <= 2030; year++)
             {
-                ddYearFilter.Items.Add(new ListItem(year.ToString()));
+                this.ddYearFilter.Items.Add(new ListItem(year.ToString()));
             }
-            ddYearFilter.SelectedValue = DateTime.Today.Year.ToString();
+            this.ddYearFilter.SelectedValue = DateTime.Today.Year.ToString();
         }
 
         private void DISPLAY_EXPENSE_DETAILS()
@@ -132,8 +132,8 @@ namespace Book_Keeping_System
 
         protected void lnkView_Click(object sender, EventArgs e)
         {
-            pList.Visible = false;
-            pDetails.Visible = true;
+            this.pList.Visible = false;
+            this.pDetails.Visible = true;
 
             var selEdit = (Control)sender;
             GridViewRow r = (GridViewRow)selEdit.NamingContainer;
@@ -141,24 +141,24 @@ namespace Book_Keeping_System
 
             this.DISPLAY_COMPANY_DETAILS();
             this.DISPLAY_COMPANY_EXPENSES(this.hiddenSelectedCompany.Value);
-            ddMonthFilter.SelectedIndex = DateTime.Today.Month - 1;
-            ddYearFilter.SelectedValue = DateTime.Today.Year.ToString();
+            this.ddMonthFilter.SelectedIndex = DateTime.Today.Month - 1;
+            this.ddYearFilter.SelectedValue = DateTime.Today.Year.ToString();
         }
 
         protected void lnkBack_Click(object sender, EventArgs e)
         {
-            pDetails.Visible = false;
-            pList.Visible = true;
+            this.pDetails.Visible = false;
+            this.pList.Visible = true;
         }
 
         protected void ddMonthFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DISPLAY_COMPANY_EXPENSES(this.hiddenSelectedCompany.Value);
+            this.DISPLAY_COMPANY_EXPENSES(this.hiddenSelectedCompany.Value);
         }
 
         protected void ddYearFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DISPLAY_COMPANY_EXPENSES(this.hiddenSelectedCompany.Value);
+            this.DISPLAY_COMPANY_EXPENSES(this.hiddenSelectedCompany.Value);
         }
 
         protected void hiddenSelectedExpense_ValueChanged(object sender, EventArgs e)

@@ -30,6 +30,9 @@ namespace Book_Keeping_System
             DateTime from_date = month.AddMonths(-1);
             DateTime to_date = month.AddDays(-1);
 
+            //Display the month
+            this.lblMissingSales.Text = "Missing Sales for " + from_date.ToString("MMMM");
+
             //Get the list of branches that have no sales for the previous month
             DataTable data = this.oBK.GET_NO_SALE_LIST_BRANCHES(from_date, to_date);
 

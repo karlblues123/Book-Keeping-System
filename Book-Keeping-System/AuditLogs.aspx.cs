@@ -16,6 +16,7 @@ namespace Book_Keeping_System.Scripts
         {
             if (!IsPostBack)
             {
+                //Redirect back to Home page if the User is not an Admin
                 if (int.Parse(Session["AccessLevel"].ToString()) != 1)
                     Response.Redirect("Home.aspx");
                 this.DISPLAY_AUDIT_LOGS();
@@ -25,8 +26,10 @@ namespace Book_Keeping_System.Scripts
         #region LOCAL FUNCTIONS
         private void DISPLAY_AUDIT_LOGS()
         {
+            //Get the list of logs
             DataTable data = this.oSys.GET_AUDIT_LOGS();
 
+            //Display the data to the control
             this.gvLogs.DataSource = data;
             this.gvLogs.DataBind();
         }

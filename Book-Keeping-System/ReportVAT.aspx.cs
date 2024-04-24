@@ -34,36 +34,42 @@ namespace Book_Keeping_System
 
             if(fromDate <= toDate)
             {
-                if (string.Equals(rbReportType.SelectedValue, "Purchase"))
-                    oReportDocument.Load(Server.MapPath("~/repVATPurchases.rpt"));
-                else if (string.Equals(rbReportType.SelectedValue, "Utility"))
-                    oReportDocument.Load(Server.MapPath("~/repVATUtility.rpt"));
-                oReportDocument.SetParameterValue("@ACCOUNTCODE", ddCompany.SelectedValue.ToString());
-                oReportDocument.SetParameterValue("@FROMDATE", fromDate);
-                oReportDocument.SetParameterValue("@TODATE", toDate);
-                oReportDocument.SetDatabaseLogon("sa", "p@ssw0rd"); // Supply user credentials
+                if (string.Equals(this.rbReportType.SelectedValue, "Purchase"))
+                    this.oReportDocument.Load(Server.MapPath("~/repVATPurchases.rpt"));
+                else if (string.Equals(this.rbReportType.SelectedValue, "Utility"))
+                    this.oReportDocument.Load(Server.MapPath("~/repVATUtility.rpt"));
+                this.oReportDocument.SetParameterValue("@ACCOUNTCODE", this.ddCompany.SelectedValue.ToString());
+                this.oReportDocument.SetParameterValue("@FROMDATE", fromDate);
+                this.oReportDocument.SetParameterValue("@TODATE", toDate);
+                this.oReportDocument.SetDatabaseLogon("sa", "p@ssw0rd"); // Supply user credentials
 
 
-                CRV.ReportSource = oReportDocument;
+                this.CRV.ReportSource = this.oReportDocument;
                 this.lblNoReport.Visible = false;
+
+                this.txtFromDate.CssClass = "form-control";
+                this.txtToDate.CssClass = "form-control";
             }
             else
             {
                 this.Show_Error_Toast("Error - Date input is invalid.");
 
-                CRV.ReportSource = null;
+                this.txtFromDate.CssClass += " is-invalid";
+                this.txtToDate.CssClass += " is-invalid";
+
+                this.CRV.ReportSource = null;
                 this.lblNoReport.Visible = true;
             }
         }
 
         private void DISPLAY_LIST_COMPANIES()
         {
-            DataTable data = oMaster.GET_COMPANY_LISTS();
+            DataTable data = this.oMaster.GET_COMPANY_LISTS();
 
-            ddCompany.DataTextField = "Company_Name";
-            ddCompany.DataValueField = "CompanyCode";
-            ddCompany.DataSource = data;
-            ddCompany.DataBind();
+            this.ddCompany.DataTextField = "Company_Name";
+            this.ddCompany.DataValueField = "CompanyCode";
+            this.ddCompany.DataSource = data;
+            this.ddCompany.DataBind();
         }
 
         private void Show_Error_Toast(string msg)
@@ -76,7 +82,7 @@ namespace Book_Keeping_System
         #region EVENTS
         protected void lnkSelect_Click(object sender, EventArgs e)
         {
-            DISPLAY_REPORT();
+            this.DISPLAY_REPORT();
         }
         #endregion
     }

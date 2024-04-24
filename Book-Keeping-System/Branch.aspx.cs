@@ -14,7 +14,7 @@ namespace Book_Keeping_System
         MasterC oMaster = new MasterC();
         BKC oBK = new BKC();
         xSysC oSys = new xSysC();
-        decimal chicken_total, atsara_total;
+        decimal chicken_total, atsara_total; //Used for displaying total Sales
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -36,32 +36,31 @@ namespace Book_Keeping_System
 
         private void DISPLAY_BRANCH_LISTS()
         {
-            DataTable dt = oMaster.GET_BRANCH_LISTS();
+            DataTable data = this.oMaster.GET_BRANCH_LISTS();
 
-            
-            gvBranchList.DataSource = dt;
-            gvBranchList.DataBind();
+            this.gvBranchList.DataSource = data;
+            this.gvBranchList.DataBind();
         }
 
 
         private void DISPLAY_COMPANY_LISTS()
         {
-            DataTable dt = oMaster.GET_COMPANY_LISTS();
+            DataTable data = this.oMaster.GET_COMPANY_LISTS();
 
-            ddCompanyLists.DataSource = dt;
-            ddCompanyLists.DataTextField = dt.Columns["Company_Name"].ToString();
-            ddCompanyLists.DataValueField = dt.Columns["CompanyCode"].ToString();
-            ddCompanyLists.DataBind();
+            this.ddCompanyLists.DataSource = data;
+            this.ddCompanyLists.DataTextField = data.Columns["Company_Name"].ToString();
+            this.ddCompanyLists.DataValueField = data.Columns["CompanyCode"].ToString();
+            this.ddCompanyLists.DataBind();
         }
 
         private void DISPLAY_SUPERVISOR_LISTS()
         {
-            DataTable dt = oMaster.GET_SUPERVISOR_LISTS();
+            DataTable data = this.oMaster.GET_SUPERVISOR_LISTS();
 
-            ddSupervisorLists.DataSource = dt;
-            ddSupervisorLists.DataTextField = dt.Columns["Supervisor_Name"].ToString();
-            ddSupervisorLists.DataValueField = dt.Columns["SupervisorID"].ToString();
-            ddSupervisorLists.DataBind();
+            this.ddSupervisorLists.DataSource = data;
+            this.ddSupervisorLists.DataTextField = data.Columns["Supervisor_Name"].ToString();
+            this.ddSupervisorLists.DataValueField = data.Columns["SupervisorID"].ToString();
+            this.ddSupervisorLists.DataBind();
 
         }
 
@@ -89,22 +88,22 @@ namespace Book_Keeping_System
             for (int month = 1; month <= 12; month++)
             {
                 string monthName = DateTimeFormatInfo.CurrentInfo.GetMonthName(month);
-                ddSalesMonthFilter.Items.Add(new ListItem(monthName, month.ToString().PadLeft(2, '0')));
-                ddExpenseMonthFilter.Items.Add(new ListItem(monthName, month.ToString().PadLeft(2, '0')));
+                this.ddSalesMonthFilter.Items.Add(new ListItem(monthName, month.ToString().PadLeft(2, '0')));
+                this.ddExpenseMonthFilter.Items.Add(new ListItem(monthName, month.ToString().PadLeft(2, '0')));
             }
-            ddSalesMonthFilter.SelectedIndex = DateTime.Today.Month - 1;
-            ddExpenseMonthFilter.SelectedIndex = DateTime.Today.Month - 1;
+            this.ddSalesMonthFilter.SelectedIndex = DateTime.Today.Month - 1;
+            this.ddExpenseMonthFilter.SelectedIndex = DateTime.Today.Month - 1;
         }
 
         private void DISPLAY_YEAR_FILTER()
         {
             for (int year = 2000; year <= 2030; year++)
             {
-                ddSalesYearFilter.Items.Add(new ListItem(year.ToString()));
-                ddExpenseYearFilter.Items.Add(new ListItem(year.ToString()));
+                this.ddSalesYearFilter.Items.Add(new ListItem(year.ToString()));
+                this.ddExpenseYearFilter.Items.Add(new ListItem(year.ToString()));
             }
-            ddSalesYearFilter.SelectedValue = DateTime.Today.Year.ToString();
-            ddExpenseYearFilter.SelectedValue = DateTime.Today.Year.ToString();
+            this.ddSalesYearFilter.SelectedValue = DateTime.Today.Year.ToString();
+            this.ddExpenseYearFilter.SelectedValue = DateTime.Today.Year.ToString();
         }
 
         private void DISPLAY_BRANCH_DETAILS()
@@ -148,8 +147,8 @@ namespace Book_Keeping_System
                 "/" + ddExpenseYearFilter.SelectedValue + "#";
 
             //Display the output to the controls
-            gvBranchExpenses.DataSource = data;
-            gvBranchExpenses.DataBind();
+            this.gvBranchExpenses.DataSource = data;
+            this.gvBranchExpenses.DataBind();
         }
 
         private void DISPLAY_EXPENSE_DETAILS()
@@ -220,10 +219,10 @@ namespace Book_Keeping_System
 
             this.txtBranchCode.Text = string.Empty;
 
-            ddSalesMonthFilter.SelectedIndex = DateTime.Today.Month - 1;
-            ddExpenseMonthFilter.SelectedIndex = DateTime.Today.Month - 1;
-            ddSalesYearFilter.SelectedValue = DateTime.Today.Year.ToString();
-            ddExpenseYearFilter.SelectedValue = DateTime.Today.Year.ToString();
+            this.ddSalesMonthFilter.SelectedIndex = DateTime.Today.Month - 1;
+            this.ddExpenseMonthFilter.SelectedIndex = DateTime.Today.Month - 1;
+            this.ddSalesYearFilter.SelectedValue = DateTime.Today.Year.ToString();
+            this.ddExpenseYearFilter.SelectedValue = DateTime.Today.Year.ToString();
             //ViewState["V_BRANCHCODE"] = "";
 
         }
@@ -396,12 +395,12 @@ namespace Book_Keeping_System
             //int _branchID = Convert.ToInt32(this.gvBranchList.DataKeys[r.RowIndex].Values[0].ToString());
             //ViewState["V_SUPPLIERID"] = _supplierID;
 
-            string _branchCode = this.gvBranchList.DataKeys[r.RowIndex].Values[1].ToString();
-            this.txtBranchCode.Text = _branchCode;
+            string branch_code = this.gvBranchList.DataKeys[r.RowIndex].Values[1].ToString();
+            this.txtBranchCode.Text = branch_code;
             //ViewState["V_BRANCHCODE"] = _branchCode ;
 
-            panelBranchLists.Visible = false;
-            pBranchInputForm.Visible = true;
+            this.pBranchLists.Visible = false;
+            this.pBranchInputForm.Visible = true;
 
             this.DISPLAY_BRANCH_DETAILS();
             this.DISPLAY_BRANCH_SALES();
@@ -445,18 +444,18 @@ namespace Book_Keeping_System
 
         protected void lnkBack_Click(object sender, EventArgs e)
         {
-            panelBranchLists.Visible = true;
-            pBranchInputForm.Visible = false;
+            this.pBranchLists.Visible = true;
+            this.pBranchInputForm.Visible = false;
         }
 
         protected void lnkNew_Click(object sender, EventArgs e)
         {
-            panelBranchLists.Visible = false;
-            pBranchInputForm.Visible = true;
+            this.pBranchLists.Visible = false;
+            this.pBranchInputForm.Visible = true;
 
-            CLEAR_BASIC();
+            this.CLEAR_BASIC();
 
-            txtBranchName.Focus();
+            this.txtBranchName.Focus();
         }
 
        
@@ -498,26 +497,26 @@ namespace Book_Keeping_System
         //    }
         //}
 
-        protected void lnkUtilitySelect_Click(object sender, EventArgs e)
-        {
-            var selEdit = (Control)sender;
-            GridViewRow r = (GridViewRow)selEdit.NamingContainer;
-            int _supplierID = Convert.ToInt32(r.Cells[0].Text);
+        //protected void lnkUtilitySelect_Click(object sender, EventArgs e)
+        //{
+        //    var selEdit = (Control)sender;
+        //    GridViewRow r = (GridViewRow)selEdit.NamingContainer;
+        //    int _supplierID = Convert.ToInt32(r.Cells[0].Text);
 
-            DataView dv = oMaster.GET_SUPPLIER_LISTS().DefaultView;
-            dv.RowFilter = "SupplierID='" + _supplierID + "'";
+        //    DataView dv = oMaster.GET_SUPPLIER_LISTS().DefaultView;
+        //    dv.RowFilter = "SupplierID='" + _supplierID + "'";
 
-            if (dv.Count > 0)
-            {
-                foreach (DataRowView dvr in dv)
-                {
-                    //txtProvider.Text = dvr["Supplier_Name"].ToString();
-                    //txtTIN.Text = dvr["TIN"].ToString();
+        //    if (dv.Count > 0)
+        //    {
+        //        foreach (DataRowView dvr in dv)
+        //        {
+        //            //txtProvider.Text = dvr["Supplier_Name"].ToString();
+        //            //txtTIN.Text = dvr["TIN"].ToString();
 
-                }
+        //        }
                 
-            }
-        }
+        //    }
+        //}
 
         //protected void gvUtilitySupplierList_RowCreated(object sender, GridViewRowEventArgs e)
         //{
