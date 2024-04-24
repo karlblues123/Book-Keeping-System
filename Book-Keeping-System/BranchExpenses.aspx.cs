@@ -89,8 +89,6 @@ namespace Book_Keeping_System
             this.txtVAT.Text = data["VATAmount"].ToString();
             this.txtTotal.Text = data["TotalAmount"].ToString();
             this.txtTendered.Text = data["AmountTendered"].ToString();
-            this.txtUtilityFrom.Text = Convert.ToDateTime(data["FromDate"].ToString()).ToString("yyyy-MM-dd");
-            this.txtUtilityTo.Text = Convert.ToDateTime(data["ToDate"].ToString()).ToString("yyyy-MM-dd");
             this.txtAccountNumber.Text = data["AccountNumber"].ToString();
             this.hiddenSelectedBranch.Value = data["AccountCode"].ToString();
             this.hiddenSelectedSupplier.Value = data["SupplierID"].ToString();
@@ -103,6 +101,8 @@ namespace Book_Keeping_System
 
             if (ddType.SelectedIndex > 0)
             {
+                this.txtUtilityFrom.Text = Convert.ToDateTime(data["FromDate"].ToString()).ToString("yyyy-MM-dd");
+                this.txtUtilityTo.Text = Convert.ToDateTime(data["ToDate"].ToString()).ToString("yyyy-MM-dd");
                 this.txtUtilityFrom.Enabled = true;
                 this.txtUtilityTo.Enabled = true;
                 this.txtAccountNumber.Enabled = true;
@@ -147,6 +147,7 @@ namespace Book_Keeping_System
             this.txtAccountNumber.Enabled = false;
             this.cbIsCheque.Checked = false;
             this.txtCheque.Enabled = this.cbIsCheque.Checked;
+            this.txtCheque.Text = string.Empty;
 
             //Set CSS classes to default
             this.txtDate.CssClass = "form-control";

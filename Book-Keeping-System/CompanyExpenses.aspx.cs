@@ -92,6 +92,7 @@ namespace Book_Keeping_System
             this.hiddenSelectedExpense.Value = string.Empty;
             this.cbIsCheque.Checked = false;
             this.txtCheque.Enabled = false;
+            this.txtCheque.Text = string.Empty;
             this.txtSelectedCompany.Text = "No Company Selected";
             this.txtRemarks.Text = string.Empty;
             this.txtAccountNumber.Text = string.Empty;
@@ -99,8 +100,7 @@ namespace Book_Keeping_System
             this.txtUtilityFrom.Enabled = false;
             this.txtUtilityTo.Enabled = false;
             this.txtAccountNumber.Enabled = false;
-            this.cbIsCheque.Checked = false;
-            this.txtCheque.Enabled = this.cbIsCheque.Checked;
+            
 
             //Set CSS classes to default
             this.txtDate.CssClass = "form-control";
@@ -132,8 +132,6 @@ namespace Book_Keeping_System
             this.txtVAT.Text = data["VATAmount"].ToString();
             this.txtTotal.Text = data["TotalAmount"].ToString();
             this.txtTendered.Text = data["AmountTendered"].ToString();
-            this.txtUtilityFrom.Text = Convert.ToDateTime(data["FromDate"].ToString()).ToString("yyyy-MM-dd");
-            this.txtUtilityTo.Text = Convert.ToDateTime(data["ToDate"].ToString()).ToString("yyyy-MM-dd");
             this.txtAccountNumber.Text = data["AccountNumber"].ToString();
             this.hiddenSelectedCompany.Value = data["AccountCode"].ToString();
             this.hiddenSelectedSupplier.Value = data["SupplierID"].ToString();
@@ -146,6 +144,8 @@ namespace Book_Keeping_System
 
             if (ddType.SelectedIndex > 0)
             {
+                this.txtUtilityFrom.Text = Convert.ToDateTime(data["FromDate"].ToString()).ToString("yyyy-MM-dd");
+                this.txtUtilityTo.Text = Convert.ToDateTime(data["ToDate"].ToString()).ToString("yyyy-MM-dd");
                 this.txtUtilityFrom.Enabled = true;
                 this.txtUtilityTo.Enabled = true;
                 this.txtAccountNumber.Enabled = true;
