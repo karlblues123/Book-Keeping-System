@@ -73,6 +73,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AuditLogs.aspx" />
+    <Content Include="BKSUsers.aspx" />
     <Content Include="Branch.aspx" />
     <Content Include="BranchExpenses.aspx" />
     <Content Include="BranchSales.aspx" />
@@ -163,6 +165,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="ReportSales2.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.esm.js.map" />
@@ -273,6 +276,7 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="SignUp.aspx" />
     <Content Include="Supplier.aspx" />
     <Content Include="ReportVAT.aspx" />
     <Content Include="Web.config">
@@ -284,6 +288,20 @@
     <Compile Include="App_Code\BKC.cs" />
     <Compile Include="App_Code\MasterC.cs" />
     <Compile Include="App_Code\xSysC.cs" />
+    <Compile Include="AuditLogs.aspx.cs">
+      <DependentUpon>AuditLogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AuditLogs.aspx.designer.cs">
+      <DependentUpon>AuditLogs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BKSUsers.aspx.cs">
+      <DependentUpon>BKSUsers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BKSUsers.aspx.designer.cs">
+      <DependentUpon>BKSUsers.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Branch.aspx.cs">
       <DependentUpon>Branch.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -354,6 +372,20 @@
     </Compile>
     <Compile Include="RecordDeliveries.aspx.designer.cs">
       <DependentUpon>RecordDeliveries.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportSales2.aspx.cs">
+      <DependentUpon>ReportSales2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportSales2.aspx.designer.cs">
+      <DependentUpon>ReportSales2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SignUp.aspx.cs">
+      <DependentUpon>SignUp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SignUp.aspx.designer.cs">
+      <DependentUpon>SignUp.aspx</DependentUpon>
     </Compile>
     <Compile Include="Supplier.aspx.cs">
       <DependentUpon>Supplier.aspx</DependentUpon>
