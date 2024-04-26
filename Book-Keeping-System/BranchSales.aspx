@@ -76,7 +76,7 @@
         }
     </script>
     <div class="container-fluid">
-        <h6 class="m-2">Branch Sales</h6>
+        <div class="m-2 h6">Branch Sales</div>
         <div class="row">
             <div class="col-4">
                 <%-- Branch Card --%>

@@ -62,7 +62,7 @@
             
     </script>
     <div class="container-fluid">
-        <h6 class="m-2">Company Expenses</h6>
+        <div class="m-2 h6">Company Expenses</div>
         <asp:UpdatePanel runat="server" ID="upForm" ChildrenAsTriggers="false" UpdateMode="Conditional">
             <ContentTemplate>
                 <div class="row">

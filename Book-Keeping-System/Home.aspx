@@ -32,7 +32,7 @@
                 <asp:Panel runat="server" ID="pExpiringContracts">
                     <div class="card my-2" style="max-height:40vh;">
                         <div class="card-header bg-danger">
-                            <h6>Expiring Contracts</h6>
+                            <span class="h6">Expiring Contracts</span>
                         </div>
                         <div class="card-body overflow-y-auto">
                             <asp:GridView runat="server" ID="gvExpiringContractBranch" CssClass="table table-responsive" AutoGenerateColumns="false" 

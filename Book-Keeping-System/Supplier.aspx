@@ -46,7 +46,7 @@
 
     </script>
     <div class="container-fluid">
-        <h6 class="m-2">Supplier Data</h6>
+        <div class="m-2 h6">Supplier Data</div>
         <div class="card" style="max-height:85vh;">
             <div class="card-header">
                 <div class="row d-flex align-items-center">

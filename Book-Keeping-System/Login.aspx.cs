@@ -54,6 +54,7 @@ namespace Book_Keeping_System
             {
                 Session["Username"] = this.txtUsername.Text;
                 Session["AccessLevel"] = this.VALIDATE_USER();
+                Session.Timeout = 360;
                 Response.Redirect("Home.aspx");
 
             }

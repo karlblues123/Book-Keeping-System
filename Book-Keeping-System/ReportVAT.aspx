@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid">
-        <h6 class="m-2">VAT Report</h6>
+        <div class="m-2 h6">VAT Report</div>
         <div class="row">
             <div class="col-4">
                 <div class="card">

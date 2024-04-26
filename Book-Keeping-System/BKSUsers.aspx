@@ -3,8 +3,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid">
-        <h6 class="m-2">System Users</h6>
-         <div class="row">
+        <div class="m-2 h6">System Users</div>
+        <div class="row">
             <div class="col">
                 <div class="card">
                     <div class="card-header">
