@@ -31,10 +31,10 @@
                         <%-- Log List --%>
                         <asp:GridView runat="server" ID="gvLogs" CssClass="table table-responsive" AutoGenerateColumns="false">
                             <Columns>
-                                <asp:BoundField DataField="Module" HeaderText="Module" />
-                                <asp:BoundField DataField="UserCode" HeaderText="Username" />
-                                <asp:BoundField DataField="Actions" HeaderText="Action" />
-                                <asp:BoundField DataField="DU" HeaderText="Date and Time" />
+                                <asp:BoundField DataField="Module" HeaderText="Module" ItemStyle-Width="25%" />
+                                <asp:BoundField DataField="UserCode" HeaderText="Username" ItemStyle-Width="25%" />
+                                <asp:BoundField DataField="Actions" HeaderText="Action" ItemStyle-Width="25%" />
+                                <asp:BoundField DataField="DU" HeaderText="Date and Time" ItemStyle-Width="25%" />
                             </Columns>
                         </asp:GridView>
                     </div>

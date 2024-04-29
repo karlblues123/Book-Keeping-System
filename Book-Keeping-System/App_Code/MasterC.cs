@@ -177,6 +177,28 @@ namespace Book_Keeping_System
                 }
             }
         }
+
+        internal void UPSERT_COMPANY(string company_code, string company_name, string company_tin, string company_address)
+        {
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("[Master].[spUPSERT_COMPANY]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@COMPANYCODE", company_code);
+                    cmd.Parameters.AddWithValue("@COMPANYNAME", company_name);
+                    cmd.Parameters.AddWithValue("@COMPANYTIN", company_tin);
+                    cmd.Parameters.AddWithValue("@COMPANYADDRESS", company_address);
+
+
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
         #endregion
     }
 }

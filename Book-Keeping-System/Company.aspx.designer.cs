@@ -31,6 +31,15 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.GridView gvCompanyList;
         
         /// <summary>
+        /// lnkNew control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkNew;
+        
+        /// <summary>
         /// pDetails control.
         /// </summary>
         /// <remarks>
@@ -76,6 +85,33 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.WebControls.TextBox txtCompanyAddress;
         
         /// <summary>
+        /// txtCompanyCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCompanyCode;
+        
+        /// <summary>
+        /// btnSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnSave;
+        
+        /// <summary>
+        /// btnClear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnClear;
+        
+        /// <summary>
         /// upExpense control.
         /// </summary>
         /// <remarks>
@@ -101,15 +137,6 @@ namespace Book_Keeping_System {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddYearFilter;
-        
-        /// <summary>
-        /// hiddenSelectedCompany control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hiddenSelectedCompany;
         
         /// <summary>
         /// gvCompanyExpenses control.

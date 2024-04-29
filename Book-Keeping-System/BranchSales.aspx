@@ -95,8 +95,8 @@
                         <asp:GridView runat="server" ID="gvBranchList" AutoGenerateColumns="false" CssClass="table table-responsive" 
                             DataKeyNames="BranchCode">
                             <Columns>
-                                <asp:BoundField DataField="Branch_Name" HeaderText="Branch" />
-                                <asp:TemplateField>
+                                <asp:BoundField DataField="Branch_Name" HeaderText="Branch" ItemStyle-Width="95%" />
+                                <asp:TemplateField ItemStyle-Width="5%">
                                     <ItemTemplate>
                                         <asp:LinkButton runat="server" ID="lnkEdit" CssClass="btn btn-primary" 
                                             OnClick="lnkEdit_Click" TabIndex="-1">

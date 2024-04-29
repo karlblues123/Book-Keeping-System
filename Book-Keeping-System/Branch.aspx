@@ -27,11 +27,6 @@
             __doPostBack('<%=upExpense.ClientID%>', '');
         }
 
-        function setContractRemarks(remarks) {
-            $('#contract-remark').val(remarks);
-            bootstrap.Modal.getOrCreateInstance($('#contract-modal')).toggle();
-        }
-
         function closeSupplierModal() {
             bootstrap.Modal.getOrCreateInstance($('#supplier-modal')).toggle();
         }
@@ -103,11 +98,11 @@
                         <Columns>
                             <%-- <asp:BoundField DataField="BranchAddress" HeaderText="Address" />
                             <asp:BoundField DataField="BranchStatus" HeaderText="Status" />--%>
-                            <asp:BoundField DataField="Branch_Name" HeaderText="Branch" ItemStyle-Width="30%" />
+                            <asp:BoundField DataField="Branch_Name" HeaderText="Branch" ItemStyle-Width="35%" />
                             <%--<asp:BoundField DataField="Supervisor_Name" HeaderText="Supervisor" />--%>
                             <asp:BoundField DataField="Company_Name"  HeaderText="Company" ItemStyle-Width="30%"/>
-                            <asp:BoundField DataField="IsActive" HeaderText="Active" ItemStyle-Width="20%" />
-                            <asp:TemplateField ItemStyle-Width="20%">
+                            <asp:BoundField DataField="IsActive" HeaderText="Active" ItemStyle-Width="30%" />
+                            <asp:TemplateField ItemStyle-Width="5%">
                                 <ItemTemplate>
                                     <asp:LinkButton runat="server" ID="lnkEdit" CssClass="btn btn-primary" OnClick="lnkEdit_Click">
                                         <span class="fa fa-search"></span>
@@ -526,6 +521,7 @@
                     <div class="tab-pane fade" id="tab-rental" role="tabpanel">
                         <asp:UpdatePanel runat="server" ID="upRental" ChildrenAsTriggers="false" UpdateMode="Conditional">
                             <ContentTemplate>
+                                <asp:HiddenField runat="server" ID="hiddenSelectedContract" />
                                 <asp:Panel runat="server" ID="pContractList" Visible="true">
                                     <div class="row my-2">
                                         <div class="col">
@@ -534,19 +530,19 @@
                                                 <asp:GridView runat="server" ID="gvRentalContract" AutoGenerateColumns="false" CssClass="table table-responsive" 
                                                     DataKeyNames="ID" EmptyDataText="No contracts found." EmptyDataRowStyle-CssClass="text-center">
                                                     <Columns>
-                                                        <asp:BoundField DataField="Supplier_Name" HeaderText="Lessor" />
-                                                        <asp:BoundField DataField="TIN" HeaderText="TIN" />
-                                                        <asp:TemplateField HeaderText="Coverage">
+                                                        <asp:BoundField DataField="Supplier_Name" HeaderText="Lessor" ItemStyle-Width="30%" />
+                                                        <asp:BoundField DataField="TIN" HeaderText="TIN" ItemStyle-Width="30%" />
+                                                        <asp:TemplateField HeaderText="Coverage" ItemStyle-Width="35%">
                                                             <ItemTemplate>
                                                                 <%#Eval("FromDate","{0:M/d/yyyy}")%> - <%#Eval("ToDate","{0:M/d/yyyy}")%>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField>
+                                                        <asp:TemplateField ItemStyle-Width="5%">
                                                             <ItemTemplate>
-                                                                <button type="button" class="btn btn-primary" 
-                                                                    onclick="setContractRemarks(<%#Eval("Remarks").ToString()%>)">
-                                                                    <span class="fa fa-search"></span>
-                                                                </button>
+                                                                <asp:LinkButton runat="server" ID="btnEditContract" CssClass="btn btn-warning" 
+                                                                    OnClick="btnEditContract_Click">
+                                                                    <span class="fa fa-edit"></span>
+                                                                </asp:LinkButton>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                     </Columns>
@@ -776,9 +772,9 @@
                         <asp:GridView runat="server" ID="gvSupplierList" CssClass="table table-hover small" AutoGenerateColumns="false" 
                             DataKeyNames="SupplierID">
                             <Columns>
-                                <asp:BoundField DataField="Supplier_Name" HeaderText="Name" ItemStyle-Width="40%"/>
-                                <asp:BoundField DataField="TIN" HeaderText="TIN" ItemStyle-Width="40%" />
-                                <asp:TemplateField ItemStyle-Width="20%">
+                                <asp:BoundField DataField="Supplier_Name" HeaderText="Name" ItemStyle-Width="50%"/>
+                                <asp:BoundField DataField="TIN" HeaderText="TIN" ItemStyle-Width="45%" />
+                                <asp:TemplateField ItemStyle-Width="5%">
                                     <ItemTemplate>
                                         <asp:LinkButton runat="server" ID="lnkSupplierSelect" 
                                             CssClass="btn btn-sm btn-primary" OnClick="lnkSupplierSelect_Click">
@@ -791,20 +787,6 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-dark" data-bs-dismiss="modal" aria-label="Close" type="button">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <%-- Contract Modal --%>
-        <div class="modal fade" tabindex="-1" id="contract-modal">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h6>Remarks</h6>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p id="contract-remark"></p>
                     </div>
                 </div>
             </div>

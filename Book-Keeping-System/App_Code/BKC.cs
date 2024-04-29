@@ -237,30 +237,30 @@ namespace Book_Keeping_System
 
         #region "INSERT/UPDATE COMMAND"
 
-        public void INSERT_DEFAULT_BRANCH_UTILITIES(string _branchCode, string _providerName, 
-                                                    string _accountNumber, string _TIN, string _remarks)
-        {
-            using (SqlConnection cn = new SqlConnection(CS))
-            {
-                using (SqlCommand cmd = new SqlCommand("[BK].[spINSERT_BRANCH_DEFAULT_UTILITIES]", cn))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
+        //public void INSERT_DEFAULT_BRANCH_UTILITIES(string _branchCode, string _providerName, 
+        //                                            string _accountNumber, string _TIN, string _remarks)
+        //{
+        //    using (SqlConnection cn = new SqlConnection(CS))
+        //    {
+        //        using (SqlCommand cmd = new SqlCommand("[BK].[spINSERT_BRANCH_DEFAULT_UTILITIES]", cn))
+        //        {
+        //            cmd.CommandType = CommandType.StoredProcedure;
 
 
-                    cmd.Parameters.AddWithValue("@BRANCHCODE", _branchCode);
-                    cmd.Parameters.AddWithValue("@PROVIDERNAME", _providerName);
-                    cmd.Parameters.AddWithValue("@ACCOUNTNUMBER", _accountNumber);
-                    cmd.Parameters.AddWithValue("@TIN", _TIN);
-                    cmd.Parameters.AddWithValue("@REMARKS", _remarks);
+        //            cmd.Parameters.AddWithValue("@BRANCHCODE", _branchCode);
+        //            cmd.Parameters.AddWithValue("@PROVIDERNAME", _providerName);
+        //            cmd.Parameters.AddWithValue("@ACCOUNTNUMBER", _accountNumber);
+        //            cmd.Parameters.AddWithValue("@TIN", _TIN);
+        //            cmd.Parameters.AddWithValue("@REMARKS", _remarks);
                     
 
-                    cn.Open();
+        //            cn.Open();
 
-                    cmd.ExecuteNonQuery();
+        //            cmd.ExecuteNonQuery();
 
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
 
 
         //INSERT UTILITY EXPENSES TRANSACTION
@@ -505,6 +505,31 @@ namespace Book_Keeping_System
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
+                    cmd.Parameters.AddWithValue("@LESSOR", lessor);
+                    cmd.Parameters.AddWithValue("@LESSEE", lessee);
+                    cmd.Parameters.AddWithValue("@FROMDATE", from_date);
+                    cmd.Parameters.AddWithValue("@TODATE", to_date);
+                    cmd.Parameters.AddWithValue("@BRANCHCODE", branch_code);
+                    cmd.Parameters.AddWithValue("@REMARKS", remarks);
+
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+
+        internal void UPDATE_BRANCH_RENTAL_CONTRACT(int contract_id, int lessor, string lessee, DateTime from_date, DateTime to_date,
+            string branch_code, string remarks)
+        {
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("[BK].[spUPDATE_BRANCH_RENTAL_CONTRACT]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@ID", contract_id);
                     cmd.Parameters.AddWithValue("@LESSOR", lessor);
                     cmd.Parameters.AddWithValue("@LESSEE", lessee);
                     cmd.Parameters.AddWithValue("@FROMDATE", from_date);

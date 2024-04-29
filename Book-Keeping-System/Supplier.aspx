@@ -64,10 +64,10 @@
                 <asp:GridView runat="server" ID="gvSupplierList" CssClass="table table-hover" AutoGenerateColumns="false" 
                     ShowHeader="true" GridLines="Horizontal" DataKeyNames="SupplierID">
                     <Columns>
-                        <asp:BoundField DataField="Supplier_Name" HeaderText="Name" ItemStyle-Width="20%"/>
+                        <asp:BoundField DataField="Supplier_Name" HeaderText="Name" ItemStyle-Width="25%"/>
                         <asp:BoundField DataField="Supplier_Address" HeaderText="Address" ItemStyle-Width="50%" />
                         <asp:BoundField DataField="TIN" HeaderText="TIN" ItemStyle-Width="20%" />
-                        <asp:TemplateField ItemStyle-Width="10%">
+                        <asp:TemplateField ItemStyle-Width="5%">
                             <ItemTemplate>
                                 <button type="button" class="btn btn-primary" onclick="setSelectedSupplier(<%#Eval("SupplierID").ToString()%>);return false;">
                                     <span class="fa fa-search"></span>

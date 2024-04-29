@@ -206,6 +206,30 @@ namespace Book_Keeping_System
             }
         }
 
+        private void DISPLAY_BRANCH_RENTAL_CONTRACT_DETAILS()
+        {
+            DataView data = this.oBK.GET_RENTAL_CONTRACTS(this.txtBranchCode.Text).DefaultView;
+            data.RowFilter = "ID = " + this.hiddenSelectedContract.Value;
+
+            this.hiddenSelectedLessor.Value = data[0]["Lessor"].ToString();
+
+            DataView lessor = this.oMaster.GET_SUPPLIER_LISTS().DefaultView;
+            lessor.RowFilter = "SupplierID = " + this.hiddenSelectedLessor.Value;
+
+            this.txtLessor.Text = lessor[0]["Supplier_Name"].ToString();
+            this.txtLessorTIN.Text = lessor[0]["TIN"].ToString();
+
+            //Display the data
+            this.txtLessee.Text = data[0]["Lessee"].ToString();
+            this.txtContractRemarks.Text = data[0]["Remarks"].ToString();
+            this.txtFromContract.Text = DateTime.Parse(data[0]["FromDate"].ToString()).ToString("yyyy-MM-dd");
+            this.txtToContract.Text = DateTime.Parse(data[0]["ToDate"].ToString()).ToString("yyyy-MM-dd");
+
+            this.pContractList.Visible = false;
+            this.pContractForm.Visible = true;
+            this.upRental.Update();
+        }
+
         private void CLEAR_BASIC()
         {
             this.txtBranchName.Text = string.Empty;
@@ -231,10 +255,12 @@ namespace Book_Keeping_System
         {
             this.txtLessor.Text = string.Empty;
             this.txtLessorTIN.Text = string.Empty;
+            this.txtLessee.Text = string.Empty;
             this.txtFromContract.Text = string.Empty;
             this.txtToContract.Text = string.Empty;
             this.txtContractRemarks.Text = string.Empty;
             this.hiddenSelectedLessor.Value = string.Empty;
+            this.hiddenSelectedContract.Value = string.Empty;
 
             this.txtLessor.CssClass = "form-control";
             this.txtLessorTIN.CssClass = "form-control";
@@ -332,7 +358,7 @@ namespace Book_Keeping_System
             return is_valid;
         }
 
-        private void INSERT_RENTAL_CONTRACT()
+        private void UPSERT_RENTAL_CONTRACT()
         {
             //Get the data for Insert
             int lessor = int.Parse(this.hiddenSelectedLessor.Value);
@@ -342,13 +368,36 @@ namespace Book_Keeping_System
             string branch_code = this.txtBranchCode.Text;
             string remarks = this.txtContractRemarks.Text;
 
-            //Insert the new Rental Contract
-            this.oBK.INSERT_BRANCH_RENTAL_CONTRACT(lessor, lessee, from_date, to_date, branch_code, remarks);
+            if (string.IsNullOrWhiteSpace(this.hiddenSelectedContract.Value))
+            {
+                //Insert the new Rental Contract
+                this.oBK.INSERT_BRANCH_RENTAL_CONTRACT(lessor, lessee, from_date, to_date, branch_code, remarks);
 
-            //Insert an Audit Log
-            this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.BRANCHDATA.ToString(), "INSERT", Session["Username"].ToString());
+                //Insert an Audit Log
+                this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.BRANCHDATA.ToString(), "INSERT", Session["Username"].ToString());
 
-            this.Show_Message_Toast("Successfully added a new Contract for " + this.txtBranchName.Text + " branch with " + this.txtLessor.Text);
+                //Show a Success Toast
+                this.Show_Message_Toast("Successfully added a new Contract for " + this.txtBranchName.Text + " branch with " + this.txtLessor.Text);
+            }
+            else
+            {
+                int contract_id = int.Parse(this.hiddenSelectedContract.Value);
+                
+                //Update the Rental Contract
+                this.oBK.UPDATE_BRANCH_RENTAL_CONTRACT(contract_id,lessor,lessee,from_date,to_date,branch_code,remarks);
+
+                //Insert an Audit Log
+                this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.BRANCHDATA.ToString(), "UPDATE", Session["Username"].ToString());
+
+                //Show a Success Toast
+                this.Show_Message_Toast("Successfully updated Contract for " + this.txtBranchName.Text + " branch with " + this.txtLessor.Text);
+            }
+
+            this.CLEAR_CONTRACT_FORM();
+            this.DISPLAY_BRANCH_RENTAL_CONTRACTS();
+            this.pContractForm.Visible = false;
+            this.pContractList.Visible = true;
+            this.upRental.Update();
         }
 
         private void UPSERT_BRANCH()
@@ -594,14 +643,14 @@ namespace Book_Keeping_System
         {
             var selEdit = (Control)sender;
             GridViewRow r = (GridViewRow)selEdit.NamingContainer;
-            int _supplierID = int.Parse(this.gvSupplierList.DataKeys[r.RowIndex].Value.ToString());
+            int supplier_id = int.Parse(this.gvSupplierList.DataKeys[r.RowIndex].Value.ToString());
 
             DataView dv = oMaster.GET_SUPPLIER_LISTS().DefaultView;
-            dv.RowFilter = "SupplierID='" + _supplierID + "'";
+            dv.RowFilter = "SupplierID='" + supplier_id + "'";
 
             DataRowView row = dv[0];
 
-            this.hiddenSelectedLessor.Value = _supplierID.ToString();
+            this.hiddenSelectedLessor.Value = supplier_id.ToString();
             this.txtLessor.Text = row["Supplier_Name"].ToString();
             this.txtLessorTIN.Text = row["TIN"].ToString();
 
@@ -612,7 +661,7 @@ namespace Book_Keeping_System
         protected void btnSaveNewContract_Click(object sender, EventArgs e)
         {
             if (VALIDATE_CONTRACT_FORM())
-                this.INSERT_RENTAL_CONTRACT();
+                this.UPSERT_RENTAL_CONTRACT();
             else
                 this.Show_Error_Toast("Error - Invalid Input. Please check the highlighted fields.");
             
@@ -632,6 +681,16 @@ namespace Book_Keeping_System
         {
             Session["EditExpense"] = this.hiddenSelectedExpense.Value;
             Response.Redirect("BranchExpenses.aspx");
+        }
+
+        protected void btnEditContract_Click(object sender, EventArgs e)
+        {
+            var selEdit = (Control)sender;
+            GridViewRow r = (GridViewRow)selEdit.NamingContainer;
+            int contract_id = int.Parse(this.gvRentalContract.DataKeys[r.RowIndex].Value.ToString());
+            this.hiddenSelectedContract.Value = contract_id.ToString();
+
+            this.DISPLAY_BRANCH_RENTAL_CONTRACT_DETAILS();
         }
 
         protected void gvBranchSales_RowDataBound(object sender, GridViewRowEventArgs e)

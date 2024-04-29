@@ -22,7 +22,7 @@
                             <Columns>
                                 <asp:BoundField DataField="Username" HeaderText="Username" ReadOnly="true" ItemStyle-Width="40%" />
                                 <asp:BoundField DataField="TypeName" HeaderText="Type" ReadOnly="true" ItemStyle-Width="20%" />
-                                <asp:TemplateField HeaderText="Active" ItemStyle-Width="20%">
+                                <asp:TemplateField HeaderText="Active" ItemStyle-Width="30%">
                                     <ItemTemplate>
                                         <%#Eval("IsActive").ToString()%>
                                     </ItemTemplate>
@@ -30,7 +30,7 @@
                                         <asp:CheckBox runat="server" ID="cbActive" Checked='<%#Eval("IsActive")%>' />
                                     </EditItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField ItemStyle-Width="20%">
+                                <asp:TemplateField ItemStyle-Width="10%">
                                     <ItemTemplate>
                                         <asp:LinkButton runat="server" ID="btnEdit" CommandName="Edit" CssClass="btn btn-primary">
                                             <span class="fa fa-edit"></span>

@@ -211,6 +211,15 @@ namespace Book_Keeping_System {
         protected global::System.Web.UI.UpdatePanel upRental;
         
         /// <summary>
+        /// hiddenSelectedContract control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hiddenSelectedContract;
+        
+        /// <summary>
         /// pContractList control.
         /// </summary>
         /// <remarks>

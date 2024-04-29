@@ -366,8 +366,8 @@
                                     <Columns>
                                         <%--<asp:BoundField DataField="BranchID" />
                                         <asp:BoundField DataField="BranchCode" />--%>
-                                        <asp:BoundField DataField="Branch_Name" HeaderText="Branch" />
-                                        <asp:TemplateField>
+                                        <asp:BoundField DataField="Branch_Name" HeaderText="Branch" ItemStyle-Width="95%" />
+                                        <asp:TemplateField ItemStyle-Width="5%">
                                             <ItemTemplate>
                                                 <asp:LinkButton runat="server" ID="lnkEdit" CssClass="btn btn-primary"
                                                     OnClick="lnkEdit_Click"><span class="fa fa-edit"></span></asp:LinkButton>
@@ -1049,9 +1049,9 @@
                         <asp:GridView runat="server" ID="gvSupplierList" CssClass="table" AutoGenerateColumns="false" 
                             ShowHeader="true" GridLines="Horizontal" DataKeyNames="SupplierID">
                             <Columns>
-                                <asp:BoundField DataField="Supplier_Name" HeaderText="Name" ItemStyle-Width="40%"/>
-                                <asp:BoundField DataField="TIN" HeaderText="TIN" ItemStyle-Width="40%" />
-                                <asp:TemplateField ItemStyle-Width="20%">
+                                <asp:BoundField DataField="Supplier_Name" HeaderText="Name" ItemStyle-Width="50%"/>
+                                <asp:BoundField DataField="TIN" HeaderText="TIN" ItemStyle-Width="45%" />
+                                <asp:TemplateField ItemStyle-Width="5%">
                                     <ItemTemplate>
                                         <asp:LinkButton runat="server" ID="lnkSupplierSelect" 
                                             CssClass="btn btn-sm btn-primary" OnClick="lnkSupplierSelect_Click">
@@ -1139,7 +1139,7 @@
                                         <asp:BoundField DataField="TypeName" HeaderText="Type" ItemStyle-Width="20%" />
                                         <asp:BoundField DataField="TotalAmount" HeaderText="Total" DataFormatString="{0:N2}" ItemStyle-Width="20%" />
                                         <asp:BoundField DataField="Date" HeaderText="Date" DataFormatString="{0:M/d/yyyy}" ItemStyle-Width="15%" />
-                                        <asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="5%">
                                             <ItemTemplate>
                                                 <asp:LinkButton runat="server" ID="btnSelectExpense" CssClass="btn btn-primary" OnClick="btnSelectExpense_Click">
                                                     <span class="fa fa-edit"></span>

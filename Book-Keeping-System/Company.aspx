@@ -18,8 +18,9 @@
                 <%-- GridView List --%>
                 <asp:GridView runat="server" ID="gvCompanyList" AutoGenerateColumns="false" CssClass="table" DataKeyNames="CompanyCode">
                     <Columns>
-                        <asp:BoundField DataField="Company_Name" HeaderText="Name" />
-                        <asp:TemplateField>
+                        <asp:BoundField DataField="Company_Name" HeaderText="Name" ItemStyle-Width="50%" />
+                        <asp:BoundField DataField="TIN" HeaderText="TIN" ItemStyle-Width="45%" />
+                        <asp:TemplateField ItemStyle-Width="5%">
                             <ItemTemplate>
                                 <asp:LinkButton runat="server" ID="lnkView" CssClass="btn btn-primary" OnClick="lnkView_Click">
                                     <span class="fa fa-search"></span>
@@ -28,6 +29,8 @@
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
+                <asp:LinkButton runat="server" ID="lnkNew" CssClass="btn btn-success position-fixed end-0 bottom-0 mb-5 me-5" 
+                    OnClick="lnkNew_Click">New Company <span class="fa fa-plus-circle"></span></asp:LinkButton>
             </div> 
         </asp:Panel>
         <asp:Panel runat="server" ID="pDetails" Visible="false" style="max-height:85vh;">
@@ -60,25 +63,45 @@
                     <%-- Basic Pane--%>
                     <div class="tab-pane fade show active" id="tab-basic">
                         <div class="row mt-2">
-                            <div class="col-6">
+                            <div class="col-8">
                                 <div class="form-floating">
-                                    <asp:TextBox runat="server" ID="txtCompanyName" CssClass="form-control"></asp:TextBox>
+                                    <%-- Company Name --%>
+                                    <asp:TextBox runat="server" ID="txtCompanyName" CssClass="form-control" AutoCompleteType="Disabled"></asp:TextBox>
                                     <label for="<%=txtCompanyName.ClientID%>">Name</label>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-floating">
-                                    <asp:TextBox runat="server" ID="txtCompanyTIN" CssClass="form-control"></asp:TextBox>
+                                    <%-- Company TIN --%>
+                                    <asp:TextBox runat="server" ID="txtCompanyTIN" CssClass="form-control" AutoCompleteType="Disabled"></asp:TextBox>
                                     <label for="<%=txtCompanyTIN.ClientID%>">TIN</label>
                                 </div>
                             </div>
                         </div>
                         <div class="row mt-2">
-                            <div class="col">
+                            <div class="col-8">
                                 <div class="form-floating">
-                                    <asp:TextBox runat="server" ID="txtCompanyAddress" CssClass="form-control"></asp:TextBox>
+                                    <%-- Company Address --%>
+                                    <asp:TextBox runat="server" ID="txtCompanyAddress" CssClass="form-control" AutoCompleteType="Disabled"></asp:TextBox>
                                     <label for="<%=txtCompanyAddress.ClientID%>">Address</label>
                                 </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-floating">
+                                    <%-- Company Code --%>
+                                    <asp:TextBox runat="server" ID="txtCompanyCode" CssClass="form-control" AutoCompleteType="Disabled"></asp:TextBox>
+                                    <label for="<%=txtCompanyCode.ClientID%>">Code</label>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <%-- Save Button --%>
+                                <asp:LinkButton runat="server" ID="btnSave" CssClass="btn btn-success" OnClick="btnSave_Click">
+                                    Save
+                                </asp:LinkButton>
+                                <%-- Clear Button --%>
+                                <asp:LinkButton runat="server" ID="btnClear" CssClass="btn btn-dark" OnClick="btnClear_Click">
+                                    Clear
+                                </asp:LinkButton>
                             </div>
                         </div>
                     </div>
@@ -105,7 +128,6 @@
                                 <div class="row my-2">
                                     <div class="col">
                                         <%-- Expenses List --%>
-                                        <asp:HiddenField runat="server" ID="hiddenSelectedCompany" />
                                         <asp:GridView runat="server" ID="gvCompanyExpenses" CssClass="table table-responsive" AutoGenerateColumns="false"
                                             DataKeys="ID" EmptyDataText="No Expenses found." EmptyDataRowStyle-CssClass="text-center">
                                             <Columns>

@@ -13,6 +13,7 @@ namespace Book_Keeping_System
     {
         MasterC oMaster = new MasterC();
         BKC oBK = new BKC();
+        xSysC oSys = new xSysC();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -37,11 +38,14 @@ namespace Book_Keeping_System
         {
             DataView data = oMaster.GET_COMPANY_LISTS().DefaultView;
 
-            data.RowFilter = "CompanyCode = '" + this.hiddenSelectedCompany.Value + "'";
+            data.RowFilter = "CompanyCode = '" + this.txtCompanyCode.Text + "'";
 
             if(data.Count > 0)
             {
                 this.txtCompanyName.Text = data[0]["Company_Name"].ToString();
+                this.txtCompanyAddress.Text = data[0]["CompanyAddress"].ToString();
+                this.txtCompanyTIN.Text = data[0]["TIN"].ToString();
+                this.txtCompanyCode.ReadOnly = true;
             }
         }
 
@@ -126,6 +130,69 @@ namespace Book_Keeping_System
                 this.txtRemarks.Text = string.Empty;
             }
         }
+
+        private bool VALIDATE_FORM()
+        {
+            bool is_valid = true;
+
+            if (string.IsNullOrWhiteSpace(this.txtCompanyCode.Text))
+            {
+                is_valid = false;
+                this.txtCompanyCode.CssClass += " is-invalid";
+            }
+            else
+                this.txtCompanyCode.CssClass = "form-control";
+
+            if (string.IsNullOrWhiteSpace(this.txtCompanyName.Text))
+            {
+                is_valid = false;
+                this.txtCompanyName.CssClass += " is_invalid";
+            }
+            else
+                this.txtCompanyName.CssClass = "form-control";
+
+            return is_valid;
+        }
+
+        private void CLEAR_FORM()
+        {
+            this.txtCompanyCode.Text = string.Empty;
+            this.txtCompanyCode.ReadOnly = true;
+            this.txtCompanyName.Text = string.Empty;
+            this.txtCompanyAddress.Text = string.Empty;
+            this.txtCompanyTIN.Text = string.Empty;
+        }
+
+        private void UPSERT_COMPANY_DETAILS()
+        {
+            //Get the data
+            string company_code = this.txtCompanyCode.Text;
+            string company_name = this.txtCompanyName.Text;
+            string company_tin = this.txtCompanyTIN.Text;
+            string company_address = this.txtCompanyAddress.Text;
+
+            //Upsert the data
+            this.oMaster.UPSERT_COMPANY(company_code, company_name, company_tin, company_address);
+
+            //Insert an Audit Log
+            this.oSys.INSERT_AUDIT_LOG(xSysC.Modules.COMPANYDATA.ToString(), "UPDATE", Session["Username"].ToString());
+
+            //Display Success toast
+            this.Show_Message_Toast("Successfully saved " + company_name);
+
+            //Refresh the list
+            this.DISPLAY_COMPANY_LISTS();
+        }
+
+        private void Show_Message_Toast(string msg)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Success", "<script>showToastSuccess('" + msg + "');</script>", false);
+        }
+
+        private void Show_Error_Toast(string msg)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Error", "<script>showToastError('" + msg + "');</script>", false);
+        }
         #endregion
 
         #region EVENTS
@@ -137,10 +204,10 @@ namespace Book_Keeping_System
 
             var selEdit = (Control)sender;
             GridViewRow r = (GridViewRow)selEdit.NamingContainer;
-            this.hiddenSelectedCompany.Value = this.gvCompanyList.DataKeys[r.RowIndex].Value.ToString();
+            this.txtCompanyCode.Text = this.gvCompanyList.DataKeys[r.RowIndex].Value.ToString();
 
             this.DISPLAY_COMPANY_DETAILS();
-            this.DISPLAY_COMPANY_EXPENSES(this.hiddenSelectedCompany.Value);
+            this.DISPLAY_COMPANY_EXPENSES(this.txtCompanyCode.Text);
             this.ddMonthFilter.SelectedIndex = DateTime.Today.Month - 1;
             this.ddYearFilter.SelectedValue = DateTime.Today.Year.ToString();
         }
@@ -149,16 +216,18 @@ namespace Book_Keeping_System
         {
             this.pDetails.Visible = false;
             this.pList.Visible = true;
+
+            this.CLEAR_FORM();
         }
 
         protected void ddMonthFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.DISPLAY_COMPANY_EXPENSES(this.hiddenSelectedCompany.Value);
+            this.DISPLAY_COMPANY_EXPENSES(this.txtCompanyCode.Text);
         }
 
         protected void ddYearFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.DISPLAY_COMPANY_EXPENSES(this.hiddenSelectedCompany.Value);
+            this.DISPLAY_COMPANY_EXPENSES(this.txtCompanyCode.Text);
         }
 
         protected void hiddenSelectedExpense_ValueChanged(object sender, EventArgs e)
@@ -170,6 +239,25 @@ namespace Book_Keeping_System
         {
             Session["EditExpense"] = this.hiddenSelectedExpense.Value;
             Response.Redirect("CompanyExpenses.aspx");
+        }
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            if (this.VALIDATE_FORM())
+                this.UPSERT_COMPANY_DETAILS();
+            else
+                this.Show_Error_Toast("Error - Invalid input. Please check the highlighted fields.");
+        }
+
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            this.CLEAR_FORM();
+        }
+
+        protected void lnkNew_Click(object sender, EventArgs e)
+        {
+            this.pList.Visible = false;
+            this.pDetails.Visible = true;
         }
         #endregion
 
